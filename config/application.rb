@@ -6,6 +6,10 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require 'chat_backend'
+config.middleware.use ChatDemo::ChatBackend
+
+
 module VanslamLive3
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
