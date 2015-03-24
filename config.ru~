@@ -4,3 +4,5 @@ require ::File.expand_path('../config/environment', __FILE__)
 run Rails.application
 
 require 'rack'
+require 'rack/lobster'
+run Rack::Lobster.new {['port' => '3001']}
