@@ -1,5 +1,7 @@
 require 'faye/websocket'
 
+Faye::WebSocket.load_adapter('thin')
+
 module ChatDemo
   class ChatBackend
     KEEPALIVE_TIME = 15 # in seconds
