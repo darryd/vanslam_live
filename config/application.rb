@@ -6,8 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-require 'chat_backend'
-config.middleware.use ChatDemo::ChatBackend
+#require 'lib/rack/chat_backend.rb'
+#require 'chat_backend'
 
 
 module VanslamLive3
@@ -26,5 +26,6 @@ module VanslamLive3
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+ #   config.middleware.use ChatDemo::ChatBackend
   end
 end
