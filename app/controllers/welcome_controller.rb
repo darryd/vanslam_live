@@ -3,5 +3,6 @@ class WelcomeController < ApplicationController
   end
 
   def login
+    flash[:session_id] = session[:session_id]
   end
 end
