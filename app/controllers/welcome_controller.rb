@@ -45,6 +45,7 @@ class WelcomeController < ApplicationController
 
 	logged_in = LoggedIn.new
 	logged_in.scorekeeper_id = scorekeeper.id
+	logged_in.session_id = session[:session_id]
 	logged_in.save
 	
       else
