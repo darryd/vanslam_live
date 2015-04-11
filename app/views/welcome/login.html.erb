@@ -1,8 +1,14 @@
 
 <h1> Login </h1>
 
-<%= flash[:session_id] %>
+<%= form_tag("/welcome/do_log_in/") do |f| %>
 
-<p>
-<%= flash[:is_logged_in] %>
-</p>
+  <%= label_tag "User Name:" %>
+  <%= text_field_tag(:user_name) %> </br>
+
+  <%= label_tag "Password:" %>
+  <%= password_field_tag "passwd" %> </br>
+
+  <%= submit_tag "Login" %>
+
+<% end %>

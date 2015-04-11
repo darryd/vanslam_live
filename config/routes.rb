@@ -5,6 +5,13 @@ Rails.application.routes.draw do
 
   get "/login", to: "welcome#login"
 
+  post "welcome/do_log_in"
+  get "welcome/do_log_out"
+
+
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
