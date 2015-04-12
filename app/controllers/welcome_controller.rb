@@ -29,7 +29,7 @@ class WelcomeController < ApplicationController
       result = scorekeeper.authenticate(password)
     end
 
-    return result != false
+    return result
   end
   #------------------------------------------------------------------------------------#
   def do_log_in
@@ -37,21 +37,22 @@ class WelcomeController < ApplicationController
     user_name = params[:user_name]
     password = params[:passwd]
 
-    result = check_credentials(user_name, password)
+    scorekeeper = check_credentials(user_name, password)
 
-    if result and not is_logged_in()
+    if scorekeeper
 
-      scorekeeper = Scorekeeper.where(user_name: user_name).take
-      if scorekeeper != nil # Hey maybe the scorekeeper was deleted since we checked credentials.
+      if not is_logged_in()
 
 	logged_in = LoggedIn.new
 	logged_in.scorekeeper_id = scorekeeper.id
 	logged_in.session_id = session[:session_id]
 	logged_in.save
-	
-      else
-	result = false
       end
+
+      result = true
+
+    else
+      result = false
     end
 
     render json: {:result => result}
@@ -62,11 +63,11 @@ class WelcomeController < ApplicationController
   def do_log_out
 
     logged_in = LoggedIn.where(session_id: session[:session_id]).take
-    
+
     if logged_in != nil
       logged_in.delete
     end
-    
+
     render json: {:message => "You are logged out."}
   end
 
