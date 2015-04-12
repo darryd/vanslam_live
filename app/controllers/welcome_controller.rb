@@ -26,17 +26,18 @@ class WelcomeController < ApplicationController
       result = false
 
     else 
-      result = true
+      result = scorekeeper.authenticate(password)
     end
 
-    return result
+    return result != false
   end
   #------------------------------------------------------------------------------------#
   def do_log_in
 
     user_name = params[:user_name]
+    password = params[:passwd]
 
-    result = check_credentials(user_name, "password")
+    result = check_credentials(user_name, password)
 
     if result and not is_logged_in()
 
