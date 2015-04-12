@@ -7,13 +7,29 @@ class WelcomeController < ApplicationController
   #------------------------------------------------------------------------------------#
   def login
 
-    flash[:is_logged_in] = is_logged_in() 
+    @is_logged_in = is_logged_in() != false
 
+
+    result = is_logged_in()
+
+    if result
+      @user_name = result.scorekeeper.user_name
+    end
+    
   end
 
   #------------------------------------------------------------------------------------#
   def is_logged_in
-    0 != LoggedIn.where(session_id: session[:session_id]).count
+    
+    result = LoggedIn.where(session_id: session[:session_id])
+
+    if result.count == 0
+      return false
+
+    else
+      return result.take
+    end
+
   end
 
   #------------------------------------------------------------------------------------#
@@ -53,9 +69,12 @@ class WelcomeController < ApplicationController
 
     else
       result = false
+
+
+      flash['message'] = "Error logging in."
     end
 
-    render json: {:result => result}
+    redirect_to '/login'
 
   end
   #------------------------------------------------------------------------------------#
@@ -68,7 +87,8 @@ class WelcomeController < ApplicationController
       logged_in.delete
     end
 
-    render json: {:message => "You are logged out."}
+    redirect_to '/login'
+
   end
 
   #------------------------------------------------------------------------------------#

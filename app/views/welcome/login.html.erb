@@ -1,14 +1,29 @@
 
-<h1> Login </h1>
+<h2>
+<%= flash['message'] %>
+</h2>
 
-<%= form_tag("/welcome/do_log_in/") do |f| %>
+<% if @is_logged_in == false %>
+  <h1> Login </h1>
 
-  <%= label_tag "User Name:" %>
-  <%= text_field_tag(:user_name) %> </br>
+  <%= form_tag("/welcome/do_log_in/") do |f| %>
 
-  <%= label_tag "Password:" %>
-  <%= password_field_tag "passwd" %> </br>
+    <%= label_tag "User Name:" %>
+    <%= text_field_tag(:user_name) %> </br>
 
-  <%= submit_tag "Login" %>
+    <%= label_tag "Password:" %>
+    <%= password_field_tag "passwd" %> </br>
+
+    <%= submit_tag "Login" %>
+
+  <% end %>
+
+<% else %>
+  <p> You are logged in as 
+  <%= @user_name %>
+  </p>
+
+
+  <%= link_to "Logout", "/welcome/do_log_out/" %>
 
 <% end %>
