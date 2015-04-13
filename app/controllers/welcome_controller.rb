@@ -19,17 +19,21 @@ class WelcomeController < ApplicationController
   end
   #------------------------------------------------------------------------------------#
   def check_login 
-
-    result =  is_logged_in()
-
-    if result
-      render json: { :is_logged_in => true, :user => result.scorekeeper.user_name }
-    else
-      render json: { :is_logged_in => false }
-    end
-
+    render json: get_login_info()
   end
 
+  #------------------------------------------------------------------------------------#
+  def get_login_info
+
+    result  = is_logged_in()
+    if result
+      info = { :is_logged_in => true, :user => result.scorekeeper.user_name }
+    else
+      info = { :is_logged_in => false }
+    end
+
+    info
+  end
   #------------------------------------------------------------------------------------#
   def is_logged_in
     
@@ -86,7 +90,11 @@ class WelcomeController < ApplicationController
       flash['message'] = "Error logging in."
     end
 
-    redirect_to '/login'
+    if result
+      redirect_to '/'
+    else
+      redirect_to '/login'
+    end
 
   end
   #------------------------------------------------------------------------------------#
@@ -99,7 +107,7 @@ class WelcomeController < ApplicationController
       logged_in.delete
     end
 
-    redirect_to '/login'
+    redirect_to '/'
 
   end
 
