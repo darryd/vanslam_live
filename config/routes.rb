@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   post "welcome/do_log_in"
   get "welcome/do_log_out"
 
+  get "welcome/check_login"
+
 
 
 

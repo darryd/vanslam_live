@@ -17,6 +17,18 @@ class WelcomeController < ApplicationController
     end
     
   end
+  #------------------------------------------------------------------------------------#
+  def check_login 
+
+    result =  is_logged_in()
+
+    if result
+      render json: { :is_logged_in => true, :user => result.scorekeeper.user_name }
+    else
+      render json: { :is_logged_in => false }
+    end
+
+  end
 
   #------------------------------------------------------------------------------------#
   def is_logged_in
