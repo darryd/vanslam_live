@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get "welcome/check_login"
 
+  get "poet/names"
+
 
 
 
