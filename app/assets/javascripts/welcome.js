@@ -21,14 +21,25 @@ function display_login_info() {
     return;
 
  
-  info = get_login_info();
+  var info = get_login_info();
 
   if (info.is_logged_in) {
-    e.innerHTML = "You are logged in as " + info.user + " <a href='/welcome/do_log_out'>Log out</a>";
+      e.innerHTML = "You are logged in as <span style='color:orange;font-weight:bold; '>" + info.user+ ' </span>  <a href="javascript:do_log_out();">Log out</a>';
   }
   else
     e.innerHTML = "<a href='/login'>Log in</a>";
 }
+/*-------------------------------------------------------------------------------------*/
+function do_log_out() {
+
+ var xmlhttp = get_xmlhttp();
+
+ xmlhttp.open("GET", "/welcome/do_log_out", false);
+ xmlhttp.send();
+
+ display_login_info();
+}
+
 /*-------------------------------------------------------------------------------------*/
 function get_xmlhttp() {
 
