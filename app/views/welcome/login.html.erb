@@ -6,13 +6,28 @@
 <% if @is_logged_in == false %>
   <h1> Login </h1>
 
-  <%= form_tag("/welcome/do_log_in/") do |f| %>
+  <table>
+    <tr>
+      <%= form_tag("/welcome/do_log_in/") do |f| %>
 
-    <%= label_tag "User Name:" %>
-    <%= text_field_tag(:user_name) %> </br>
+	<td>
+	  <%= label_tag "User Name:" %>
+	</td>
 
-    <%= label_tag "Password:" %>
-    <%= password_field_tag "passwd" %> </br>
+	<td>
+	  <%= text_field_tag(:user_name) %> </br>
+	</td>
+
+      </tr>
+      <tr>
+	<td>
+	  <%= label_tag "Password:" %>
+	</td>
+	<td>
+	  <%= password_field_tag "passwd" %> </br>
+	</td>
+      </tr>
+    </table>
 
     <%= submit_tag "Login" %>
 
