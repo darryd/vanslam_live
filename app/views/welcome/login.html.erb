@@ -6,10 +6,11 @@
 <% if @is_logged_in == false %>
   <h1> Login </h1>
 
-  <table>
-    <tr>
-      <%= form_tag("/welcome/do_log_in/") do |f| %>
+  <%= form_tag("/welcome/do_log_in/") do |f| %>
 
+
+    <table>
+      <tr>
 	<td>
 	  <%= label_tag "User Name:" %>
 	</td>

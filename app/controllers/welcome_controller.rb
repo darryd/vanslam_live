@@ -87,7 +87,7 @@ class WelcomeController < ApplicationController
       result = false
 
 
-      flash['message'] = "Error logging in."
+      flash['message'] = "Error logging in. Incorrect username and/or password."
     end
 
     if result
