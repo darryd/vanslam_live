@@ -24,7 +24,8 @@ function display_login_info() {
   var info = get_login_info();
 
   if (info.is_logged_in) {
-      e.innerHTML = "You are logged in as <span style='color:orange;font-weight:bold; '>" + info.user+ ' </span>  <a href="javascript:do_log_out();">Log out</a>';
+      e.innerHTML = "You are logged in as <span style='color:orange;font-weight:bold; '>" 
+	+ info.user+ ' </span>  <a href="javascript:do_log_out();">Log out</a>';
   }
   else
     e.innerHTML = "<a href='/login'>Log in</a>";
@@ -57,13 +58,19 @@ function get_xmlhttp() {
 }
 
 /*-------------------------------------------------------------------------------------*/
-function get_login_info() {
+function get_json(url) {
 
  var xmlhttp = get_xmlhttp();
 
- xmlhttp.open("GET", "/welcome/check_login", false);
+ xmlhttp.open("GET", url, false);
  xmlhttp.send();
 
  return jQuery.parseJSON(xmlhttp.responseText);
+}
+
+/*-------------------------------------------------------------------------------------*/
+function get_login_info() {
+
+ return get_json("/welcome/check_login");
 }
 /*-------------------------------------------------------------------------------------*/
