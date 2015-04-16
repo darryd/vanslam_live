@@ -56,3 +56,22 @@ function get_names() {
   return names = get_json('/poet/names/').names;
 }
 /*-----------------------------------------------------------------------*/
+
+function post_create_or_get(name) {
+
+  var xmlhttp = get_xmlhttp();
+  var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+
+  var name = encodeURIComponent(name);
+  var authenticity = encodeURIComponent(AUTH_TOKEN);
+
+  var data = "authenticity_token="+authenticity+"&name="+name
+
+  xmlhttp.open("POST", "/poet/post_create_or_get", false);
+  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp.send(data);
+
+  return jQuery.parseJSON(xmlhttp.responseText);
+}
+
+/*-----------------------------------------------------------------------*/

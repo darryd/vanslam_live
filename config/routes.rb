@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get "poet/names"
   
-  get "poet/post_create_or_get"
+  post "poet/post_create_or_get"
 
 
 
