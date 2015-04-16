@@ -1,17 +1,9 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-
 /*-------------------------------------------------------------------------------------*/
-$(window).load(function() {
+$(document).on('page:change', function () {
   display_login_info();
-});
-
-/*-------------------------------------------------------------------------------------*/
-
-$( document ).ready(function() {
-  display_login_info();
-});
-
+     });
 
 /*-------------------------------------------------------------------------------------*/
 function display_login_info() {
