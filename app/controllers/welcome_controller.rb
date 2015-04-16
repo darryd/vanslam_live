@@ -39,7 +39,7 @@ class WelcomeController < ApplicationController
   #------------------------------------------------------------------------------------#
   def do_log_in
 
-    user_name = params[:user_name]
+    user_name = params[:user_name].gsub(/\s+/, " ").strip
     password = params[:passwd]
 
     scorekeeper = check_credentials(user_name, password)

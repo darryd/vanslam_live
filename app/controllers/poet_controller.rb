@@ -12,41 +12,23 @@ class PoetController < ApplicationController
   end
 
   #------------------------------------------------------------------------------------#
-
-
-  # Returns poet id.
-  #
-  # This will return the id of the the poet with 'name'.
-  # If no such poet exists, one will be created.
-  #
-
-  # TODO Read http://rails-sqli.org/
-
-  def create_or_get(name)
-
-    Poet.transcation do
-
-      poet = Poet.where("lower(name) = ?", name.downcase).take
-
-      if poet == nil	
-	poet = Poet.new(name: name)
-	poet.save
-      end
-
-      poet.id
-    end
-  end
-
-  #------------------------------------------------------------------------------------#
   
   def post_create_or_get
 
     if not is_logged_in()
-      render json: {:result => "You must be logged in to do that."}
+      render json: {:result => false, :message => "You must be logged in to do that."}
       return
     end
 
-    render json: {:result => "Thanks you"}
+    if not params.has_key?(:name)
+      render json: {:result => false, :message => "Missing 'name' parameter."}
+      return 
+    end
+
+    name = params[:name].gsub(/\s+/, " ").strip
+    poet = Poet.where('lower(name) = ?', name.downcase).first_or_create(:name=>name)
+
+    render json: {:result => true, :poet => poet}
 
   end
   #------------------------------------------------------------------------------------#
