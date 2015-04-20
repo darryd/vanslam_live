@@ -33,5 +33,32 @@ class PoetController < ApplicationController
   end
   #------------------------------------------------------------------------------------#
 
+  def post_suggestions
+
+    #TODO check params
+
+    name = params[:name].downcase
+
+    names = []
+
+    poets = Poet.where("lower(name) like ?", "%#{name}%")
+
+    limit = poets.length
+    if params.has_key?(:limit)
+      limit = params[:limit].to_i
+    end
+    limit = [limit, poets.length].min
+
+    i = 0
+    while i < limit
+      names << poets[i].name
+      i = i + 1
+    end
+
+    render json: {:name => name ,:names  => names}
+
+  end
+  #------------------------------------------------------------------------------------#
+
 
 end

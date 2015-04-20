@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get "poet/names"
   
   post "poet/post_create_or_get"
+  get "poet/post_suggestions"
 
 
 
