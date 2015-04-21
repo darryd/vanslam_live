@@ -35,15 +35,14 @@ class PoetController < ApplicationController
 
   def post_suggestions
 
-    #TODO check params
+    if not params.has_key?(:name)
+      render json: {:result => false, :message => "Missing 'name' parameter."}
+      return 
+    end
 
     name = params[:name].downcase.gsub(/\s+/, ' ').strip
 
-
     poets = Poet.where("lower(name) like ?", "%#{name}%")
-
-    poets.sort{|poet1, poet2| score_match(poet2.name.downcase, name) <=> score_match(poet1.name.downcase, name)}
-
 
     names = []
     poets.each do |poet|
@@ -52,7 +51,6 @@ class PoetController < ApplicationController
 
     if params.has_key?(:limit)
       limit = params[:limit].to_i
-
 
       limit = [limit, names.length].min
       if limit > 0
