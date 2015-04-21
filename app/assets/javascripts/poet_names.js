@@ -75,3 +75,24 @@ function post_create_or_get(name) {
 }
 
 /*-----------------------------------------------------------------------*/
+
+function post_suggestions(name) {
+
+  var limit = 5;
+
+  var xmlhttp = get_xmlhttp();
+  var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+
+  var name = encodeURIComponent(name);
+  var authenticity = encodeURIComponent(AUTH_TOKEN);
+
+  var data = "authenticity_token="+authenticity+"&name="+name+"&limit="+limit;
+
+  xmlhttp.open("POST", "/poet/post_suggestions", false);
+  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  xmlhttp.send(data);
+
+  return jQuery.parseJSON(xmlhttp.responseText);
+}
+
+/*-----------------------------------------------------------------------*/
