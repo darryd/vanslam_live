@@ -78,7 +78,7 @@ function post_create_or_get(name) {
 
 function post_suggestions(name, xmlhttp) {
 
-  var limit = 5;
+  var limit = 50;
 
   var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
 
@@ -90,19 +90,11 @@ function post_suggestions(name, xmlhttp) {
   xmlhttp.open("POST", "/poet/post_suggestions", true);
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.send(data);
-
-  //return jQuery.parseJSON(xmlhttp.responseText);
 }
 
 /*-----------------------------------------------------------------------*/
 
 function add_suggestions(table, names) {
-
-  // DEBUG  
-  if (names === undefined) { // Why is this happening?
-    return;
-  }
-
 
   var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
 
@@ -135,12 +127,12 @@ function remove_suggestions(table) {
 
 function display_suggestions_for_str(table, str) {
 
-  if (! $.fn.mutex('set', 'addsuggestion', 30))
+  if (! $.fn.mutex('set', table.id, 30))
     return;
 
   if((/^\s*$/).test(str)) {
     remove_suggestions(table);
-    $.fn.mutex('clear', 'addsuggestion');
+    $.fn.mutex('clear', table.id);
     return;
   }
 
@@ -155,7 +147,7 @@ function display_suggestions_for_str(table, str) {
         console.log(names);
 	add_suggestions(table, names);
        };
-	$.fn.mutex('clear', 'addsuggestion');
+	$.fn.mutex('clear', table.id);
       };
 
   post_suggestions(str, xmlhttp);
