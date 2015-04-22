@@ -100,6 +100,8 @@ function suggest_onclick(cell) {
 
   var input = document.getElementById(input_id);
   input.value = cell.innerHTML;
+  remove_suggestions(document.getElementById($(cell).parents('table').attr('id')));
+  
 
 }
 
