@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post "poet/post_suggestions"
   get "poet/post_suggestions"
 
+  get "poet/lookup"
+
 
 
 

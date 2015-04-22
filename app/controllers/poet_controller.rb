@@ -62,7 +62,7 @@ class PoetController < ApplicationController
 
     names = names.sort { |n1, n2| score_match(n1.downcase, name) <=> score_match(n2.downcase, name)} 
 
-    render json: {:name => name ,:names  => names}
+    render json: {:result => true ,:names  => names}
 
   end
   #------------------------------------------------------------------------------------#
@@ -89,5 +89,9 @@ class PoetController < ApplicationController
   end
 
   #------------------------------------------------------------------------------------#
+ 
+  def lookup
+  end
 
+  #------------------------------------------------------------------------------------#
 end

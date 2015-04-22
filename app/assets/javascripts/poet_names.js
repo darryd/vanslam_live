@@ -96,3 +96,46 @@ function post_suggestions(name) {
 }
 
 /*-----------------------------------------------------------------------*/
+
+function add_suggestions(table, names) {
+
+  var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
+
+  for (var i=0; i<names.length; i++) {
+
+    row = table.insertRow(-1);
+    row.className = "suggestion";
+    row.innerHTML = names[i]; //Sanitizing it sometime?
+
+  }
+
+  num_suggestions += names.length;
+  table.setAttribute("data-num_suggestions", num_suggestions);
+}
+/*-----------------------------------------------------------------------*/
+
+function remove_suggestions(table) {
+
+  var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
+
+
+  for (var i=0; i<num_suggestions; i++)
+    table.deleteRow(-1)
+
+
+  table.setAttribute("data-num_suggestions", 0);
+}
+/*-----------------------------------------------------------------------*/
+
+function display_suggestions_for_str(table, str) {
+
+  remove_suggestions(table);
+  names = post_suggestions(str).names;
+  add_suggestions(table, names);
+
+}
+/*-----------------------------------------------------------------------*/
+
+
+
+
