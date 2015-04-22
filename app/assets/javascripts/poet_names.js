@@ -98,10 +98,11 @@ function post_suggestions(name, xmlhttp) {
 
 function add_suggestions(table, names) {
 
-
-  // DEBUG 
-  if (names === undefined)
+  // DEBUG  
+  if (names === undefined) { // Why is this happening?
     return;
+  }
+
 
   var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
 
@@ -115,6 +116,7 @@ function add_suggestions(table, names) {
 
   num_suggestions += names.length;
   table.setAttribute("data-num_suggestions", num_suggestions);
+
 }
 /*-----------------------------------------------------------------------*/
 
@@ -133,18 +135,27 @@ function remove_suggestions(table) {
 
 function display_suggestions_for_str(table, str) {
 
-  remove_suggestions(table);
-
-  if((/^\s*$/).test(str))
+  if (! $.fn.mutex('set', 'addsuggestion', 30))
     return;
+
+  if((/^\s*$/).test(str)) {
+    remove_suggestions(table);
+    $.fn.mutex('clear', 'addsuggestion');
+    return;
+  }
 
   var xmlhttp = get_xmlhttp();
   
   xmlhttp.onreadystatechange = function() 
       {
-       if (xmlhttp.readyState==4 && xmlhttp.status==200)
+       if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+	remove_suggestions(table);
+
         var names =  jQuery.parseJSON(xmlhttp.responseText).names;
+        console.log(names);
 	add_suggestions(table, names);
+       };
+	$.fn.mutex('clear', 'addsuggestion');
       };
 
   post_suggestions(str, xmlhttp);
