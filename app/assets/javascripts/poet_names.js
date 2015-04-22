@@ -53,7 +53,7 @@ function score_match(str, substr) {
 
 function get_names() {
 
-  return names = get_json('/poet/names/').names;
+  return get_json('/poet/names/').names;
 }
 /*-----------------------------------------------------------------------*/
 
@@ -76,11 +76,10 @@ function post_create_or_get(name) {
 
 /*-----------------------------------------------------------------------*/
 
-function post_suggestions(name) {
+function post_suggestions(name, xmlhttp) {
 
   var limit = 5;
 
-  var xmlhttp = get_xmlhttp();
   var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
 
   var name = encodeURIComponent(name);
@@ -88,16 +87,21 @@ function post_suggestions(name) {
 
   var data = "authenticity_token="+authenticity+"&name="+name+"&limit="+limit;
 
-  xmlhttp.open("POST", "/poet/post_suggestions", false);
+  xmlhttp.open("POST", "/poet/post_suggestions", true);
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.send(data);
 
-  return jQuery.parseJSON(xmlhttp.responseText);
+  //return jQuery.parseJSON(xmlhttp.responseText);
 }
 
 /*-----------------------------------------------------------------------*/
 
 function add_suggestions(table, names) {
+
+
+  // DEBUG 
+  if (names === undefined)
+    return;
 
   var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
 
@@ -129,18 +133,23 @@ function remove_suggestions(table) {
 
 function display_suggestions_for_str(table, str) {
 
-
   remove_suggestions(table);
 
   if((/^\s*$/).test(str))
     return;
 
-  names = post_suggestions(str).names;
-  add_suggestions(table, names);
+  var xmlhttp = get_xmlhttp();
+  
+  xmlhttp.onreadystatechange = function() 
+      {
+       if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        var names =  jQuery.parseJSON(xmlhttp.responseText).names;
+	add_suggestions(table, names);
+      };
 
+  post_suggestions(str, xmlhttp);
 }
 /*-----------------------------------------------------------------------*/
-
 
 
 
