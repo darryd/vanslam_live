@@ -40,27 +40,19 @@ class PoetController < ApplicationController
       return 
     end
 
+
     name = params[:name].downcase.gsub(/\s+/, ' ').strip
 
-    poets = Poet.where("lower(name) like ?", "%#{name}%")
+    poets = Poet.where("lower(name) like ?", "%#{name}%").order(:name)
+    if params.has_key?(:limit)
+      limit = params[:limit].to_i
+      poets = poets.first(limit)
+    end
 
     names = []
     poets.each do |poet|
       names << poet.name
     end
-
-    if params.has_key?(:limit)
-      limit = params[:limit].to_i
-
-      limit = [limit, names.length].min
-      if limit > 0
-	names = names.in_groups_of(limit)[0]
-      else
-	names = []
-      end
-    end
-
-    names = names.sort { |n1, n2| score_match(n1.downcase, name) <=> score_match(n2.downcase, name)} 
 
     render json: {:result => true ,:names  => names}
 
