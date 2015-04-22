@@ -94,15 +94,35 @@ function post_suggestions(name, xmlhttp) {
 
 /*-----------------------------------------------------------------------*/
 
+function suggest_onclick(cell) {
+
+  var input_id = $(cell).parents('table').attr('id') + '_input';
+
+  var input = document.getElementById(input_id);
+  input.value = cell.innerHTML;
+
+}
+
+/*-----------------------------------------------------------------------*/
+
 function add_suggestions(table, names) {
 
   var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
 
   for (var i=0; i<names.length; i++) {
 
-    row = table.insertRow(-1);
+    var row = table.insertRow(-1);
+    
+
+    var cell = row.insertCell(0);
+    cell.setAttribute("border", "none");
+    cell.style.border = "none";
+    cell.innerHTML = names[i]; //Sanitizing it sometime?
+    
     row.className = "suggestion";
-    row.innerHTML = names[i]; //Sanitizing it sometime?
+    cell.onmouseover = function() { this.style.backgroundColor = '#D8D8D8';};
+    cell.onmouseout = function() {this.style.backgroundColor = "white";};
+    cell.onclick = function() {suggest_onclick(this);};
 
   }
 

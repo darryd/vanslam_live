@@ -5,10 +5,10 @@
 <p> Type in poet's name: </p>
 
 
-<table id="suggestions" border="1" data-num_suggestions="0"> 
+<table id="suggestions" border="1"; data-num_suggestions="0"> 
   <tr>
-    <td>
-      <input onkeyup="display_suggestions_for_str(document.getElementById('suggestions'), this.value)"></input>
+    <td style="border:none">
+      <input id="suggestions_input" onkeyup="display_suggestions_for_str(document.getElementById('suggestions'), this.value)"></input>
     </td>
   </tr>
 </table>
