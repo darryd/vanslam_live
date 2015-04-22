@@ -129,7 +129,12 @@ function remove_suggestions(table) {
 
 function display_suggestions_for_str(table, str) {
 
+
   remove_suggestions(table);
+
+  if((/^\s*$/).test(str))
+    return;
+
   names = post_suggestions(str).names;
   add_suggestions(table, names);
 
