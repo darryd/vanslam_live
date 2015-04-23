@@ -52,10 +52,14 @@ class PoetController < ApplicationController
       end
     end
 
-    if params.has_key?(:limit)
+    if params.has_key?(:limit) and names.length > 0
       limit = params[:limit].to_i
       limit = [limit, names.length].min
-      names = names.in_groups_of(limit)[0]
+      if limit > 0
+	names = names.in_groups_of(limit)[0]
+      else
+	names = []
+      end
     end
 
     render json: {:result => true ,:names  => names}
