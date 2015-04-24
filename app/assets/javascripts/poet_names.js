@@ -195,13 +195,19 @@ function init_suggestions(table) {
 /*-----------------------------------------------------------------------*/
 function process_queue(table) {
 
+  if (table.queue.length >0 && table.queue[0].state == "pending")
+    return;
 
   if (table.queue.length > 0 && table.queue[0].state == "done")
-     table.queue.splice(0,1);
-  
-  if (table.queue.length > 0 && table.queue[0].state == "start") 
-    _display_suggestions_for_str(table, table.queue[0]);
+    table.queue.splice(0,1);
 
+  if (table.queue.length > 0 && table.queue[0].state == "start") {
+
+    if (table.queue.length > 1)
+      table.queue.splice(0, table.queue.length - 1); // We can ignore all but the last item on the queue
+
+    _display_suggestions_for_str(table, table.queue[0]);
+  }
 }
 
 /*-----------------------------------------------------------------------*/
