@@ -187,7 +187,7 @@ function init_suggestions(table) {
 
   if (table.queue === undefined) {
     table.queue = [];
-    var interval = 100;
+    var interval = 10;
     setInterval(process_queue, interval, table);
   }
 }
