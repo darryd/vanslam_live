@@ -147,15 +147,19 @@ function remove_suggestions(table) {
 }
 /*-----------------------------------------------------------------------*/
 
-function display_suggestions_for_str(table, str) {
+function _display_suggestions_for_str(table, data) {
 
   if (! $.fn.mutex('set', table.id, 30))
-    return;
+    return false;
+
+  data.state = "pending";
+  var str = data.str;
 
   if((/^\s*$/).test(str)) {
     remove_suggestions(table);
     $.fn.mutex('clear', table.id);
-    return;
+    data.state = "done";
+    return true;
   }
 
   var xmlhttp = get_xmlhttp();
@@ -168,13 +172,51 @@ function display_suggestions_for_str(table, str) {
         var names =  jQuery.parseJSON(xmlhttp.responseText).names;
         console.log(names);
 	add_suggestions(table, names);
-       };
+
+	data.state = "done";
+       }
 	$.fn.mutex('clear', table.id);
       };
 
   post_suggestions(str, xmlhttp);
+  return true;
 }
 /*-----------------------------------------------------------------------*/
 
+function init_suggestions(table) {
+
+  if (table.queue === undefined) {
+    table.queue = [];
+    var interval = 100;
+    setInterval(process_queue, interval, table);
+  }
+}
+
+/*-----------------------------------------------------------------------*/
+function process_queue(table) {
 
 
+  if (table.queue.length > 0 && table.queue[0].state == "done")
+     table.queue.splice(0,1);
+  
+  if (table.queue.length > 0 && table.queue[0].state == "start") 
+    _display_suggestions_for_str(table, table.queue[0]);
+
+}
+
+/*-----------------------------------------------------------------------*/
+function display_suggestions_for_str(table, str) {
+
+
+  // data.state is on one three: "start", "pending", "done"
+
+  init_suggestions(table);
+
+  var data = {};
+  data.state = "start";
+  data.str = str;
+
+  table.queue.push(data);
+}
+
+/*-----------------------------------------------------------------------*/
