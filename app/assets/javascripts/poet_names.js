@@ -147,7 +147,8 @@ function remove_suggestions(table) {
 }
 /*-----------------------------------------------------------------------*/
 
-function _display_suggestions_for_str(table, data) {
+// Get suggestions from the server and display the suggestions.
+function get_suggestions_from_server(table, data) {
 
   if (! $.fn.mutex('set', table.id, 30))
     return false;
@@ -206,7 +207,7 @@ function process_queue(table) {
     if (table.queue.length > 1)
       table.queue.splice(0, table.queue.length - 1); // We can ignore all but the last item on the queue
 
-    _display_suggestions_for_str(table, table.queue[0]);
+    get_suggestions_from_server(table, table.queue[0]);
   }
 }
 
