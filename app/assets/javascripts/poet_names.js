@@ -1,54 +1,3 @@
-
-/*-----------------------------------------------------------------------*/
-
-// Search for strings in 'list' containing 'str' and then sorted.
-// 
-// If list = ["Darryl", "Darry Danzig"] and str = "Darry",
-// then the new list should be sorted so that "Darry Danzig" appears
-// earlier.
-
-function subset (list, str) {
-
-  var str_lower = str.toLowerCase();
-  var new_list = [];
-
-  for (var i=0; i<list.length; i++) {
-
-    var match = {};
-    match.item = list[i];
-    match.score = score_match(list[i].toLowerCase(), str_lower);
-
-    if (match.score != Infinity)
-      new_list.push(match);
-  }
-
-  new_list.sort(function(a, b) {return a.score - b.score;});
-
-  return new_list;
-}
-
-/*-----------------------------------------------------------------------*/
-
-// Lower score the better.
-function score_match(str, substr) {
-
-  var score = Infinity;
-
-  if (str.indexOf(substr) != -1)
-    score = str.length;
-
-  // Now let us see if we can match substr to a whole word in str
-  // to qualify for an even better score.
-
-  var words = str.split(/\s+/);
-
-  for (var i=0; i<words.length; i++) 
-    if (substr == words[i])
-      score = substr.length;
-
-  return score;
-}
-
 /*-----------------------------------------------------------------------*/
 
 function get_names() {
@@ -101,13 +50,26 @@ function suggest_onclick(cell) {
   var input = document.getElementById(input_id);
   input.value = cell.innerHTML;
   remove_suggestions(document.getElementById($(cell).parents('table').attr('id')));
-  
-
 }
 
 /*-----------------------------------------------------------------------*/
 
-function add_suggestions(table, names) {
+function set_onmouseover_color(me) {
+
+  me.original_color = me.style.backgroundColor;
+  me.style.backgroundColor = '#D8D8D8';
+}
+
+/*-----------------------------------------------------------------------*/
+
+function set_onmouseout_color(me) {
+
+  me.style.backgroundColor = me.original_color;
+}
+
+/*-----------------------------------------------------------------------*/
+
+function add_suggestions(table, names, name) {
 
   var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
 
@@ -116,15 +78,19 @@ function add_suggestions(table, names) {
     var row = table.insertRow(-1);
     
 
+
     var cell = row.insertCell(0);
     cell.setAttribute("border", "none");
     cell.style.border = "none";
     cell.innerHTML = names[i]; //Sanitizing it sometime?
     
     row.className = "suggestion";
-    cell.onmouseover = function() { this.style.backgroundColor = '#D8D8D8';};
-    cell.onmouseout = function() {this.style.backgroundColor = "white";};
+    cell.onmouseover = function() {set_onmouseover_color(this)};
+    cell.onmouseout = function() {set_onmouseout_color(this);};
     cell.onclick = function() {suggest_onclick(this);};
+
+    if (name.replace(/\s+/g, ' ').trim().toLowerCase() == names[i].toLowerCase())
+      cell.style.backgroundColor = "#C6AEC7";
 
   }
 
@@ -151,9 +117,9 @@ function remove_suggestions(table) {
 function get_suggestions_from_server(table, data) {
 
   data.state = "pending";
-  var str = data.str;
+  var name = data.name;
 
-  if((/^\s*$/).test(str)) {
+  if((/^\s*$/).test(name)) {
     remove_suggestions(table);
     data.state = "done";
     return true;
@@ -168,13 +134,13 @@ function get_suggestions_from_server(table, data) {
 
         var names =  jQuery.parseJSON(xmlhttp.responseText).names;
         console.log(names);
-	add_suggestions(table, names);
+	add_suggestions(table, names, name);
 
 	data.state = "done";
        }
       };
 
-  post_suggestions(str, xmlhttp);
+  post_suggestions(name, xmlhttp);
   return true;
 }
 /*-----------------------------------------------------------------------*/
@@ -207,14 +173,14 @@ function process_queue(table) {
 }
 
 /*-----------------------------------------------------------------------*/
-function display_suggestions_for_str(table, str) {
+function display_suggestions_for_name(table, name) {
 
   // data.state is on one three: "start", "pending", "done"
   init_suggestions(table);
 
   var data = {};
   data.state = "start";
-  data.str = str;
+  data.name = name;
 
   table.queue.push(data);
 }
