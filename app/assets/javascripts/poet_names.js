@@ -150,15 +150,11 @@ function remove_suggestions(table) {
 // Get suggestions from the server and display the suggestions.
 function get_suggestions_from_server(table, data) {
 
-  if (! $.fn.mutex('set', table.id, 30))
-    return false;
-
   data.state = "pending";
   var str = data.str;
 
   if((/^\s*$/).test(str)) {
     remove_suggestions(table);
-    $.fn.mutex('clear', table.id);
     data.state = "done";
     return true;
   }
@@ -176,7 +172,6 @@ function get_suggestions_from_server(table, data) {
 
 	data.state = "done";
        }
-	$.fn.mutex('clear', table.id);
       };
 
   post_suggestions(str, xmlhttp);
@@ -214,9 +209,7 @@ function process_queue(table) {
 /*-----------------------------------------------------------------------*/
 function display_suggestions_for_str(table, str) {
 
-
   // data.state is on one three: "start", "pending", "done"
-
   init_suggestions(table);
 
   var data = {};
