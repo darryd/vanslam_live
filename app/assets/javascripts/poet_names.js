@@ -77,8 +77,6 @@ function add_suggestions(table, names, name) {
 
     var row = table.insertRow(-1);
     
-
-
     var cell = row.insertCell(0);
     cell.setAttribute("border", "none");
     cell.style.border = "none";
@@ -185,4 +183,45 @@ function display_suggestions_for_name(table, name) {
   table.queue.push(data);
 }
 
+/*-----------------------------------------------------------------------*/
+
+function handle_onfocus(input) {
+
+  window.suggestion_input = input;
+  window.original_onkeydown = document.onkeydown;
+
+  document.onkeydown = function() {
+    
+    if (window.original_onkeydown != null)
+      window.original_onkeydown();
+
+    onkeydown();
+  };
+}
+
+
+/*-----------------------------------------------------------------------*/
+function handle_onblur(input) {
+
+  document.onkeydown = window.original_onkeydown;
+  window.suggestion_input = null;
+
+}
+/*-----------------------------------------------------------------------*/
+
+function onkeydown() {
+
+  switch (window.event.keyCode) {
+
+    case 38: // Up Arrow
+      console.log("up");
+      break;
+    case 40: // Down Arrow
+      console.log("down");
+      break;
+    case 13: //Enter
+      console.log("Enter");
+      break;
+  }
+}
 /*-----------------------------------------------------------------------*/
