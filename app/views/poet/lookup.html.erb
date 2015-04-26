@@ -8,7 +8,12 @@
 <table id="suggestions" border="1"; data-num_suggestions="0"> 
   <tr>
     <td style="border:none">
-      <input id="suggestions_input" onkeyup="display_suggestions_for_name(document.getElementById('suggestions'), this.value)"></input>
+      <input 
+      id="suggestions_input" 
+      onkeyup="display_suggestions_for_name(document.getElementById('suggestions'), this.value)" 
+      onpaste="setTimeout(function(input){display_suggestions_for_name(document.getElementById('suggestions'), input.value);}, 10, this)">
+
+      </input>
     </td>
   </tr>
 </table>
