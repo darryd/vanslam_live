@@ -46,52 +46,75 @@ function post_suggestions(name, xmlhttp) {
 function suggest_onclick(cell) {
 
   var input_id = $(cell).parents('table').attr('id') + '_input';
-
   var input = document.getElementById(input_id);
+
   input.value = cell.innerHTML;
   remove_suggestions(document.getElementById($(cell).parents('table').attr('id')));
 }
 
 /*-----------------------------------------------------------------------*/
 
-function set_onmouseover_color(me) {
+function handle_onmouseover_cell(cell) {
 
-  me.original_color = me.style.backgroundColor;
-  me.style.backgroundColor = '#D8D8D8';
+  var table_id = $(cell).parents('table').attr('id');
+  var table = document.getElementById(table_id);
+
+  cell.original_color = cell.style.backgroundColor;
+  cell.style.backgroundColor = '#D8D8D8';
+
+  if (table.index != -1 && cell.index != table.index && table.index < table.cells.length)
+    handle_onmouseout_cell(table.cells[table.index]);
+
+  table.index = cell.index;
 }
 
 /*-----------------------------------------------------------------------*/
 
-function set_onmouseout_color(me) {
+function handle_onmouseout_cell(cell) {
 
-  me.style.backgroundColor = me.original_color;
+  cell.style.backgroundColor = cell.original_color;
 }
+
+/*-----------------------------------------------------------------------*/
+
+function clear_suggestions_data(table) {
+
+  table.is_poet_in_database = false;
+  table.index = -1;
+  table.cells = [];
+}
+
 
 /*-----------------------------------------------------------------------*/
 
 function add_suggestions(table, names, name) {
 
-  var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
+  clear_suggestions_data(table);
 
   for (var i=0; i<names.length; i++) {
 
     var row = table.insertRow(-1);
     
     var cell = row.insertCell(0);
+    table.cells.push(cell);
+    cell.index = i;
     cell.setAttribute("border", "none");
     cell.style.border = "none";
     cell.innerHTML = names[i]; //Sanitizing it sometime?
     
     row.className = "suggestion";
-    cell.onmouseover = function() {set_onmouseover_color(this)};
-    cell.onmouseout = function() {set_onmouseout_color(this);};
+    cell.onmouseover = function() {handle_onmouseover_cell(this);};
+    cell.onmouseout = function() {handle_onmouseout_cell(this);};
     cell.onclick = function() {suggest_onclick(this);};
 
-    if (name.replace(/\s+/g, ' ').trim().toLowerCase() == names[i].toLowerCase())
+    if (name.replace(/\s+/g, ' ').trim().toLowerCase() == names[i].toLowerCase()) {
       cell.style.backgroundColor = "#C6AEC7";
+      table.is_poet_in_database = true;
+    }
 
   }
 
+  var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
   num_suggestions += names.length;
   table.setAttribute("data-num_suggestions", num_suggestions);
 
@@ -173,6 +196,10 @@ function process_queue(table) {
 /*-----------------------------------------------------------------------*/
 function display_suggestions_for_name(table, name) {
 
+
+  if (window.event.keyCode == 38 || window.event.keyCode == 40 || window.event.keyCode == 13)
+    return;
+
   // data.state is on one three: "start", "pending", "done"
   init_suggestions(table);
 
@@ -181,13 +208,15 @@ function display_suggestions_for_name(table, name) {
   data.name = name;
 
   table.queue.push(data);
+
+  console.log(window.event.keyCode);
 }
 
 /*-----------------------------------------------------------------------*/
 
 function handle_onfocus(input) {
 
-  window.suggestion_input = input;
+  window.suggestion_table = document.getElementById($(input).parents('table').attr('id'));
   window.original_onkeydown = document.onkeydown;
 
   document.onkeydown = function() {
@@ -199,28 +228,38 @@ function handle_onfocus(input) {
   };
 }
 
-
 /*-----------------------------------------------------------------------*/
 function handle_onblur(input) {
 
   document.onkeydown = window.original_onkeydown;
-  window.suggestion_input = null;
+  window.suggestion_table = null;
 
 }
 /*-----------------------------------------------------------------------*/
 
 function onkeydown() {
 
+  var table = window.suggestion_table;
+
   switch (window.event.keyCode) {
 
     case 38: // Up Arrow
-      console.log("up");
+
+      if (table.index > 0) {
+	var cell = table.cells[table.index -1];
+	handle_onmouseover_cell(cell);
+      }
       break;
     case 40: // Down Arrow
-      console.log("down");
+
+      if (table.index < table.cells.length -1) {
+	var cell = table.cells[table.index + 1];
+	handle_onmouseover_cell(cell);
+      }
       break;
     case 13: //Enter
-      console.log("Enter");
+      var cell = table.cells[table.index];
+      suggest_onclick(cell);
       break;
   }
 }
