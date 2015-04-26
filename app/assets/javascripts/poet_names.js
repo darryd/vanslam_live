@@ -55,15 +55,17 @@ function suggest_onclick(cell) {
 /*-----------------------------------------------------------------------*/
 
 function handle_onmouseover_cell(cell) {
-
+  
   var table_id = $(cell).parents('table').attr('id');
   var table = document.getElementById(table_id);
+  if (cell.index == table.index)
+    return;
+
+  for (var i=0; i<table.cells.length; i++)
+    handle_onmouseout_cell(table.cells[i]);
 
   cell.original_color = cell.style.backgroundColor;
   cell.style.backgroundColor = '#D8D8D8';
-
-  if (table.index != -1 && cell.index != table.index && table.index < table.cells.length)
-    handle_onmouseout_cell(table.cells[table.index]);
 
   table.index = cell.index;
 }
@@ -71,6 +73,10 @@ function handle_onmouseover_cell(cell) {
 /*-----------------------------------------------------------------------*/
 
 function handle_onmouseout_cell(cell) {
+
+  var table_id = $(cell).parents('table').attr('id');
+  var table = document.getElementById(table_id);
+  table.index = -1;
 
   cell.style.backgroundColor = cell.original_color;
 }
@@ -94,14 +100,14 @@ function add_suggestions(table, names, name) {
   for (var i=0; i<names.length; i++) {
 
     var row = table.insertRow(-1);
-    
+
     var cell = row.insertCell(0);
     table.cells.push(cell);
     cell.index = i;
     cell.setAttribute("border", "none");
     cell.style.border = "none";
     cell.innerHTML = names[i]; //Sanitizing it sometime?
-    
+
     row.className = "suggestion";
     cell.onmouseover = function() {handle_onmouseover_cell(this);};
     cell.onmouseout = function() {handle_onmouseout_cell(this);};
@@ -130,7 +136,7 @@ function remove_suggestions(table) {
     table.deleteRow(-1)
 
 
-  table.setAttribute("data-num_suggestions", 0);
+      table.setAttribute("data-num_suggestions", 0);
 }
 /*-----------------------------------------------------------------------*/
 
@@ -147,19 +153,19 @@ function get_suggestions_from_server(table, data) {
   }
 
   var xmlhttp = get_xmlhttp();
-  
+
   xmlhttp.onreadystatechange = function() 
-      {
-       if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-	remove_suggestions(table);
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      remove_suggestions(table);
 
-        var names =  jQuery.parseJSON(xmlhttp.responseText).names;
-        console.log(names);
-	add_suggestions(table, names, name);
+      var names =  jQuery.parseJSON(xmlhttp.responseText).names;
+      console.log(names);
+      add_suggestions(table, names, name);
 
-	data.state = "done";
-       }
-      };
+      data.state = "done";
+    }
+  };
 
   post_suggestions(name, xmlhttp);
   return true;
@@ -220,7 +226,7 @@ function handle_onfocus(input) {
   window.original_onkeydown = document.onkeydown;
 
   document.onkeydown = function() {
-    
+
     if (window.original_onkeydown != null)
       window.original_onkeydown();
 
