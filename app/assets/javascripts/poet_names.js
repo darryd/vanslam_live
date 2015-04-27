@@ -54,7 +54,7 @@ function suggest_onclick(cell) {
 
 /*-----------------------------------------------------------------------*/
 
-function handle_onmouseover_cell(cell) {
+function select_cell(cell) {
   
   var table_id = $(cell).parents('table').attr('id');
   var table = document.getElementById(table_id);
@@ -62,7 +62,7 @@ function handle_onmouseover_cell(cell) {
     return;
 
   for (var i=0; i<table.cells.length; i++)
-    handle_onmouseout_cell(table.cells[i]);
+    unselect_cell(table.cells[i]);
 
   cell.original_color = cell.style.backgroundColor;
   cell.style.backgroundColor = '#D8D8D8';
@@ -72,13 +72,16 @@ function handle_onmouseover_cell(cell) {
 
 /*-----------------------------------------------------------------------*/
 
-function handle_onmouseout_cell(cell) {
+function unselect_cell(cell) {
 
-  var table_id = $(cell).parents('table').attr('id');
-  var table = document.getElementById(table_id);
-  table.index = -1;
+  try {
+    var table_id = $(cell).parents('table').attr('id');
+    var table = document.getElementById(table_id);
+    table.index = -1;
 
-  cell.style.backgroundColor = cell.original_color;
+    cell.style.backgroundColor = cell.original_color;
+  }
+  catch (e) {}
 }
 
 /*-----------------------------------------------------------------------*/
@@ -109,8 +112,8 @@ function add_suggestions(table, names, name) {
     cell.innerHTML = names[i]; //Sanitizing it sometime?
 
     row.className = "suggestion";
-    cell.onmouseover = function() {handle_onmouseover_cell(this);};
-    cell.onmouseout = function() {handle_onmouseout_cell(this);};
+    cell.onmouseover = function() {select_cell(this);};
+    cell.onmouseout = function() {unselect_cell(this);};
     cell.onclick = function() {suggest_onclick(this);};
 
     if (name.replace(/\s+/g, ' ').trim().toLowerCase() == names[i].toLowerCase()) {
@@ -252,14 +255,14 @@ function onkeydown() {
 
       if (table.index > 0) {
 	var cell = table.cells[table.index -1];
-	handle_onmouseover_cell(cell);
+	select_cell(cell);
       }
       break;
     case 40: // Down Arrow
 
       if (table.index < table.cells.length -1) {
 	var cell = table.cells[table.index + 1];
-	handle_onmouseover_cell(cell);
+	select_cell(cell);
       }
       break;
     case 13: //Enter
