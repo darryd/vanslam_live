@@ -203,7 +203,7 @@ function process_queue(table) {
 function display_suggestions_for_name(table, name) {
 
 
-  if (window.event.keyCode == 38 || window.event.keyCode == 40 || window.event.keyCode == 13)
+  if (window.event.keyCode >= 37 && window.event.keyCode <= 40 || window.event.keyCode == 13)
     return;
 
   // data.state is on one three: "start", "pending", "done"
