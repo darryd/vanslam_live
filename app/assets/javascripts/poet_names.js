@@ -203,8 +203,9 @@ function process_queue(table) {
 function display_suggestions_for_name(table, name) {
 
 
-  if (window.event.keyCode >= 37 && window.event.keyCode <= 40 || window.event.keyCode == 13)
-    return;
+  if (window.event != undefined)
+    if (window.event.keyCode >= 37 && window.event.keyCode <= 40 || window.event.keyCode == 13)
+      return;
 
   // data.state is on one three: "start", "pending", "done"
   init_suggestions(table);
@@ -214,8 +215,6 @@ function display_suggestions_for_name(table, name) {
   data.name = name;
 
   table.queue.push(data);
-
-  console.log(window.event.keyCode);
 }
 
 /*-----------------------------------------------------------------------*/
