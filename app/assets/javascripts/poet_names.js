@@ -49,7 +49,12 @@ function suggest_onclick(cell) {
   var input = document.getElementById(input_id);
 
   input.value = cell.innerHTML;
-  remove_suggestions(document.getElementById($(cell).parents('table').attr('id')));
+
+  var table = document.getElementById($(cell).parents('table').attr('id'));
+
+  remove_suggestions(table);
+  table.is_poet_in_database = true;
+  display_whether_in_database(table, input.value);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -183,9 +188,8 @@ function init_suggestions(table) {
 }
 
 /*-----------------------------------------------------------------------*/
-function display_whether_in_database(table, data) {
+function display_whether_in_database(table, name) {
 
-  var name = data.name;
   var button = document.getElementById(table.id + "_button");
 
   if ((/^\s*$/).test(name)) {
@@ -206,7 +210,7 @@ function process_queue(table) {
     return;
 
   if (table.queue.length > 0 && table.queue[0].state == "done") {
-    display_whether_in_database(table, table.queue[0]);
+    display_whether_in_database(table, table.queue[0].name);
     table.queue.splice(0,1);
   }
 
