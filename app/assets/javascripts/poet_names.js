@@ -191,17 +191,32 @@ function init_suggestions(table) {
 function display_whether_in_database(table, name) {
 
   var button = document.getElementById(table.id + "_button");
+  message_div = document.getElementById(table.id + '_message');
 
   if ((/^\s*$/).test(name)) {
     button.setAttribute('hidden', null);
+    message_div.innerHTML = '';
     return;
   }
 
   button.removeAttribute('hidden');
-  if (table.is_poet_in_database)
+  if (table.is_poet_in_database) {
+    message_div.innerHTML = '';
     button.innerHTML = "Select";
+  }
   else
+  {
+
+    message_div.innerHTML = "<p style='color:black;'>" 
+      + "The poet "
+      + "<span style='color:purple;font-weight:bold'>" 
+      + name 
+      + "</span>"
+      + " is not in the database. </br>"
+      + " Click 'Create' if you would like to add him/her/them to the database."
+      + "</p>"
     button.innerHTML = "Create";
+  }
 }
 /*-----------------------------------------------------------------------*/
 function process_queue(table) {
