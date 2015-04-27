@@ -19,3 +19,13 @@
     </td>
   </tr>
 </table>
+
+
+<script>
+
+  input = document.getElementById('suggestions_input');
+  input.addEventListener('keydown', function(e) {
+    if (e.keyCode === 38 || e.keyCode === 40) e.preventDefault();
+  }, false);
+
+</script>
