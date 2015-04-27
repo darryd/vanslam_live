@@ -14,7 +14,7 @@ function post_create_or_get(name) {
   var name = encodeURIComponent(name);
   var authenticity = encodeURIComponent(AUTH_TOKEN);
 
-  var data = "authenticity_token="+authenticity+"&name="+name
+  var data = "authenticity_token="+authenticity+"&name="+name;
 
   xmlhttp.open("POST", "/poet/post_create_or_get", false);
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -55,7 +55,7 @@ function suggest_onclick(cell) {
 /*-----------------------------------------------------------------------*/
 
 function select_cell(cell) {
-  
+
   var table_id = $(cell).parents('table').attr('id');
   var table = document.getElementById(table_id);
   if (cell.index == table.index)
@@ -79,9 +79,8 @@ function unselect_cell(cell) {
     var table = document.getElementById(table_id);
     table.index = -1;
 
+  }catch(e) {}
     cell.style.backgroundColor = cell.original_color;
-  }
-  catch (e) {}
 }
 
 /*-----------------------------------------------------------------------*/
@@ -133,12 +132,11 @@ function add_suggestions(table, names, name) {
 function remove_suggestions(table) {
 
   var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
-
+  table.cells = [];
+  table.index = -1;
 
   for (var i=0; i<num_suggestions; i++)
     table.deleteRow(-1)
-
-
       table.setAttribute("data-num_suggestions", 0);
 }
 /*-----------------------------------------------------------------------*/
@@ -185,13 +183,32 @@ function init_suggestions(table) {
 }
 
 /*-----------------------------------------------------------------------*/
+function display_whether_in_database(table, data) {
+
+  var name = data.name;
+  var button = document.getElementById(table.id + "_button");
+
+  if ((/^\s*$/).test(name)) {
+    button.setAttribute('hidden', null);
+    return;
+  }
+
+  button.removeAttribute('hidden');
+  if (table.is_poet_in_database)
+    button.innerHTML = "Select";
+  else
+    button.innerHTML = "Create";
+}
+/*-----------------------------------------------------------------------*/
 function process_queue(table) {
 
-  if (table.queue.length >0 && table.queue[0].state == "pending")
+  if (table.queue.length > 0 && table.queue[0].state == "pending")
     return;
 
-  if (table.queue.length > 0 && table.queue[0].state == "done")
+  if (table.queue.length > 0 && table.queue[0].state == "done") {
+    display_whether_in_database(table, table.queue[0]);
     table.queue.splice(0,1);
+  }
 
   if (table.queue.length > 0 && table.queue[0].state == "start") {
 
