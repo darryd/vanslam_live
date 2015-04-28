@@ -15,6 +15,7 @@
 	      id="suggestions_input" 
 	      onkeyup="display_suggestions_for_name(document.getElementById('suggestions'), this.value)" 
 	      onpaste="setTimeout(function(input){display_suggestions_for_name(document.getElementById('suggestions'), input.value);}, 10, this)"
+	      oncut="setTimeout(function(input){display_suggestions_for_name(document.getElementById('suggestions'), input.value);}, 10, this)"
 	      onfocus="handle_onfocus(this)"
 	      onblur="handle_onblur(this)"
 	      >
@@ -35,7 +36,7 @@
 	      </td>
 	    </tr>
 	    <tr>
-	      <td style="border:none"> 
+	      <td style="border:none;"> 
 		<div id="suggestions_message"></div>
 	      </td>
 	    </tr>

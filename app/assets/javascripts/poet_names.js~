@@ -206,7 +206,6 @@ function display_whether_in_database(table, name) {
 
   var select_button = document.getElementById(table.id + "_select");
   var create_button = document.getElementById(table.id + "_create");
-  var max_length = 20;
 
   message_div = document.getElementById(table.id + '_message');
 
@@ -228,8 +227,8 @@ function display_whether_in_database(table, name) {
     message_div.innerHTML = "<p style='color:black;'>" 
       + "<span style='font-weight:bold'>Poet </span>"
       + "<span style='color:purple;font-weight:bold'>" 
-      + wordWrap("poet+" + name, max_length).substring("poet+".length)
-      + "</span></br>"
+      + name 
+      + ":</span></br>"
       + "Is in database."
       + "</p>"
   }
@@ -242,8 +241,8 @@ function display_whether_in_database(table, name) {
     message_div.innerHTML = "<p style='color:black;'>" 
       + "<span style='font-weight:bold'>Poet </span>"
       + "<span style='color:purple;font-weight:bold'>" 
-      + wordWrap("poet+" + name, max_length).substring("poet+".length)
-      + "</span></br>"
+      + name 
+      + ":</span></br>"
       + "Is <span style='color:red;font-weight:bold'>not</span>"
       + " in database."
       + "</p>";
@@ -338,40 +337,3 @@ function onkeydown() {
       break;
   }
 }
-
-
-/*-----------------------------------------------------------------------*/
-//http://stackoverflow.com/a/14487422
-function wordWrap(str, maxWidth) {
-    var newLineStr = "</br>\n"; done = false; res = '';
-    do {                    
-        found = false;
-        // Inserts new line at first whitespace of the line
-        for (i = maxWidth - 1; i >= 0; i--) {
-            if (testWhite(str.charAt(i))) {
-                res = res + [str.slice(0, i), newLineStr].join('');
-                str = str.slice(i + 1);
-                found = true;
-                break;
-            }
-        }
-        // Inserts new line at maxWidth position, the word is too long to wrap
-        if (!found) {
-            res += [str.slice(0, maxWidth), newLineStr].join('');
-            str = str.slice(maxWidth);
-        }
-
-        if (str.length < maxWidth)
-            done = true;
-    } while (!done);
-
-
-    // modification of function to remove last </br>
-    return res.substr(0, res.length - newLineStr.length);
-}
-//http://stackoverflow.com/a/14487422
-function testWhite(x) {
-    var white = new RegExp(/^\s$/);
-    return white.test(x.charAt(0));
-};
-/*-----------------------------------------------------------------------*/
