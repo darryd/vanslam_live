@@ -5,7 +5,7 @@
 <p> Type in poet's name: </p>
 
 <div>
-  <table>
+  <table border="1" width="400" height="200">
     <tr>
       <td style="border:none; vertical-align:0px;">
 	<table id="suggestions" border="1"; data-num_suggestions="0"> 
@@ -26,7 +26,7 @@
       <td style="border:none; vertical-align:0px;">	    
 	<table border="0">
 	  <tr>
-	    <td style="border:none">
+	    <td style="border:none;">
 	      <button id="suggestions_select" data-str="Select" disabled>Select</button>
 	    </td>
 	    <tr>
@@ -42,14 +42,15 @@
 	  </table>
 	</td>
       </tr>
-    </table>
-  </div>
+    </tr>
+  </table>
+</div>
 
-  <script>
+<script>
 
-    input = document.getElementById('suggestions_input');
-    input.addEventListener('keydown', function(e) {
-      if (e.keyCode === 38 || e.keyCode === 40) e.preventDefault();
-    }, false);
+  input = document.getElementById('suggestions_input');
+  input.addEventListener('keydown', function(e) {
+    if (e.keyCode === 38 || e.keyCode === 40) e.preventDefault();
+  }, false);
 
-  </script>
+</script>
