@@ -247,12 +247,39 @@ function display_whether_in_database(table, name) {
   }
 }
 /*-----------------------------------------------------------------------*/
+function click_create() {
+
+  var table = document.getElementById("suggestions");
+  var input = document.getElementById("suggestions_input");
+  var name = input.value;
+
+  var xmlhttp = get_xmlhttp();
+  xmlhttp.onreadystatechange = function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+
+      var result = jQuery.parseJSON(xmlhttp.responseText);
+      if (!result.result)
+	alert(result.message);
+      else {
+	input.value = result.poet.name;
+	display_suggestions_for_name(table, name);
+      }
+    }
+  };
+
+  post_async(xmlhttp, "/poet/post_create_or_get", {name: name});
+
+
+}
+/*-----------------------------------------------------------------------*/
 function process_queue(table) {
 
   if (table.queue.length > 0 && table.queue[0].state == "pending")
     return;
 
   if (table.queue.length > 0 && table.queue[0].state == "done") {
+    console.log("Done lookup for " + table.queue[0].name);
     display_whether_in_database(table, table.queue[0].name);
     table.queue.splice(0,1);
   }
