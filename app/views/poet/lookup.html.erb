@@ -5,12 +5,9 @@
 <p> Type in poet's name: </p>
 
 <div>
-  <div id="suggestions_message">
-
-  </div>
   <table>
     <tr>
-      <td>
+      <td style="border:none; vertical-align:0px;">
 	<table id="suggestions" border="1"; data-num_suggestions="0"> 
 	  <tr>
 	    <td style="border:none">
@@ -27,7 +24,18 @@
 	</table>
       </td>
       <td style="border:none; vertical-align:0px;">	    
-	<button id="suggestions_button" hidden>Press Me</button>
+	<table border="0">
+	  <tr>
+	    <td style="border:none">
+	      <button id="suggestions_button" hidden>Press Me</button>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td style="border:none"> 
+	      <div id="suggestions_message"></div>
+	    </td>
+	  </tr>
+	</table>
       </td>
     </tr>
   </table>

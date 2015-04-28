@@ -201,21 +201,28 @@ function display_whether_in_database(table, name) {
 
   button.removeAttribute('hidden');
   if (table.is_poet_in_database) {
-    message_div.innerHTML = '';
-    button.innerHTML = "Select";
+
+    message_div.innerHTML = "<p style='color:black;'>" 
+      + "<span style='font-weight:bold'>Poet </span>"
+      + "<span style='color:purple;font-weight:bold'>" 
+      + name 
+      + ":</span></br>"
+      + "Is in database."
+      + "</p>"
+    button.innerHTML = "Select Poet";
   }
   else
   {
 
     message_div.innerHTML = "<p style='color:black;'>" 
-      + "The poet "
+      + "<span style='font-weight:bold'>Poet </span>"
       + "<span style='color:purple;font-weight:bold'>" 
       + name 
-      + "</span>"
-      + " is not in the database. </br>"
-      + " Click 'Create' if you would like to add him/her/them to the database."
+      + ":</span></br>"
+      + "Is <span style='color:red;font-weight:bold'>not</span>"
+      + " in database."
       + "</p>"
-    button.innerHTML = "Create";
+    button.innerHTML = "Create Poet";
   }
 }
 /*-----------------------------------------------------------------------*/
