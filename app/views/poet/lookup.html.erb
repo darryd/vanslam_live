@@ -27,25 +27,29 @@
 	<table border="0">
 	  <tr>
 	    <td style="border:none">
-	      <button id="suggestions_button" hidden>Press Me</button>
+	      <button id="suggestions_select" data-str="Select" disabled>Select</button>
 	    </td>
-	  </tr>
-	  <tr>
-	    <td style="border:none"> 
-	      <div id="suggestions_message"></div>
-	    </td>
-	  </tr>
-	</table>
-      </td>
-    </tr>
-  </table>
-</div>
+	    <tr>
+	      <td>
+		<button id="suggestions_create" data-str="Create" disabled>Create</button>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td style="border:none"> 
+		<div id="suggestions_message"></div>
+	      </td>
+	    </tr>
+	  </table>
+	</td>
+      </tr>
+    </table>
+  </div>
 
-<script>
+  <script>
 
-  input = document.getElementById('suggestions_input');
-  input.addEventListener('keydown', function(e) {
-    if (e.keyCode === 38 || e.keyCode === 40) e.preventDefault();
-  }, false);
+    input = document.getElementById('suggestions_input');
+    input.addEventListener('keydown', function(e) {
+      if (e.keyCode === 38 || e.keyCode === 40) e.preventDefault();
+    }, false);
 
-</script>
+  </script>

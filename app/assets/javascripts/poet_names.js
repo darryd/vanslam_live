@@ -188,19 +188,45 @@ function init_suggestions(table) {
 }
 
 /*-----------------------------------------------------------------------*/
+function able_button(button) {
+
+  button.removeAttribute('disabled');
+  button.innerHTML = "<span style='font-weight:bold;'>" + button.getAttribute('data-str') 
+    + "</span>";
+}
+/*-----------------------------------------------------------------------*/
+function disable_button(button) {
+
+  button.setAttribute('disabled', null);
+  button.innerHTML = button.getAttribute('data-str');
+}
+
+/*-----------------------------------------------------------------------*/
 function display_whether_in_database(table, name) {
 
-  var button = document.getElementById(table.id + "_button");
+  var select_button = document.getElementById(table.id + "_select");
+  var create_button = document.getElementById(table.id + "_create");
+
   message_div = document.getElementById(table.id + '_message');
 
   if ((/^\s*$/).test(name)) {
-    button.setAttribute('hidden', null);
+    
+    disable_button(select_button);
+    disable_button(create_button);
+
     message_div.innerHTML = '';
     return;
   }
 
-  button.removeAttribute('hidden');
   if (table.is_poet_in_database) {
+
+    //select_button.removeAttribute('disabled');
+    //create_button.setAttribute('disabled', null);
+
+
+    able_button(select_button);
+    disable_button(create_button);
+
 
     message_div.innerHTML = "<p style='color:black;'>" 
       + "<span style='font-weight:bold'>Poet </span>"
@@ -209,10 +235,15 @@ function display_whether_in_database(table, name) {
       + ":</span></br>"
       + "Is in database."
       + "</p>"
-    button.innerHTML = "Select Poet";
   }
   else
   {
+
+    //select_button.setAttribute('disabled', null);
+    //create_button.removeAttribute('disabled');
+
+    disable_button(select_button);
+    able_button(create_button);
 
     message_div.innerHTML = "<p style='color:black;'>" 
       + "<span style='font-weight:bold'>Poet </span>"
@@ -222,7 +253,6 @@ function display_whether_in_database(table, name) {
       + "Is <span style='color:red;font-weight:bold'>not</span>"
       + " in database."
       + "</p>"
-    button.innerHTML = "Create Poet";
   }
 }
 /*-----------------------------------------------------------------------*/
