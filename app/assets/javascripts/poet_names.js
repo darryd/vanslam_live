@@ -24,23 +24,18 @@ function post_create_or_get(name) {
 }
 
 /*-----------------------------------------------------------------------*/
+function post_async(xmlhttp, url, params) {
 
-function post_suggestions(name, xmlhttp) {
+  var data = "authenticity_token=" + encodeURIComponent($('meta[name=csrf-token]').attr('content'));
+  var keys = _.keys(params);
 
-  var limit = 50;
+  for (var i=0; i<keys.length; i++)
+    data += "&" + keys[i] + "=" + encodeURIComponent(params[keys[i]]);
 
-  var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
-
-  var name = encodeURIComponent(name);
-  var authenticity = encodeURIComponent(AUTH_TOKEN);
-
-  var data = "authenticity_token="+authenticity+"&name="+name+"&limit="+limit;
-
-  xmlhttp.open("POST", "/poet/post_suggestions", true);
+  xmlhttp.open("POST", url, true);
   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
   xmlhttp.send(data);
 }
-
 /*-----------------------------------------------------------------------*/
 
 function suggest_onclick(cell) {
@@ -126,23 +121,25 @@ function add_suggestions(table, names, name) {
     }
 
   }
-
-  var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
-  num_suggestions += names.length;
-  table.setAttribute("data-num_suggestions", num_suggestions);
-
 }
 /*-----------------------------------------------------------------------*/
 
 function remove_suggestions(table) {
 
-  var num_suggestions = parseInt(table.getAttribute("data-num_suggestions"));
-  table.cells = [];
-  table.index = -1;
+  var num_suggestions;
+
+  try {
+    num_suggestions = table.cells.length;
+  }
+  catch (e) {
+    num_suggestions = 0;
+  } 
 
   for (var i=0; i<num_suggestions; i++)
-    table.deleteRow(-1)
-      table.setAttribute("data-num_suggestions", 0);
+    table.deleteRow(-1);
+
+  table.cells = [];
+  table.index = -1;
 }
 /*-----------------------------------------------------------------------*/
 
@@ -155,7 +152,7 @@ function get_suggestions_from_server(table, data) {
   if((/^\s*$/).test(name)) {
     remove_suggestions(table);
     data.state = "done";
-    return true;
+    return;
   }
 
   var xmlhttp = get_xmlhttp();
@@ -173,8 +170,8 @@ function get_suggestions_from_server(table, data) {
     }
   };
 
-  post_suggestions(name, xmlhttp);
-  return true;
+  post_async(xmlhttp, "/poet/post_suggestions", {name: name, limit: 50});
+  return;
 }
 /*-----------------------------------------------------------------------*/
 
