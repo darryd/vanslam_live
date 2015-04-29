@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  num_poets: 1
+  is_cumulative: false
+
+two:
+  num_poets: 1
+  is_cumulative: false

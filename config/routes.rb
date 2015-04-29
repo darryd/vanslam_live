@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   get "poet/lookup"
 
 
+  get "welcome/chat"
+
+  get "competition/show"
 
 
 
