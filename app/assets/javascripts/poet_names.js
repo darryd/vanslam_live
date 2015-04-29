@@ -225,7 +225,8 @@ function display_whether_in_database(table, name) {
     message_div.innerHTML = "<p style='color:black;'>" 
       + "<span style='font-weight:bold'>Poet </span>"
       + "<span style='color:purple;font-weight:bold'>" 
-      + wordWrap("poet+" + name, max_length).substring("poet+".length)
+      //+ wordWrap("poet+" + name, max_length).substring("poet+".length)
+      + name
       + "</span></br>"
       + "Is in database."
       + "</p>"
@@ -239,7 +240,8 @@ function display_whether_in_database(table, name) {
     message_div.innerHTML = "<p style='color:black;'>" 
       + "<span style='font-weight:bold'>Poet </span>"
       + "<span style='color:purple;font-weight:bold'>" 
-      + wordWrap("poet+" + name, max_length).substring("poet+".length)
+      //+ wordWrap("poet+" + name, max_length).substring("poet+".length)
+      + name
       + "</span></br>"
       + "Is <span style='color:red;font-weight:bold'>not</span>"
       + " in database."
