@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429211936) do
+ActiveRecord::Schema.define(version: 20150430204500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,8 +38,9 @@ ActiveRecord::Schema.define(version: 20150429211936) do
   create_table "rounds", force: :cascade do |t|
     t.integer  "num_poets"
     t.boolean  "is_cumulative"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "competition_id"
   end
 
   create_table "scorekeepers", force: :cascade do |t|
