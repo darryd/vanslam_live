@@ -1,7 +1,11 @@
 class CompetitionController < ApplicationController
 
-
   def show
-    @id = params[:id]
+    begin
+      @slam = Competition.find(params[:id])
+    rescue
+      redirect_to '/'
+    end
   end
+
 end

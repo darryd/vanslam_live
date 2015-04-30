@@ -1,2 +1,10 @@
 
-<p> hi <%= @id %> </p>
+
+
+<script>
+
+  var slam = JSON.parse('<%= @slam.to_json.html_safe%>')
+  var rounds = JSON.parse('<%= @slam.rounds.order(:round_number).to_json.html_safe %>')
+
+
+</script>
