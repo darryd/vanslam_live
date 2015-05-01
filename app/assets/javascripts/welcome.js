@@ -8,6 +8,10 @@ $(document).on('page:change', function () {
 /*-------------------------------------------------------------------------------------*/
 function display_login_info() {
 
+
+  if (document.URL.split('?')[0].split('/')[3] == "login")
+    return;
+
   var e = document.getElementById("login_info");
   if (e == null) 
     return;
@@ -19,8 +23,10 @@ function display_login_info() {
       e.innerHTML = "You are logged in as <span style='color:orange;font-weight:bold; '>" 
 	+ info.user+ ' </span>  <a href="javascript:do_log_out();">Log out</a>';
   }
-  else
-    e.innerHTML = "<a href='/login'>Log in</a>";
+  else {
+    var data = encodeURIComponent(document.URL);
+    e.innerHTML = "<a href='/login?page=" + data + "'>Log in</a>";
+  }
 }
 /*-------------------------------------------------------------------------------------*/
 function do_log_out() {

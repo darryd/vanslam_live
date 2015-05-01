@@ -4,6 +4,7 @@
   var rounds = JSON.parse('<%= @slam.rounds.order(:round_number).to_json.html_safe %>');  
 </script>
 
+
 <h1> <%= @slam.title %> </h1>
 
 <% @slam.rounds.order(:round_number).each do |round| %>

@@ -2,11 +2,13 @@ class WelcomeController < ApplicationController
 
   #------------------------------------------------------------------------------------#
   def index
+    @slams = Competition.order(:created_at).find_each
   end
 
   #------------------------------------------------------------------------------------#
   def login
 
+    @page = params[:page]
     @is_logged_in = is_logged_in() != false
 
 

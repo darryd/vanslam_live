@@ -1,8 +1,10 @@
-<%= render :partial => 'welcome/logout' %>
-
 <h2>
 <%= flash['message'] %>
 </h2>
+
+<%= @page %>
+
+
 
 <% if @is_logged_in == false %>
   <h1> Login </h1>
