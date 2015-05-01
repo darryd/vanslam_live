@@ -1,10 +1,18 @@
 
-
-
 <script>
-
-  var slam = JSON.parse('<%= @slam.to_json.html_safe%>')
-  var rounds = JSON.parse('<%= @slam.rounds.order(:round_number).to_json.html_safe %>')
-
-
+  var slam = JSON.parse('<%= @slam.to_json.html_safe%>');
+  var rounds = JSON.parse('<%= @slam.rounds.order(:round_number).to_json.html_safe %>');  
 </script>
+
+<h1> <%= @slam.title %> </h1>
+
+<% @slam.rounds.order(:round_number).each do |round| %>
+
+  
+
+
+
+  <%= round.title %> </br>
+<% end %>
+
+
