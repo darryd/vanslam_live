@@ -2,16 +2,13 @@
 <%= flash['message'] %>
 </h2>
 
-<%= @page %>
-
-
 
 <% if @is_logged_in == false %>
   <h1> Login </h1>
 
   <%= form_tag("/welcome/do_log_in/") do |f| %>
 
-
+    <input type="hidden" name="page" value="<%= @page %>" />
     <table>
       <tr>
 	<td>

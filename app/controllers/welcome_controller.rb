@@ -66,7 +66,7 @@ class WelcomeController < ApplicationController
     end
 
     if result
-      redirect_to '/'
+      redirect_to params[:page]
     else
       redirect_to '/login'
     end
