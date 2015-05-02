@@ -13,6 +13,9 @@ $(document).on('page:change', function () {
     case 'poet_lookup':
       page_change_poet_lookup();
       break;
+    case 'view_lookup':
+      page_change_view_lookup();
+      break;
   }
 });
 
@@ -38,6 +41,11 @@ function page_change_poet_lookup() {
   input.addEventListener('keydown', function(e) {
     if (e.keyCode === 38 || e.keyCode === 40) e.preventDefault();
   }, false);
+
+
+}
+/*-------------------------------------------------------------------------------------*/
+function page_change_view_lookup() {
 
   document.getElementById('poet_lookup').removeAttribute('hidden');
 
