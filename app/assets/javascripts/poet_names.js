@@ -53,6 +53,15 @@ function suggest_onclick(cell) {
 }
 
 /*-----------------------------------------------------------------------*/
+function init_poet_lookup() {
+ 
+  display_suggestions_for_name(document.getElementById('suggestions'), "");
+  document.getElementById('suggestions_input').value = "";
+  document.getElementById('suggestions_input').focus();
+
+}
+
+/*-----------------------------------------------------------------------*/
 
 function select_cell(cell) {
 
@@ -67,6 +76,7 @@ function select_cell(cell) {
   cell.original_color = cell.style.backgroundColor;
   cell.style.color = "white";
   cell.style.backgroundColor = '#BD4042';
+  cell.style.backgroundColor = 'purple';
 
   table.index = cell.index;
 }

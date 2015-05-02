@@ -6,8 +6,10 @@
 </script>
 
 <div id="poets_competing" hidden>
-  <button id="add_poet"> Add Poet </button>
+  <button id="add_poet" onclick="click_add_poet(this)"> Add Poet </button>
 </div>
+
+<%= render :partial => 'poet/lookup' %>
 
 <h1> <%= @slam.title %> </h1>
 

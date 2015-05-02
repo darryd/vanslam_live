@@ -26,6 +26,7 @@ function page_change_competition() {
     do_log_out = function () {
       temp();
       document.getElementById("poets_competing").setAttribute("hidden", null);
+      document.getElementById("poet_lookup").setAttribute("hidden", null);
     };
   }
 }
