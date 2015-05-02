@@ -3,14 +3,17 @@
 $(document).on('page:change', function () {
   display_login_info();
 
-  var e = document.getElementById('page_change');
-  if (e != null)
-    switch(e.getAttribute('data-run')){
+  var e = document.getElementsByClassName('page_change');
+  for (var i=0 ; i < e.length; i++)
+  switch(e[i].getAttribute('data-run')){
 
-      case 'competition':
-	page_change_competition();
-	break;
-    }
+    case 'competition':
+      page_change_competition();
+      break;
+    case 'poet_lookup':
+      page_change_poet_lookup();
+      break;
+  }
 });
 
 /*-------------------------------------------------------------------------------------*/
@@ -27,5 +30,16 @@ function page_change_competition() {
   }
 }
 
+/*-------------------------------------------------------------------------------------*/
+function page_change_poet_lookup() {
+
+  var input = document.getElementById('suggestions_input');
+  input.addEventListener('keydown', function(e) {
+    if (e.keyCode === 38 || e.keyCode === 40) e.preventDefault();
+  }, false);
+
+  document.getElementById('poet_lookup').removeAttribute('hidden');
+
+}
 /*-------------------------------------------------------------------------------------*/
 

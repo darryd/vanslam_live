@@ -1,0 +1,41 @@
+
+<table id='poet_lookup' border="1" width="400" height="200" hidden>
+  <tr>
+    <td style="border:none; vertical-align:0px;">
+      <table id="suggestions" border="1"; data-num_suggestions="0"> 
+	<tr>
+	  <td style="border:none">
+	    <input 
+	    id="suggestions_input" 
+	    onkeyup="display_suggestions_for_name(document.getElementById('suggestions'), this.value)" 
+	    onpaste="setTimeout(function(input){display_suggestions_for_name(document.getElementById('suggestions'), input.value);}, 10, this)"
+	    oncut="setTimeout(function(input){display_suggestions_for_name(document.getElementById('suggestions'), input.value);}, 10, this)"
+	    onfocus="handle_onfocus(this)"
+	    onblur="handle_onblur(this)"
+	    >
+	    </input>
+	  </td>
+	</tr>
+      </table>
+    </td>
+    <td style="border:none; vertical-align:0px;">	    
+      <table border="0">
+	<tr>
+	  <td>
+	    <button id="suggestions_select" data-str="Select" disabled>Select</button>
+	  </td>
+	  <tr>
+	    <td>
+	      <button id="suggestions_create" onclick="click_create()" data-str="Create" disabled>Create</button>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td style="border:none;"> 
+	      <div id="suggestions_message"></div>
+	    </td>
+	  </tr>
+	</table>
+      </td>
+    </tr>
+  </tr>
+</table>
