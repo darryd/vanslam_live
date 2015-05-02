@@ -65,7 +65,8 @@ function select_cell(cell) {
     unselect_cell(table.cells[i]);
 
   cell.original_color = cell.style.backgroundColor;
-  cell.style.backgroundColor = '#D8D8D8';
+  cell.style.color = "white";
+  cell.style.backgroundColor = '#BD4042';
 
   table.index = cell.index;
 }
@@ -81,6 +82,7 @@ function unselect_cell(cell) {
 
   }catch(e) {}
     cell.style.backgroundColor = cell.original_color;
+    cell.style.color = "black";
 }
 
 /*-----------------------------------------------------------------------*/
@@ -105,9 +107,9 @@ function add_suggestions(table, names, name) {
 
     var cell = row.insertCell(0);
     table.cells.push(cell);
+    cell.className = "suggestion";
     cell.index = i;
-    cell.setAttribute("border", "none");
-    cell.style.border = "none";
+    //cell.style.border = "none";
     cell.innerHTML = names[i]; //Sanitizing it sometime?
 
     row.className = "suggestion";
