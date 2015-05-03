@@ -23,7 +23,9 @@ $(document).on('page:change', function () {
 function page_change_competition() {
 
   if (get_login_info().is_logged_in) {
-    document.getElementById("poets_competing").removeAttribute('hidden');
+    var poets_competing = document.getElementById("poets_competing");
+    poets_competing.removeAttribute('hidden');
+    poets_competing.poet_names = [];
 
     var temp = do_log_out;
     do_log_out = function () {
