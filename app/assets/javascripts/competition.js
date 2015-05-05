@@ -42,11 +42,13 @@ function poet_select() {
   var poet_lookup = document.getElementById('poet_lookup');
   var suggestions_input = document.getElementById('suggestions_input');
 
-  poets_competing.poet_names.push(suggestions_input.value);
+  if (poets_competing.poet_names.indexOf(suggestions_input.value) == -1)
+    poets_competing.poet_names.push(suggestions_input.value);
 
   var html_str = "<span style='font-weight:bold'> Poets: </span>";
   html_str += "<span style='color:purple; font-weight:bold'>";
-  html_str += poets_competing.poet_names.sort().join(', ');
+  html_str += poets_competing.poet_names.sort(
+      function (a, b) { return a.toLowerCase().localeCompare(b.toLowerCase()); }).join(', ');
   html_str += "</span>";
 
   list_poets.innerHTML = html_str;
