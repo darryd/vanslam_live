@@ -46,7 +46,7 @@ function poet_select() {
 
   var html_str = "<span style='font-weight:bold'> Poets: </span>";
   html_str += "<span style='color:purple; font-weight:bold'>";
-  html_str += poets_competing.poet_names.join(', ');
+  html_str += poets_competing.poet_names.sort().join(', ');
   html_str += "</span>";
 
   list_poets.innerHTML = html_str;
