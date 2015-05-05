@@ -352,6 +352,8 @@ function handle_onblur(input) {
 
 function onkeydown() {
 
+
+
   var table = window.suggestion_table;
 
   switch (window.event.keyCode) {
@@ -412,4 +414,12 @@ function testWhite(x) {
     var white = new RegExp(/^\s$/);
     return white.test(x.charAt(0));
 };
+/*-----------------------------------------------------------------------*/
+
+window.show_keyCode = true;
+document.onkeydown = function () {
+
+  if (window.show_keyCode)
+    console.log("keyCode = " + window.event.keyCode);
+}
 /*-----------------------------------------------------------------------*/
