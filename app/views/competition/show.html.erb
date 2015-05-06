@@ -19,5 +19,6 @@
 <% @slam.rounds.order(:round_number).each do |round| %>
   <div id="round_<%=round.round_number%>">
     <%= round.title %> </br>
+    <div id="poets_<%= round.round_number %>" class="poets_for_round"></div>
   </div>
 <% end %>

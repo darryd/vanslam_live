@@ -50,10 +50,12 @@ function poet_select() {
   if (poets_competing.poet_names.indexOf(suggestions_input.value) == -1) {
     poets_competing.poet_names.push(suggestions_input.value);
 
+    poets_competing.poet_names = poets_competing.poet_names.sort( function (a, b) { 
+      return a.toLowerCase().localeCompare(b.toLowerCase()); });
+
     var html_str = "<span style='font-weight:bold'> Poets: </span>";
     html_str += "<span style='color:purple; font-weight:bold'>";
-    html_str += poets_competing.poet_names.sort(
-	function (a, b) { return a.toLowerCase().localeCompare(b.toLowerCase()); }).join(', ');
+    html_str += poets_competing.poet_names.join(', ');
     html_str += "</span>";
 
     list_poets.innerHTML = html_str;
@@ -62,6 +64,11 @@ function poet_select() {
     suggestions_input.value = '';
     display_suggestions_for_name(document.getElementById('suggestions'), '')
   }
+}
+/*-----------------------------------------------------------------------*/
+function add_poets_to_rounds(poet_names) {
+
+
 }
 /*-----------------------------------------------------------------------*/
 
