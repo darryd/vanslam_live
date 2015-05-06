@@ -385,10 +385,18 @@ document.onkeydown = function () {
   if (window.show_keyCode)
     console.log("keyCode = " + window.event.keyCode);
 
+  // Only caputuring Alt Keys
+  if (!window.event.altKey)
+    return;
+
   switch (window.event.keyCode) {
 
-    case 83: // Alt-S (Select)
+    case 65: // Alt A (Add Poet)
+      if (document.getElementById('poet_lookup').clientWidth == 0)
+	  $('#add_poet').click();
+      break;
 
+    case 83: // Alt-S (Select)
       // Click the button if poet_lookup is not active and select button is enabled.
       if (document.getElementById('poet_lookup').clientWidth != 0)
 	if ($("#suggestions_select").is(":enabled"))
