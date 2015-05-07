@@ -46,9 +46,11 @@ function poet_select() {
   var poet_lookup = document.getElementById('poet_lookup');
   var suggestions_input = document.getElementById('suggestions_input');
 
+  var name = suggestions_input.value;
+
   // Don't Select Poet if Poet has already been selected.
-  if (poets_competing.poet_names.indexOf(suggestions_input.value) == -1) {
-    poets_competing.poet_names.push(suggestions_input.value);
+  if (poets_competing.poet_names.indexOf(name) == -1) {
+    poets_competing.poet_names.push(name);
 
     poets_competing.poet_names = poets_competing.poet_names.sort( function (a, b) { 
       return a.toLowerCase().localeCompare(b.toLowerCase()); });
@@ -62,14 +64,23 @@ function poet_select() {
 
     // Clear Input and its suggestions
     suggestions_input.value = '';
-    display_suggestions_for_name(document.getElementById('suggestions'), '')
+    display_suggestions_for_name(document.getElementById('suggestions'), '');
+
+    // Add poet button to rounds which doesn't get its poets from a previous round.
+    for (var i=0; i<rounds.length; i++)
+      if (!rounds[i].are_poets_from_previous)
+	add_poet_to_round(name, rounds[i]);
+
   }
 }
 /*-----------------------------------------------------------------------*/
-function add_poets_to_rounds(poet_names) {
+function add_poet_to_round(name, round) {
 
+  console.log("add poet_to_round");
+  var d = document.getElementById("poets_" + round.round_number);
+
+
+  console.log(d);
 
 }
 /*-----------------------------------------------------------------------*/
-
-
