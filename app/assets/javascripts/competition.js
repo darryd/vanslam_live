@@ -79,8 +79,10 @@ function add_poet_to_round(name, round) {
   console.log("add poet_to_round");
   var d = document.getElementById("poets_" + round.round_number);
 
+  var button = document.createElement('button');
+  var text = document.createTextNode(name);
 
-  console.log(d);
-
+  button.appendChild(text);
+  d.appendChild(button);
 }
 /*-----------------------------------------------------------------------*/
