@@ -50,6 +50,10 @@ function page_change_poet_lookup() {
 function page_change_view_lookup() {
 
   document.getElementById('poet_lookup').removeAttribute('hidden');
+  document.getElementById('poet_lookup_cancel').setAttribute('hidden', null);
+  document.getElementById('suggestions_create').setAttribute('hidden', null);
+  document.getElementById('suggestions_select').setAttribute('hidden', null);
+  document.getElementById('suggestions_message').setAttribute('hidden', null);
 
 }
 /*-------------------------------------------------------------------------------------*/
