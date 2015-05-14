@@ -1,7 +1,14 @@
+
+#require './app/middleware/chat_backend'
+require File.expand_path('../../../app/middleware/chat_backend', __FILE__)
+
 class WelcomeController < ApplicationController
 
   #------------------------------------------------------------------------------------#
   def index
+
+    ChatDemo::ChatBackend.hello({:handle => "main page", :text => "hello from the main page"})
+
     @slams = Competition.order(:created_at).find_each
   end
 
