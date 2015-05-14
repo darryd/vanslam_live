@@ -1,3 +1,5 @@
+require File.expand_path('../../../app/middleware/chat_backend', __FILE__)
+
 class CompetitionController < ApplicationController
 
   def show
@@ -9,6 +11,11 @@ class CompetitionController < ApplicationController
   end
 
   def new_performance
+
+    if not is_logged_in()
+      render json: {:result => false, :message => "You must be logged in to do that."}
+      return
+    end
 
     begin
       round = Round.find(params[:round_id])
@@ -24,7 +31,11 @@ class CompetitionController < ApplicationController
       return
     end
 
-    render json: {:result  => true, :poet => poet}    
+    performance = Performance.new(round_id: round.id, poet_id: poet.id)
+    performance.save
+
+    render json: {:result  => true, :performance_id => performance.id}    
+    ChatDemo::ChatBackend.hello({:event => "new_peformance", :performance_id => performance.id, :poet_name => poet.name, :round_number => round.round_number})
 
   end
 
