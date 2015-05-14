@@ -80,9 +80,23 @@ function add_poet_to_round(name, round) {
   var d = document.getElementById("poets_" + round.round_number);
 
   var button = document.createElement('button');
+  button.name = name;
+  button.round = round;
+
+  button.setAttribute('onclick', 'click_poet(this)');
+
   var text = document.createTextNode(name);
 
   button.appendChild(text);
   d.appendChild(button);
+}
+/*-----------------------------------------------------------------------*/
+function click_poet(button) {
+
+  // Create new request for a new performance
+
+
+  // Remove the button
+
 }
 /*-----------------------------------------------------------------------*/

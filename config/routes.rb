@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   get "competition/show"
 
+  post "competition/new_performance"
+  get "competition/new_performance"
 
 
   # The priority is based upon order of creation: first created -> highest priority.
