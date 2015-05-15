@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   post "competition/new_performance"
   get "competition/new_performance"
 
+  post "competition/echo"
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

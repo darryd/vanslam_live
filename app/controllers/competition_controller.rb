@@ -10,6 +10,10 @@ class CompetitionController < ApplicationController
     end
   end
 
+  def echo
+    render json: {:sentence => params[:sentence], :reverse => params[:sentence].reverse};
+  end
+
   def new_performance
 
     if not is_logged_in()

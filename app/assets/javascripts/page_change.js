@@ -50,10 +50,15 @@ function page_change_competition() {
       document.getElementById("poet_lookup").setAttribute("hidden", null);
       // We can make a class="hide on loggout"
     };
+
+    // Prepare Queue
+    window.ajax_queue = [];
+    var interval = 10;
+    setInterval(process_ajax_queue, interval);
   }
 }
 
-/*-------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------*/
 function page_change_poet_lookup() {
 
   var input = document.getElementById('suggestions_input');

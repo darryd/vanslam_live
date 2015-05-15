@@ -9,12 +9,7 @@ function performance_ui_new(performance) {
 
 
   var div = document.createElement("div");
-  div.id = makeid(999);
-  var a = create_link_to_change_name(div.id, performance);
-
-  performance.poet.notify_name.add_notify(update_link_on_name_change, "link_change_name_" + div.id);
-
-  div.appendChild(a);
+  div.innerHTML = performance.name;
 
   insert_into_table(table, div);
 
@@ -28,7 +23,6 @@ function performance_ui_new(performance) {
   insert_into_table(table, subscore_ui_new(performance));
   insert_into_table(table, cum_score_ui_new(performance));
   insert_into_table(table, rank_ui_new(performance));
-
 
   table.tr = document.createElement("tr");
   table.appendChild(table.tr);
