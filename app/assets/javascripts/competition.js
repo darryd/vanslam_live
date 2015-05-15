@@ -80,6 +80,7 @@ function add_poet_to_round(name, round) {
   var d = document.getElementById("poets_" + round.round_number);
 
   var button = document.createElement('button');
+  button.className = "poet_" + name;
   button.name = name;
   button.round = round;
 
@@ -98,11 +99,17 @@ function click_poet(button) {
   var performance = performance_new(button.name);
   var performance_ui = performance_ui_new(performance);
 
+  button.round.round_js.add_performance(performance);
 
   $("#performances_" + button.round.round_number).append(performance_ui);
 
 
   // Remove the button
+  var class_name = button.className;
 
+  // In fact, remove all button's for this poet
+  var buttons = document.getElementsByClassName(class_name);
+  for (var i=0; i<buttons.length; i++)
+    buttons[i].setAttribute('hidden', null);
 }
 /*-----------------------------------------------------------------------*/

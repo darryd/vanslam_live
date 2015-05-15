@@ -27,7 +27,16 @@ $(document).on('page:change', function () {
 });
 
 /*-------------------------------------------------------------------------------------*/
+function prepare_rounds() {
+
+  for (var i=0; i<rounds.length; i++)
+    rounds[i].round_js = round_new(0); // FIXME: param wrong
+
+}
+/*-------------------------------------------------------------------------------------*/
 function page_change_competition() {
+
+  prepare_rounds();
 
   if (get_login_info().is_logged_in) {
     var poets_competing = document.getElementById("poets_competing");
@@ -39,6 +48,7 @@ function page_change_competition() {
       temp();
       document.getElementById("poets_competing").setAttribute("hidden", null);
       document.getElementById("poet_lookup").setAttribute("hidden", null);
+      // We can make a class="hide on loggout"
     };
   }
 }
