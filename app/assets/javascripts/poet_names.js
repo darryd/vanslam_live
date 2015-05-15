@@ -379,7 +379,7 @@ function onkeydown() {
 
 /*-----------------------------------------------------------------------*/
 
-window.show_keyCode = true;
+//window.show_keyCode = true;
 document.onkeydown = function () {
 
   if (window.show_keyCode)

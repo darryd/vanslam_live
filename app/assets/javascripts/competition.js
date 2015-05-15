@@ -95,6 +95,12 @@ function click_poet(button) {
 
   // Create new request for a new performance
 
+  var performance = performance_new(button.name);
+  var performance_ui = performance_ui_new(performance);
+
+
+  $("#performances_" + button.round.round_number).append(performance_ui);
+
 
   // Remove the button
 
