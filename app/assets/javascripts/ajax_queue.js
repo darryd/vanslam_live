@@ -30,27 +30,33 @@ function start_next(ticket) {
 
   // Run ticket.done when request is complete.
   ticket.xmlhttp.onreadystatechange = function() {
-    if (ticket.xmlhttp.readyState==4 && ticket.xmlhttp.status==200)
+    if (ticket.xmlhttp.readyState==4 && ticket.xmlhttp.status==200) {
+      // Run done function.
       ticket.done(jQuery.parseJSON(ticket.xmlhttp.responseText));
-    
-    ticket.state = DONE;
+      ticket.state = DONE;
+    }
   };
 
-  // Get params
-  var params = ticket.get_params();
-  
   // Send request
   post_async(ticket.xmlhttp, ticket.url, ticket.get_params());
 
 }
 /*-----------------------------------------------------------------------*/
+// Returns an empty ticket. Tickets go on to the queue.
+// See send_echo_request() to see how this is done.
+
+function new_ticket() {
+  return {state: START, url: '', get_params: null, done: null};
+}
+
+/*-----------------------------------------------------------------------*/
 
 function send_echo_request(sentence) {
 
-  var ticket = {};
-  ticket.state = START;
+  var ticket = new_ticket();
+
   ticket.url = "/competition/echo";
-  
+
   ticket.get_params = function () {return {"sentence": sentence};};
 
   ticket.done = function(response_json) {console.log(response_json);};

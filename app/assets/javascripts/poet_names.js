@@ -130,6 +130,13 @@ function add_suggestions(table, names, name) {
     if (name.replace(/\s+/g, ' ').trim().toLowerCase() == names[i].toLowerCase()) {
       cell.style.backgroundColor = "#C6AEC7";
       table.is_poet_in_database = true;
+
+      // We'll save the name as it is in the database so that when we press the select button
+      // we have the name as it is saved in the database
+      // (not as the scorekeeper entered it (perhaps the scorekeeper entered the name in all lowercase.
+      // 'jane instead of 'Jane').
+      table.name_as_stored_in_database = names[i];
+
     }
 
   }
@@ -197,7 +204,7 @@ function init_suggestions(table) {
 }
 
 /*-----------------------------------------------------------------------*/
-function able_button(button) {
+function enable_button(button) {
 
   button.removeAttribute('disabled');
   button.innerHTML = "<span style='font-weight:bold;'>" + button.getAttribute('data-str') 
@@ -211,6 +218,9 @@ function disable_button(button) {
 }
 
 /*-----------------------------------------------------------------------*/
+/* Displays a message to the user to tell the user whether the name in 
+ * the input box is in the database. 
+ */
 function display_whether_in_database(table, name) {
 
   var select_button = document.getElementById(table.id + "_select");
@@ -230,7 +240,7 @@ function display_whether_in_database(table, name) {
 
   if (table.is_poet_in_database) {
 
-    able_button(select_button);
+    enable_button(select_button);
     disable_button(create_button);
 
 
@@ -247,7 +257,7 @@ function display_whether_in_database(table, name) {
   {
 
     disable_button(select_button);
-    able_button(create_button);
+    enable_button(create_button);
 
     message_div.innerHTML = "<p style='color:black;'>" 
       + "<span style='font-weight:bold'>Poet </span>"

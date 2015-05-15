@@ -29,8 +29,10 @@ $(document).on('page:change', function () {
 /*-------------------------------------------------------------------------------------*/
 function prepare_rounds() {
 
-  for (var i=0; i<rounds.length; i++)
+  for (var i=0; i<rounds.length; i++) {
     rounds[i].round_js = round_new(0); // FIXME: param wrong
+    rounds[i].performances = {};
+  }
 
 }
 /*-------------------------------------------------------------------------------------*/

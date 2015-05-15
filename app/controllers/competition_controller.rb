@@ -2,6 +2,9 @@ require File.expand_path('../../../app/middleware/chat_backend', __FILE__)
 
 class CompetitionController < ApplicationController
 
+  #-----------------------------------------------------------------------------------------#
+  # Displays the competition
+
   def show
     begin
       @slam = Competition.find(params[:id])
@@ -10,10 +13,16 @@ class CompetitionController < ApplicationController
     end
   end
 
+  #-----------------------------------------------------------------------------------------#
   def echo
     render json: {:sentence => params[:sentence], :reverse => params[:sentence].reverse};
   end
 
+  #-----------------------------------------------------------------------------------------#
+  # Creates a new performance
+  #
+  # Params: round_id, name
+ 
   def new_performance
 
     if not is_logged_in()
@@ -42,6 +51,7 @@ class CompetitionController < ApplicationController
     ChatDemo::ChatBackend.hello({:event => "new_peformance", :performance_id => performance.id, :poet_name => poet.name, :round_number => round.round_number})
 
   end
+  #-----------------------------------------------------------------------------------------#
 
 end
 

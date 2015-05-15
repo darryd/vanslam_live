@@ -46,7 +46,7 @@ function poet_select() {
   var poet_lookup = document.getElementById('poet_lookup');
   var suggestions_input = document.getElementById('suggestions_input');
 
-  var name = suggestions_input.value;
+  var name = document.getElementById('suggestions').name_as_stored_in_database;
 
   // Don't Select Poet if Poet has already been selected.
   if (poets_competing.poet_names.indexOf(name) == -1) {
@@ -92,6 +92,15 @@ function add_poet_to_round(name, round) {
   d.appendChild(button);
 }
 /*-----------------------------------------------------------------------*/
+
+/*
+ * When this is clicked a new_performance request is sent to the server.
+ *
+ * A performance_ui is created.
+ *
+ */
+
+
 function click_poet(button) {
 
   // Create new request for a new performance
@@ -99,10 +108,14 @@ function click_poet(button) {
   var performance = performance_new(button.name);
   var performance_ui = performance_ui_new(performance);
 
+  // We add the performance to the round.
   button.round.round_js.add_performance(performance);
 
   $("#performances_" + button.round.round_number).append(performance_ui);
 
+  // Send request to server
+  
+  new_performance_request(button.round, button.name, performance_ui);
 
   // Remove the button
   var class_name = button.className;
