@@ -38,6 +38,8 @@ function post_async(xmlhttp, url, params) {
 }
 /*-----------------------------------------------------------------------*/
 
+/* This is when the scorekeeper clicks on enters on a suggestion.
+ */
 function suggest_onclick(cell) {
 
   var input_id = $(cell).parents('table').attr('id') + '_input';
@@ -50,6 +52,9 @@ function suggest_onclick(cell) {
   remove_suggestions(table);
   table.is_poet_in_database = true;
   display_whether_in_database(table, input.value);
+  
+  // This is the variable that the select button uses.
+  table.name_as_stored_in_database = input.value;
 }
 
 /*-----------------------------------------------------------------------*/
