@@ -77,6 +77,9 @@ class CompetitionController < ApplicationController
     judge.value = params[:value].to_f
     judge.save
 
+
+    ChatDemo::ChatBackend.hello(:event => "judge", :judge_name => judge_name, :value => judge.value) 
+
     render json: {:result => true, :judge => judge}
   end
   #-----------------------------------------------------------------------------------------#

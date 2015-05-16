@@ -24,3 +24,19 @@ function new_performance_request(round, name, performance_ui){
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function judge_request(performance_id, judge_i, value) {
+
+  var ticket = new_ticket();
+  
+  ticket.url = "/competition/judge";
+  ticket.get_params = function() {
+    return {performance_id: performance_id, judge_name: judge_i, value: value};
+  };
+  ticket.done = function(response_json) {
+    console.log(response_json);
+  };
+
+  window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/
+
