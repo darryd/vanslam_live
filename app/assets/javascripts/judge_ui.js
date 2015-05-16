@@ -9,16 +9,18 @@
 
 
    judge_ui.performance.judge(judge_ui.judge_i, parseFloat(judge_ui.input.value));
+   judge_ui.comm.score_entered(judge_ui.judge_i, parseFloat(judge_ui.input.value));
  }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
-judge_ui_new = function (performance, judge_i) {
+judge_ui_new = function (performance, judge_i, comm) {
 
  var judge_ui = {};
 
  judge_ui.performance = performance;
  judge_ui.judge_i = judge_i;
+ judge_ui.comm = comm;
  
  judge_ui.input = create_input(judge_ui, "score_entered(this.ui)");
 

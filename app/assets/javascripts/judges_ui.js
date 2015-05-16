@@ -1,6 +1,6 @@
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-judges_ui_new = function(performance /*, num_judges*/) {
+judges_ui_new = function(performance, comm /*, num_judges*/) {
 
   var table = document.createElement("table");
   table.judges = [];
@@ -16,7 +16,7 @@ judges_ui_new = function(performance /*, num_judges*/) {
   for (var i=0; i<num_judges; i++) {
     td = document.createElement("td");
 
-    table.judges.push(judge_ui_new(performance, i));
+    table.judges.push(judge_ui_new(performance, i, comm));
     td.appendChild(table.judges[i]);
     tr.appendChild(td);
   }

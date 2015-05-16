@@ -5,6 +5,7 @@ function performance_ui_new(performance) {
   var table = document.createElement("table");
 
   table.performance = performance;
+  table.comm = comm_new(); // Create comm object for communication with the server.
 
   table.tr = document.createElement("tr");
   table.appendChild(table.tr);
@@ -18,7 +19,7 @@ function performance_ui_new(performance) {
   table.tr = document.createElement("tr");
   table.appendChild(table.tr);
 
-  table.judges_ui =  judges_ui_new(performance);
+  table.judges_ui =  judges_ui_new(performance, table.comm);
   table.time_ui = time_ui_new(performance);
   table.penalty_ui =  penalty_ui_new(performance);
   table.score_ui =  score_ui_new(performance);

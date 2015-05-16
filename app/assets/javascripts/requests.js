@@ -15,9 +15,10 @@ function new_performance_request(round, name, performance_ui){
 
 // TODO We can check response_json.result
 
-    performance_ui.performance_id = response_json.performance_id;
-    round.performances[response_json.performance_id] = performance_ui;
-
+    var performance_id = response_json.performance_id;
+    
+    performance_ui.comm.performance_id = performance_id;
+    round.performances[performance_id] = performance_ui;
   };
 
   window.ajax_queue.push(ticket);
