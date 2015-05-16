@@ -53,5 +53,17 @@ class CompetitionController < ApplicationController
   end
   #-----------------------------------------------------------------------------------------#
 
+  # performance_id, judge_number
+
+  def judge
+    if not_allowed()
+      return
+    end
+
+    render json: {:result => true}
+  end
+  #-----------------------------------------------------------------------------------------#
+
+
 end
 
