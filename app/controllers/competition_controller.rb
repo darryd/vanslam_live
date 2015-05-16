@@ -48,7 +48,7 @@ class CompetitionController < ApplicationController
     performance.save
 
     render json: {:result  => true, :performance_id => performance.id}    
-    ChatDemo::ChatBackend.hello({:event => "new_peformance", :performance_id => performance_id, :poet_name => poet.name, :round_number => round.round_number})
+    ChatDemo::ChatBackend.hello({:event => "new_peformance", :performance_id => performance.id, :poet_name => poet.name, :round_number => round.round_number})
 
   end
   #-----------------------------------------------------------------------------------------#
@@ -78,7 +78,7 @@ class CompetitionController < ApplicationController
     judge.save
 
 
-    ChatDemo::ChatBackend.hello(:event => "judge", :performance_id => performance_id, :judge_name => judge_name, :value => judge.value) 
+    ChatDemo::ChatBackend.hello(:event => "judge", :performance_id => performance.id, :judge_name => judge_name, :value => judge.value) 
 
     render json: {:result => true, :judge => judge}
   end
