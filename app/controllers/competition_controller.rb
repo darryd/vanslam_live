@@ -60,11 +60,24 @@ class CompetitionController < ApplicationController
       return
     end
 
-    if missing_params(params, ['performance_id', 'judge_name'])
+    if missing_params(params, ['performance_id', 'judge_name', 'value'])
       return
     end
 
-    render json: {:result => true}
+    begin
+      performance = Performance.find(params[:performance_id])
+    rescue
+      render json: {:result => false, :message => "Could not find performance."}
+      return
+    end
+
+    judge_name = params[:judge_name]
+    judge = performance.judges.where(judge_name: judge_name).first_or_create(:judge_name=>judge_name) 
+
+    judge.value = params[:value].to_f
+    judge.save
+
+    render json: {:result => true, :judge => judge}
   end
   #-----------------------------------------------------------------------------------------#
 
