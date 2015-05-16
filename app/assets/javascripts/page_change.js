@@ -41,6 +41,9 @@ function page_change_competition() {
   prepare_rounds();
 
   if (get_login_info().is_logged_in) {
+
+    window.web_sock_id = makeid(20);
+
     var poets_competing = document.getElementById("poets_competing");
     poets_competing.removeAttribute('hidden');
     poets_competing.poet_names = [];
