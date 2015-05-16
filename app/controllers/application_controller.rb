@@ -42,5 +42,19 @@ class ApplicationController < ActionController::Base
 
 
   #------------------------------------------------------------------------------------#
+  
+  def missing_params (params, expected)
+
+    expected.each do |param|
+
+      if not params.has_key?(param)
+	render json: {:result => false, :message => "Missing paramater: " + param}
+	return true
+      end
+    end
+    false
+
+  end
+  #------------------------------------------------------------------------------------#
 
 end

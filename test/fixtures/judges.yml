@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  performance_id: 1
+  judge_name: MyString
+
+two:
+  performance_id: 1
+  judge_name: MyString

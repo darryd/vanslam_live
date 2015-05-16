@@ -53,10 +53,14 @@ class CompetitionController < ApplicationController
   end
   #-----------------------------------------------------------------------------------------#
 
-  # performance_id, judge_number
+  # performance_id, judge_name
 
   def judge
     if not_allowed()
+      return
+    end
+
+    if missing_params(params, ['performance_id', 'judge_name'])
       return
     end
 
