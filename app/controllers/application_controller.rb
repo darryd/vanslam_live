@@ -30,5 +30,17 @@ class ApplicationController < ActionController::Base
 
   end
   #------------------------------------------------------------------------------------#
+  def not_allowed
+
+    if not is_logged_in()
+      render json: {:result => false, :message => "You must be logged in to do that."}
+      return true
+    end
+
+    false
+  end
+
+
+  #------------------------------------------------------------------------------------#
 
 end

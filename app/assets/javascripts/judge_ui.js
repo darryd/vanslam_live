@@ -23,6 +23,7 @@ judge_ui_new = function (performance, judge_i) {
  judge_ui.input = create_input(judge_ui, "score_entered(this.ui)");
 
  var table = build_input_table("" + (judge_i + 1), judge_ui.input);
+// table.judge_ui = judge_ui;
 
  // Info
  var tr = document.createElement("tr");

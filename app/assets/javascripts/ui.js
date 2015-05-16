@@ -19,7 +19,6 @@ function insert_into_table(table, input_table) {
   td.appendChild(input_table);
   table.tr.appendChild(td);
   table.appendChild(table.tr);
-
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
