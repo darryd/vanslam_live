@@ -30,6 +30,12 @@ function start_next(ticket) {
 
   // Run ticket.done when request is complete.
   ticket.xmlhttp.onreadystatechange = function() {
+
+    console.log(ticket.xmlhttp);
+    console.log(['ReadyState', ticket.xmlhttp.readyState]);
+    console.log(['status', ticket.xmlhttp.status]);
+
+
     if (ticket.xmlhttp.readyState==4 && ticket.xmlhttp.status==200) {
       // Run done function.
       ticket.done(jQuery.parseJSON(ticket.xmlhttp.responseText));
@@ -64,4 +70,21 @@ function send_echo_request(sentence) {
   window.ajax_queue.push(ticket);
 }
 
+/*-----------------------------------------------------------------------*/
+function default_functions(xmlhttp) {
+
+  var funcs = _.keys(xmlhttp);
+  var func_patt = /^on/;
+
+  for (var i=0; i<funcs.length; i++) {
+
+    if (funcs[i] != "onreadystatechange" && func_patt.test(funcs[i])) {
+      console.log (funcs[i]);
+
+      xmlhttp[funcs[i]] = function() {
+	console.log(funcs['+i+'] + " function called.");
+      }
+    }
+  }
+}
 /*-----------------------------------------------------------------------*/
