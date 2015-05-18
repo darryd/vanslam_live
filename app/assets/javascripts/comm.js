@@ -16,7 +16,7 @@ function comm_new (performance_id) {
 
      // Notify server
      // for now just print result
-     console.log ([judge_i, score]);
+     console.log ([this.performance_id, judge_i, score]);
 
      judge_request(this.performance_id, judge_i, score); // BOOKMARK
 

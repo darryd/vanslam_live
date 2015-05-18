@@ -57,8 +57,6 @@ class CompetitionController < ApplicationController
 
   def judge
 
-    ChatDemo::ChatBackend.hello(params)  # Debug
-
     if not_allowed()
       return
     end
