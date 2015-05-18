@@ -104,6 +104,22 @@ class CompetitionController < ApplicationController
 
   end
   #-----------------------------------------------------------------------------------------#
+  def get_event_number
+
+    if missing_params(params, ['competition_id'])
+      return
+    end
+    
+    begin
+      competition = Competition.find(params[:competition_id])
+    rescue
+      render json: {:result => false, :message => "Could not find competition."}
+      return
+    end
+
+    render json: {:result => true, :event_number => competition.event_number}
+  end
+  #-----------------------------------------------------------------------------------------#
   def new_event(competition, event_hash)
 
     competition.with_lock do
