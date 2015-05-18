@@ -51,7 +51,10 @@ function default_functions(xmlhttp) {
 
 function closure(str) {
 
-  return function () { console.log(str + " function called.");};
+  return function (e) { 
+    console.log(str + " function called.");
+    console.log(e);
+  };
 }
 
 /*-------------------------------------------------------------------------------------*/
@@ -74,17 +77,17 @@ function get_xmlhttp() {
 /*-------------------------------------------------------------------------------------*/
 function get_json(url) {
 
- var xmlhttp = get_xmlhttp();
+  var xmlhttp = get_xmlhttp();
 
- xmlhttp.open("GET", url, false);
- xmlhttp.send();
+  xmlhttp.open("GET", url, false);
+  xmlhttp.send();
 
- return jQuery.parseJSON(xmlhttp.responseText);
+  return jQuery.parseJSON(xmlhttp.responseText);
 }
 
 /*-------------------------------------------------------------------------------------*/
 function get_login_info() {
 
- return get_json("/welcome/check_login");
+  return get_json("/welcome/check_login");
 }
 /*-------------------------------------------------------------------------------------*/
