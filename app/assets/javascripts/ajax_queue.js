@@ -44,7 +44,7 @@ function start_next(ticket) {
   };
 
   // If there's an error reset to START
-  ticket.onerror = function() {
+  ticket.xmlhttp.onerror = function() {
     ticket.state = START;
   };
 
