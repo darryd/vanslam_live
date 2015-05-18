@@ -43,6 +43,11 @@ function start_next(ticket) {
     }
   };
 
+  // If there's an error reset to START
+  ticket.onerror = function() {
+    ticket.state = START;
+  };
+
   // Send request
   post_async(ticket.xmlhttp, ticket.url, ticket.get_params());
 

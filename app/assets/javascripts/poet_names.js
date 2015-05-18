@@ -193,6 +193,7 @@ function get_suggestions_from_server(table, data) {
       data.state = "done";
     }
   };
+  xmlhttp.onerror = function () { data.state = "start"; }; // reset try again later
 
   post_async(xmlhttp, "/poet/post_suggestions", {name: name, limit: 50});
   return;
