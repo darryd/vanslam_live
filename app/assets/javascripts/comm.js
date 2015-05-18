@@ -17,6 +17,7 @@ function comm_new (name) {
    
 
     var performance_id = window.performance_ids[comm.name];
+    alert (performance_id);
 
      // Notify server
      console.log ([performance_id, judge_i, score]);
