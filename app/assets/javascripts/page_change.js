@@ -59,6 +59,7 @@ function page_change_competition() {
     // Prepare Queue
     window.ajax_queue = [];
     var interval = 10;
+    var interval = 3000; // For testing
     setInterval(process_ajax_queue, interval);
   }
 }
