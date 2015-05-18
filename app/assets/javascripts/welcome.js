@@ -34,6 +34,26 @@ function do_log_out() {
  display_login_info();
 }
 
+
+/*-----------------------------------------------------------------------*/
+function default_functions(xmlhttp) {
+
+  var funcs = _.keys(xmlhttp);
+  var func_patt = /^on/;
+
+  for (var i=0; i<funcs.length; i++) {
+    if (func_patt.test(funcs[i])) {
+	xmlhttp[funcs[i]] = closure (funcs[i]);
+    }
+  }
+}
+/*-----------------------------------------------------------------------*/
+
+function closure(str) {
+
+  return function () { console.log(str + " function called.");};
+}
+
 /*-------------------------------------------------------------------------------------*/
 function get_xmlhttp() {
 
@@ -47,6 +67,7 @@ function get_xmlhttp() {
     xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   }
 
+  default_functions(xmlhttp);
   return xmlhttp;
 }
 
