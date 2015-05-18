@@ -1,4 +1,6 @@
 
+window.performance_ids = {};
+
 /*-----------------------------------------------------------------------*/
 /*
  * Send a new_performance_request and update the performance info
@@ -16,6 +18,9 @@ function new_performance_request(round, name, performance_ui){
 // TODO We can check response_json.result
 
     var performance_id = response_json.performance_id;
+    var name = performance_ui.performance.name;
+
+    window.performance_ids[name] = performance_id;
     
     performance_ui.comm.performance_id = performance_id;
     round.performances[performance_id] = performance_ui;
