@@ -12,13 +12,14 @@ function comm_new (performance_id) {
 
   comm.performance_id = performance_id;
 
-  comm.score_entered = function(judge_i, score) {
+  // This function gets called inside of judge_ui.js
+  comm.score_entered = function(performance_id, judge_i, score) {
+   
 
      // Notify server
-     // for now just print result
-     console.log ([this.performance_id, judge_i, score]);
+     console.log ([performance_id, judge_i, score]);
 
-     judge_request(this.performance_id, judge_i, score); // BOOKMARK
+     judge_request(performance_id, judge_i, score); // BOOKMARK
 
   }
 

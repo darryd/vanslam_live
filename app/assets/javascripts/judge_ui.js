@@ -9,7 +9,7 @@
 
 
    judge_ui.performance.judge(judge_ui.judge_i, parseFloat(judge_ui.input.value));
-   judge_ui.comm.score_entered(judge_ui.judge_i, parseFloat(judge_ui.input.value));
+   judge_ui.comm.score_entered(judge_ui.comm.performance_id, judge_ui.judge_i, parseFloat(judge_ui.input.value));
  }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
