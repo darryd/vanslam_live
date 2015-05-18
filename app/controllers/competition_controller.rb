@@ -56,6 +56,9 @@ class CompetitionController < ApplicationController
   # performance_id, judge_name
 
   def judge
+
+    ChatDemo::ChatBackend.hello(params)  // Debug
+
     if not_allowed()
       return
     end
