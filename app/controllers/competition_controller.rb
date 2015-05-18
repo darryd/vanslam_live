@@ -48,7 +48,18 @@ class CompetitionController < ApplicationController
     performance.save
 
     render json: {:result  => true, :performance_id => performance.id}    
-    ChatDemo::ChatBackend.hello({:event => "new_peformance", :performance_id => performance.id, :poet_name => poet.name, :round_number => round.round_number})
+    
+    # Send event to web socket
+
+    event_hash = {};
+    event_hash[:event] = "new_performance"
+    event_hash[:performance_id] = performance.id
+    event_hash[:poet_name] = poet.name
+    event_hash[:round_number] = round.round_number
+
+
+    competition = performance.round.competition
+    new_event(competition, event_hash)
 
   end
   #-----------------------------------------------------------------------------------------#
@@ -78,10 +89,50 @@ class CompetitionController < ApplicationController
     judge.value = params[:value].to_f
     judge.save
 
-
-    ChatDemo::ChatBackend.hello(:event => "judge", :performance_id => performance.id, :judge_name => judge_name, :value => judge.value) 
-
     render json: {:result => true, :judge => judge}
+
+    # Send event to web socket
+
+    event_hash = {}
+    event_hash[:event] = "judge"
+    event_hash[:performance_id] = performance.id
+    event_hash[:judge_name] = judge_name
+    event_hash[:value] = judge.value
+
+    competition = performance.round.competition
+    new_event(competition, event_hash)
+
+  end
+  #-----------------------------------------------------------------------------------------#
+  def new_event(competition, event_hash)
+
+    competition.with_lock do
+
+      # Update Competition
+      if competition.event_number == nil
+	competition.event_number = 0
+      end
+
+      event_number = competition.event_number + 1
+
+      competition.event_number = event_number
+      competition.save
+
+      # Update Event
+      event = Event.new(competition_id: competition.id)
+      event.event_number = event_number
+      event.event = event_hash.to_json.to_s
+
+      # Save scorekeeper_id
+      event.scorekeeper_id = is_logged_in.scorekeeper_id
+      event.save
+
+      event_hash[:event_number] = event_number
+      event_hash[:competition_id] = competition.id
+    end
+
+    ChatDemo::ChatBackend.hello(event_hash)
+
   end
   #-----------------------------------------------------------------------------------------#
 

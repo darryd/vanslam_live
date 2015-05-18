@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event_number: 1
+  competition_id: 1
+  scorekeeper_id: 1
+  event: MyString
+
+two:
+  event_number: 1
+  competition_id: 1
+  scorekeeper_id: 1
+  event: MyString
