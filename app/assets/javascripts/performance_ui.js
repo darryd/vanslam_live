@@ -5,7 +5,7 @@ function performance_ui_new(performance) {
   var table = document.createElement("table");
 
   table.performance = performance;
-  table.comm = comm_new(); // Create comm object for communication with the server.
+  table.comm = comm_new(performance.name); // Create comm object for communication with the server.
 
   table.tr = document.createElement("tr");
   table.appendChild(table.tr);

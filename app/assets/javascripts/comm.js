@@ -6,15 +6,17 @@
  *
  * */
 
-function comm_new (performance_id) {
+function comm_new (name) {
 
   var comm = {};
 
-  comm.performance_id = performance_id;
+  comm.name = name;
 
   // This function gets called inside of judge_ui.js
-  comm.score_entered = function(performance_id, judge_i, score) {
+  comm.score_entered = function(judge_i, score) {
    
+
+    var performance_id = window.performance_ids[this.name];
 
      // Notify server
      console.log ([performance_id, judge_i, score]);
