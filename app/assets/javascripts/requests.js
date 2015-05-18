@@ -33,12 +33,16 @@ function new_performance_request(round, name, performance_ui){
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
-function judge_request(performance_id, judge_i, value) {
+function judge_request(comm, judge_i, value) {
 
   var ticket = new_ticket();
   
   ticket.url = "/competition/judge";
   ticket.get_params = function() {
+
+
+    var performance_id = window.performance_ids[comm.name];
+
     return {performance_id: performance_id, judge_name: judge_i, value: value};
   };
   ticket.done = function(response_json) {

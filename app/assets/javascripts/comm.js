@@ -17,12 +17,12 @@ function comm_new (name) {
    
 
     var performance_id = window.performance_ids[comm.name];
-    alert (performance_id);
+    //alert (performance_id);
 
      // Notify server
-     console.log ([performance_id, judge_i, score]);
+     //console.log ([performance_id, judge_i, score]);
 
-     judge_request(performance_id, judge_i, score); // BOOKMARK
+     judge_request(comm, judge_i, score); // BOOKMARK
 
   }
 
