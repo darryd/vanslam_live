@@ -10,6 +10,9 @@ function new_performance_request(round, name, performance_ui){
 
   var ticket = new_ticket();
 
+  // TESTING 
+  round.performances[performance_id] = performance_ui;
+
   ticket.url = "/competition/new_performance";
   ticket.get_params = function() { return({round_id: round.id, name: name})};
   ticket.done = function(response_json) {
@@ -23,7 +26,7 @@ function new_performance_request(round, name, performance_ui){
     window.performance_ids[name] = performance_id;
     
     performance_ui.comm.performance_id = performance_id;
-    round.performances[performance_id] = performance_ui;
+    //round.performances[performance_id] = performance_ui;
   };
 
   window.ajax_queue.push(ticket);
