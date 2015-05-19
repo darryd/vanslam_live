@@ -19,11 +19,11 @@ function comm_new (name) {
 
   
   comm.set_time = function(comm, minutes, seconds) {
-    alert (minutes + ":" + seconds);
+    set_time_request(comm, minutes, seconds);
   };
 
   comm.set_penalty = function(comm, penalty) {
-    alert (penalty);
+    set_penalty_request(comm, penalty);
   };
 
   return comm;

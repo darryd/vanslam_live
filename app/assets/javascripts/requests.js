@@ -52,4 +52,39 @@ function judge_request(comm, judge_i, value) {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function set_time_request(comm, minutes, seconds) {
 
+  var ticket = new_ticket();
+
+  ticket.url = "/competition/set_time";
+  ticket.get_params = function() {
+
+    var performance_id = window.performance_ids[comm.name];
+
+    return {performance_id: performance_id, minutes: minutes,seconds: seconds, web_sock_id: window.web_sock_id};
+  };
+
+  ticket.done = function(response_json) {console.log(response_json);};
+
+  window.ajax_queue.push(ticket);
+}
+
+/*-----------------------------------------------------------------------*/
+function set_penalty_request(comm, penalty) {
+
+  var ticket = new_ticket();
+
+  ticket.url = "/competition/set_penalty";
+  ticket.get_params = function() {
+
+    var performance_id = window.performance_ids[comm.name];
+
+    return {performance_id: performance_id, penalty: penalty, web_sock_id: window.web_sock_id};
+  };
+
+  ticket.done = function(response_json) {console.log(response_json);};
+
+  window.ajax_queue.push(ticket);
+}
+
+/*-----------------------------------------------------------------------*/
