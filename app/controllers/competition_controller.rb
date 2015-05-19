@@ -119,7 +119,23 @@ class CompetitionController < ApplicationController
       return
     end
 
-    render json: {:result => false, :message => "This request coming soon..."}
+
+    begin
+      performance = Performance.find(params[:performance_id])
+    rescue
+      render json: {:result => false, :message => "Could not find performance"}
+      return
+    end
+
+    performance.minutes = params[:minutes].to_i
+    performance.seconds = params[:seconds].to_i
+
+    performance.save
+
+
+    # TODO send event to web socket
+
+    render json: {:result => true, :performance => performance}
 
   end
 

@@ -66,30 +66,6 @@ class PoetController < ApplicationController
 
   end
   #------------------------------------------------------------------------------------#
-
-  # Lower scores are better!
-  def score_match(str, substr)
-
-    score = str.length
-
-    words = str.gsub(/s+/m, ' ').split(' ')
-
-    words.each do |word|
-      if substr == word
-	score = word.length
-	break
-      end
-    end
-
-    if str == substr
-      score = 0
-    end
-
-    score
-  end
-
-  #------------------------------------------------------------------------------------#
-
   def lookup
   end
 
