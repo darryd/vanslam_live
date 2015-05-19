@@ -37,6 +37,12 @@ Rails.application.routes.draw do
   get "competition/get_event"
   post "competition/get_event"
 
+  get "competition/set_time"
+  post "competition/set_time"
+  
+  get "competition/set_penalty"
+  post "competition/set_penalty"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

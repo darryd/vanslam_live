@@ -20,8 +20,8 @@ function performance_ui_new(performance) {
   table.appendChild(table.tr);
 
   table.judges_ui =  judges_ui_new(performance, table.comm);
-  table.time_ui = time_ui_new(performance);
-  table.penalty_ui =  penalty_ui_new(performance);
+  table.time_ui = time_ui_new(performance, table.comm);
+  table.penalty_ui =  penalty_ui_new(performance, table.comm);
   table.score_ui =  score_ui_new(performance);
   table.subscore_ui = subscore_ui_new(performance);
   table.cum_score_ui = cum_score_ui_new(performance);

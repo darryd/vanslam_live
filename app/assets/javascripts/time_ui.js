@@ -1,9 +1,10 @@
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
-time_ui_new = function (performance) {
+time_ui_new = function (performance, comm) {
 
   var time_ui = {};
+  time_ui.comm = comm;
   time_ui.performance = performance;
 
   time_ui.input_minute = create_input(time_ui, "set_time(this.ui)"); 
@@ -55,5 +56,7 @@ function set_time(time_ui) {
   var seconds = parse_int_or_return_zero(time_ui.input_second.value);
 
   time_ui.performance.set_time(minutes, seconds);
+  time_ui.comm.set_time(time_ui.comm, minutes, seconds);
+
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/

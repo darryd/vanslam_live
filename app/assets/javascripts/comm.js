@@ -14,17 +14,17 @@ function comm_new (name) {
 
   // This function gets called inside of judge_ui.js
   comm.score_entered = function(comm, judge_i, score) {
-   
+    judge_request(comm, judge_i, score);
+  };
 
-    var performance_id = window.performance_ids[comm.name];
-    //alert (performance_id);
+  
+  comm.set_time = function(comm, minutes, seconds) {
+    alert (minutes + ":" + seconds);
+  };
 
-     // Notify server
-     //console.log ([performance_id, judge_i, score]);
-
-     judge_request(comm, judge_i, score); // BOOKMARK
-
-  }
+  comm.set_penalty = function(comm, penalty) {
+    alert (penalty);
+  };
 
   return comm;
 }

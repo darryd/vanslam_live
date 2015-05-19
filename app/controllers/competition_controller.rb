@@ -110,6 +110,20 @@ class CompetitionController < ApplicationController
 
   end
   #-----------------------------------------------------------------------------------------#
+  def set_time
+    if not_allowed()
+      return
+    end
+  end
+
+  #-----------------------------------------------------------------------------------------#
+  def set_penalty
+    if not_allowed()
+      return
+    end
+  end
+
+  #-----------------------------------------------------------------------------------------#
   def get_current_event_number
 
     if missing_params(params, ['competition_id'])
