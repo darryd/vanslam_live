@@ -114,6 +114,13 @@ class CompetitionController < ApplicationController
     if not_allowed()
       return
     end
+
+    if missing_params(params, ['performance_id', 'minutes', 'seconds', 'web_sock_id'])
+      return
+    end
+
+    render json: {:result => false, :message => "This request coming soon..."}
+
   end
 
   #-----------------------------------------------------------------------------------------#
@@ -121,6 +128,12 @@ class CompetitionController < ApplicationController
     if not_allowed()
       return
     end
+
+    if missing_params(params, ['performance_id', 'penalty', 'web_sock_id'])
+      return
+    end
+
+    render json: {:result => false, :message => "This request coming soon..."}
   end
 
   #-----------------------------------------------------------------------------------------#
