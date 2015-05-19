@@ -25,8 +25,12 @@ class CompetitionController < ApplicationController
  
   def new_performance
 
-    if not is_logged_in()
-      render json: {:result => false, :message => "You must be logged in to do that."}
+
+    if not_allowed()
+      return
+    end
+
+    if missing_params(params, ['round_id', 'name', 'web_sock_id'])
       return
     end
 
@@ -54,6 +58,7 @@ class CompetitionController < ApplicationController
     event_hash = {};
     event_hash[:event] = "new_performance"
     event_hash[:performance_id] = performance.id
+    event_hash[:web_sock_id] = params[:web_sock_id]
     event_hash[:poet_name] = poet.name
     event_hash[:round_number] = round.round_number
 
@@ -72,7 +77,7 @@ class CompetitionController < ApplicationController
       return
     end
 
-    if missing_params(params, ['performance_id', 'judge_name', 'value'])
+    if missing_params(params, ['performance_id', 'judge_name', 'value', 'web_sock_id'])
       return
     end
 
@@ -96,6 +101,7 @@ class CompetitionController < ApplicationController
     event_hash = {}
     event_hash[:event] = "judge"
     event_hash[:performance_id] = performance.id
+    event_hash[:web_sock_id] = params[:web_sock_id]
     event_hash[:judge_name] = judge_name
     event_hash[:value] = judge.value
 
@@ -104,7 +110,7 @@ class CompetitionController < ApplicationController
 
   end
   #-----------------------------------------------------------------------------------------#
-  def get_event_number
+  def get_current_event_number
 
     if missing_params(params, ['competition_id'])
       return
@@ -120,9 +126,34 @@ class CompetitionController < ApplicationController
     render json: {:result => true, :event_number => competition.event_number}
   end
   #-----------------------------------------------------------------------------------------#
+  def get_event
+
+    if missing_params(params, ['competition_id', 'event_number'])
+      return
+    end
+
+    begin
+      competition = Competition.find(params[:competition_id])
+    rescue
+      render json: {:result => false, :message => "Could not find competition."}
+      return
+    end
+
+    event = competition.events.where(event_number: params[:event_number]).take
+
+    if event == nil
+      render json: {:result => false, :message => "Could not find event."}
+      return
+    end
+
+    event = JSON.parse(event.event)
+    render json: event
+  end
+  #-----------------------------------------------------------------------------------------#
   def new_event(competition, event_hash)
 
     competition.with_lock do
+
 
       # Update Competition
       if competition.event_number == nil
@@ -135,6 +166,10 @@ class CompetitionController < ApplicationController
       competition.save
 
       # Update Event
+      # add event_number and competition_id
+      event_hash[:event_number] = event_number
+      event_hash[:competition_id] = competition.id
+
       event = Event.new(competition_id: competition.id)
       event.event_number = event_number
       event.event = event_hash.to_json.to_s
@@ -143,8 +178,6 @@ class CompetitionController < ApplicationController
       event.scorekeeper_id = is_logged_in.scorekeeper_id
       event.save
 
-      event_hash[:event_number] = event_number
-      event_hash[:competition_id] = competition.id
     end
 
     ChatDemo::ChatBackend.hello(event_hash)

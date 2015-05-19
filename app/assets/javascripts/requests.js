@@ -14,7 +14,7 @@ function new_performance_request(round, name, performance_ui){
   round.performances[name] = performance_ui;
 
   ticket.url = "/competition/new_performance";
-  ticket.get_params = function() { return({round_id: round.id, name: name})};
+  ticket.get_params = function() { return({round_id: round.id, name: name, web_sock_id: window.web_sock_id})};
   ticket.done = function(response_json) {
     console.log(response_json);
 
@@ -43,7 +43,7 @@ function judge_request(comm, judge_i, value) {
 
     var performance_id = window.performance_ids[comm.name];
 
-    return {performance_id: performance_id, judge_name: judge_i, value: value};
+    return {performance_id: performance_id, judge_name: judge_i, value: value, web_sock_id: window.web_sock_id};
   };
   ticket.done = function(response_json) {
     console.log(response_json);

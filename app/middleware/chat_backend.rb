@@ -42,7 +42,7 @@ module ChatDemo
 
 	ws.on :message do |event|
 	  p [:message, event.data]
-	  $clients.each {|client| client.send(event.data) }
+#	  $clients.each {|client| client.send(event.data) }
 	end
 
 	ws.on :close do |event|

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get "poet/lookup"
 
 
-  get "welcome/chat"
+  #get "welcome/chat"
 
   get "competition/show"
 
@@ -31,8 +31,11 @@ Rails.application.routes.draw do
   get "competition/judge"
   post "competition/judge"
 
-  get "competition/get_event_number"
-  post "competition/get_event_number"
+  get "competition/get_current_event_number"
+  post "competition/get_current_event_number"
+
+  get "competition/get_event"
+  post "competition/get_event"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
