@@ -131,12 +131,20 @@ class CompetitionController < ApplicationController
     performance.seconds = params[:seconds].to_i
 
     performance.save
-
-
-    # TODO send event to web socket
-
     render json: {:result => true, :performance => performance}
 
+
+    # Send event to web socket
+    
+    event_hash = {}
+    event_hash[:event] = "set_time"
+    event_hash[:performance_id] = performance.id
+    event_hash[:web_sock_id] = params[:web_sock_id]
+    event_hash[:minutes] = performance.minutes
+    event_hash[:seconds] = performance.seconds
+
+    competition = performance.round.competition
+    new_event(competition, event_hash)
   end
 
   #-----------------------------------------------------------------------------------------#
