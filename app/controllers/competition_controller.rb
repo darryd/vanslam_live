@@ -22,7 +22,7 @@ class CompetitionController < ApplicationController
   # Creates a new performance
   #
   # Params: round_id, name
- 
+
   def new_performance
 
 
@@ -49,22 +49,28 @@ class CompetitionController < ApplicationController
     end
 
     performance = Performance.new(round_id: round.id, poet_id: poet.id)
-    performance.save
+    if performance.save
 
-    render json: {:result  => true, :performance_id => performance.id}    
-    
-    # Send event to web socket
+      render json: {:result  => true, :performance_id => performance.id}    
 
-    event_hash = {};
-    event_hash[:event] = "new_performance"
-    event_hash[:performance_id] = performance.id
-    event_hash[:web_sock_id] = params[:web_sock_id]
-    event_hash[:poet_name] = poet.name
-    event_hash[:round_number] = round.round_number
+      # Send event to web socket
+
+      event_hash = {};
+      event_hash[:event] = "new_performance"
+      event_hash[:performance_id] = performance.id
+      event_hash[:web_sock_id] = params[:web_sock_id]
+      event_hash[:poet_name] = poet.name
+      event_hash[:round_number] = round.round_number
 
 
-    competition = performance.round.competition
-    new_event(competition, event_hash)
+      competition = performance.round.competition
+      new_event(competition, event_hash)
+    else
+      # Error
+      render json: {result => false, :message => "Error saving to database"}
+      # TODO Some kind of log.
+
+    end
 
   end
   #-----------------------------------------------------------------------------------------#
@@ -92,22 +98,30 @@ class CompetitionController < ApplicationController
     judge = performance.judges.where(judge_name: judge_name).first_or_create(:judge_name=>judge_name) 
 
     judge.value = params[:value].to_f
-    judge.save
 
-    render json: {:result => true, :judge => judge}
 
-    # Send event to web socket
+    if judge.save
 
-    event_hash = {}
-    event_hash[:event] = "judge"
-    event_hash[:performance_id] = performance.id
-    event_hash[:web_sock_id] = params[:web_sock_id]
-    event_hash[:judge_name] = judge_name
-    event_hash[:value] = judge.value
+      render json: {:result => true, :judge => judge}
 
-    competition = performance.round.competition
-    new_event(competition, event_hash)
+      # Send event to web socket
 
+      event_hash = {}
+      event_hash[:event] = "judge"
+      event_hash[:performance_id] = performance.id
+      event_hash[:web_sock_id] = params[:web_sock_id]
+      event_hash[:judge_name] = judge_name
+      event_hash[:value] = judge.value
+
+      competition = performance.round.competition
+      new_event(competition, event_hash)
+
+    else
+
+      render json: {result => false, :message => "Error saving to database"}
+      # TODO Some kind of log.
+
+    end
   end
   #-----------------------------------------------------------------------------------------#
   def set_time
@@ -130,21 +144,26 @@ class CompetitionController < ApplicationController
     performance.minutes = params[:minutes].to_i
     performance.seconds = params[:seconds].to_i
 
-    performance.save
-    render json: {:result => true, :performance => performance}
+    if performance.save
+      render json: {:result => true, :performance => performance}
 
 
-    # Send event to web socket
-    
-    event_hash = {}
-    event_hash[:event] = "set_time"
-    event_hash[:performance_id] = performance.id
-    event_hash[:web_sock_id] = params[:web_sock_id]
-    event_hash[:minutes] = performance.minutes
-    event_hash[:seconds] = performance.seconds
+      # Send event to web socket
 
-    competition = performance.round.competition
-    new_event(competition, event_hash)
+      event_hash = {}
+      event_hash[:event] = "set_time"
+      event_hash[:performance_id] = performance.id
+      event_hash[:web_sock_id] = params[:web_sock_id]
+      event_hash[:minutes] = performance.minutes
+      event_hash[:seconds] = performance.seconds
+
+      competition = performance.round.competition
+      new_event(competition, event_hash)
+    else
+
+      render json: {result => false, :message => "Error saving to database"}
+      # TODO Some kind of log.
+    end
   end
 
   #-----------------------------------------------------------------------------------------#
@@ -157,7 +176,34 @@ class CompetitionController < ApplicationController
       return
     end
 
-    render json: {:result => false, :message => "This request coming soon..."}
+    begin
+      performance = Performance.find(params[:performance_id])
+    rescue
+      render json: {:result => false, :message => "Could not find performance"}
+      return
+    end
+
+    performance.penalty = params[:penalty].to_i
+
+    if performance.save
+      render json: {:result => true, :performance => performance}
+
+
+      # Send event to web socket
+
+      event_hash = {}
+      event_hash[:event] = "set_penalty"
+      event_hash[:performance_id] = performance.id
+      event_hash[:web_sock_id] = params[:web_sock_id]
+      event_hash[:penalty] = performance.penalty
+
+      competition = performance.round.competition
+      new_event(competition, event_hash)
+    else
+
+      render json: {result => false, :message => "Error saving to database"}
+      # TODO Some kind of log.
+    end
   end
 
   #-----------------------------------------------------------------------------------------#
@@ -166,7 +212,7 @@ class CompetitionController < ApplicationController
     if missing_params(params, ['competition_id'])
       return
     end
-    
+
     begin
       competition = Competition.find(params[:competition_id])
     rescue
@@ -198,6 +244,7 @@ class CompetitionController < ApplicationController
     end
 
     event = JSON.parse(event.event)
+    event[:result] = true
     render json: event
   end
   #-----------------------------------------------------------------------------------------#
@@ -214,7 +261,10 @@ class CompetitionController < ApplicationController
       event_number = competition.event_number + 1
 
       competition.event_number = event_number
-      competition.save
+      if not competition.save
+	#TODO log failure
+	return
+      end
 
       # Update Event
       # add event_number and competition_id
@@ -227,7 +277,10 @@ class CompetitionController < ApplicationController
 
       # Save scorekeeper_id
       event.scorekeeper_id = is_logged_in.scorekeeper_id
-      event.save
+      if not event.save
+	# TODO log failure
+	return 
+      end
 
     end
 
