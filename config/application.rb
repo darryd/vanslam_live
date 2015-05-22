@@ -28,6 +28,6 @@ module VanslamLive3
     config.middleware.use ChatDemo::ChatBackend
 
     config.force_ssl = true
-    config.filter_parameters += ['passwd', 'session_id', 'authenticity_token']
+    config.filter_parameters += ['passwd', 'authenticity_token']
   end
 end
