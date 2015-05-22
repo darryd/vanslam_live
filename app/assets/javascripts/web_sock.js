@@ -25,11 +25,13 @@ function connect_websocket() {
     };
 
     window.web_sock.onclose = function() {
+      console.log("websocket closed");
       keep_trying_to_connect();
 
     };
 
     window.web_sock.onerror = function() {
+      console.log("websocket error");
       keep_trying_to_connect();
     };
   }
