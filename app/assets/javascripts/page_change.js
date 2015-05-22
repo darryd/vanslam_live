@@ -2,7 +2,6 @@
 /*-------------------------------------------------------------------------------------*/
 $(document).on('page:change', function () {
 
-  window.init_web_sock();
 
 
   display_login_info();
@@ -59,6 +58,7 @@ function page_change_competition() {
     //var interval = 3000; // For testing
     setInterval(process_ajax_queue, interval);
   }
+  window.init_web_sock(); 
 }
 
 /*------------------------------------------------------------------------------------*/
