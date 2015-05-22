@@ -18,10 +18,12 @@ function comm_new (name) {
   };
 
   
+  // This function gets called inside of judge_ui.js
   comm.set_time = function(comm, minutes, seconds) {
     set_time_request(comm, minutes, seconds);
   };
 
+  // This function gets called inside of judge_ui.js
   comm.set_penalty = function(comm, penalty) {
     set_penalty_request(comm, penalty);
   };

@@ -1,5 +1,6 @@
 
 window.performance_ids = {};
+window.performances = {};
 
 /*-----------------------------------------------------------------------*/
 /*
@@ -11,7 +12,7 @@ function new_performance_request(round, name, performance_ui){
   var ticket = new_ticket();
 
   // TESTING 
-  round.performances[name] = performance_ui;
+  window.performances[name] = performance_ui;
 
   ticket.url = "/competition/new_performance";
   ticket.get_params = function() { return({round_id: round.id, name: name, web_sock_id: window.web_sock_id})};

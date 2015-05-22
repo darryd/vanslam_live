@@ -2,16 +2,8 @@
 /*-------------------------------------------------------------------------------------*/
 $(document).on('page:change', function () {
 
-  var scheme = "wss://";
-  var uri = scheme + window.document.location.host + "/";
-  window.web_sock = new WebSocket(uri);
+  window.init_web_sock();
 
-  default_functions(window.web_sock);
-
-
-
-  window.web_sock.onmessage = function(message) {console.log(message);};
-  window.web_sock.onclose = function() {console.log("websocket connection closed")};
 
   display_login_info();
 
@@ -36,7 +28,7 @@ function prepare_rounds() {
 
   for (var i=0; i<rounds.length; i++) {
     rounds[i].round_js = round_new(0); // FIXME: param wrong
-    rounds[i].performances = {};
+    //rounds[i].performances = {};
   }
 
 }
