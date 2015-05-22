@@ -16,14 +16,10 @@ function connect_websocket() {
 
     window.web_sock.onmessage = function(message) {
       console.log(message);
-      alert(message);
-
     };
 
     window.web_sock.onopen = function() {
       console.log("websocket connected.");
-      alert ("websocket connect")
-
     };
 
     window.web_sock.onclose = function() {
