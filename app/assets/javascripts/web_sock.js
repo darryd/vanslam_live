@@ -21,6 +21,7 @@ function connect_websocket() {
 
     window.web_sock.onopen = function() {
       console.log("websocket connected.");
+      alert ("websocket connect")
 
     };
 
