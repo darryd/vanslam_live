@@ -16,6 +16,7 @@ function connect_websocket() {
 
     window.web_sock.onmessage = function(message) {
       console.log(message);
+      alert(message);
 
     };
 
