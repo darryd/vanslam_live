@@ -5,6 +5,11 @@ $(document).on('page:change', function () {
   var scheme = "wss://";
   var uri = scheme + window.document.location.host + "/";
   window.web_sock = new WebSocket(uri);
+
+  default_functions(window.web_sock);
+
+
+
   window.web_sock.onmessage = function(message) {console.log(message);};
   window.web_sock.onclose = function() {console.log("websocket connection closed")};
 
