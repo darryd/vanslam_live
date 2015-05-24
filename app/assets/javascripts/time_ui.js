@@ -50,13 +50,16 @@ function parse_int_or_return_zero(val) {
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-function set_time(time_ui) {
+function set_time(time_ui, from_comm) {
 
   var minutes = parse_int_or_return_zero(time_ui.input_minute.value);
   var seconds = parse_int_or_return_zero(time_ui.input_second.value);
 
   time_ui.performance.set_time(minutes, seconds);
-  time_ui.comm.set_time(time_ui.comm, minutes, seconds);
+
+  // Don't send data to comm if data was from comm. 
+  if (!from_comm)
+    time_ui.comm.set_time(time_ui.comm, minutes, seconds);
 
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
