@@ -9,7 +9,10 @@ penalty_ui_new = function (performance, comm) {
   penalty_ui.performance = performance;
   penalty_ui.penalty_input = create_input(penalty_ui, "set_penalty(this.ui)");
 
-  return build_input_table("add penalty:", penalty_ui.penalty_input);
+  var table =  build_input_table("add penalty:", penalty_ui.penalty_input);
+  table.penalty_ui = penalty_ui;
+
+  return table;
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/

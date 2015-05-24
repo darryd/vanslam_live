@@ -14,7 +14,7 @@ function comm_new (performance_ui, name) {
   comm.name = name;
 
   comm.event_score = function(comm, judge_i, score) {
-    var judge_ui = comm.performance_ui.judges_ui.judges[judge_i].judge_ui;
+    var judge_ui = comm.performance_ui.judges.judges[judge_i].judge_ui;
     judge_ui.input.value = "" + score;
     score_entered(judge_ui, true);
   }
@@ -27,6 +27,12 @@ function comm_new (performance_ui, name) {
 
   comm.event_time = function(comm, minutes, seconds) {
 
+    var time_ui = comm.performance_ui.time.time_ui;
+
+    time_ui.input_minute.value = minutes;
+    time_ui.input_second.value = seconds;
+
+    set_time(time_ui, true);
   }
 
   // This function gets called inside of time_ui.js
@@ -36,6 +42,11 @@ function comm_new (performance_ui, name) {
 
 
   comm.event_penalty = function(comm, penalty) {
+
+    var penalty_ui = comm.performance_ui.penalty.penalty_ui;
+
+    penalty_ui.penalty_input.value = penalty;
+    set_penalty(penalty_ui, true);
 
   }
 

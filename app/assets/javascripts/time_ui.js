@@ -27,6 +27,7 @@ time_ui_new = function (performance, comm) {
   tr.appendChild(p);
   */
 
+  table.time_ui = time_ui;
   return table;
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/

@@ -19,21 +19,21 @@ function performance_ui_new(performance) {
   table.tr = document.createElement("tr");
   table.appendChild(table.tr);
 
-  table.judges_ui =  judges_ui_new(performance, table.comm);
-  table.time_ui = time_ui_new(performance, table.comm);
-  table.penalty_ui =  penalty_ui_new(performance, table.comm);
-  table.score_ui =  score_ui_new(performance);
-  table.subscore_ui = subscore_ui_new(performance);
-  table.cum_score_ui = cum_score_ui_new(performance);
-  table.rank_ui =  rank_ui_new(performance);
+  table.judges =  judges_ui_new(performance, table.comm);
+  table.time = time_ui_new(performance, table.comm);
+  table.penalty =  penalty_ui_new(performance, table.comm);
+  table.score =  score_ui_new(performance);
+  table.subscore = subscore_ui_new(performance);
+  table.cum_score = cum_score_ui_new(performance);
+  table.rank =  rank_ui_new(performance);
 
-  insert_into_table(table, table.judges_ui);
-  insert_into_table(table, table.time_ui);
-  insert_into_table(table, table.penalty_ui);
-  insert_into_table(table, table.score_ui);
-  insert_into_table(table, table.subscore_ui);
-  insert_into_table(table, table.cum_score_ui);
-  insert_into_table(table, table.rank_ui);
+  insert_into_table(table, table.judges);
+  insert_into_table(table, table.time);
+  insert_into_table(table, table.penalty);
+  insert_into_table(table, table.score);
+  insert_into_table(table, table.subscore);
+  insert_into_table(table, table.cum_score);
+  insert_into_table(table, table.rank);
 
   table.tr = document.createElement("tr");
   table.appendChild(table.tr);
