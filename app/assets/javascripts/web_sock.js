@@ -23,7 +23,10 @@ function connect_websocket() {
     window.web_sock = new WebSocket(uri);
 
     window.web_sock.onmessage = function(message) {
-      console.log(message);
+
+      event = jQuery.parseJSON(message.data);
+
+      process_event(event);
     };
 
     window.web_sock.onopen = function() {

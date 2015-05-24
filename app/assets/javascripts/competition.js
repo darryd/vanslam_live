@@ -103,6 +103,7 @@ function add_poet_to_round(name, round) {
 
 function click_poet(button) {
 
+// TODO Refactor code: this is somewhat duplicated in event_new_performance()
   // Create new request for a new performance
 
   var performance = performance_new(button.name);

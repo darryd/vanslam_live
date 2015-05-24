@@ -11,7 +11,6 @@ function new_performance_request(round, name, performance_ui){
 
   var ticket = new_ticket();
 
-  // TESTING 
   window.performances[name] = performance_ui;
 
   ticket.url = "/competition/new_performance";

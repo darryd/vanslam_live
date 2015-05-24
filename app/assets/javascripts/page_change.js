@@ -58,6 +58,7 @@ function page_change_competition() {
     //var interval = 3000; // For testing
     setInterval(process_ajax_queue, interval);
   }
+  slam.local_event_number = 0;
   window.init_web_sock(); 
 }
 

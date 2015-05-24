@@ -13,7 +13,7 @@ function comm_new (performance_ui, name) {
   comm.performance_ui = performance_ui;
   comm.name = name;
 
-  comm.event_score = function(comm, judge_i, score) {
+  comm.event_judge = function(comm, judge_i, score) {
     var judge_ui = comm.performance_ui.judges.judges[judge_i].judge_ui;
     judge_ui.input.value = "" + score;
     score_entered(judge_ui, true);
