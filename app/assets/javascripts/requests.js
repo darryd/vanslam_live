@@ -103,3 +103,21 @@ function get_event_request(event_number) {
 }
 
 /*-----------------------------------------------------------------------*/
+function get_current_event_number_request() {
+  
+  var ticket = new_ticket();
+
+  ticket.url = "/competition/get_current_event_number";
+  ticket.get_params = function() {return {competition_id: slam.id};};
+  ticket.done = function(response) {
+
+    slam.event_number = response.event_number;
+
+    if (slam.event_number > slam.local_event_number) {
+      event_catch_up(response.event_number);
+    }
+  };
+
+  window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/
