@@ -262,7 +262,7 @@ class CompetitionController < ApplicationController
       return
     end
 
-    events = competition.events.where("event_number >= ? and event_number <= ?", params[:event_number_i].to_i, params[:event_number_j].to_i)
+    events = competition.events.where("event_number >= ? and event_number <= ?", params[:event_number_i].to_i, params[:event_number_j].to_i).order(:event_number)
 
     result_events = [] # Array to send back to the client
     
