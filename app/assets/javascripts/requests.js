@@ -131,6 +131,7 @@ function get_event_range_request(event_number_i, event_number_j) {
     return {competition_id: slam.id, event_number_i: event_number_i, event_number_j: event_number_j};
   };
   ticket.done = function(response) {
+    console.log("response.events.length = " + response.events.length);
     for (var i=0; i<response.events.length; i++)
       do_event(response.events[i]);
   };

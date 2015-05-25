@@ -74,8 +74,8 @@ function event_catch_up(event_number) {
 
   //unprocessed_events.waiting_for = event_number_j;
 
-  alert (event_number);
-  get_event_range_request(slam.local_event_number, event_number); // BOOKMARK testing
+  console.log ("Event number: " + event_number");
+  get_event_range_request(slam.local_event_number + 1, event_number); // BOOKMARK testing
 }
 
 
