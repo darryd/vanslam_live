@@ -69,12 +69,12 @@ function do_event(event) {
 // Send requests to the server up to and including 'event_number'
 function event_catch_up(event_number) {
 
-  var event_number_i = Math.max(unprocessed_events.waiting_for, slam.local_number_event_number + 1);
-  var event_number_j = event_number;
+  //var event_number_i = Math.max(unprocessed_events.waiting_for, slam.local_number_event_number + 1);
+  //var event_number_j = event_number;
 
-  unprocessed_events.waiting_for = event_number_j;
+  //unprocessed_events.waiting_for = event_number_j;
 
-  get_event_range_request(event_number_i, event_number_j);
+  get_event_range_request(slam.local_event_number, event_number_j); // BOOKMARK testing
 }
 
 
