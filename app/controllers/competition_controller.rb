@@ -248,6 +248,33 @@ class CompetitionController < ApplicationController
     render json: event
   end
   #-----------------------------------------------------------------------------------------#
+  # Returns an array of events from [event_i, event_j], inclusive.
+  def get_event_range
+
+    if missing_params(params, ['competition_id', 'event_number_i', 'event_number_j'])
+      return
+    end
+
+    begin
+      competition = Competition.find(params[:competition_id])
+    rescue
+      render json: {:result => false, :message => "Could not find competition."}
+      return
+    end
+
+    events = competition.events.where("event_number >= ? and event_number <= ?", params[:event_number_i].to_i, params[:event_number_j].to_i)
+
+    result_events = [] # Array to send back to the client
+    
+    events.each do |e|
+      result_e = JSON.parse(e.event)
+      result_events << result_e
+    end
+
+    render json: result_events
+  end
+
+  #-----------------------------------------------------------------------------------------#
   def new_event(competition, event_hash)
 
     competition.with_lock do
