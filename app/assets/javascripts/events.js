@@ -34,7 +34,8 @@ function process_event(event) {
     unprocessed_events[event.event_number] = event;
     event_catch_up(event.event_number - 1);
   
-    */}
+    }
+    */
 }
 
 function do_event(event) {
