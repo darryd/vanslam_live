@@ -88,3 +88,18 @@ function set_penalty_request(comm, penalty) {
 }
 
 /*-----------------------------------------------------------------------*/
+function get_event_request(event_number) {
+
+  var ticket = new_ticket();
+
+  ticket.url = "/competition/get_event";
+  ticket.get_params = function() {return {competition_id: slam.id, event_number: event_number};};
+  ticket.done = function (event) {
+    if (event.result)
+      window.unprocessed_events[event.event_number] = event;
+  };
+
+  window.ajax_queue.push(ticket);
+}
+
+/*-----------------------------------------------------------------------*/
