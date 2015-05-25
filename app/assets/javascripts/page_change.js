@@ -38,7 +38,6 @@ function page_change_competition() {
 
   if (get_login_info().is_logged_in) {
 
-    window.web_sock_id = makeid(20);
 
     var poets_competing = document.getElementById("poets_competing");
     poets_competing.removeAttribute('hidden');
@@ -55,6 +54,7 @@ function page_change_competition() {
   }
   // Prepare Queue
   window.ajax_queue = [];
+  window.web_sock_id = makeid(20);
 
   var interval = 10;
   setInterval(process_ajax_queue, interval);
