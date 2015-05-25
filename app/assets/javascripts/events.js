@@ -12,9 +12,11 @@ function handle_unprocessed_events() {
 
   if (unprocessed_events[slam.event_number + 1] !== undefined) {
     // Handle next event.
-    do_event(unprocessed_events[slam.event_number + 1]);
-    delete (unprocessed_events[slam.event_number + 1]);
+    
+    var i = slam.event_number + 1;
 
+    do_event(unprocessed_events[i]);
+    delete (unprocessed_events[i]);
   }
 }
 
@@ -65,8 +67,9 @@ function do_event(event) {
 // Send requests to the server up to and including 'event_number'
 function event_catch_up(event_number) {
 
-  unprocessed_events.waiting_for++;
-  for (; unprocessed_events.waiting_for <= event.event_number; unprocessed_events.waiting_for++) {
+  int i = unprocessed_events.waiting_for++;
+  for (; i <= event.event_number; i++) {
+    unprocessed_events.waiting_for = i;
     get_event_request(unprocessed_events.waiting_for);
   }
 }
