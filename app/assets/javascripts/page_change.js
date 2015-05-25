@@ -56,11 +56,11 @@ function page_change_competition() {
   window.ajax_queue = [];
   window.web_sock_id = makeid(20);
 
-  var interval = 10;
+  var interval = 1;
   setInterval(process_ajax_queue, interval);
   slam.local_event_number = 0;
   window.init_web_sock(); 
-  setInterval(handle_unprocessed_events, 10);
+  setInterval(handle_unprocessed_events, interval);
 }
 
 /*------------------------------------------------------------------------------------*/
