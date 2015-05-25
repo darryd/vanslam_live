@@ -10,10 +10,10 @@ function handle_unprocessed_events() {
     return;
   }
 
-  if (unprocessed_events[slam.event_number + 1] !== undefined) {
+  if (unprocessed_events[slam.local_event_number + 1] !== undefined) {
     // Handle next event.
     
-    var i = slam.event_number + 1;
+    var i = slam.local_event_number + 1;
 
     do_event(unprocessed_events[i]);
     delete (unprocessed_events[i]);
@@ -32,7 +32,6 @@ function process_event(event) {
   }
   else {
 
-    alert ("catch up required");
     unprocessed_events[event.event_number] = event;
     event_catch_up(event.event_number - 1);
   
