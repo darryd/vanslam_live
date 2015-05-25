@@ -67,7 +67,7 @@ function do_event(event) {
 // Send requests to the server up to and including 'event_number'
 function event_catch_up(event_number) {
 
-  int i = unprocessed_events.waiting_for++;
+  var i = unprocessed_events.waiting_for++;
   for (; i <= event.event_number; i++) {
     unprocessed_events.waiting_for = i;
     get_event_request(unprocessed_events.waiting_for);
