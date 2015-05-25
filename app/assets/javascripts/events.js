@@ -42,8 +42,8 @@ function do_event(event) {
 
   slam.local_event_number = event.event_number;
 
-  //if (event.web_sock_id == web_sock_id)
-  //  return;
+  if (event.web_sock_id == web_sock_id)
+    return;
 
   switch (event.event) {
 
