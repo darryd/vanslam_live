@@ -133,7 +133,7 @@ function get_event_range_request(event_number_i, event_number_j) {
   ticket.done = function(response) {
     alert("response.events.length = " + response.events.length);
     for (var i=0; i<response.events.length; i++) {
-      alert (i + " == " + events[i].event_number );
+      alert (i + " == " + response.events[i].event_number );
       do_event(response.events[i]);
     }
   };
