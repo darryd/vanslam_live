@@ -60,7 +60,7 @@ function page_change_competition() {
   setInterval(process_ajax_queue, interval);
   slam.local_event_number = 0;
   window.init_web_sock(); 
-  setInterval(handle_unprocessed_events, 100);
+  setInterval(handle_unprocessed_events, 10);
 }
 
 /*------------------------------------------------------------------------------------*/
