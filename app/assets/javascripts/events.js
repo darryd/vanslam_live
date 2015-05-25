@@ -1,5 +1,5 @@
 
-window.unprocessed_events = {};
+var unprocessed_events = {};
 unprocessed_events.waiting_for = 0;
 
 // Hand unprocessed events
@@ -10,7 +10,7 @@ setInterval(function() {
     return;
   }
 
-  if (window.unprocessed_events[slam.event_number + 1] !== undefined) {
+  if (unprocessed_events[slam.event_number + 1] !== undefined) {
     // Handle next event.
     do_event(unprocessed_events[slam.event_number + 1]);
     delete (unprocessed_events[slam.event_number + 1]);
@@ -28,7 +28,9 @@ function process_event(event) {
     do_event(event);
   }
   else {
-    alert ("catch up required");
+
+    unprocessed_events[event.event_number] = event;
+    event_catch_up(event.event_number - 1);
   }
 }
 
@@ -57,10 +59,15 @@ function do_event(event) {
 
 }
 
-function event_cath_up() {
+// Send requests to the server up to and including 'event_number'
+function event_catch_up(event_number) {
 
-
+  unprocessed_events.waiting_for++;
+  for (; unprocessed_events.waiting_for <= event.event_number; unprocessed_events.waiting_for++) {
+    get_event_request(unprocessed_events.waiting_for);
+  }
 }
+
 
 function event_new_performance(event) {
 
