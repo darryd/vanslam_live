@@ -24,18 +24,16 @@ function process_event(event) {
   if (event.competition_id != slam.id)
     return;
 
-  do_event(event);
-/*
   if (event.event_number == slam.local_event_number + 1) {
     do_event(event);
   }
   else {
 
-    unprocessed_events[event.event_number] = event;
-    event_catch_up(event.event_number - 1);
+    alert ("catch up required");
+    //unprocessed_events[event.event_number] = event;
+    //event_catch_up(event.event_number - 1);
   
     }
-    */
 }
 
 function do_event(event) {
