@@ -2,8 +2,8 @@
 var unprocessed_events = {};
 unprocessed_events.waiting_for = 0;
 
-// Hand unprocessed events
-setInterval(function() {
+// Handle unprocessed events
+function handle_unprocessed_events() {
 
   if (slam.local_event_number == slam.event_number) {
     // Everything is up to date.
@@ -16,13 +16,14 @@ setInterval(function() {
     delete (unprocessed_events[slam.event_number + 1]);
 
   }
-
-}, 100);
+}
 
 
 function process_event(event) {
   if (event.competition_id != slam.id)
     return;
+
+  slam.event_number = event.event_number;
 
   if (event.event_number == slam.local_event_number + 1) {
     do_event(event);
@@ -30,8 +31,8 @@ function process_event(event) {
   else {
 
     alert ("catch up required");
-    //unprocessed_events[event.event_number] = event;
-    //event_catch_up(event.event_number - 1);
+    unprocessed_events[event.event_number] = event;
+    event_catch_up(event.event_number - 1);
   
     }
 }
