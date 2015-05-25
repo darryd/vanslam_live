@@ -271,7 +271,7 @@ class CompetitionController < ApplicationController
       result_events << result_e
     end
 
-    render json: result_events
+    render json: {:result => true, :events => result_events}
   end
 
   #-----------------------------------------------------------------------------------------#

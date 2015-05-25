@@ -103,6 +103,7 @@ function get_event_request(event_number) {
 }
 
 /*-----------------------------------------------------------------------*/
+// Gets the current event number and then updates by calling event_catch_up()
 function get_current_event_number_request() {
   
   var ticket = new_ticket();
@@ -116,6 +117,22 @@ function get_current_event_number_request() {
     if (slam.event_number > slam.local_event_number) {
       event_catch_up(response.event_number);
     }
+  };
+
+  window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/
+function get_event_range_request(event_number_i, event_number_j) {
+
+  var ticket = new_ticket();
+  
+  ticket.url = "/competition/get_event_range";
+  ticket.get_params = function() {
+    return {competition_id: slam.id, event_number_i: event_number_i, event_number_j: event_number_j};
+  };
+  ticket.done = function(response) {
+    for (var i=0; i<response.events.length; i++)
+      do_event(response.events[i]);
   };
 
   window.ajax_queue.push(ticket);
