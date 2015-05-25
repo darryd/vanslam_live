@@ -24,6 +24,8 @@ function process_event(event) {
   if (event.competition_id != slam.id)
     return;
 
+  do_event(event);
+/*
   if (event.event_number == slam.local_event_number + 1) {
     do_event(event);
   }
@@ -31,15 +33,16 @@ function process_event(event) {
 
     unprocessed_events[event.event_number] = event;
     event_catch_up(event.event_number - 1);
-  }
+  
+    */}
 }
 
 function do_event(event) {
 
   slam.local_event_number = event.event_number;
 
-  if (event.web_sock_id == web_sock_id)
-    return;
+  //if (event.web_sock_id == web_sock_id)
+  //  return;
 
   switch (event.event) {
 
