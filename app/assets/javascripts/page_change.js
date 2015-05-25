@@ -52,9 +52,10 @@ function page_change_competition() {
       // We can make a class="hide on loggout"
     };
 
-    // Prepare Queue
-    window.ajax_queue = [];
   }
+  // Prepare Queue
+  window.ajax_queue = [];
+
   var interval = 10;
   setInterval(process_ajax_queue, interval);
   slam.local_event_number = 0;
