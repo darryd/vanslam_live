@@ -106,7 +106,7 @@ function click_poet(button) {
 // TODO Refactor code: this is somewhat duplicated in event_new_performance()
   // Create new request for a new performance
 
-  var performance = performance_new(button.name);
+  var performance = performance_new(button.name, null, button.round.time_limit);
   var performance_ui = performance_ui_new(performance);
 
   // We add the performance to the round.

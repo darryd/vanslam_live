@@ -5,7 +5,7 @@ var places = [0, "first", "second", "third", "fouth", "fifth"];
 
 var num_rounds = 2;
 var num_judges = 5;
-var time_limit = 3 * 60;
+//var time_limit = 3 * 60; // This now comes from the database
 var grace_time = 10;
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
@@ -94,9 +94,11 @@ poet_new = function (name) {
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
-performance_new = function (name, prev) {
+performance_new = function (name, prev, time_limit) {
 
   var performance = {};
+
+  performance.time_limit = time_limit;
   /*--------------------------------------------------------------------------------------------------------------------------------*/
   // Notify that the score has been (re)calculated.
 
@@ -172,10 +174,10 @@ performance_new = function (name, prev) {
     var over_time;
     var penalty;
 
-    if (this.seconds <= time_limit + grace_time)
+    if (this.seconds <= this.time_limit + grace_time)
       return 0;
 
-    over_time = this.seconds - time_limit;
+    over_time = this.seconds - this.time_limit;
     over_time = Math.floor(over_time / 10);
     penalty = over_time * 0.5;
 
