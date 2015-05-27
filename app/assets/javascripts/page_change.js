@@ -61,6 +61,9 @@ function page_change_competition() {
   slam.local_event_number = 0;
   window.init_web_sock(); 
   setInterval(handle_unprocessed_events, interval);
+
+  for (var i = 0; i < events.length; i++)
+    do_event(events[i]);
 }
 
 /*------------------------------------------------------------------------------------*/

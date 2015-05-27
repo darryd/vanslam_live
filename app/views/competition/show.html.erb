@@ -3,6 +3,10 @@
 <script>
   var slam = JSON.parse('<%= @slam.to_json.html_safe%>');
   var rounds = JSON.parse('<%= @slam.rounds.order(:round_number).to_json.html_safe %>');  
+  var events = JSON.parse('<%= @events.to_json.html_safe %>');
+
+  for (var i = 0; i < events.length; i++)
+    do_event(events[i]);
 </script>
 
 <div id="poets_competing" hidden>

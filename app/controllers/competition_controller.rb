@@ -11,6 +11,7 @@ class CompetitionController < ApplicationController
     rescue
       redirect_to '/'
     end
+    @events = _get_event_range(@slam.id, 1, @slam.event_number)
   end
 
   #-----------------------------------------------------------------------------------------#
@@ -272,6 +273,26 @@ class CompetitionController < ApplicationController
     end
 
     render json: {:result => true, :events => result_events}
+  end
+
+  def _get_event_range (competition_id, event_number_i, event_number_j)
+
+    begin
+      competition = Competition.find(competition_id)
+    rescue
+      return []
+    end
+
+    events = competition.events.where("event_number >= ? and event_number <= ?", event_number_i, event_number_j).order(:event_number)
+
+    result_events = [] # Array to send back to the client
+    
+    events.each do |e|
+      result_e = JSON.parse(e.event)
+      result_events << result_e
+    end
+
+    result_events
   end
 
   #-----------------------------------------------------------------------------------------#
