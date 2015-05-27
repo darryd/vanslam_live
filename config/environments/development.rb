@@ -45,5 +45,7 @@ Rails.application.configure do
   #config.assets.compile = true
   #config.assets.enabled = true
 
+  #http://stackoverflow.com/a/27351457
+  config.middleware.delete Rack::Lock
 
 end
