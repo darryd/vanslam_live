@@ -339,7 +339,7 @@ round_new = function (num_places) {
     for (var i=0; i<this.performances.length; i++) {
 
       var rank = this.performances[i].rank;
-      if (rank <= num_places)
+      if (rank <= this.num_places)
 	winners[rank].push(this.performances[i]);
     }
 

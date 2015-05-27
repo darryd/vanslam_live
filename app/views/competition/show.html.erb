@@ -18,7 +18,10 @@
 
 <% @slam.rounds.order(:round_number).each do |round| %>
   <div id="round_<%=round.round_number%>">
-    <h2> <%= round.title %> </h2>
+    <p> <span style="font-size:large"><%= round.title %></span>
+    Time limit: <%= (round.time_limit / 60).floor %>:<%= sprintf("%02d", round.time_limit % 60) %>,
+    Grace period: 10 seconds
+    </p>
     <div id="performances_<%= round.round_number %>"></div>
     <div id="poets_<%= round.round_number %>" class="poets_for_round"></div>
   </div>
