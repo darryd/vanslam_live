@@ -1,6 +1,7 @@
 
-window.performance_ids = {};
-window.performances = {};
+//window.performance_ids = {}; // KAFKA we want to get rid of this one
+//window.performances = {}; // Kafka we want to remove this too
+window.comms = {};
 
 /*-----------------------------------------------------------------------*/
 /*
@@ -11,7 +12,7 @@ function new_performance_request(round, name, performance_ui){
 
   var ticket = new_ticket();
 
-  window.performances[name] = performance_ui;
+  //window.performances[name] = performance_ui; //Kafka
 
   ticket.url = "/competition/new_performance";
   ticket.get_params = function() { return({round_id: round.id, name: name, web_sock_id: window.web_sock_id})};
@@ -24,10 +25,10 @@ function new_performance_request(round, name, performance_ui){
     var name = performance_ui.performance.name;
 
     // We just found out the 'performance_id' for 'name'
-    window.performance_ids[name] = performance_id;
-    
-    performance_ui.comm.performance_id = performance_id;
-    //round.performances[performance_id] = performance_ui;
+
+    //window.performance_ids[name] = performance_id; //Kafka - we want to get rid of performances_ids
+    performance_ui.comm.performance_id = performance_id; // TEST kafka
+    window.comms[performance_id] = performance_ui.comm; // TEST kafka
   };
 
   window.ajax_queue.push(ticket);
@@ -41,7 +42,8 @@ function judge_request(comm, judge_i, value) {
   ticket.get_params = function() {
 
 
-    var performance_id = window.performance_ids[comm.name];
+    //var performance_id = window.performance_ids[comm.name];
+    var performance_id = comm.performance_id; // TEST Kafka
 
     return {performance_id: performance_id, judge_name: judge_i, value: value, web_sock_id: window.web_sock_id};
   };
@@ -59,7 +61,8 @@ function set_time_request(comm, minutes, seconds) {
   ticket.url = "/competition/set_time";
   ticket.get_params = function() {
 
-    var performance_id = window.performance_ids[comm.name];
+    //var performance_id = window.performance_ids[comm.name];
+    var performance_id = comm.performance_id; // TEST Kafka
 
     return {performance_id: performance_id, minutes: minutes,seconds: seconds, web_sock_id: window.web_sock_id};
   };
@@ -77,7 +80,8 @@ function set_penalty_request(comm, penalty) {
   ticket.url = "/competition/set_penalty";
   ticket.get_params = function() {
 
-    var performance_id = window.performance_ids[comm.name];
+    //var performance_id = window.performance_ids[comm.name];
+    var performance_id = comm.performance_id; // TEST Kafka
 
     return {performance_id: performance_id, penalty: penalty, web_sock_id: window.web_sock_id};
   };
