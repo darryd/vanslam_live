@@ -25,7 +25,10 @@ class PoetController < ApplicationController
       return 
     end
 
-    name = params[:name].gsub(/\s+/, " ").strip
+    name = params[:name].gsub(/\s+/, " ").strip # Get rid of extra spaces
+    sanitizer = Rails::Html::FullSanitizer.new  # Remove html
+    name = sanitizer.sanitize(name)
+
     poet = Poet.where('lower(name) = ?', name.downcase).first_or_create(:name=>name)
 
     render json: {:result => true, :poet => poet}
