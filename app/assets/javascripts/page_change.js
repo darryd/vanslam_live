@@ -26,8 +26,9 @@ $(document).on('page:change', function () {
 function prepare_rounds() {
 
   for (var i=0; i<rounds.length; i++) {
-    rounds[i].round_js = round_new(0); // FIXME: param wrong
-    //rounds[i].performances = {};
+    rounds[i].round_js = round_new(rounds[i].num_places);
+    if (rounds[i].are_poets_from_previous)
+      rounds[i].contenders = contenders_new(rounds[i].round_number);
   }
 
 }

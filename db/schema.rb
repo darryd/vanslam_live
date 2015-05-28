@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526003549) do
+ActiveRecord::Schema.define(version: 20150528215355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20150526003549) do
     t.integer  "round_number"
     t.boolean  "are_poets_from_previous"
     t.integer  "time_limit"
+    t.integer  "num_places"
   end
 
   create_table "scorekeepers", force: :cascade do |t|

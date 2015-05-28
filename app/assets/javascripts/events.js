@@ -86,36 +86,27 @@ function event_new_performance(event) {
   round.round_js.add_performance(performance);
   $("#performances_" + round.round_number).append(performance_ui);
 
-  //window.performances[event.poet_name] = performance_ui;
-  //window.performance_ids[event.poet_name] = event.performance_id;
-
-  performance_ui.comm.performance_id = event.performance_id; // TEST kafka
-  window.comms[event.performance_id] = performance_ui.comm; // TEST Kafka
+  performance_ui.comm.performance_id = event.performance_id;
+  window.comms[event.performance_id] = performance_ui.comm;
 
 }
 
 function event_judge(event) {
-  //var name = _.invert(window.performance_ids)[event.performance_id];
-  //var comm = window.performances[name].comm;
-  var comm = window.comms[event.performance_id]; // KAFKA
+  var comm = window.comms[event.performance_id];
 
   comm.event_judge(comm, parseInt(event.judge_name), event.value);
 }
 
 function event_set_time(event) {
 
-  //var name = _.invert(window.performance_ids)[event.performance_id];
-  //var comm = window.performances[name].comm;
-  var comm = window.comms[event.performance_id]; // KAFKA
+  var comm = window.comms[event.performance_id];
 
   comm.event_time(comm, event.minutes, event.seconds);
 }
 
 
 function event_set_penalty(event) {
-  //var name = _.invert(window.performance_ids)[event.performance_id];
-  //var comm = window.performances[name].comm;
-  var comm = window.comms[event.performance_id]; // KAFKA
+  var comm = window.comms[event.performance_id];
 
   comm.event_penalty(comm, event.penalty);
 
