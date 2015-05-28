@@ -98,6 +98,10 @@ function add_poet_to_round(name, round) {
  *
  * A performance_ui is created.
  *
+ *
+ * Requirements: button.round 
+ *
+ *
  */
 
 
@@ -106,17 +110,26 @@ function click_poet(button) {
 // TODO Refactor code: this is somewhat duplicated in event_new_performance()
   // Create new request for a new performance
 
-  var performance = performance_new(button.name, null, button.round.time_limit);
+
+  var round;
+  if (button.round === undefined) {
+    var round_number = button.getAttribute('data-round_number');
+    round = rounds[round_number - 1];
+  }
+  else 
+    round = button.round;
+
+  var performance = performance_new(button.name, null, round.time_limit);
   var performance_ui = performance_ui_new(performance);
 
   // We add the performance to the round.
-  button.round.round_js.add_performance(performance);
+  round.round_js.add_performance(performance);
 
-  $("#performances_" + button.round.round_number).append(performance_ui);
+  $("#performances_" + round.round_number).append(performance_ui);
 
   // Send request to server
   
-  new_performance_request(button.round, button.name, performance_ui);
+  new_performance_request(round, button.name, performance_ui);
 
   // Remove the button
   var class_name = button.className;

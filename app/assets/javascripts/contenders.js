@@ -13,9 +13,12 @@ contenders_new = function(round_number) {
   // Callback function when previous round rank has been updated.
   contenders.get_winners = function(me, round) {
     
+    if (!window.login_info.is_logged_in)
+      return;
+
     var winners = round.get_winners();
 
-    var div = get_second_round_poet_buttons(winners);
+    var div = get_round_buttons(winners, me.round_number);
 
 
     var d = document.getElementById('poets_' + me.round_number);
@@ -30,7 +33,7 @@ contenders_new = function(round_number) {
 }
 
 /*---------------------------------------------------------------------------------*/
-function get_second_round_poet_buttons(winners) {
+function get_round_buttons(winners, round_number) {
 
   //var result = global_rounds[1].get_winners();
 
@@ -47,8 +50,10 @@ function get_second_round_poet_buttons(winners) {
 
     var performance = result.winners[i];
 
+   // Check if Poet has already been slected for the round.
    // if (global_rounds[2]._performances.indexOf(performance) == -1) {
-      var button = performance_to_button(result.winners[i]);
+      var button = performance_to_button(result.winners[i], round_number);
+
       div.appendChild(button);
    // }
   }
@@ -62,7 +67,7 @@ function get_second_round_poet_buttons(winners) {
 
       var performance = result.overflow[i];
       //if (global_rounds[2]._performances.indexOf(performance) == -1) {
-	var button = performance_to_button(result.overflow[i]);
+	var button = performance_to_button(result.overflow[i], round_number);
 	div2.appendChild(button);
       //}
     }
@@ -74,17 +79,22 @@ function get_second_round_poet_buttons(winners) {
 
 
 /*---------------------------------------------------------------------------------*/
-function performance_to_button(performance) {
+function performance_to_button(performance, round_number) {
 
   var button = document.createElement("button");
-  button.text = document.createTextNode(performance.name);
-
+  button.name = performance.name;
   button.performance = performance;
-  //button.setAttribute("onClick", "add_performer_to_2nd_round(this.performance)");
 
-  //performance.poet.notify_name.add_notify(button_name_update, button);
+  // This next line has no effect. 
+  //button.round = rounds[round_number - 1];    // rounds[round_number - 1];
+  button.setAttribute('data-round_number', round_number);
 
+  button.text = document.createTextNode(performance.name);
+  button.setAttribute("onClick", "click_poet(this)");
   button.appendChild(button.text);
+
+  button.className = "round_" + round_number + "_" + performance.name;
+
 
   return button;
 }

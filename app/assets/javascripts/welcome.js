@@ -12,11 +12,11 @@ function display_login_info() {
     return;
 
  
-  var info = get_login_info();
+  window.login_info = get_login_info();
 
-  if (info.is_logged_in) {
+  if (login_info.is_logged_in) {
       e.innerHTML = "You are logged in as <span style='color:orange;font-weight:bold; '>" 
-	+ info.user+ ' </span>  <a href="javascript:do_log_out();">Log out</a>';
+	+ login_info.user+ ' </span>  <a href="javascript:do_log_out();">Log out</a>';
   }
   else {
     var data = encodeURIComponent(document.URL);
