@@ -84,6 +84,8 @@ function event_new_performance(event) {
   var performance_ui = performance_ui_new(performance);
 
   round.round_js.add_performance(performance);
+  performance.calculate(); // So that it doesn't say Rank is 'Infinity'
+
   $("#performances_" + round.round_number).append(performance_ui);
   round.names_already_performing.push(performance.name);
 

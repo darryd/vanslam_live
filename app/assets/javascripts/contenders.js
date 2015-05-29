@@ -87,7 +87,7 @@ function performance_to_button(performance, round_number) {
   button.performance = performance;
 
   // This next line has no effect. 
-  //button.round = rounds[round_number - 1];    // rounds[round_number - 1];
+  button.round = rounds[round_number - 1];    // rounds[round_number - 1];
   button.setAttribute('data-round_number', round_number);
 
   button.text = document.createTextNode(performance.name);
