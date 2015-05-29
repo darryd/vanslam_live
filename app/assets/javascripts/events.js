@@ -85,6 +85,7 @@ function event_new_performance(event) {
 
   round.round_js.add_performance(performance);
   $("#performances_" + round.round_number).append(performance_ui);
+  round.names_already_performing.push(performance.name);
 
   performance_ui.comm.performance_id = event.performance_id;
   window.comms[event.performance_id] = performance_ui.comm;

@@ -98,6 +98,7 @@ performance_new = function (name, prev, time_limit) {
 
   var performance = {};
 
+  performance.id = makeid(20);
   performance.time_limit = time_limit;
   /*--------------------------------------------------------------------------------------------------------------------------------*/
   // Notify that the score has been (re)calculated.

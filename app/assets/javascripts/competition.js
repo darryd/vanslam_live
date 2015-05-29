@@ -67,29 +67,13 @@ function poet_select() {
     display_suggestions_for_name(document.getElementById('suggestions'), '');
 
     // Add poet button to rounds which doesn't get its poets from a previous round.
-    for (var i=0; i<rounds.length; i++)
-      if (!rounds[i].are_poets_from_previous)
-	add_poet_to_round(name, rounds[i]);
+    var invisible_performance = performance_new(name);
+    invisible_round.add_performance(invisible_performance);
+    invisible_round.num_places = invisible_round.performances.length;
+    invisible_performance.rank = 1;
+    invisible_round.notify_rank(); 
 
   }
-}
-/*-----------------------------------------------------------------------*/
-function add_poet_to_round(name, round) {
-
-  console.log("add poet_to_round");
-  var d = document.getElementById("poets_" + round.round_number);
-
-  var button = document.createElement('button');
-  button.className = "poet_" + name;
-  button.name = name;
-  button.round = round;
-
-  button.setAttribute('onclick', 'click_poet(this)');
-
-  var text = document.createTextNode(name);
-
-  button.appendChild(text);
-  d.appendChild(button);
 }
 /*-----------------------------------------------------------------------*/
 
@@ -126,6 +110,7 @@ function click_poet(button) {
   round.round_js.add_performance(performance);
 
   $("#performances_" + round.round_number).append(performance_ui);
+  round.names_already_performing.push(performance.name);
 
   // Send request to server
   

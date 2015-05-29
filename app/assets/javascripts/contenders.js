@@ -5,7 +5,7 @@
  */
 
 /*---------------------------------------------------------------------------------*/
-contenders_new = function(round_number) {
+contenders_new = function(round_number, prev_round) {
 
   var contenders = {};
 
@@ -25,19 +25,15 @@ contenders_new = function(round_number) {
     d.innerHTML = div.innerHTML;
   };
   
-  var prev_round = rounds[round_number - 2].round_js;
-
   prev_round.add_notify_rank(contenders.get_winners, contenders);
-
   return contenders;
 }
 
 /*---------------------------------------------------------------------------------*/
 function get_round_buttons(winners, round_number) {
 
-  //var result = global_rounds[1].get_winners();
-
   var result = winners;
+  var round = rounds[round_number - 1];
 
   var div = document.createElement("div");
   div.id = "second_round_buttons";
@@ -54,8 +50,10 @@ function get_round_buttons(winners, round_number) {
    // if (global_rounds[2]._performances.indexOf(performance) == -1) {
       var button = performance_to_button(result.winners[i], round_number);
 
-      div.appendChild(button);
-   // }
+      // BOOKMARK
+      if (round.names_already_performing.indexOf(performance.name) == -1 )
+	div.appendChild(button);
+      // }
   }
 
   if (result.result != 0) {
@@ -67,7 +65,10 @@ function get_round_buttons(winners, round_number) {
 
       var performance = result.overflow[i];
       //if (global_rounds[2]._performances.indexOf(performance) == -1) {
-	var button = performance_to_button(result.overflow[i], round_number);
+      var button = performance_to_button(result.overflow[i], round_number);
+
+      // BOOKMARK
+      if (round.names_already_performing.indexOf(performance.name) == -1 )
 	div2.appendChild(button);
       //}
     }
@@ -93,7 +94,7 @@ function performance_to_button(performance, round_number) {
   button.setAttribute("onClick", "click_poet(this)");
   button.appendChild(button.text);
 
-  button.className = "round_" + round_number + "_" + performance.name;
+  button.className = performance.name + performance.id;
 
 
   return button;

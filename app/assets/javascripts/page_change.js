@@ -25,10 +25,20 @@ $(document).on('page:change', function () {
 /*-------------------------------------------------------------------------------------*/
 function prepare_rounds() {
 
+  window.invisible_round = round_new(0); // we'll keep num_places growing for the invisible round
+  window.invisible_round.invisible_round = 0; //debugging
+
   for (var i=0; i<rounds.length; i++) {
     rounds[i].round_js = round_new(rounds[i].num_places);
-    if (rounds[i].are_poets_from_previous)
-      rounds[i].contenders = contenders_new(rounds[i].round_number);
+    rounds[i].names_already_performing = [];
+
+
+    var prev_round = rounds[i].are_poets_from_previous ? rounds[i-1].round_js : window.invisible_round;
+    rounds[i].contenders = contenders_new(rounds[i].round_number, prev_round);
+
+    //if (rounds[i].are_poets_from_previous)
+    //  rounds[i].contenders = contenders_new(rounds[i].round_number, rounds[i-1].round_js);
+    
   }
 
 }
