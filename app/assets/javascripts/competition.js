@@ -67,7 +67,7 @@ function poet_select() {
     display_suggestions_for_name(document.getElementById('suggestions'), '');
 
     // Add poet button to rounds which doesn't get its poets from a previous round.
-    var invisible_performance = performance_new(name);
+    var invisible_performance = performance_new(name, null, 0);
     invisible_round.add_performance(invisible_performance);
     invisible_round.num_places = invisible_round.performances.length;
     invisible_performance.rank = 1;
@@ -108,6 +108,7 @@ function click_poet(button) {
 
   // We add the performance to the round.
   round.round_js.add_performance(performance);
+  performance.calculate(); //Otherwise rank says 'Infinity'
 
   $("#performances_" + round.round_number).append(performance_ui);
   round.names_already_performing.push(performance.name);
