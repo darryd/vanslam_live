@@ -92,6 +92,10 @@ function event_new_performance(event) {
   performance_ui.comm.performance_id = event.performance_id;
   window.comms[event.performance_id] = performance_ui.comm;
 
+  // Trigger contenders.get_winners() so that the button to add the performer will be removed  
+  if (round.are_poets_from_previous)
+    rounds[event.round_number - 2].round_js.rank();
+
 }
 
 function event_judge(event) {
