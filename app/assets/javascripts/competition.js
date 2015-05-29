@@ -95,14 +95,7 @@ function click_poet(button) {
   // Create new request for a new performance
 
 
-  var round;
-  if (button.round === undefined) {
-    var round_number = button.getAttribute('data-round_number');
-    round = rounds[round_number - 1];
-  }
-  else 
-    round = button.round;
-
+  var round = button.round;
   var performance = performance_new(button.name, null, round.time_limit);
   var performance_ui = performance_ui_new(performance);
 

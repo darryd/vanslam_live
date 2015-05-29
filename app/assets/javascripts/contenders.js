@@ -9,23 +9,36 @@ contenders_new = function(round_number, prev_round) {
 
   var contenders = {};
 
+  contenders.prev_round = prev_round;
+
+  
+
   contenders.round_number = round_number;
   // Callback function when previous round rank has been updated.
   contenders.get_winners = function(me, round) {
+
+    
     
     if (!window.login_info.is_logged_in)
       return;
 
-    var winners = round.get_winners();
+    var winners = me.prev_round.get_winners();
 
     var div = get_round_buttons(winners, me.round_number);
 
+    console.log(div.innerHTML);
+    
 
-    var d = document.getElementById('poets_' + me.round_number);
-    d.innerHTML = div.innerHTML;
+    // Replace the div with the new div.
+    var id = makeid(10);
+    div.id = id;
+    $('#poets_' + me.round_number).replaceWith(div);
+    var d = document.getElementById(id)
+    d.setAttribute('id', 'poets_' + me.round_number);
+
   };
   
-  prev_round.add_notify_rank(contenders.get_winners, contenders);
+  contenders.prev_round.add_notify_rank(contenders.get_winners, contenders);
   return contenders;
 }
 
@@ -85,10 +98,7 @@ function performance_to_button(performance, round_number) {
   var button = document.createElement("button");
   button.name = performance.name;
   button.performance = performance;
-
-  // This next line has no effect. 
-  button.round = rounds[round_number - 1];    // rounds[round_number - 1];
-  button.setAttribute('data-round_number', round_number);
+  button.round = rounds[round_number - 1];
 
   button.text = document.createTextNode(performance.name);
   button.setAttribute("onClick", "click_poet(this)");

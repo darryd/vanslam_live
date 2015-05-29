@@ -1,7 +1,7 @@
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
-var places = [0, "first", "second", "third", "fouth", "fifth"];
+var places = [0, "first", "second", "third", "fouth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"];
 
 var num_rounds = 2;
 var num_judges = 5;

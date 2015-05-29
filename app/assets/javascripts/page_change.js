@@ -26,10 +26,12 @@ $(document).on('page:change', function () {
 function prepare_rounds() {
 
   window.invisible_round = round_new(0); // we'll keep num_places growing for the invisible round
-  window.invisible_round.invisible_round = 0; //debugging
+  window.invisible_round.debug_str = "invisible round"; //debugging
 
   for (var i=0; i<rounds.length; i++) {
+
     rounds[i].round_js = round_new(rounds[i].num_places);
+    rounds[i].round_js.debug_str = "round " + i;
     rounds[i].names_already_performing = [];
 
 
