@@ -61,7 +61,17 @@ function page_change_competition() {
       temp();
       document.getElementById("poets_competing").setAttribute("hidden", null);
       document.getElementById("poet_lookup").setAttribute("hidden", null);
-      // We can make a class="hide on loggout"
+
+      // Hide elements that should only be visible when logged in.
+      var elements = document.getElementsByClassName('visible_when_logged_in');
+      for (var i=0; i<elements.length; i++)
+	elements[i].setAttribute('hidden', null);
+
+      // Make inputs readonly
+      var inputs = document.getElementsByClassName('scorekeeper_input');
+      for (var i=0; i<inputs.length; i++)
+	inputs[i].setAttribute('readonly', null);
+
     };
 
   }

@@ -49,7 +49,7 @@ function get_round_buttons(winners, round_number) {
   var round = rounds[round_number - 1];
 
   var div = document.createElement("div");
-  div.id = "second_round_buttons";
+  div.className = 'visible_when_logged_in';
 
   var p = document.createElement("p");
   p.innerHTML = "Select next poet.";
@@ -59,14 +59,10 @@ function get_round_buttons(winners, round_number) {
 
     var performance = result.winners[i];
 
-   // Check if Poet has already been slected for the round.
-   // if (global_rounds[2]._performances.indexOf(performance) == -1) {
       var button = performance_to_button(result.winners[i], round_number);
 
-      // BOOKMARK
       if (round.names_already_performing.indexOf(performance.name) == -1 )
 	div.appendChild(button);
-      // }
   }
 
   if (result.result != 0) {
@@ -77,13 +73,10 @@ function get_round_buttons(winners, round_number) {
     for (var i=0; i<result.overflow.length; i++) {
 
       var performance = result.overflow[i];
-      //if (global_rounds[2]._performances.indexOf(performance) == -1) {
       var button = performance_to_button(result.overflow[i], round_number);
 
-      // BOOKMARK
       if (round.names_already_performing.indexOf(performance.name) == -1 )
 	div2.appendChild(button);
-      //}
     }
     div.appendChild(div2);
   }

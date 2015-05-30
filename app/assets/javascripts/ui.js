@@ -9,6 +9,11 @@ function create_input(ui, onchange) {
   //input.value = "0";
   input.ui = ui;
   input.setAttribute("onchange", onchange);
+  input.className =  "scorekeeper_input";
+
+
+  if (!login_info.is_logged_in)
+    input.setAttribute('readonly', null);
 
   return input;
 }
