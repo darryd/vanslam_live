@@ -20,7 +20,8 @@ function display_login_info() {
   }
   else {
     var data = encodeURIComponent(document.URL);
-    e.innerHTML = "<a href='/login?page=" + data + "'>Log in</a>";
+    //e.innerHTML = "<a href='/login?page=" + data + "'>Log in</a>";
+    e.innerHTML = "";
   }
 }
 /*-------------------------------------------------------------------------------------*/
