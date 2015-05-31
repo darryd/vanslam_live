@@ -37,7 +37,12 @@ function performance_ui_new(performance) {
 
   table.tr = document.createElement("tr");
   table.appendChild(table.tr);
-  insert_into_table(table, document.createTextNode("Enter scores multiplied by 10."));
+
+  var div2 = document.createElement("div");
+  div2.className = "visible_when_logged_in";
+  div2.appendChild(document.createTextNode("Enter scores multiplied by 10."));
+
+  insert_into_table(table, div2);
 
   
   var p = document.createElement("p");
