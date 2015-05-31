@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528215355) do
+ActiveRecord::Schema.define(version: 20150531060035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20150528215355) do
     t.datetime "updated_at", null: false
     t.integer  "minutes"
     t.integer  "seconds"
-    t.integer  "penalty"
+    t.float    "penalty"
   end
 
   create_table "poets", force: :cascade do |t|

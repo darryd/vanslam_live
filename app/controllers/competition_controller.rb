@@ -184,7 +184,7 @@ class CompetitionController < ApplicationController
       return
     end
 
-    performance.penalty = params[:penalty].to_i
+    performance.penalty = params[:penalty].to_f
 
     if performance.save
       render json: {:result => true, :performance => performance}
