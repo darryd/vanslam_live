@@ -62,6 +62,9 @@ function do_event(event) {
     case 'set_penalty':
       event_set_penalty(event);
       break;
+    case 'signup_poet':
+      signup_poet(event.name);
+      break;
   }
 
 }

@@ -66,14 +66,20 @@ function poet_select() {
     suggestions_input.value = '';
     display_suggestions_for_name(document.getElementById('suggestions'), '');
 
+    signup_poet(name);
+    signup_poet_request(name);
+  }
+}
+
+/*-----------------------------------------------------------------------*/
+function signup_poet(name) {
+
     // Add poet button to rounds which doesn't get its poets from a previous round.
     var invisible_performance = performance_new(name, null, 0);
     invisible_round.add_performance(invisible_performance);
     invisible_round.num_places = invisible_round.performances.length;
     invisible_performance.rank = 1;
     invisible_round.notify_rank(); 
-
-  }
 }
 /*-----------------------------------------------------------------------*/
 

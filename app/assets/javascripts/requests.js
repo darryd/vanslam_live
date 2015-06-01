@@ -132,3 +132,19 @@ function get_event_range_request(event_number_i, event_number_j) {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function signup_poet_request(name) {
+
+  var ticket = new_ticket();
+  
+  ticket.url = "/competition/signup_poet";
+  ticket.get_params = function() {
+    return {competition_id: slam.id, name: name, web_sock_id: window.web_sock_id};
+  };
+  ticket.done = function(response) 
+  {
+    console.log(response);
+  };
+
+  window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/

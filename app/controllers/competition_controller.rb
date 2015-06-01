@@ -208,6 +208,42 @@ class CompetitionController < ApplicationController
   end
 
   #-----------------------------------------------------------------------------------------#
+
+  def signup_poet
+
+    if not_allowed()
+      return
+    end
+
+    if missing_params(params, ['competition_id', 'name', 'web_sock_id'])
+      return
+    end
+
+    begin
+      competition = Competition.find(params[:competition_id])
+    rescue
+      render json: {:result => false, :message => "Could not find competition."}
+      return
+    end
+    
+    poet = Poet.where(name: params[:name]).take
+    if poet == nil
+      render json: {:result => false, :message => "Could not find poet."}
+      return
+    end
+
+    render json: {:result => true}
+    
+    # Send event
+    event_hash = {};
+    event_hash[:event] = "signup_poet"
+    event_hash[:web_sock_id] = params[:web_sock_id]
+    event_hash[:name] = params[:name]
+
+    new_event(competition, event_hash)
+
+  end
+  #-----------------------------------------------------------------------------------------#
   def get_current_event_number
 
     if missing_params(params, ['competition_id'])
