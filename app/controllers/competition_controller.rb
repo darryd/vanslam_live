@@ -8,10 +8,10 @@ class CompetitionController < ApplicationController
   def show
     begin
       @slam = Competition.find(params[:id])
+      @events = _get_event_range(@slam.id, 1, @slam.event_number)
     rescue
       redirect_to '/'
     end
-    @events = _get_event_range(@slam.id, 1, @slam.event_number)
   end
 
   #-----------------------------------------------------------------------------------------#
