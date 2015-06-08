@@ -30,7 +30,7 @@ function prepare_rounds() {
 
   for (var i=0; i<rounds.length; i++) {
 
-    rounds[i].round_js = round_new(rounds[i].num_places);
+    rounds[i].round_js = round_new(rounds[i].num_places, i + 1);
     rounds[i].round_js.debug_str = "round " + i;
     rounds[i].names_already_performing = [];
 

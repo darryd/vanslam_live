@@ -3,6 +3,7 @@
 function performance_ui_new(performance) {
 
   var table = document.createElement("table");
+  table.id = makeid(20);
 
   table.performance = performance;
   table.comm = comm_new(table, performance.name); // Create comm object for communication with the server.
@@ -15,6 +16,9 @@ function performance_ui_new(performance) {
   div.innerHTML = performance.name;
 
   insert_into_table(table, div);
+
+  var remove_me = make_remove_me_div(table);
+  insert_into_table(table, remove_me);
 
   table.tr = document.createElement("tr");
   table.appendChild(table.tr);
@@ -44,8 +48,11 @@ function performance_ui_new(performance) {
   
   div2.setAttribute('hidden', null);
   try {
-    if (login_info.is_logged_in)
-     div2.removeAttribute('hidden'); 
+    if (login_info.is_logged_in) {
+     remove_me.removeAttribute('hidden');
+     div2.removeAttribute('hidden');
+    } 
+
   } catch(e) {}
 
   insert_into_table(table, div2);

@@ -294,11 +294,12 @@ performance_new = function (name, prev, time_limit) {
 
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-round_new = function (num_places) {
+round_new = function (num_places, round_number) {
 
   var round = {};
 
   round.num_places = num_places;
+  round.round_number = round_number;
   round.performances = [];
 
   round.call_backs = [];
@@ -397,8 +398,10 @@ round_new = function (num_places) {
 
   round.add_performance = function(performance) {
 
-    performance.add_notify_score(this.rank, this)  
-      this.performances.push(performance);
+    performance.add_notify_score(this.rank, this);
+    this.performances.push(performance);
+
+    performance.round = this;  // The performance knows which round it's in
 
   }
 

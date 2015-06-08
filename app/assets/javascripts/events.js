@@ -65,6 +65,9 @@ function do_event(event) {
     case 'signup_poet':
       signup_poet(event.name);
       break;
+    case 'remove_performance':
+      event_remove_performance(event);
+      break;
   }
 
 }
@@ -120,4 +123,11 @@ function event_set_penalty(event) {
 
   comm.event_penalty(comm, event.penalty);
 
+}
+
+function event_remove_performance(event) {
+
+  var comm = window.comms[event.performance_id];
+
+  remove_performance(comm.performance_ui);
 }

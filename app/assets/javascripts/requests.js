@@ -148,3 +148,22 @@ function signup_poet_request(name) {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function remove_performance_request(comm) {
+
+  var ticket = new_ticket();
+  
+  ticket.url = "/competition/remove_performance";
+  ticket.get_params = function() {
+
+    var performance_id = comm.performance_id;
+
+    return {performance_id: performance_id, web_sock_id: window.web_sock_id};
+  };
+  ticket.done = function(response) 
+  {
+    console.log(response);
+  };
+
+  window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/

@@ -244,6 +244,50 @@ class CompetitionController < ApplicationController
 
   end
   #-----------------------------------------------------------------------------------------#
+
+  
+  # TODO for delete the performance from database, but for now, we won't
+
+
+  def remove_performance
+
+    if not_allowed()
+      return
+    end
+
+    if missing_params(params, ['performance_id', 'web_sock_id'])
+      return
+    end
+
+
+    begin
+      performance = Performance.find(params[:performance_id])
+    rescue
+      render json: {:result => false, :message => "Could not find performance"}
+      return
+    end
+
+    competition = performance.round.competition
+
+    render json: {:result => true}
+
+    # TODO delete from database
+    #
+    # Send event
+    event_hash = {}
+    event_hash[:event] = "remove_performance"
+    event_hash[:web_sock_id] = params[:web_sock_id]
+    event_hash[:performance_id] = params[:performance_id]
+
+    new_event(competition, event_hash)
+
+  end
+
+
+
+
+
+  #-----------------------------------------------------------------------------------------#
   def get_current_event_number
 
     if missing_params(params, ['competition_id'])
@@ -302,7 +346,7 @@ class CompetitionController < ApplicationController
     events = competition.events.where("event_number >= ? and event_number <= ?", params[:event_number_i].to_i, params[:event_number_j].to_i).order(:event_number)
 
     result_events = [] # Array to send back to the client
-    
+
     events.each do |e|
       result_e = JSON.parse(e.event)
       result_events << result_e
@@ -322,7 +366,7 @@ class CompetitionController < ApplicationController
     events = competition.events.where("event_number >= ? and event_number <= ?", event_number_i, event_number_j).order(:event_number)
 
     result_events = [] # Array to send back to the client
-    
+
     events.each do |e|
       result_e = JSON.parse(e.event)
       result_events << result_e

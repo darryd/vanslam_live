@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   post "competition/signup_poet"
   get "competition/signup_poet"
 
+  post "competition/remove_performance"
+  get "competition/remove_performance"
 
   #get "welcome/chat"
 
