@@ -41,6 +41,12 @@ function performance_ui_new(performance) {
   var div2 = document.createElement("div");
   div2.className = "visible_when_logged_in";
   div2.appendChild(document.createTextNode("Enter scores multiplied by 10."));
+  
+  div2.setAttribute('hidden', null);
+  try {
+    if (login_info.is_logged_in)
+     div2.removeAttribute('hidden'); 
+  } catch(e) {}
 
   insert_into_table(table, div2);
 
