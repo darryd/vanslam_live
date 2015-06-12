@@ -6,10 +6,7 @@ class WelcomeController < ApplicationController
 
   #------------------------------------------------------------------------------------#
   def index
-
-    ChatDemo::ChatBackend.hello({:handle => "main page", :text => "hello from the main page"})
-
-    @slams = Competition.order(:created_at).find_each
+    @slams = Competition.order('created_at DESC') #.find_each
   end
 
   #------------------------------------------------------------------------------------#
