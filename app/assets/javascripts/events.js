@@ -20,8 +20,27 @@ function handle_unprocessed_events() {
   }
 }
 
+function process_metrics(metric) {
+
+  var e = document.getElementById("number_of_connections");
+  if (e != null)
+    e.innerHTML = "Number of Connections: " + metric.total_connections;
+}
+
 
 function process_event(event) {
+
+  try {
+
+    if (event.type == "metrics") {
+      var metric = event;
+
+      process_metrics(metric);
+      return;
+    }
+  }
+  catch(e) {}
+
   if (event.competition_id != slam.id)
     return;
 
@@ -34,7 +53,6 @@ function process_event(event) {
 
     unprocessed_events[event.event_number] = event;
     event_catch_up(event.event_number - 1);
-
   }
 }
 

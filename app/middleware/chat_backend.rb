@@ -28,16 +28,23 @@ module ChatDemo
       $clients.each {|client| client.send(data.to_json) }
     end
 
+    def self.broadcast_number_of_clients
+      data = {}
+      data = {:type => "metrics", :total_connections => $clients.length}
+
+      p ['number of connections', $clients.length]
+      ChatDemo::ChatBackend.hello(data)
+    end
+
+
     def call(env)
-
-      #byebug
-
 
       if Faye::WebSocket.websocket?(env)
 	ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
 	ws.on :open do |event|
 	  p [:open, ws.object_id]
 	  $clients << ws
+	  ChatDemo::ChatBackend.broadcast_number_of_clients()
 	end
 
 	ws.on :message do |event|
@@ -49,6 +56,8 @@ module ChatDemo
 	  p [:close, ws.object_id, event.code, event.reason]
 	  $clients.delete(ws)
 	  ws = nil
+	  p ['number of connections', $clients.length]
+	  ChatDemo::ChatBackend.broadcast_number_of_clients()
 	end
 
 	# Return async Rack response

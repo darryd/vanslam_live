@@ -40,17 +40,28 @@ function prepare_rounds() {
 
     //if (rounds[i].are_poets_from_previous)
     //  rounds[i].contenders = contenders_new(rounds[i].round_number, rounds[i-1].round_js);
-    
+
   }
 
 }
 /*-------------------------------------------------------------------------------------*/
+
+function manage_class_visible_when_logged_in() {
+
+  var elements = document.getElementsByClassName('visible_when_logged_in');
+  for (var i=0; i < elements.length; i++)
+    if (get_login_info().is_logged_in)
+      elements[i].removeAttribute('hidden')
+    else
+      elements[i].setAttribute('hidden', null);
+}
+
 function page_change_competition() {
 
+  manage_class_visible_when_logged_in();
   prepare_rounds();
 
   if (get_login_info().is_logged_in) {
-
 
     var poets_competing = document.getElementById("poets_competing");
     poets_competing.removeAttribute('hidden');
@@ -63,7 +74,7 @@ function page_change_competition() {
       document.getElementById("poet_lookup").setAttribute("hidden", null);
 
       // Hide elements that should only be visible when logged in.
-      var elements = document.getElementsByClassName('visible_when_logged_in');
+      var elements = document.getElementsByClassName('visible_when_logged_in'); // TODO Perhaps this should be default behavior for logging out?
       for (var i=0; i<elements.length; i++)
 	elements[i].setAttribute('hidden', null);
 
@@ -75,6 +86,10 @@ function page_change_competition() {
     };
 
   }
+  else {
+    // User is not logged in.
+  }
+
   // Prepare Queue
   window.ajax_queue = [];
   window.web_sock_id = makeid(20);

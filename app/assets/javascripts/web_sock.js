@@ -3,14 +3,6 @@
 window.init_web_sock = _.once(function() {
   connect_websocket();
   keep_trying_to_connect();
-
-  // Just in case connection is lost but onclose isn't invoked
-  /*
-  setInterval(function() {
-    window.web_sock.close();
-    keep_trying_to_connect();
-  }, 120000 /* 2 minute /*); 
-  */
 });
 /*-------------------------------------------------------------------------------------*/
 

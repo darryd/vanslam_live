@@ -6,6 +6,14 @@
   var events = JSON.parse('<%= @events.to_json.html_safe %>');
 </script>
 
+
+<div id="metrics" class="visible_when_logged_in">
+  <div id="number_of_connections">
+  </div>
+
+</div>
+
+
 <div id="poets_competing" hidden>
   <div id="list_poets"><span style='font-weight:bold'> Poets: </span></div>
 
