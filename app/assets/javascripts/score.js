@@ -313,14 +313,19 @@ round_new = function (num_places, round_number) {
     var rankings = [];
 
     for (var i=0; i<me.performances.length; i++)
-      if (rankings.indexOf(me.performances[i].subscore) == -1)
-	rankings.push(me.performances[i].subscore);
+      if (rankings.indexOf(me.performances[i].subscore) == -1) {
+
+	// Turn subscore into an "integer" because "floats" don't work well with comparisons 
+	var subscore = Math.floor(me.performances[i].subscore * 10);
+	rankings.push(subscore);
+      }
 
     rankings.sort(function(a, b){return b - a;});
 
     for (var i=0; i<me.performances.length; i++) {
 
-      var subscore = me.performances[i].subscore;
+      // Turn subscore into an "integer" because "floats" don't work well with comparisons 
+      var subscore = Math.floor(me.performances[i].subscore * 10);
       var ranking = rankings.indexOf(subscore) + 1;
       me.performances[i].set_rank(ranking);
     }
