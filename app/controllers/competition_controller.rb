@@ -50,7 +50,6 @@ class CompetitionController < ApplicationController
 
     performance = Performance.new(round_id: round.id, poet_id: poet.id)
 
-    # BOOKMARK
     # Optional Parameter is passed if the performance is in a cumulative round
     if params.has_key?('previous_performance_id')
      # Let's check that there is a Performance with such an id, if there isn't, this isn't a valid request. 
