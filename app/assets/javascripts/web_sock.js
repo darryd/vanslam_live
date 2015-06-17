@@ -18,6 +18,7 @@ function connect_websocket() {
 
       event = jQuery.parseJSON(message.data);
 
+      console.log(event);
       process_event(event);
     };
 

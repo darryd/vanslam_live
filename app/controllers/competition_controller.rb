@@ -72,7 +72,7 @@ class CompetitionController < ApplicationController
       event_hash = {};
       event_hash[:event] = "new_performance"
       event_hash[:performance_id] = performance.id
-      event_hash[:previous_performance_id] = previous_performance_id
+      event_hash[:previous_performance_id] = performance.previous_performance_id
       event_hash[:web_sock_id] = params[:web_sock_id]
       event_hash[:poet_name] = poet.name
       event_hash[:round_number] = round.round_number
