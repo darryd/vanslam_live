@@ -26,7 +26,6 @@ class CompetitionController < ApplicationController
 
   def new_performance
 
-
     if not_allowed()
       return
     end
@@ -50,6 +49,20 @@ class CompetitionController < ApplicationController
     end
 
     performance = Performance.new(round_id: round.id, poet_id: poet.id)
+
+    # BOOKMARK
+    # Optional Parameter is passed if the performance is in a cumulative round
+    if params.has_key?('previous_performance_id')
+     # Let's check that there is a Performance with such an id, if there isn't, this isn't a valid request. 
+     begin
+       previous = Performance.find(params[:previous_performance_id])
+       performance.previous_performance_id = previous.id
+     rescue
+       render json: {:result => false, :message => "Could not find previous_performance"}
+       return
+     end
+    end
+
     if performance.save
 
       render json: {:result  => true, :performance_id => performance.id}    
