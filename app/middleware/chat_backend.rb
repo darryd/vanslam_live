@@ -56,7 +56,6 @@ module ChatDemo
 	  p [:close, ws.object_id, event.code, event.reason]
 	  $clients.delete(ws)
 	  ws = nil
-	  p ['number of connections', $clients.length]
 	  ChatDemo::ChatBackend.broadcast_number_of_clients()
 	end
 
@@ -88,9 +87,14 @@ module MakeSlam
     Round.create(competition_id: c.id, round_number: 4, title: "Round 3", are_poets_from_previous: true , time_limit: 240)
 
   end
+
+  def self.new_winter_slam(title)
+
+    c = Competition.create(title: title, event_number: 0)
+
+    Round.create(competition_id: c.id, round_number: 1, title: "Sacrifical Round", are_poets_from_previous: false, time_limit: 180)
+    Round.create(competition_id: c.id, round_number: 2, title: "Round 1", are_poets_from_previous: false, time_limit: 180, num_places: 6) 
+    Round.create(competition_id: c.id, round_number: 2, title: "Round 2", are_poets_from_previous: true, time_limit: 180, is_cumulative: true)
+  end
+
 end
-
-
-
-
-
