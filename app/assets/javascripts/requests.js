@@ -11,7 +11,18 @@ function new_performance_request(round, name, performance_ui){
   var ticket = new_ticket();
 
   ticket.url = "/competition/new_performance";
-  ticket.get_params = function() { return({round_id: round.id, name: name, web_sock_id: window.web_sock_id})};
+  ticket.get_params = function() { 
+    
+    var previous_performance_id = null;
+
+    var params = {round_id: round.id, name: name, web_sock_id: window.web_sock_id};
+    if (round.is_cumulative) {
+      // Get previous_performance_id 
+      params.previous_performance_id = performance_ui.performance.prev.performance_id;
+    }
+
+    return(params)
+  };
   ticket.done = function(response_json) {
     console.log(response_json);
 
@@ -21,6 +32,8 @@ function new_performance_request(round, name, performance_ui){
 
     // We just found out the 'performance_id'
     performance_ui.comm.performance_id = performance_id;
+    performance_ui.performance.performance_id = performance_id; // For when we need to find the previous_performance_id
+
     window.comms[performance_id] = performance_ui.comm;
   };
 

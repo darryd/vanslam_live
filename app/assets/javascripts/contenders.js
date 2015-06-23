@@ -90,7 +90,8 @@ function performance_to_button(performance, round_number) {
 
   var button = document.createElement("button");
   button.name = performance.name;
-  button.performance = performance;
+  button.performance = performance; // BOOKMARK	
+  button.prev_performance = performance;
   button.round = rounds[round_number - 1];
 
   button.text = document.createTextNode(performance.name);

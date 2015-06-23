@@ -89,7 +89,8 @@ function signup_poet(name) {
  * A performance_ui is created.
  *
  *
- * Requirements: button.round 
+ * Requirements: button.round, button.prev_performane (or null)
+ *   
  *
  *
  */
@@ -102,7 +103,10 @@ function click_poet(button) {
 
 
   var round = button.round;
-  var performance = performance_new(button.name, null, round.time_limit);
+
+  var prev_performance = button.round.is_cumulative ? button.prev_performance : null;
+
+  var performance = performance_new(button.name, prev_performance, round.time_limit);
   var performance_ui = performance_ui_new(performance);
 
   // We add the performance to the round.
