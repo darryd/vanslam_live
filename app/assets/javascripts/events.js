@@ -108,11 +108,13 @@ function event_new_performance(event) {
 
   // If the round is cumulative than we need to the prev performance.
   var prev_performance = null;
-  if (event.previous_performance_id != null)
+  if (event.previous_performance_id != null) {
     prev_performance = comms[event.previous_performance_id].performance_ui.performance;
+  }
 
   var performance = performance_new(event.poet_name, prev_performance, round.time_limit);
   var performance_ui = performance_ui_new(performance);
+  performance.performance_id = event.performance_id; // BOOKMARK
 
   round.round_js.add_performance(performance);
   performance.calculate(); // So that it doesn't say Rank is 'Infinity'
