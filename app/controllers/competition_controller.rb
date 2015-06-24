@@ -403,6 +403,8 @@ class CompetitionController < ApplicationController
 
     events.each do |e|
       result_e = JSON.parse(e.event)
+      result_e['datetime'] = e.updated_at
+
       result_events << result_e
     end
 
