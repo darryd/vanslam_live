@@ -367,7 +367,28 @@ class CompetitionController < ApplicationController
 
     render json: {:result => true, :events => result_events}
   end
+  #-----------------------------------------------------------------------------------------#
 
+  def what_did_i_miss
+    if missing_params(params, ['competition_id', 'event_number'])
+      return
+    end
+
+    begin
+      competition = Competition.find(params[:competition_id])
+    rescue
+      render json: {:result => false, :message => "Could not find competition."}
+      return
+    end
+
+    event_number_i = params[:event_number].to_i + 1
+    event_number_j = competition.event_number
+
+    events = _get_event_range(params[:competition_id], event_number_i, event_number_j)
+    render json: {:events => events}
+  end 
+
+  #-----------------------------------------------------------------------------------------#
   def _get_event_range (competition_id, event_number_i, event_number_j)
 
     begin
