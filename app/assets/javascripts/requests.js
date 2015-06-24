@@ -128,6 +128,7 @@ function get_current_event_number_request() {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+// This function is being phased out and being replaced by what_did_i_miss_request()
 function get_event_range_request(event_number_i, event_number_j) {
 
   var ticket = new_ticket();
@@ -136,6 +137,22 @@ function get_event_range_request(event_number_i, event_number_j) {
   ticket.get_params = function() {
     return {competition_id: slam.id, event_number_i: event_number_i, event_number_j: event_number_j};
   };
+  ticket.done = function(response) {
+    for (var i=0; i<response.events.length; i++) {
+      do_event(response.events[i]);
+    }
+  };
+
+  window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/
+
+function what_did_i_miss_request() {
+
+  var ticket = new_ticket();
+
+  ticket.url = "/competition/what_did_i_miss";
+  ticket.get_params = function() { return {competition_id: slam.id, event_number: slam.event_number}};
   ticket.done = function(response) {
     for (var i=0; i<response.events.length; i++) {
       do_event(response.events[i]);

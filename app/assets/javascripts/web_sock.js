@@ -24,7 +24,8 @@ function connect_websocket() {
 
     window.web_sock.onopen = function() {
       console.log("websocket connected.");
-      get_current_event_number_request();
+      //get_current_event_number_request();
+      what_did_i_miss_request();
     };
 
     window.web_sock.onclose = function() {
