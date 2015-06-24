@@ -102,6 +102,8 @@ function page_change_competition() {
 
   for (var i = 0; i < events.length; i++)
     do_event(events[i]);
+
+  what_did_i_miss_request();
 }
 
 /*------------------------------------------------------------------------------------*/
