@@ -6,6 +6,7 @@ class WelcomeController < ApplicationController
 
   #------------------------------------------------------------------------------------#
   def index
+    @title = Setting.take.title
     @slams = Competition.order('created_at DESC') #.find_each
   end
 

@@ -1,7 +1,7 @@
 <% # image_tag image_path "logo_slam.png" %>
 <% # FIXME: image_tag just displays a blank image. %>
 
-<h1> Van Slam Live </h1>
+<h1> <%= @title %> </h1>
 
 <% @slams.each do |slam| %>
   <h2> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s %> </h2>
