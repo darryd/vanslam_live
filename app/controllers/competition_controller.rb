@@ -258,10 +258,6 @@ class CompetitionController < ApplicationController
   end
   #-----------------------------------------------------------------------------------------#
 
-  
-  # TODO for delete the performance from database, but for now, we won't
-
-
   def remove_performance
 
     if not_allowed()
@@ -281,11 +277,10 @@ class CompetitionController < ApplicationController
     end
 
     competition = performance.round.competition
+    performance.delete
 
     render json: {:result => true}
 
-    # TODO delete from database
-    #
     # Send event
     event_hash = {}
     event_hash[:event] = "remove_performance"
@@ -295,10 +290,6 @@ class CompetitionController < ApplicationController
     new_event(competition, event_hash)
 
   end
-
-
-
-
 
   #-----------------------------------------------------------------------------------------#
   def get_current_event_number
