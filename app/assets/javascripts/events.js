@@ -112,7 +112,7 @@ function event_new_performance(event) {
     prev_performance = comms[event.previous_performance_id].performance_ui.performance;
   }
 
-  var performance = performance_new(event.poet_name, prev_performance, round.time_limit);
+  var performance = performance_new(event.poet_name, prev_performance, round.time_limit, num_judges);
   var performance_ui = performance_ui_new(performance);
   performance.performance_id = event.performance_id; // BOOKMARK
 

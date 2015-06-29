@@ -75,7 +75,7 @@ function poet_select() {
 function signup_poet(name) {
 
     // Add poet button to rounds which doesn't get its poets from a previous round.
-    var invisible_performance = performance_new(name, null, 0);
+    var invisible_performance = performance_new(name, null, 0, num_judges);
     invisible_round.add_performance(invisible_performance);
     invisible_round.num_places = invisible_round.performances.length;
     invisible_performance.rank = 1;
@@ -106,7 +106,7 @@ function click_poet(button) {
 
   var prev_performance = button.round.is_cumulative ? button.prev_performance : null;
 
-  var performance = performance_new(button.name, prev_performance, round.time_limit);
+  var performance = performance_new(button.name, prev_performance, round.time_limit, num_judges);
   var performance_ui = performance_ui_new(performance);
 
   // We add the performance to the round.

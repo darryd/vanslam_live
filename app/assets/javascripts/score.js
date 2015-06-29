@@ -4,7 +4,7 @@
 var places = [0, "first", "second", "third", "fouth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"];
 
 var num_rounds = 2;
-var num_judges = 5;
+var num_judges = 5; //TODO Remove after refactoring is complete
 //var time_limit = 3 * 60; // This now comes from the database
 var grace_time = 10;
 
@@ -94,12 +94,13 @@ poet_new = function (name) {
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
-performance_new = function (name, prev, time_limit) {
+performance_new = function (name, prev, time_limit, num_judges) {
 
   var performance = {};
 
   performance.id = makeid(20);
   performance.time_limit = time_limit;
+  performance.num_judges = num_judges; // = 5;// to see if I refactored correctly
   /*--------------------------------------------------------------------------------------------------------------------------------*/
   // Notify that the score has been (re)calculated.
 
@@ -198,7 +199,7 @@ performance_new = function (name, prev, time_limit) {
     var min_score = Infinity;
     var min_judge;
 
-    for (var i=0; i<num_judges; i++)
+    for (var i=0; i<this.num_judges; i++)
       if (min_score > this.judges[i]) {
 	min_score = this.judges[i];
 	this.min_judge = i;
@@ -213,7 +214,7 @@ performance_new = function (name, prev, time_limit) {
     var max_score = -Infinity;
     var max_judge;
 
-    for (var i=0; i<num_judges; i++)
+    for (var i=0; i<this.num_judges; i++)
       if (max_score < this.judges[i] && i != this.min_judge) {
 	max_score = this.judges[i];
 	this.max_judge = i;
@@ -228,7 +229,7 @@ performance_new = function (name, prev, time_limit) {
     this.find_min_judge();
     this.find_max_judge();
 
-    for (var i=0; i<num_judges; i++) 
+    for (var i=0; i<this.num_judges; i++) 
       if (i != this.min_judge && i != this.max_judge)
 	sum += this.judges[i];
 
@@ -275,7 +276,7 @@ performance_new = function (name, prev, time_limit) {
   performance.seconds = 0;
 
   performance.judges = [];
-  for (var i=0; i<num_judges; i++)
+  for (var i=0; i< performance.num_judges; i++)
     performance.judges[i] = 0;
 
   performance.score = 0;

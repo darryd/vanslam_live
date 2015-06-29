@@ -13,7 +13,7 @@ judges_ui_new = function(performance, comm /*, num_judges*/) {
 
   tr = document.createElement("tr");
 
-  for (var i=0; i<num_judges; i++) {
+  for (var i=0; i<performance.num_judges; i++) {
     td = document.createElement("td");
 
     table.judges.push(judge_ui_new(performance, i, comm));
