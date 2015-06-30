@@ -1,6 +1,6 @@
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-judges_ui_new = function(performance, comm /*, num_judges*/) {
+judges_ui_new = function(performance, comm) {
 
   var table = document.createElement("table");
   table.judges = [];

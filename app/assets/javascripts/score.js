@@ -4,8 +4,6 @@
 var places = [0, "first", "second", "third", "fouth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"];
 
 var num_rounds = 2;
-var num_judges = 5; //TODO Remove after refactoring is complete
-//var time_limit = 3 * 60; // This now comes from the database
 var grace_time = 10;
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
