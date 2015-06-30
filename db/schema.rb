@@ -11,19 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630074119) do
+ActiveRecord::Schema.define(version: 20150630204826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "competitions", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "event_number"
     t.boolean  "is_closed"
     t.integer  "num_judges"
-    t.boolean  "no_min_max"
+    t.boolean  "do_not_include_min_and_max_scores"
   end
 
   create_table "events", force: :cascade do |t|
