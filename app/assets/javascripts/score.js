@@ -224,8 +224,10 @@ performance_new = function (name, prev, time_limit, num_judges) {
 
     var sum = 0;
 
-    this.find_min_judge();
-    this.find_max_judge();
+    if (slam.do_not_include_min_and_max_scores) {
+      this.find_min_judge();
+      this.find_max_judge();
+    }
 
     for (var i=0; i<this.num_judges; i++) 
       if (i != this.min_judge && i != this.max_judge)
@@ -312,10 +314,10 @@ round_new = function (num_places, round_number) {
     var rankings = [];
 
     for (var i=0; i<me.performances.length; i++) {
-	// Turn subscore into an "integer" because "floats" don't work well with comparisons 
-	var subscore = Math.floor(me.performances[i].subscore * 10);
-	rankings.push(subscore);
-      }
+      // Turn subscore into an "integer" because "floats" don't work well with comparisons 
+      var subscore = Math.floor(me.performances[i].subscore * 10);
+      rankings.push(subscore);
+    }
 
     rankings.sort(function(a, b){return b - a;});
 
