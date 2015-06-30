@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629231351) do
+ActiveRecord::Schema.define(version: 20150630074119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150629231351) do
     t.integer  "event_number"
     t.boolean  "is_closed"
     t.integer  "num_judges"
+    t.boolean  "no_min_max"
   end
 
   create_table "events", force: :cascade do |t|

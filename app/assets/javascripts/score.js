@@ -311,9 +311,7 @@ round_new = function (num_places, round_number) {
 
     var rankings = [];
 
-    for (var i=0; i<me.performances.length; i++)
-      /*if (rankings.indexOf(me.performances[i].subscore) == -1)*/ {
-
+    for (var i=0; i<me.performances.length; i++) {
 	// Turn subscore into an "integer" because "floats" don't work well with comparisons 
 	var subscore = Math.floor(me.performances[i].subscore * 10);
 	rankings.push(subscore);
