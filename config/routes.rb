@@ -14,45 +14,45 @@ Rails.application.routes.draw do
   
   post "poet/post_create_or_get"
   post "poet/post_suggestions"
-  get "poet/post_suggestions"
+#  get "poet/post_suggestions"
 
   get "poet/lookup"
 
   post "competition/signup_poet"
-  get "competition/signup_poet"
+ # get "competition/signup_poet"
 
   post "competition/remove_performance"
-  get "competition/remove_performance"
+  #get "competition/remove_performance"
 
   #get "welcome/chat"
 
   get "competition/show"
 
   post "competition/new_performance"
-  get "competition/new_performance"
+  #get "competition/new_performance"
 
   post "competition/echo"
 
-  get "competition/judge"
+  #get "competition/judge"
   post "competition/judge"
 
-  get "competition/get_current_event_number"
+  #get "competition/get_current_event_number"
   post "competition/get_current_event_number"
 
-  get "competition/get_event"
+  #get "competition/get_event"
   post "competition/get_event"
 
-  get "competition/set_time"
+  #get "competition/set_time"
   post "competition/set_time"
   
-  get "competition/set_penalty"
+  #get "competition/set_penalty"
   post "competition/set_penalty"
 
-  get "competition/get_event_range"
+  #get "competition/get_event_range"
   post "competition/get_event_range"
 
 
-  get "competition/what_did_i_miss"
+  #get "competition/what_did_i_miss"
   post "competition/what_did_i_miss"
   
 
