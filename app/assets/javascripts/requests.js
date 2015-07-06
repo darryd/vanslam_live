@@ -197,3 +197,19 @@ function remove_performance_request(comm) {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function check_log_in_request(done_func) {
+
+  var ticket = new_ticket();
+
+  ticket.url = "/welcome/check_login";
+  ticket.get_params = function() {return {};};
+
+  ticket.done = done_func;
+
+  window.ajax_queue.push(ticket);
+/*-----------------------------------------------------------------------*/
+
+
+
+}
+/*-----------------------------------------------------------------------*/

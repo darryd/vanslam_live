@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get "welcome/do_log_out"
 
   get "welcome/check_login"
+  post "welcome/check_login"
+  
 
   get "poet/names"
   
