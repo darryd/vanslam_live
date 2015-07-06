@@ -10,6 +10,8 @@ function display_login_info() {
 
   var done_func = function(login) {
 
+    window.login_info = login; 
+
     var e = document.getElementById("login_info");
     if (e == null) 
       return;

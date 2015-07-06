@@ -26,10 +26,7 @@ function process_metrics(metric) {
   if (e != null)
     e.innerHTML = "Number of Connections: " + metric.total_connections;
 
-  if (login_info.is_logged_in) {
-    document.title = metric.total_connections;
-  }
-    
+  document.title = metric.total_connections;
 }
 
 
