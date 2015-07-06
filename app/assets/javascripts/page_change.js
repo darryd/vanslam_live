@@ -2,7 +2,8 @@
 /*-------------------------------------------------------------------------------------*/
 $(document).on('page:change', function () {
 
-
+  // Prepare Queue
+  window.ajax_queue = [];
 
   display_login_info();
 
@@ -48,14 +49,17 @@ function prepare_rounds() {
 
 function manage_class_visible_when_logged_in() {
 
-  login = get_login_info();
+  var done_func = function(login) {
 
-  var elements = document.getElementsByClassName('visible_when_logged_in');
-  for (var i=0; i < elements.length; i++)
-    if (login.is_logged_in)
-      elements[i].removeAttribute('hidden')
-    else
-      elements[i].setAttribute('hidden', null);
+    var elements = document.getElementsByClassName('visible_when_logged_in');
+    for (var i=0; i < elements.length; i++)
+      if (login.is_logged_in)
+	elements[i].removeAttribute('hidden')
+      else
+	elements[i].setAttribute('hidden', null);
+  }
+
+  check_login_request(done_func);
 }
 
 function page_change_competition() {
@@ -63,37 +67,42 @@ function page_change_competition() {
   manage_class_visible_when_logged_in();
   prepare_rounds();
 
-  if (get_login_info().is_logged_in) {
+  var login = get_login_info();
 
-    var poets_competing = document.getElementById("poets_competing");
-    poets_competing.removeAttribute('hidden');
-    poets_competing.poet_names = [];
+  var done_func = function(login) {
 
-    var temp = do_log_out;
-    do_log_out = function () {
-      temp();
-      document.getElementById("poets_competing").setAttribute("hidden", null);
-      document.getElementById("poet_lookup").setAttribute("hidden", null);
+    if (login.is_logged_in) {
 
-      // Hide elements that should only be visible when logged in.
-      var elements = document.getElementsByClassName('visible_when_logged_in'); // TODO Perhaps this should be default behavior for logging out?
-      for (var i=0; i<elements.length; i++)
-	elements[i].setAttribute('hidden', null);
+      var poets_competing = document.getElementById("poets_competing");
+      poets_competing.removeAttribute('hidden');
+      poets_competing.poet_names = [];
 
-      // Make inputs readonly
-      var inputs = document.getElementsByClassName('scorekeeper_input');
-      for (var i=0; i<inputs.length; i++)
-	inputs[i].setAttribute('readonly', null);
+      var temp = do_log_out;
+      do_log_out = function () {
+	temp();
+	document.getElementById("poets_competing").setAttribute("hidden", null);
+	document.getElementById("poet_lookup").setAttribute("hidden", null);
 
-    };
+	// Hide elements that should only be visible when logged in.
+	var elements = document.getElementsByClassName('visible_when_logged_in'); // TODO Perhaps this should be default behavior for logging out?
+	for (var i=0; i<elements.length; i++)
+	  elements[i].setAttribute('hidden', null);
 
+	// Make inputs readonly
+	var inputs = document.getElementsByClassName('scorekeeper_input');
+	for (var i=0; i<inputs.length; i++)
+	  inputs[i].setAttribute('readonly', null);
+
+      };
+
+    }
+    else {
+      // User is not logged in.
+    }
   }
-  else {
-    // User is not logged in.
-  }
 
-  // Prepare Queue
-  window.ajax_queue = [];
+  done_func(login);
+
   window.web_sock_id = makeid(20);
 
   var interval = 1;
