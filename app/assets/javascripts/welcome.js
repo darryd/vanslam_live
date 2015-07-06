@@ -7,32 +7,36 @@ function display_login_info() {
   if (document.URL.split('?')[0].split('/')[3] == "login")
     return;
 
-  var e = document.getElementById("login_info");
-  if (e == null) 
-    return;
 
- 
-  window.login_info = get_login_info();
+  var done_func = function(login) {
 
-  if (login_info.is_logged_in) {
+    var e = document.getElementById("login_info");
+    if (e == null) 
+      return;
+
+    if (login.is_logged_in) {
       e.innerHTML = "You are logged in as <span style='color:orange;font-weight:bold; '>" 
-	+ login_info.user+ ' </span>  <a href="javascript:do_log_out();">Log out</a>';
+	+ login.user+ ' </span>  <a href="javascript:do_log_out();">Log out</a>';
+    }
+    else {
+      var data = encodeURIComponent(document.URL);
+      //e.innerHTML = "<a href='/login?page=" + data + "'>Log in</a>";
+      e.innerHTML = "";
+    }
   }
-  else {
-    var data = encodeURIComponent(document.URL);
-    //e.innerHTML = "<a href='/login?page=" + data + "'>Log in</a>";
-    e.innerHTML = "";
-  }
+
+  check_login_request(done_func);
+
 }
 /*-------------------------------------------------------------------------------------*/
 function do_log_out() {
 
- var xmlhttp = get_xmlhttp();
+  var xmlhttp = get_xmlhttp();
 
- xmlhttp.open("GET", "/welcome/do_log_out", false);
- xmlhttp.send();
+  xmlhttp.open("GET", "/welcome/do_log_out", false);
+  xmlhttp.send();
 
- display_login_info();
+  display_login_info();
 }
 
 
@@ -44,7 +48,7 @@ function default_functions(xmlhttp) {
 
   for (var i=0; i<funcs.length; i++) {
     if (func_patt.test(funcs[i])) {
-	xmlhttp[funcs[i]] = closure (funcs[i]);
+      xmlhttp[funcs[i]] = closure (funcs[i]);
     }
   }
 }
