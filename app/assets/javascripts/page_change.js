@@ -67,8 +67,6 @@ function page_change_competition() {
   manage_class_visible_when_logged_in();
   prepare_rounds();
 
-  var login = get_login_info();
-
   var done_func = function(login) {
 
     if (login.is_logged_in) {
@@ -101,7 +99,7 @@ function page_change_competition() {
     }
   }
 
-  done_func(login);
+  check_login_request(done_func);
 
   window.web_sock_id = makeid(20);
 
