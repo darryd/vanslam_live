@@ -197,7 +197,7 @@ function remove_performance_request(comm) {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
-function check_log_in_request(done_func) {
+function check_login_request(done_func) {
 
   var ticket = new_ticket();
 
@@ -207,9 +207,5 @@ function check_log_in_request(done_func) {
   ticket.done = done_func;
 
   window.ajax_queue.push(ticket);
-/*-----------------------------------------------------------------------*/
-
-
-
 }
 /*-----------------------------------------------------------------------*/

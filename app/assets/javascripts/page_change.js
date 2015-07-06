@@ -48,9 +48,11 @@ function prepare_rounds() {
 
 function manage_class_visible_when_logged_in() {
 
+  login = get_login_info();
+
   var elements = document.getElementsByClassName('visible_when_logged_in');
   for (var i=0; i < elements.length; i++)
-    if (get_login_info().is_logged_in)
+    if (login.is_logged_in)
       elements[i].removeAttribute('hidden')
     else
       elements[i].setAttribute('hidden', null);

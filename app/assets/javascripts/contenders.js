@@ -26,9 +26,6 @@ contenders_new = function(round_number, prev_round) {
 
     var div = get_round_buttons(winners, me.round_number);
 
-    console.log(div.innerHTML);
-    
-
     // Replace the div with the new div.
     var id = makeid(10);
     div.id = id;
