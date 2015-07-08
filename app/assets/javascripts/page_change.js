@@ -7,6 +7,9 @@ $(document).on('page:change', function () {
   var interval = 1;
   setInterval(process_ajax_queue, interval);
 
+  // Ok sync requests are bad, but just this one time
+  window.login_info = get_json('/welcome/check_login');
+
   display_login_info();
 
   var e = document.getElementsByClassName('page_change');
