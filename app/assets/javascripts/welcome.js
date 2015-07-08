@@ -26,8 +26,10 @@ function display_login_info() {
       e.innerHTML = "";
     }
   }
-
+   
   check_login_request(done_func);
+  if (window.login_info != undefined)
+    done_func(window.login_info); //Run this now too. So user doesn't see delay.
 
 }
 /*-------------------------------------------------------------------------------------*/
