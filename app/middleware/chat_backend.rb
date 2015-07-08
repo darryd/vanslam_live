@@ -93,7 +93,7 @@ module MakeSlam
     c = Competition.create(title: title, event_number: 0, num_judges: 5, do_not_include_min_and_max_scores: true)
 
     Round.create(competition_id: c.id, round_number: 1, title: "Sacrifical Round", are_poets_from_previous: false, time_limit: 180)
-    Round.create(competition_id: c.id, round_number: 2, title: "Round 1", are_poets_from_previous: false, time_limit: 180, num_places: 6) 
+    Round.create(competition_id: c.id, round_number: 2, title: "Round 1", are_poets_from_previous: false, time_limit: 180, num_places: 5) 
     Round.create(competition_id: c.id, round_number: 3, title: "Round 2", are_poets_from_previous: true, time_limit: 180, is_cumulative: true)
   end
 
@@ -101,7 +101,7 @@ module MakeSlam
     c = Competition.create(title: title, event_number: 0, num_judges: 3)
 
     Round.create(competition_id: c.id, round_number: 1, title: "Sacrifical Round", are_poets_from_previous: false, time_limit: 180)
-    Round.create(competition_id: c.id, round_number: 2, title: "Round 1", are_poets_from_previous: false, time_limit: 180, num_places: 6) 
+    Round.create(competition_id: c.id, round_number: 2, title: "Round 1", are_poets_from_previous: false, time_limit: 180, num_places: 5) 
     Round.create(competition_id: c.id, round_number: 3, title: "Round 2", are_poets_from_previous: true, time_limit: 180, is_cumulative: true)
   end
 
