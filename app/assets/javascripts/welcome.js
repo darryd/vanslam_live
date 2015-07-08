@@ -35,12 +35,14 @@ function display_login_info() {
 /*-------------------------------------------------------------------------------------*/
 function do_log_out() {
 
+  /*
   var xmlhttp = get_xmlhttp();
 
   xmlhttp.open("GET", "/welcome/do_log_out", false);
   xmlhttp.send();
+  */
 
-  display_login_info();
+  do_logout_request(display_login_info);
 }
 
 

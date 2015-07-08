@@ -86,8 +86,8 @@ class WelcomeController < ApplicationController
     if logged_in != nil
       logged_in.delete
     end
-
-    redirect_to '/'
+    
+    render json: {:result => true}
 
   end
 

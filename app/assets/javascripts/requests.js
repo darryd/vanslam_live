@@ -209,3 +209,15 @@ function check_login_request(done_func) {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function do_logout_request(done_func) {
+
+  var ticket = new_ticket();
+
+  ticket.url = "/welcome/do_log_out";
+  ticket.get_params = function() {return {};};
+
+  ticket.done = done_func;
+
+  window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/
