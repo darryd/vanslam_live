@@ -146,16 +146,22 @@ function p_div_input_entered(input) {
   var div = input.div;
   var performance = div.performance;
 
+  var value = parse_float_or_return_zero(input.value);
+
   switch (i) 
   {
     case div.indexes.minutes_i:
     case div.indexes.seconds_i:
       var time = p_div_get_time(div);
+      performance.set_time(time.minutes, time.seconds);
       break;
     case div.indexes.penalty_i:
+      performance.set_penalty(value);
       break;
     default:
       if (i >= 0 && i < div.indexes.minutes_i) {
+	input.value /= 10;
+	performance.judge(i, value/10);
       }
   }
 }
