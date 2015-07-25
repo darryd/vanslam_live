@@ -1,18 +1,29 @@
 
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-function performance_div_new(performance) {
+function p_div_new(performance) {
 
   var div = document.createElement("div");
+
+
+  var row = document.createElement("div");
+  row.className = 'row';
+  var column = document.createElement('div');
+  column.className = 'large-12 columns';
+  column.innerHTML = "<h3> <span style='color:purple'>John Doe</span> </h3>";
+  row.appendChild(column);
+  div.appendChild(row);
+
   div.column_length = {"Judges": slam.num_judges, "Time": 2, "Penalty": 1, "Score": 1, "Subscore": 1, "Total Score": 1, "Rank":1};
   div.titles = ["Judges", "Time", "Penalty", "Score", "Subscore", "Total Score", "Rank"];
-  performance_div_build_columns_hash(div);
+  p_div_build_columns_hash(div);
 
   div.performance = performance;
   div.id = makeid(20);
 
-  perf_div_build_titles_row(div);
-  perf_div_build_sub_titles(div);
+  p_div_build_titles_row(div);
+  p_div_build_sub_titles(div);
+  p_div_build_data_row(div);
 
   div.style.borderStyle = 'solid';
   div.style.borderWidth = '1px';
@@ -21,7 +32,7 @@ function performance_div_new(performance) {
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-function performance_div_build_columns_hash(div) {
+function p_div_build_columns_hash(div) {
 
   var num_columns = 12;
 
@@ -41,7 +52,7 @@ function performance_div_build_columns_hash(div) {
   }
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-function perf_div_build_titles_row(div) {
+function p_div_build_titles_row(div) {
 
   var row = document.createElement("div");
   row.className = "row";
@@ -50,7 +61,7 @@ function perf_div_build_titles_row(div) {
     
     var column = document.createElement("div");
     column.className = "large-" + div.columns[div.titles[i]] + " columns";
-    column.innerHTML = div.titles[i];
+    column.innerHTML = "<span style='color:blue;'>" + div.titles[i] + "</span>";
 
     row.appendChild(column);
 
@@ -58,8 +69,7 @@ function perf_div_build_titles_row(div) {
   div.appendChild(row);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-function perf_div_build_sub_titles(div) {
-
+function p_div_build_sub_titles(div) {
 
   var num_columns = 12;
 
@@ -73,23 +83,56 @@ function perf_div_build_sub_titles(div) {
     column = document.createElement("div");
 
     column.className = "large-1 columns";
-    column.innerHTML = "" + (i + 1);
+    column.innerHTML = "<span style='color:purple'>" + (i + 1) + "</span>";
     
     row.appendChild(column);
   }
-  // Add Time
+  // Add Timel
   column = document.createElement("div");
   column.className = "large-1 columns";
-  column.innerHTML = "minutes";
+  column.innerHTML = "<span style='color:brown'>minutes</span>";
   row.appendChild(column);
 
   column = document.createElement("div");
   column.className = "large-" + (num_columns - slam.num_judges -1) + " columns";
-  column.innerHTML = "seconds";
+  column.innerHTML = "<span style='color:brown'>seconds</span>";
   row.appendChild(column);
 
   div.appendChild(row);
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_build_data_row(div) {
+
+
+  var row = document.createElement("div");
+  row.className = "row";
+
+  var num_columns = slam.num_judges + 3; // Judges + Minutes + Seconds + Penalty
+
+  var i;
+  for (i=0; i<num_columns; i++) {
+    var column = document.createElement("div");
+    column.className = "large-1 columns";
+
+    var input = document.createElement("input");
+    input.setAttribute('size', 4);
+
+    column.appendChild(input);
+
+    row.appendChild(column);
+  }
+
+  num_columns = 12;
+  for (; i< num_columns; i++) {
+
+    var column = document.createElement("div");
+    column.className = "large-1 columns";
+    row.appendChild(column);
+  }
+
+  div.appendChild(row);
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+
 
