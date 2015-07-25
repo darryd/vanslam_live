@@ -115,37 +115,84 @@ function p_div_build_sub_titles(div) {
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-function p_div_build_data_row(div) {
+function p_div_setup_indexes(div) {
 
+  div.data_columns = [];
+  div.data_indexes = {};
 
-  var row = document.createElement("div");
-  row.className = "row";
+  var i = slam.num_judges;
 
-  var num_columns = slam.num_judges + 3; // Judges + Minutes + Seconds + Penalty
-
-  var i;
-  for (i=0; i<num_columns; i++) {
-    var column = document.createElement("div");
-    column.className = "large-1 columns";
-
-    var input = document.createElement("input");
-    input.setAttribute('size', 4);
-
-    column.appendChild(input);
-
-    row.appendChild(column);
-  }
-
-  num_columns = 12;
-  for (; i< num_columns; i++) {
-
-    var column = document.createElement("div");
-    column.className = "large-1 columns";
-    row.appendChild(column);
-  }
-
-  div.appendChild(row);
+  div.data_indexes.minutes_i = i++;
+  div.data_indexes.seconds_i = i++;
+  div.data_indexes.penalty_i = i++;
+  div.data_indexes.score_i = i++;
+  div.data_indexes.subscore_i = i++;
+  div.data_indexes.total_score_i = i++;
+  div.data_indexes.rank = i;
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_input_entered(input) {
+
+ var i = parseInt(input.getAttribute('data-index'));
+ var div = input.div;
+
+ switch (i) 
+ {
+   case div.data_indexes.minutes_i:
+     console.log('Minutes:');
+     break;
+   case div.data_indexes.seconds_i:
+     console.log('Seconds:');
+     break;
+   case div.data_indexes.penalty_i:
+     console.log('Penalty:');
+     break;
+   default:
+     if (i >= 0 && i < div.data_indexes.minutes_i)
+       console.log('Score (' + i + ')');
+   }
+
+     console.log(input.value);
+ }
+ /*----------------------------------------------------------------------------------------------------------------------------------*/
+ function p_div_build_data_row(div) {
+
+   p_div_setup_indexes(div);
+
+   var row = document.createElement("div");
+   row.className = "row";
+
+   var num_columns = slam.num_judges + 3; // Judges + Minutes + Seconds + Penalty
+
+   var i;
+   for (i=0; i<num_columns; i++) {
+     var column = document.createElement("div");
+     column.className = "large-1 columns";
+
+     var input = document.createElement("input");
+     input.div = div;
+     input.setAttribute('size', 4);
+     input.setAttribute('onchange', 'p_div_input_entered(this)');
+     input.setAttribute('data-index', i);
+
+     column.appendChild(input);
+     div.data_columns.push(input);
+
+     row.appendChild(column);
+   }
+
+   num_columns = 12;
+   for (; i< num_columns; i++) {
+
+     var column = document.createElement("div");
+     column.className = "large-1 columns";
+     row.appendChild(column);
+
+     div.data_columns.push(column);
+   }
+
+   div.appendChild(row);
+ }
+ /*----------------------------------------------------------------------------------------------------------------------------------*/
 
 
