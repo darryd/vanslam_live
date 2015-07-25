@@ -51,6 +51,13 @@ function parse_int_or_return_zero(val) {
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
+function parse_float_or_return_zero(val) {
+
+  var result = parseFloat(val);
+
+  return isNaN(result) ? 0 : result;
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
 function set_time(time_ui, from_comm) {
 
   var minutes = parse_int_or_return_zero(time_ui.input_minute.value);
