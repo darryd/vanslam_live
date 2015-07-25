@@ -12,6 +12,10 @@ function performance_div_new(performance) {
   div.id = makeid(20);
 
   perf_div_build_titles_row(div);
+  perf_div_build_sub_titles(div);
+
+  div.style.borderStyle = 'solid';
+  div.style.borderWidth = '1px';
 
   return div;
 }
@@ -39,13 +43,12 @@ function performance_div_build_columns_hash(div) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function perf_div_build_titles_row(div) {
 
-  var column;
   var row = document.createElement("div");
   row.className = "row";
 
   for (var i=0; i<div.titles.length; i++) {
     
-    column = document.createElement("div");
+    var column = document.createElement("div");
     column.className = "large-" + div.columns[div.titles[i]] + " columns";
     column.innerHTML = div.titles[i];
 
@@ -54,5 +57,39 @@ function perf_div_build_titles_row(div) {
   }
   div.appendChild(row);
 }
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function perf_div_build_sub_titles(div) {
+
+
+  var num_columns = 12;
+
+  var row = document.createElement("div");
+  row.className = "row";
+
+  // Add Judges
+  var column;
+  for (var i=0; i<slam.num_judges; i++) {
+
+    column = document.createElement("div");
+
+    column.className = "large-1 columns";
+    column.innerHTML = "" + (i + 1);
+    
+    row.appendChild(column);
+  }
+  // Add Time
+  column = document.createElement("div");
+  column.className = "large-1 columns";
+  column.innerHTML = "minutes";
+  row.appendChild(column);
+
+  column = document.createElement("div");
+  column.className = "large-" + (num_columns - slam.num_judges -1) + " columns";
+  column.innerHTML = "seconds";
+  row.appendChild(column);
+
+  div.appendChild(row);
+}
+
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
