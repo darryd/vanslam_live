@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Live Poetry Slam" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
@@ -14,8 +14,42 @@
 
   <body>
 
+<!--
+    <div class="row">
+      <div class="large-5 columns">
+	Judges:
+      </div>
+      <div class="large-1 columns">
+	Time:
+      </div>
+      <div class="large-6 columns">
+	Penalty:
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="large-1 columns">
+	1:
+      </div>
+      <div class="large-11 columns">
+	2:
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="large-1 columns">
+	<input value="9.8"></input>
+      </div>
+      <div class="large-11 columns">
+	<input value="10.0"></input>	
+      </div>
+    </div>
+    -->
+
     <%= render :partial => 'welcome/log_in_or_out' %>
-    
+
     <%= yield %>
 
   </body>
