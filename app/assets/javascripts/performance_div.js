@@ -4,17 +4,17 @@
 function p_div_new(performance) {
 
   var div = document.createElement("div");
-
+  var name = performance.name;
 
   var row = document.createElement("div");
   row.className = 'row';
   var column = document.createElement('div');
   column.className = 'large-12 columns';
-  column.innerHTML = "<h3> <span style='color:purple'>John Doe</span> </h3>";
+  column.innerHTML = "<h3> <span style='color:purple'>" + name + "</span> </h3>";
   row.appendChild(column);
   div.appendChild(row);
 
-  div.column_length = {"Judges": slam.num_judges, "Time": 2, "Penalty": 1, "Score": 1, "Subscore": 1, "Total Score": 1, "Rank":1};
+  div.column_length = {Judges: slam.num_judges, Time: 2, Penalty: 1, Score: 1, Subscore: 1, "Total Score": 1, Rank:1};
   div.titles = ["Judges", "Time", "Penalty", "Score", "Subscore", "Total Score", "Rank"];
   p_div_build_columns_hash(div);
 
@@ -25,8 +25,21 @@ function p_div_new(performance) {
   p_div_build_sub_titles(div);
   p_div_build_data_row(div);
 
+  div.style.backgroundColor = '#F4F4F4';
   div.style.borderStyle = 'solid';
   div.style.borderWidth = '1px';
+
+  row = document.createElement("div");
+  row.className = "row";
+
+  column = document.createElement("div");
+  column.className = "large-12 columns";
+  column.style.minHeight = "15px"; //http://stackoverflow.com/a/25431669
+
+
+  row.appendChild(column);
+  div.appendChild(row);
+
 
   return div;
 }
