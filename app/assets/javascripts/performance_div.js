@@ -71,7 +71,7 @@ function p_div_build_titles_row(div) {
   row.className = "row";
 
   for (var i=0; i<div.titles.length; i++) {
-    
+
     var column = document.createElement("div");
     column.className = "large-" + div.columns[div.titles[i]] + " columns";
     column.innerHTML = "<span style='color:blue;'>" + div.titles[i] + "</span>";
@@ -97,7 +97,7 @@ function p_div_build_sub_titles(div) {
 
     column.className = "large-1 columns";
     column.innerHTML = "<span style='color:purple'>" + (i + 1) + "</span>";
-    
+
     row.appendChild(column);
   }
   // Add Timel
@@ -118,82 +118,89 @@ function p_div_build_sub_titles(div) {
 function p_div_setup_indexes(div) {
 
   div.data_columns = [];
-  div.data_indexes = {};
+  div.indexes = {};
 
   var i = slam.num_judges;
 
-  div.data_indexes.minutes_i = i++;
-  div.data_indexes.seconds_i = i++;
-  div.data_indexes.penalty_i = i++;
-  div.data_indexes.score_i = i++;
-  div.data_indexes.subscore_i = i++;
-  div.data_indexes.total_score_i = i++;
-  div.data_indexes.rank = i;
+  div.indexes.minutes_i = i++;
+  div.indexes.seconds_i = i++;
+  div.indexes.penalty_i = i++;
+  div.indexes.score_i = i++;
+  div.indexes.subscore_i = i++;
+  div.indexes.total_score_i = i++;
+  div.indexes.rank = i;
 }
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_get_time(div) {
+
+  var minutes = parse_int_or_return_zero(div.data_columns[div.indexes.minutes_i].value);
+  var seconds = parse_int_or_return_zero(div.data_columns[div.indexes.seconds_i].value);
+
+  return {minutes: minutes, seconds: seconds};
+}
+
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_entered(input) {
 
- var i = parseInt(input.getAttribute('data-index'));
- var div = input.div;
+  var i = parseInt(input.getAttribute('data-index'));
+  var div = input.div;
+  var performance = div.performance;
 
- switch (i) 
- {
-   case div.data_indexes.minutes_i:
-     console.log('Minutes:');
-     break;
-   case div.data_indexes.seconds_i:
-     console.log('Seconds:');
-     break;
-   case div.data_indexes.penalty_i:
-     console.log('Penalty:');
-     break;
-   default:
-     if (i >= 0 && i < div.data_indexes.minutes_i)
-       console.log('Score (' + i + ')');
-   }
+  switch (i) 
+  {
+    case div.indexes.minutes_i:
+    case div.indexes.seconds_i:
+      var time = p_div_get_time(div);
+      break;
+    case div.indexes.penalty_i:
+      break;
+    default:
+      if (i >= 0 && i < div.indexes.minutes_i) {
+      }
+  }
 
-     console.log(input.value);
- }
+  console.log(input.value);
+}
 
- /*----------------------------------------------------------------------------------------------------------------------------------*/
- function p_div_build_data_row(div) {
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_build_data_row(div) {
 
-   p_div_setup_indexes(div);
+  p_div_setup_indexes(div);
 
-   var row = document.createElement("div");
-   row.className = "row";
+  var row = document.createElement("div");
+  row.className = "row";
 
-   var num_columns = slam.num_judges + 3; // Judges + Minutes + Seconds + Penalty
+  var num_columns = slam.num_judges + 3; // Judges + Minutes + Seconds + Penalty
 
-   var i;
-   for (i=0; i<num_columns; i++) {
-     var column = document.createElement("div");
-     column.className = "large-1 columns";
+  var i;
+  for (i=0; i<num_columns; i++) {
+    var column = document.createElement("div");
+    column.className = "large-1 columns";
 
-     var input = document.createElement("input");
-     input.div = div;
-     input.setAttribute('size', 4);
-     input.setAttribute('onchange', 'p_div_input_entered(this)');
-     input.setAttribute('data-index', i);
+    var input = document.createElement("input");
+    input.div = div;
+    input.setAttribute('size', 4);
+    input.setAttribute('onchange', 'p_div_input_entered(this)');
+    input.setAttribute('data-index', i);
 
-     column.appendChild(input);
-     div.data_columns.push(input);
+    column.appendChild(input);
+    div.data_columns.push(input);
 
-     row.appendChild(column);
-   }
+    row.appendChild(column);
+  }
 
-   num_columns = 12;
-   for (; i< num_columns; i++) {
+  num_columns = 12;
+  for (; i< num_columns; i++) {
 
-     var column = document.createElement("div");
-     column.className = "large-1 columns";
-     row.appendChild(column);
+    var column = document.createElement("div");
+    column.className = "large-1 columns";
+    row.appendChild(column);
 
-     div.data_columns.push(column);
-   }
+    div.data_columns.push(column);
+  }
 
-   div.appendChild(row);
- }
+  div.appendChild(row);
+}
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
 
