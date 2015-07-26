@@ -1,5 +1,6 @@
 
 window.comms = {}; // a 'comm' is the connection between the performance_ui and the server
+window.comms_2 = {}; // a 'comm_2' is the connection between the p_ui and the server
 
 /*-----------------------------------------------------------------------*/
 /*

@@ -108,24 +108,39 @@ function event_new_performance(event) {
   var round = rounds[event.round_number -1];
 
 
-  // If the round is cumulative than we need to the prev performance.
+  // If the round is cumulative than we need to get the prev performance.
   var prev_performance = null;
+  var prev_performance_2 = null;
+
   if (event.previous_performance_id != null) {
     prev_performance = comms[event.previous_performance_id].performance_ui.performance;
+    prev_performance_2 = comms_2;
   }
 
   var performance = performance_new(event.poet_name, prev_performance, round.time_limit, slam.num_judges);
+  var performance_2 = performance_new(event.poet_name, prev_performance, round.time_limit, slam.num_judges);
+
   var performance_ui = performance_ui_new(performance);
+  var p_div = p_div_new(performance_2);
+
   performance.performance_id = event.performance_id; // BOOKMARK
+  performance_2.performance_id = event.performance_id;
 
   round.round_js.add_performance(performance);
+  round.round_js.add_performance(performance_2);
+
   performance.calculate(); // So that it doesn't say Rank is 'Infinity'
+  performance_2.calculate(); // So that it doesn't say Rank is 'Infinity'
 
   $("#performances_" + round.round_number).append(performance_ui);
+  $("#performances_" + round.round_number).append(p_div);
   round.names_already_performing.push(performance.name);
 
   performance_ui.comm.performance_id = event.performance_id;
+  p_div.comm.performance_id = event.performance_id;
+
   window.comms[event.performance_id] = performance_ui.comm;
+  window.comms_2[event.performance_id] = p_div.comm;
 
   // Trigger contenders.get_winners() so that the button to add the performer will be removed  
   if (round.are_poets_from_previous)
@@ -137,6 +152,7 @@ function event_judge(event) {
   var comm = window.comms[event.performance_id];
 
   comm.event_judge(comm, parseInt(event.judge_name), event.value);
+  comm.event_judge_2(comm, parseInt(event.judge_name), event.value);
 }
 
 function event_set_time(event) {

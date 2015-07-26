@@ -6,6 +6,10 @@ function p_div_new(performance) {
   var div = document.createElement("div");
   var name = performance.name;
 
+  div.comm = comm_new(div, performance.name); //Create comm object for communictiation with the server. 
+
+
+
   var row = document.createElement("div");
   row.className = 'row';
   var column = document.createElement('div');
