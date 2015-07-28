@@ -4,6 +4,10 @@
  *
  * This is the link between the server and the ui
  *
+ *
+ * It looks like we probably will do away with this file in the near future.
+ *
+ *
  * */
 
 function comm_new (performance_ui, name) {

@@ -8,7 +8,8 @@ function p_div_new(performance) {
 
   div.comm = comm_new(div, performance.name); //Create comm object for communictiation with the server. 
 
-
+  performance.add_notify_rank(p_div_rank_updated, div);
+  performance.add_notify_score(p_div_score_updated, div);
 
   var row = document.createElement("div");
   row.className = 'row';
@@ -133,6 +134,31 @@ function p_div_setup_indexes(div) {
   div.indexes.subscore_i = i++;
   div.indexes.total_score_i = i++;
   div.indexes.rank = i;
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function format_value(value) {
+
+  // Return a value that has at most one decimal place.
+  return Math.round(value * 100) / 100;
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_update_data_column(div, index, value) {
+  div.data_columns[index].innerHTML = format_value(value);
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_score_updated(div, performance) {
+
+
+  p_div_update_data_column(div, div.indexes.score_i, performance.score);
+  p_div_update_data_column(div, div.indexes.subscore_i, performance.subscore);
+  p_div_update_data_column(div, div.indexes.total_score_i, performance.poet.total_score);
+  
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_rank_updated (div, performance) {
+
+  div.data_columns[div.indexes.rank].innerHTML = performance.rank;
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_get_time(div) {
