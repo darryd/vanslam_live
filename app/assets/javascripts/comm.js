@@ -11,7 +11,7 @@ function comm_new (performance_ui, name) {
   var comm = {};
 
   comm.performance_ui = performance_ui;
-  comm.p_div = performance_ui;
+  comm.p_div = performance_ui; // This will get tidied up soon.
 
   comm.name = name;
 
@@ -21,10 +21,9 @@ function comm_new (performance_ui, name) {
     score_entered(judge_ui, true);
   }
 
-  comm.event_judge_2 = function(comm, judge_i, score) {
-    console.log ([comm, judge_i, score]);
-
-  }
+  //comm.event_judge_2 = function(comm, judge_i, score) {
+  //  p_div_set_score(comm.p_div, judge_i, score);
+  //}
 
   // This function gets called inside of judge_ui.js
   comm.score_entered = function(comm, judge_i, score) {

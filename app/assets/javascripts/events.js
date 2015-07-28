@@ -150,10 +150,13 @@ function event_new_performance(event) {
 
 function event_judge(event) {
   var comm = window.comms[event.performance_id];
-  //var comms_2 = window
+  var comm_2 = window.comms_2[event.performance_id];
 
   comm.event_judge(comm, parseInt(event.judge_name), event.value);
-  comm.event_judge_2(comm, parseInt(event.judge_name), event.value);
+  //comm_2.event_judge_2(comm_2, parseInt(event.judge_name), event.value);
+
+  p_div_set_score(comm_2.p_div, parseInt(event.judge_name), event.value);
+
 }
 
 function event_set_time(event) {
@@ -161,6 +164,9 @@ function event_set_time(event) {
   var comm = window.comms[event.performance_id];
 
   comm.event_time(comm, event.minutes, event.seconds);
+
+  var p_div = window.comms_2[event.performance_id].p_div;
+  p_div_set_time(p_div, event.minutes, event.seconds);
 }
 
 
@@ -168,6 +174,8 @@ function event_set_penalty(event) {
   var comm = window.comms[event.performance_id];
 
   comm.event_penalty(comm, event.penalty);
+  var p_div = window.comms_2[event.performance_id].p_div;
+  p_div_set_penalty(p_div, event.penalty);
 
 }
 
