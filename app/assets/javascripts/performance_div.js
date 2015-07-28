@@ -171,6 +171,33 @@ function p_div_input_entered(input) {
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_set_score(p_div, judge_i, value) {
+
+  p_div.data_columns[judge_i].value = value;
+  p_div.performance.judge(judge_i, value);
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_set_time(p_div, minutes, seconds) {
+
+  var i = p_div.indexes.minutes_i;
+
+  p_div.data_columns[i].value = minutes;
+  p_div.data_columns[++i].value = seconds;
+
+  p_div.performance.set_time(minutes, seconds);
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_set_penalty(p_div, value) {
+
+  var i = p_div.indexes.penalty_i;
+
+  p_div.data_columns[i].value = value;
+
+  p_div.performance.set_penalty(value);
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_build_data_row(div) {
 
   p_div_setup_indexes(div);

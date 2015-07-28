@@ -150,6 +150,7 @@ function event_new_performance(event) {
 
 function event_judge(event) {
   var comm = window.comms[event.performance_id];
+  //var comms_2 = window
 
   comm.event_judge(comm, parseInt(event.judge_name), event.value);
   comm.event_judge_2(comm, parseInt(event.judge_name), event.value);

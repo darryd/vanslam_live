@@ -20,8 +20,10 @@ function comm_new (performance_ui, name) {
     judge_ui.input.value = "" + score;
     score_entered(judge_ui, true);
   }
+
   comm.event_judge_2 = function(comm, judge_i, score) {
     console.log ([comm, judge_i, score]);
+
   }
 
   // This function gets called inside of judge_ui.js
