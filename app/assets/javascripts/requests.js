@@ -1,5 +1,4 @@
 
-window.comms = {}; // a 'comm' is the connection between the performance_ui and the server
 window.comms_2 = {}; // a 'comm_2' is the connection between the p_ui and the server
 
 /*-----------------------------------------------------------------------*/
@@ -35,7 +34,7 @@ function new_performance_request(round, name, performance_ui){
     performance_ui.comm.performance_id = performance_id;
     performance_ui.performance.performance_id = performance_id; // For when we need to find the previous_performance_id
 
-    window.comms[performance_id] = performance_ui.comm;
+    window.comms_2[performance_id] = performance_ui.comm;
   };
 
   window.ajax_queue.push(ticket);
