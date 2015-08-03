@@ -52,8 +52,10 @@ function poet_select() {
   if (poets_competing.poet_names.indexOf(name) == -1) {
     poets_competing.poet_names.push(name);
 
+    /*
     poets_competing.poet_names = poets_competing.poet_names.sort( function (a, b) { 
       return a.toLowerCase().localeCompare(b.toLowerCase()); });
+    */
 
     var html_str = "<span style='font-weight:bold'> Poets: </span>";
     html_str += "<span style='color:purple; font-weight:bold'>";
@@ -104,27 +106,40 @@ function click_poet(button) {
 
   var round = button.round;
 
-  var prev_performance = button.round.is_cumulative ? button.prev_performance : null;
+  var prev_performance = button.round.is_cumulative ? button.prev_performance : null; 
 
-  var performance = performance_new(button.name, prev_performance, round.time_limit, slam.num_judges);
-  var performance_ui = performance_ui_new(performance);
+  //var performance = performance_new(button.name, prev_performance, round.time_limit, slam.num_judges);
+  var performance_2 = performance_new(button.name, prev_performance, round.time_limit, slam.num_judges);
+  //var performance_ui = performance_ui_new(performance);
+  var p_div = p_div_new(performance_2);
 
   // We add the performance to the round.
-  round.round_js.add_performance(performance);
-  performance.calculate(); //Otherwise rank says 'Infinity'
+  //round.round_js.add_performance(performance);
+  round.round_js.add_performance(performance_2);
+  //performance.calculate(); //Otherwise rank says 'Infinity'
+  performance_2.calculate(); //Otherwise rank says 'Infinity'
 
-  $("#performances_" + round.round_number).append(performance_ui);
-  round.names_already_performing.push(performance.name);
+  //$("#performances_" + round.round_number).append(performance_ui);
+  $("#performances_" + round.round_number).append(p_div);
+  round.names_already_performing.push(performance_2.name);
 
   // Send request to server
   
-  new_performance_request(round, button.name, performance_ui);
+  new_performance_request(round, button.name, p_div);
 
   // Remove the button
   var class_name = button.className;
 
   // In fact, remove all button's for this poet
+  //$(button).attr({'type' : 'hidden'});
+
+
+  //button.setAttribute('hidden', null);
+
+
   var buttons = document.getElementsByClassName(class_name);
-  for (var i=0; i<buttons.length; i++)
-    buttons[i].setAttribute('hidden', null);
+  for (var i=0; i<buttons.length; i++) {
+   // buttons[i].setAttribute('hidden', null);
+    $(buttons[i]).remove();
+  }
 }
