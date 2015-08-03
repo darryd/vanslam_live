@@ -7,6 +7,7 @@ function p_div_new(performance) {
   var name = performance.name;
 
   div.comm = comm_new(div, performance.name); //Create comm object for communictiation with the server. 
+  performance.comm = div.comm;
 
   performance.add_notify_rank(p_div_rank_updated, div);
   performance.add_notify_score(p_div_score_updated, div);
@@ -172,6 +173,9 @@ function p_div_get_time(div) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_entered(input) {
 
+  if (!login_info.is_logged_in)
+    return;
+
   var i = parseInt(input.getAttribute('data-index'));
   var div = input.div;
   var performance = div.performance;
@@ -184,14 +188,18 @@ function p_div_input_entered(input) {
     case div.indexes.seconds_i:
       var time = p_div_get_time(div);
       performance.set_time(time.minutes, time.seconds);
+      set_time_request(performance.comm, time.minutes, time.seconds);
       break;
     case div.indexes.penalty_i:
       performance.set_penalty(value);
+      set_penalty_request(performance.comm, value);
       break;
     default:
       if (i >= 0 && i < div.indexes.minutes_i) {
-	input.value /= 10;
-	performance.judge(i, value/10);
+	var value = input.value /= 10;
+	input.value = value;
+	performance.judge(i, value);
+	judge_request(performance.comm, i, value);
       }
   }
 }
@@ -240,9 +248,13 @@ function p_div_build_data_row(div) {
 
     var input = document.createElement("input");
     input.div = div;
+    input.className =  "scorekeeper_input";
     input.setAttribute('size', 4);
     input.setAttribute('onchange', 'p_div_input_entered(this)');
     input.setAttribute('data-index', i);
+    
+    if (!login_info.is_logged_in)
+      input.setAttribute('readonly', null);
 
     column.appendChild(input);
     div.data_columns.push(input);
