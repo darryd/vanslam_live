@@ -4,6 +4,7 @@ var NUM_COLUMNS = 12;
 function p_div_new(performance) {
 
   var div = document.createElement("div");
+  div.id = makeid(20);
   var name = performance.name;
 
   div.comm = comm_new(div, performance.name); //Create comm object for communictiation with the server. 
@@ -15,17 +16,27 @@ function p_div_new(performance) {
   var row = document.createElement("div");
   row.className = 'row';
   var column = document.createElement('div');
-  column.className = 'large-12 columns';
+  column.className = 'large-11 columns';
   column.innerHTML = "<h3> <span style='color:purple'>" + name + "</span> </h3>";
   row.appendChild(column);
+
+  
+  var column = document.createElement("div");
+  column.className = 'large-1 columns';
+
+  var remove_me = make_remove_me_div(div);
+  column.appendChild(remove_me);
+  row.appendChild(column);
+
   div.appendChild(row);
+
+
 
   div.column_length = {Judges: slam.num_judges, Time: 2, Penalty: 1, Score: 1, Subscore: 1, "Total Score": 1, Rank:1};
   div.titles = ["Judges", "Time", "Penalty", "Score", "Subscore", "Total Score", "Rank"];
   p_div_build_columns_hash(div);
 
   div.performance = performance;
-  div.id = makeid(20);
 
   p_div_build_titles_row(div);
   p_div_build_sub_titles(div);
