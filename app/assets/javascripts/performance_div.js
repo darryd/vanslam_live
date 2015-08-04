@@ -1,4 +1,4 @@
-
+var NUM_COLUMNS = 12;
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_new(performance) {
@@ -30,6 +30,7 @@ function p_div_new(performance) {
   p_div_build_titles_row(div);
   p_div_build_sub_titles(div);
   p_div_build_data_row(div);
+  p_div_build_footers(div);
 
   div.style.backgroundColor = '#F4F4F4';
   div.style.borderStyle = 'solid';
@@ -154,7 +155,34 @@ function p_div_score_updated(div, performance) {
   p_div_update_data_column(div, div.indexes.score_i, performance.score);
   p_div_update_data_column(div, div.indexes.subscore_i, performance.subscore);
   p_div_update_data_column(div, div.indexes.total_score_i, performance.poet.total_score);
-  
+
+
+  var min_i = performance.min_judge;
+  var max_i = performance.max_judge;
+
+  if (slam.do_not_include_min_and_max_scores) {
+    for (var i=0; i<slam.num_judges; i++)
+      div.footers[i].innerHTML = "<p></p>";
+
+    div.footers[min_i].innerHTML = "LOW";
+    div.footers[min_i].style.color = "red";
+
+    div.footers[max_i].innerHTML = "HIGH";
+    div.footers[max_i].style.color = "red";
+  }
+  // Time Penalty
+
+  var time_penalty = performance.calculate_time_penalty() * -1;
+  if (time_penalty != 0){
+    div.footers[slam.num_judges].innerHTML = "Penalty:";
+    div.footers[slam.num_judges].style.color = "green";
+    div.footers[slam.num_judges + 1].innerHTML = time_penalty;
+    div.footers[slam.num_judges + 1].style.color = "green";
+  } 
+  else {
+    div.footers[slam.num_judges].innerHTML = "<p></p>";
+    div.footers[slam.num_judges + 1].innerHTML = "<p></p>";
+  }
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_rank_updated (div, performance) {
@@ -252,7 +280,7 @@ function p_div_build_data_row(div) {
     input.setAttribute('size', 4);
     input.setAttribute('onchange', 'p_div_input_entered(this)');
     input.setAttribute('data-index', i);
-    
+
     if (!login_info.is_logged_in)
       input.setAttribute('readonly', null);
 
@@ -270,6 +298,27 @@ function p_div_build_data_row(div) {
     row.appendChild(column);
 
     div.data_columns.push(column);
+  }
+
+  div.appendChild(row);
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_build_footers(div) {
+
+  div.footers = [];
+
+  var num_columns = 12;
+  var row = document.createElement("div");
+  row.className = "row";
+
+  for (var i=0; i<num_columns; i++) {
+
+    var column = document.createElement("div");
+    column.className = "large-1 columns";
+    column.innerHTML = "<p></p>"; 
+
+    row.appendChild(column);
+    div.footers.push(column);
   }
 
   div.appendChild(row);

@@ -102,24 +102,17 @@ function click_poet(button) {
 
 // TODO Refactor code: this is somewhat duplicated in event_new_performance()
   // Create new request for a new performance
-
-
   var round = button.round;
 
   var prev_performance = button.round.is_cumulative ? button.prev_performance : null; 
 
-  //var performance = performance_new(button.name, prev_performance, round.time_limit, slam.num_judges);
   var performance_2 = performance_new(button.name, prev_performance, round.time_limit, slam.num_judges);
-  //var performance_ui = performance_ui_new(performance);
   var p_div = p_div_new(performance_2);
 
   // We add the performance to the round.
-  //round.round_js.add_performance(performance);
   round.round_js.add_performance(performance_2);
-  //performance.calculate(); //Otherwise rank says 'Infinity'
   performance_2.calculate(); //Otherwise rank says 'Infinity'
 
-  //$("#performances_" + round.round_number).append(performance_ui);
   $("#performances_" + round.round_number).append(p_div);
   round.names_already_performing.push(performance_2.name);
 
@@ -130,16 +123,8 @@ function click_poet(button) {
   // Remove the button
   var class_name = button.className;
 
-  // In fact, remove all button's for this poet
-  //$(button).attr({'type' : 'hidden'});
-
-
-  //button.setAttribute('hidden', null);
-
-
   var buttons = document.getElementsByClassName(class_name);
   for (var i=0; i<buttons.length; i++) {
-   // buttons[i].setAttribute('hidden', null);
     $(buttons[i]).remove();
   }
 }
