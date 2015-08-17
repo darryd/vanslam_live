@@ -38,7 +38,7 @@ function p_div_new(performance) {
 
   div.performance = performance;
 
-  p_div_build_titles_row(div);
+//  p_div_build_titles_row(div);
   p_div_build_sub_titles(div);
   p_div_build_data_row(div);
   p_div_build_footers(div);
@@ -121,12 +121,12 @@ function p_div_build_sub_titles(div) {
   // Add Timel
   column = document.createElement("div");
   column.className = "small-1 columns";
-  column.innerHTML = "<span style='color:brown'>minutes</span>";
+  column.innerHTML = "<span style='color:brown'>m</span>";
   row.appendChild(column);
 
   column = document.createElement("div");
   column.className = "small-" + (num_columns - slam.num_judges -1) + " columns";
-  column.innerHTML = "<span style='color:brown'>seconds</span>";
+  column.innerHTML = "<span style='color:brown'>s</span>";
   row.appendChild(column);
 
   div.appendChild(row);
@@ -185,7 +185,7 @@ function p_div_score_updated(div, performance) {
 
   var time_penalty = performance.calculate_time_penalty() * -1;
   if (time_penalty != 0){
-    div.footers[slam.num_judges].innerHTML = "Penalty:";
+    div.footers[slam.num_judges].innerHTML = "P:";
     div.footers[slam.num_judges].style.color = "green";
     div.footers[slam.num_judges + 1].innerHTML = time_penalty;
     div.footers[slam.num_judges + 1].style.color = "green";
