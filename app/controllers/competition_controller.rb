@@ -7,6 +7,7 @@ class CompetitionController < ApplicationController
 
   def show
     begin
+      @settings = Setting.take
       @slam = Competition.find(params[:id])
       @events = _get_event_range(@slam.id, 1, @slam.event_number)
     rescue
