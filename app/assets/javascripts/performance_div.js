@@ -16,13 +16,13 @@ function p_div_new(performance) {
   var row = document.createElement("div");
   row.className = 'row';
   var column = document.createElement('div');
-  column.className = 'large-11 columns';
+  column.className = 'small-11 columns';
   column.innerHTML = "<h3> <span style='color:purple'>" + name + "</span> </h3>";
   row.appendChild(column);
 
   
   var column = document.createElement("div");
-  column.className = 'large-1 columns';
+  column.className = 'small-1 columns';
 
   var remove_me = make_remove_me_div(div);
   column.appendChild(remove_me);
@@ -51,7 +51,7 @@ function p_div_new(performance) {
   row.className = "row";
 
   column = document.createElement("div");
-  column.className = "large-12 columns";
+  column.className = "small-12 columns";
   column.style.minHeight = "15px"; //http://stackoverflow.com/a/25431669
 
 
@@ -91,7 +91,7 @@ function p_div_build_titles_row(div) {
   for (var i=0; i<div.titles.length; i++) {
 
     var column = document.createElement("div");
-    column.className = "large-" + div.columns[div.titles[i]] + " columns";
+    column.className = "small-" + div.columns[div.titles[i]] + " columns";
     column.innerHTML = "<span style='color:blue;'>" + div.titles[i] + "</span>";
 
     row.appendChild(column);
@@ -113,19 +113,19 @@ function p_div_build_sub_titles(div) {
 
     column = document.createElement("div");
 
-    column.className = "large-1 columns";
+    column.className = "small-1 columns";
     column.innerHTML = "<span style='color:purple'>" + (i + 1) + "</span>";
 
     row.appendChild(column);
   }
   // Add Timel
   column = document.createElement("div");
-  column.className = "large-1 columns";
+  column.className = "small-1 columns";
   column.innerHTML = "<span style='color:brown'>minutes</span>";
   row.appendChild(column);
 
   column = document.createElement("div");
-  column.className = "large-" + (num_columns - slam.num_judges -1) + " columns";
+  column.className = "small-" + (num_columns - slam.num_judges -1) + " columns";
   column.innerHTML = "<span style='color:brown'>seconds</span>";
   row.appendChild(column);
 
@@ -283,7 +283,7 @@ function p_div_build_data_row(div) {
   var i;
   for (i=0; i<num_columns; i++) {
     var column = document.createElement("div");
-    column.className = "large-1 columns";
+    column.className = "small-1 columns";
 
     var input = document.createElement("input");
     input.div = div;
@@ -305,7 +305,7 @@ function p_div_build_data_row(div) {
   for (; i< num_columns; i++) {
 
     var column = document.createElement("div");
-    column.className = "large-1 columns";
+    column.className = "small-1 columns";
     row.appendChild(column);
 
     div.data_columns.push(column);
@@ -325,7 +325,7 @@ function p_div_build_footers(div) {
   for (var i=0; i<num_columns; i++) {
 
     var column = document.createElement("div");
-    column.className = "large-1 columns";
+    column.className = "small-1 columns";
     column.innerHTML = "<p></p>"; 
 
     row.appendChild(column);

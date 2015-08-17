@@ -12,7 +12,7 @@ function connect_websocket() {
   var uri = scheme + window.document.location.host + "/";
 
   // Testing
-  uri = scheme + "vanslam.herokuapp.com.";
+  uri = scheme + "vanslam.herokuapp.com/";
 
   try {
     window.web_sock = new WebSocket(uri);
