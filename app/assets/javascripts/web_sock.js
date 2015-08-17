@@ -9,10 +9,11 @@ window.init_web_sock = _.once(function() {
 function connect_websocket() {
 
   var scheme = "wss://";
-  var uri = scheme + window.document.location.host + "/";
 
-  // Testing
-  uri = scheme + "vanslam.herokuapp.com/";
+  var uri = settings.web_sock_uri;
+  if (uri == null)
+    uri = window.document.location.host;
+  uri = scheme + uri + "/";
 
   try {
     window.web_sock = new WebSocket(uri);
