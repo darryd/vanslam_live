@@ -291,6 +291,7 @@ function p_div_build_data_row(div) {
     input.setAttribute('size', 4);
     input.setAttribute('onchange', 'p_div_input_entered(this)');
     input.setAttribute('data-index', i);
+    input.type = "number";
 
     if (!login_info.is_logged_in)
       input.setAttribute('readonly', null);
