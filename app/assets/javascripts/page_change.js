@@ -49,16 +49,31 @@ function prepare_round(index) {
 // Only call this once!
 function extract_extra_round() {
 
+  var div = document.getElementById('extra_round_div');
+  //div.className = "visible_when_logged_in";
+
   var last_round = rounds[rounds.length - 1];
 
   window.is_there_an_extra_round = false;
 
   if (last_round.is_extra) {
 
+
+    if (!login_info.is_logged_in)
+      div.setAttribute('hidden', null);
+
+
     window.is_there_an_extra_round = true;
     window.extra_round = last_round;
 
     rounds.pop();
+
+    
+  }
+  else {
+
+    // Hide Extra Round button
+    div.setAttribute('hidden', null);
   }
 }
 
@@ -111,6 +126,11 @@ function page_change_competition() {
 	temp();
 	document.getElementById("poets_competing").setAttribute("hidden", null);
 	document.getElementById("poet_lookup").setAttribute("hidden", null);
+
+
+	var div = document.getElementById('extra_round_div');
+	div.setAttribute('hidden', null);
+
 
 	// Hide elements that should only be visible when logged in.
 	var elements = document.getElementsByClassName('visible_when_logged_in'); // TODO Perhaps this should be default behavior for logging out?
