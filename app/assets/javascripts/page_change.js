@@ -29,22 +29,28 @@ $(document).on('page:change', function () {
 });
 
 /*-------------------------------------------------------------------------------------*/
+function prepare_round(index) {
+
+  var i = index;
+  var round_number = i + 1;
+
+  rounds[i].round_js = round_new(rounds[i].num_places, round_number);
+  rounds[i].round_js.debug_str = "round " + i;
+  rounds[i].names_already_performing = [];
+
+
+  var prev_round = rounds[i].are_poets_from_previous ? rounds[i-1].round_js : window.invisible_round;
+  rounds[i].contenders = contenders_new(rounds[i].round_number, prev_round);
+
+}
+/*-------------------------------------------------------------------------------------*/
 function prepare_rounds() {
 
   window.invisible_round = round_new(0); // we'll keep num_places growing for the invisible round
   window.invisible_round.debug_str = "invisible round"; //debugging
 
   for (var i=0; i<rounds.length; i++) {
-
-    var round_number = i + 1;
-
-    rounds[i].round_js = round_new(rounds[i].num_places, round_number);
-    rounds[i].round_js.debug_str = "round " + i;
-    rounds[i].names_already_performing = [];
-
-
-    var prev_round = rounds[i].are_poets_from_previous ? rounds[i-1].round_js : window.invisible_round;
-    rounds[i].contenders = contenders_new(rounds[i].round_number, prev_round);
+    prepare_round(i);
   }
 
 }
