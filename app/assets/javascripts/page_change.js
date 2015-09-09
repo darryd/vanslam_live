@@ -44,7 +44,29 @@ function prepare_round(index) {
 
 }
 /*-------------------------------------------------------------------------------------*/
+
+// Extract the extra round (if there is one, it will be at the end)
+// Only call this once!
+function extract_extra_round() {
+
+  var last_round = rounds[rounds.length - 1];
+
+  window.is_there_an_extra_round = false;
+
+  if (last_round.is_extra) {
+
+    window.is_there_an_extra_round = true;
+    window.extra_round = last_round;
+
+    rounds.pop();
+  }
+}
+
+/*-------------------------------------------------------------------------------------*/
 function prepare_rounds() {
+
+
+  extract_extra_round();
 
   window.invisible_round = round_new(0); // we'll keep num_places growing for the invisible round
   window.invisible_round.debug_str = "invisible round"; //debugging
