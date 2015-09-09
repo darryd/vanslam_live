@@ -121,7 +121,7 @@ module MakeSlam
 
     # Extra Round in case of a tie at the end... 
     # round_number = 0 will be the extra round
-    Round.create(competition_id: c.id, round_number: 7, title: "Extra Round", are_poets_from_previous: false, time_limit: 240)
+    Round.create(competition_id: c.id, round_number: 7, title: "Extra Round", are_poets_from_previous: false, time_limit: 240, is_extra: true)
 
   end
 
