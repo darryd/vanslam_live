@@ -36,17 +36,15 @@ function prepare_rounds() {
 
   for (var i=0; i<rounds.length; i++) {
 
-    rounds[i].round_js = round_new(rounds[i].num_places, i + 1);
+    var round_number = i + 1;
+
+    rounds[i].round_js = round_new(rounds[i].num_places, round_number);
     rounds[i].round_js.debug_str = "round " + i;
     rounds[i].names_already_performing = [];
 
 
     var prev_round = rounds[i].are_poets_from_previous ? rounds[i-1].round_js : window.invisible_round;
     rounds[i].contenders = contenders_new(rounds[i].round_number, prev_round);
-
-    //if (rounds[i].are_poets_from_previous)
-    //  rounds[i].contenders = contenders_new(rounds[i].round_number, rounds[i-1].round_js);
-
   }
 
 }
