@@ -21,6 +21,36 @@ class CompetitionController < ApplicationController
   end
 
   #-----------------------------------------------------------------------------------------#
+  
+  # Params: 
+  def new_round
+
+    if not_allowed()
+      return
+    end
+
+    # 'round_number'?
+    if missing_params(params, ['competition_id', 'web_sock_id', 'round_number', 'time_limit'])
+      return
+    end
+
+    r = Round.new
+
+    r.competition_id = params[:competition_id]
+    r.round_number = params[:round_number]
+    r.title = "Extra Round"
+    r.are_poets_from_previous = false
+    r.time_limit = params[:time_limit]
+    r.is_extra = true
+    r.is_on_the_fly = true
+
+    if r.save
+      render json: {:result => true, :round_id => r.id}
+    end
+
+  end
+
+  #-----------------------------------------------------------------------------------------#
   # Creates a new performance
   #
   # Params: round_id, name

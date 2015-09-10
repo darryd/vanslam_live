@@ -59,6 +59,10 @@ Rails.application.routes.draw do
   post "competition/what_did_i_miss"
   
 
+  get "competition/new_round"
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
