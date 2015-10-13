@@ -315,7 +315,7 @@ round_new = function (num_places, round_number) {
 
     for (var i=0; i<me.performances.length; i++) {
       // Turn subscore into an "integer" because "floats" don't work well with comparisons 
-      var subscore = Math.floor(me.performances[i].subscore * 10);
+      var subscore = Math.round(me.performances[i].subscore * 10);
       rankings.push(subscore);
     }
 
@@ -324,7 +324,7 @@ round_new = function (num_places, round_number) {
     for (var i=0; i<me.performances.length; i++) {
 
       // Turn subscore into an "integer" because "floats" don't work well with comparisons 
-      var subscore = Math.floor(me.performances[i].subscore * 10);
+      var subscore = Math.round(me.performances[i].subscore * 10);
       var ranking = rankings.indexOf(subscore) + 1;
       me.performances[i].set_rank(ranking);
     }
