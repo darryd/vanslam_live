@@ -63,4 +63,12 @@ function keep_trying_to_connect() {
 
   }, interval);
 }
+/*-------------------------------------------------------------------------------------*///
+//http://stackoverflow.com/a/4818541
+window.onbeforeunload = function() {
+    window.web_sock.onclose = function () {}; // disable onclose handler first
+    window.web_sock.close()
+};
+
+
 /*-------------------------------------------------------------------------------------*/
