@@ -2,7 +2,7 @@
 
 <script>
   var settings = JSON.parse('<%= @settings.to_json.html_safe%>');
-  var slam = JSON.parse('<%= @slam.to_json.html_safe%>');
+  var slam = JSON.parse('<%= @slam.to_json.gsub("'", "&#39;").html_safe%>');
   var rounds = JSON.parse('<%= @slam.rounds.order(:round_number).to_json.html_safe %>');  
   var events = JSON.parse('<%= @events.to_json.gsub("'", "&#39;").html_safe %>');
 </script>
