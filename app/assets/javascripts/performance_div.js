@@ -172,8 +172,13 @@ function p_div_score_updated(div, performance) {
   var max_i = performance.max_judge;
 
   if (slam.do_not_include_min_and_max_scores) {
-    for (var i=0; i<slam.num_judges; i++)
+    for (var i=0; i<slam.num_judges; i++) {
       div.footers[i].innerHTML = "<p></p>";
+      div.data_columns[i].style.color = "black";
+    }
+
+    div.data_columns[min_i].style.color = "red";
+    div.data_columns[max_i].style.color = "red";
 
     div.footers[min_i].innerHTML = "LOW";
     div.footers[min_i].style.color = "red";
