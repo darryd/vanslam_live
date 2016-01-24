@@ -177,14 +177,16 @@ function p_div_score_updated(div, performance) {
       div.data_columns[i].style.color = "black";
     }
 
-    div.data_columns[min_i].style.color = "red";
-    div.data_columns[max_i].style.color = "red";
+    var min_max_color = "darkviolet";
+
+    div.data_columns[min_i].style.color = min_max_color;
+    div.data_columns[max_i].style.color = min_max_color;
 
     div.footers[min_i].innerHTML = "LOW";
-    div.footers[min_i].style.color = "red";
+    div.footers[min_i].style.color = min_max_color;
 
     div.footers[max_i].innerHTML = "HIGH";
-    div.footers[max_i].style.color = "red";
+    div.footers[max_i].style.color = min_max_color;
   }
   // Time Penalty
 
