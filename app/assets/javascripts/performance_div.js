@@ -156,6 +156,12 @@ function format_value(value) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_update_data_column(div, index, value) {
   div.data_columns[index].innerHTML = format_value(value);
+
+  // Why bother displaying subscore when it equals score?
+  if (div.data_columns[div.indexes.score_i].innerHTML == div.data_columns[div.indexes.subscore_i].innerHTML) {
+    div.data_columns[div.indexes.subscore_i].innerHTML = '';
+  }
+
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
