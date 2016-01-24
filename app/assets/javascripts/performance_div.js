@@ -32,8 +32,8 @@ function p_div_new(performance) {
 
 
 
-  div.column_length = {Judges: slam.num_judges, Time: 2, Penalty: 1, Score: 1, Subscore: 1, "Total Score": 1, Rank:1};
-  div.titles = ["Judges", "Time", "Penalty", "Score", "Subscore", "Total Score", "Rank"];
+  div.column_length = {Judges: slam.num_judges, Time: 2, Penalty: 1, Score: 1, Subscore: 1, /*"Total Score": 1,*/ Rank:1};
+  div.titles = ["Judges", "Time", "Penalty", "Score", "Subscore", /*"Total Score"*/, "Rank"];
   p_div_build_columns_hash(div);
 
   div.performance = performance;
@@ -57,7 +57,6 @@ function p_div_new(performance) {
 
   row.appendChild(column);
   div.appendChild(row);
-
 
   return div;
 }
@@ -145,7 +144,7 @@ function p_div_setup_indexes(div) {
   div.indexes.penalty_i = i++;
   div.indexes.score_i = i++;
   div.indexes.subscore_i = i++;
-  div.indexes.total_score_i = i++;
+  //div.indexes.total_score_i = i++;
   div.indexes.rank = i;
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
@@ -165,7 +164,7 @@ function p_div_score_updated(div, performance) {
 
   p_div_update_data_column(div, div.indexes.score_i, performance.score);
   p_div_update_data_column(div, div.indexes.subscore_i, performance.subscore);
-  p_div_update_data_column(div, div.indexes.total_score_i, performance.poet.total_score);
+  //p_div_update_data_column(div, div.indexes.total_score_i, performance.poet.total_score);
 
 
   var min_i = performance.min_judge;
