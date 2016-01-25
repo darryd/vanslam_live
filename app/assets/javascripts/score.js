@@ -258,8 +258,11 @@ performance_new = function (name, prev, time_limit, num_judges) {
 
     if (prev == null) 
       this.poet = poet_new(name);
-    else
+    else {
       this.poet = prev.poet;
+      
+      this.prev.add_notify_score(this.calculate, this);
+    }
 
     this.poet.add_performance(this);
   }

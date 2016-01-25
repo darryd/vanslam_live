@@ -12,11 +12,6 @@ function p_div_new(performance) {
 
   performance.add_notify_rank(p_div_rank_updated, div);
   performance.add_notify_score(p_div_score_updated, div);
-  if (performance.prev != null) {
-    // if the scorekeeper edits the results from a previous round
-    // then the cumulative score may need updating
-    performance.prev.add_notify_score(p_div_score_updated, div);
-  }
 
   var row = document.createElement("div");
   row.className = 'row';
