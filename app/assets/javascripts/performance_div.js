@@ -209,6 +209,10 @@ function p_div_score_updated(div, performance) {
 function p_div_rank_updated (div, performance) {
 
   div.data_columns[div.indexes.rank].innerHTML = performance.rank;
+
+  div.footers[div.indexes.rank].innerHTML = performance.is_tied ? "Tie" : "";
+
+
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_get_time(div) {

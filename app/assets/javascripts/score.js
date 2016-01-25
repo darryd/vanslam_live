@@ -145,11 +145,12 @@ performance_new = function (name, prev, time_limit, num_judges) {
 
   /*--------------------------------------------------------------------------------------------------------------------------------*/
 
-  performance.set_rank= function(rank) {
+  performance.set_rank= function(rank, count) {
     this.rank = rank;
+    this.is_tied = count > 1;
+    
     this.notify_rank();
   }
-
 
   /*--------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -315,11 +316,18 @@ round_new = function (num_places, round_number) {
       me = this;
 
     var rankings = [];
+    var rankings_count = {};
 
     for (var i=0; i<me.performances.length; i++) {
       // Turn subscore into an "integer" because "floats" don't work well with comparisons 
       var subscore = Math.round(me.performances[i].subscore * 10);
       rankings.push(subscore);
+
+      // Are there any ties?
+      if (rankings_count.hasOwnProperty(subscore))
+	rankings_count[subscore]++;
+      else
+	rankings_count[subscore] = 1;
     }
 
     rankings.sort(function(a, b){return b - a;});
@@ -329,7 +337,7 @@ round_new = function (num_places, round_number) {
       // Turn subscore into an "integer" because "floats" don't work well with comparisons 
       var subscore = Math.round(me.performances[i].subscore * 10);
       var ranking = rankings.indexOf(subscore) + 1;
-      me.performances[i].set_rank(ranking);
+      me.performances[i].set_rank(ranking, rankings_count[subscore]);
     }
     me.notify_rank();
   }  
