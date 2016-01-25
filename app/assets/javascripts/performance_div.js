@@ -12,6 +12,11 @@ function p_div_new(performance) {
 
   performance.add_notify_rank(p_div_rank_updated, div);
   performance.add_notify_score(p_div_score_updated, div);
+  if (performance.prev != null) {
+    // if the scorekeeper edits the results from a previous round
+    // then the cumulative score may need updating
+    performance.prev.add_notify_score(p_div_score_updated, div);
+  }
 
   var row = document.createElement("div");
   row.className = 'row';
@@ -158,6 +163,7 @@ function p_div_update_data_column(div, index, value) {
   div.data_columns[index].innerHTML = format_value(value);
 
   // Why bother displaying subscore when it equals score?
+  // TODO Actually, I will do this differently because this assumes that the previous performance score wasn't 0.
   if (div.data_columns[div.indexes.score_i].innerHTML == div.data_columns[div.indexes.subscore_i].innerHTML) {
     div.data_columns[div.indexes.subscore_i].innerHTML = '';
   }
