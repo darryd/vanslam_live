@@ -158,11 +158,8 @@ function p_div_update_data_column(div, index, value) {
   div.data_columns[index].innerHTML = format_value(value);
 
   // Why bother displaying subscore when it equals score?
-  // TODO Actually, I will do this differently because this assumes that the previous performance score wasn't 0.
-  if (div.data_columns[div.indexes.score_i].innerHTML == div.data_columns[div.indexes.subscore_i].innerHTML) {
+  if (div.performance.prev == null)
     div.data_columns[div.indexes.subscore_i].innerHTML = '';
-  }
-
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
