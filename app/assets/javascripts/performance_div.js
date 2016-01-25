@@ -210,7 +210,7 @@ function p_div_rank_updated (div, performance) {
 
   div.data_columns[div.indexes.rank].innerHTML = performance.rank;
 
-  div.footers[div.indexes.rank].innerHTML = performance.is_tied ? "Tie" : "";
+  div.footers[div.indexes.score_i].innerHTML = performance.is_tied ? "TIE" : "";
 
 
 }
