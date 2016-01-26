@@ -7,9 +7,9 @@ class WelcomeController < ApplicationController
   #------------------------------------------------------------------------------------#
   def index
 
-    p ['host', request.host]
+    host = Host.where(host: request.host).take
+    @title = host.organization.title
 
-    @title = Setting.take.title
     @slams = Competition.order('created_at DESC') #.find_each
   end
 
