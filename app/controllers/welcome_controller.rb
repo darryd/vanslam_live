@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
     host = Host.where(host: request.host).take
     @title = host.organization.title
 
-    @slams = Competition.order('created_at DESC') #.find_each
+    @slams = host.organization.competitions.order('created_at DESC')
   end
 
   #------------------------------------------------------------------------------------#
