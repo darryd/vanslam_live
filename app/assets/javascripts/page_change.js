@@ -58,6 +58,9 @@ function extract_extra_round() {
 
   if (last_round.is_extra) {
 
+    
+    $(div).show(); //Not tested -- but this whole thing extra round thing will probably be rewritten/redesigned
+
 
     if (!login_info.is_logged_in)
       div.setAttribute('hidden', null);
