@@ -126,6 +126,7 @@ function event_new_performance(event) {
 
   $("#performances_" + round.round_number).append(p_div);
   round.names_already_performing.push(performance_2.name);
+  invisible_round.notify_rank();
 
   p_div.comm.performance_id = event.performance_id;
 
