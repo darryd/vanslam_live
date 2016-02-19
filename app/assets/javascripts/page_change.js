@@ -7,6 +7,11 @@ $(document).on('page:change', function () {
   var interval = 1;
   setInterval(process_ajax_queue, interval);
 
+
+  // When the user logs in, the window.title becomes number of connections,
+  // but when the user logs out, let's set the window.title back to what it was originally
+  window.original_title = document.title;
+
   // Ok sync requests are bad, but just this one time
   window.login_info = get_json('/welcome/check_login');
 
@@ -127,6 +132,9 @@ function page_change_competition() {
       var temp = do_log_out;
       do_log_out = function () {
 	temp();
+
+	document.title = window.original_title;
+
 	document.getElementById("poets_competing").setAttribute("hidden", null);
 	document.getElementById("poet_lookup").setAttribute("hidden", null);
 
