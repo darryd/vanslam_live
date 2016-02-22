@@ -11,6 +11,9 @@ module Darry
 end
 
 
+#http://stackoverflow.com/a/27010181
+#random_string = ('0'..'z').to_a.shuffle.first(8).join
+
 module ChatDemo
   class ChatBackend
 
@@ -22,6 +25,8 @@ module ChatDemo
     def initialize(app)
       @app     = app
       $clients = []
+
+      $sessions = {}
     end
 
     def self.hello(data)
