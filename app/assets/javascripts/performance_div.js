@@ -117,7 +117,7 @@ function p_div_build_sub_titles(div) {
 
     row.appendChild(column);
   }
-  // Add Timel
+  // Add Time
   column = document.createElement("div");
   column.className = "small-1 columns";
   column.innerHTML = "<span style='color:brown'>m</span>";
@@ -144,7 +144,6 @@ function p_div_setup_indexes(div) {
   div.indexes.penalty_i = i++;
   div.indexes.score_i = i++;
   div.indexes.subscore_i = i++;
-  //div.indexes.total_score_i = i++;
   div.indexes.rank = i;
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
@@ -168,7 +167,6 @@ function p_div_score_updated(div, performance) {
 
   p_div_update_data_column(div, div.indexes.score_i, performance.score);
   p_div_update_data_column(div, div.indexes.subscore_i, performance.subscore);
-  //p_div_update_data_column(div, div.indexes.total_score_i, performance.poet.total_score);
 
 
   var min_i = performance.min_judge;
