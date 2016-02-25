@@ -180,13 +180,16 @@ function p_div_score_updated(div, performance) {
 
     var min_max_color = "darkviolet";
 
+    var low_str = "<p class='visible-for-small-only'>L</p><p class='visible-for-medium-up'>LOW</p>";
+    var high_str = "<p class='visible-for-small-only'>H</p><p class='visible-for-medium-up'>HIGH</p>";
+
     div.data_columns[min_i].style.color = min_max_color;
     div.data_columns[max_i].style.color = min_max_color;
 
-    div.footers[min_i].innerHTML = "LOW";
+    div.footers[min_i].innerHTML = low_str;
     div.footers[min_i].style.color = min_max_color;
 
-    div.footers[max_i].innerHTML = "HIGH";
+    div.footers[max_i].innerHTML = high_str;
     div.footers[max_i].style.color = min_max_color;
   }
   // Time Penalty
