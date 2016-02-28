@@ -124,7 +124,7 @@ function p_div_build_sub_titles(div) {
   row.appendChild(column);
 
   column = document.createElement("div");
-  column.className = "small-" + (num_columns - slam.num_judges -1) + " columns";
+  column.className = "small-1 columns end";
   column.innerHTML = "<span style='color:brown'>s</span>";
   row.appendChild(column);
 
