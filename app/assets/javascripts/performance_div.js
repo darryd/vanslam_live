@@ -32,13 +32,13 @@ function p_div_new(performance) {
 
 
 
-  div.column_length = {Judges: slam.num_judges, Time: 2, Penalty: 1, Score: 1, Subscore: 1, /*"Total Score": 1,*/ Rank:1};
-  div.titles = ["Judges", "Time", "Penalty", "Score", "Subscore", /*"Total Score"*/, "Rank"];
+  div.column_length = {Judges: slam.num_judges, Time: 2, Penalty: 1, Score: 1, Subscore: 1, Rank:1};
+  div.titles = ["Judges", "Time", "Penalty", "", "", ""];
   p_div_build_columns_hash(div);
 
   div.performance = performance;
 
-//  p_div_build_titles_row(div);
+  p_div_build_titles_row(div);
   p_div_build_sub_titles(div);
   p_div_build_data_row(div);
   p_div_build_footers(div);
@@ -91,7 +91,7 @@ function p_div_build_titles_row(div) {
 
     var column = document.createElement("div");
     column.className = "small-" + div.columns[div.titles[i]] + " columns";
-    column.innerHTML = "<span style='color:blue;'>" + div.titles[i] + "</span>";
+    column.innerHTML = "<span class='visible-for-medium-up' style='color:blue;'>" + div.titles[i] + "</span>";
 
     row.appendChild(column);
 
