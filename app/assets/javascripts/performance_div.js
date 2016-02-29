@@ -69,7 +69,7 @@ function p_div_new(performance) {
   row.appendChild(column);
 
   div.score_column = document.createElement("div");
-  div.score_column.className = "small-1 columns";
+  div.score_column.className = "small-2 columns";
   div.score_column.innerHTML = "";
   row.appendChild(div.score_column);
 
@@ -83,7 +83,7 @@ function p_div_new(performance) {
     row.appendChild(column);
 
     div.cumulative_column = document.createElement("div");
-    div.cumulative_column.className = "small-1 columns";
+    div.cumulative_column.className = "small-2 columns";
     div.cumulative_column.innerHTML = "";
     row.appendChild(div.cumulative_column);
 
@@ -96,7 +96,7 @@ function p_div_new(performance) {
   row.appendChild(column);
 
   div.rank_column = document.createElement("div");
-  div.rank_column.className = "small-1 columns end";
+  div.rank_column.className = "small-2 columns end";
   div.rank_column.innerHTML = "";
   row.appendChild(div.rank_column);
 
