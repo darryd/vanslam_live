@@ -63,7 +63,7 @@ function p_div_new(performance) {
   row.className = "row";
 
   column = document.createElement("div");
-  column.className = "small-1 columns";
+  column.className = "small-2 columns";
   column.style.color = "blue";
   column.innerHTML = "<p> Score: </p>";
   row.appendChild(column);
@@ -77,7 +77,7 @@ function p_div_new(performance) {
   if (div.performance.prev != null) {
 
     column = document.createElement("div");
-    column.className = "small-2 columns";
+    column.className = "small-4 columns";
     column.style.color = "blue";
     column.innerHTML = "<p> Cumulative: </p>";
     row.appendChild(column);
@@ -90,7 +90,7 @@ function p_div_new(performance) {
   }
 
   column = document.createElement("div");
-  column.className = "small-1 columns";
+  column.className = "small-2 columns";
   column.style.color = "blue";
   column.innerHTML = "<p> Rank: </p>";
   row.appendChild(column);
