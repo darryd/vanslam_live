@@ -50,12 +50,61 @@ function p_div_new(performance) {
   row = document.createElement("div");
   row.className = "row";
 
+  /*
   column = document.createElement("div");
   column.className = "small-12 columns";
   column.style.minHeight = "15px"; //http://stackoverflow.com/a/25431669
 
-
   row.appendChild(column);
+  div.appendChild(row);
+  */
+
+  row = document.createElement("div");
+  row.className = "row";
+
+  column = document.createElement("div");
+  column.className = "small-1 columns";
+  column.style.color = "blue";
+  column.innerHTML = "<p> Score: </p>";
+  row.appendChild(column);
+
+  div.score_column = document.createElement("div");
+  div.score_column.className = "small-1 columns";
+  div.score_column.innerHTML = "";
+  row.appendChild(div.score_column);
+
+
+  if (div.performance.prev != null) {
+
+    column = document.createElement("div");
+    column.className = "small-2 columns";
+    column.style.color = "blue";
+    column.innerHTML = "<p> Cumulative: </p>";
+    row.appendChild(column);
+
+    div.cumulative_column = document.createElement("div");
+    div.cumulative_column.className = "small-1 columns";
+    div.cumulative_column.innerHTML = "";
+    row.appendChild(div.cumulative_column);
+
+  }
+
+  column = document.createElement("div");
+  column.className = "small-1 columns";
+  column.style.color = "blue";
+  column.innerHTML = "<p> Rank: </p>";
+  row.appendChild(column);
+
+  div.rank_column = document.createElement("div");
+  div.rank_column.className = "small-1 columns end";
+  div.rank_column.innerHTML = "";
+  row.appendChild(div.rank_column);
+
+
+
+
+
+
   div.appendChild(row);
 
   return div;
@@ -165,8 +214,16 @@ function p_div_update_data_column(div, index, value) {
 function p_div_score_updated(div, performance) {
 
 
-  p_div_update_data_column(div, div.indexes.score_i, performance.score);
-  p_div_update_data_column(div, div.indexes.subscore_i, performance.subscore);
+  //p_div_update_data_column(div, div.indexes.score_i, performance.score);
+  //p_div_update_data_column(div, div.indexes.subscore_i, performance.subscore);
+
+
+  div.score_column.innerHTML = format_value(performance.score);
+
+  if (div.performance.prev != null) 
+    div.cumulative_column.innerHTML = format_value(performance.subscore);
+
+
 
 
   var min_i = performance.min_judge;
@@ -209,7 +266,9 @@ function p_div_score_updated(div, performance) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_rank_updated (div, performance) {
 
-  div.data_columns[div.indexes.rank].innerHTML = performance.rank;
+  //div.data_columns[div.indexes.rank].innerHTML = performance.rank;
+
+  div.rank_column.innerHTML = performance.rank;
 
   div.footers[div.indexes.score_i].innerHTML = performance.is_tied ? "tie" : "";
 
