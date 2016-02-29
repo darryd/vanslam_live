@@ -77,7 +77,7 @@ function p_div_new(performance) {
   if (div.performance.prev != null) {
 
     column = document.createElement("div");
-    column.className = "small-4 columns";
+    column.className = "small-3 columns";
     column.style.color = "blue";
     column.innerHTML = "<p> Cumulative: </p>";
     row.appendChild(column);
