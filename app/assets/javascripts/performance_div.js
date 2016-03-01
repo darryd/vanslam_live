@@ -63,13 +63,13 @@ function p_div_new(performance) {
   row.className = "row";
 
   column = document.createElement("div");
-  column.className = "small-2 columns";
+  column.className = "small-2 medium-1 columns";
   column.style.color = "blue";
   column.innerHTML = "<p> Score: </p>";
   row.appendChild(column);
 
   div.score_column = document.createElement("div");
-  div.score_column.className = "small-2 columns";
+  div.score_column.className = "small-2 medium-1 columns";
   div.score_column.innerHTML = "";
   row.appendChild(div.score_column);
 
@@ -77,26 +77,26 @@ function p_div_new(performance) {
   if (div.performance.prev != null) {
 
     column = document.createElement("div");
-    column.className = "small-2 columns";
+    column.className = "small-2 medium-1 columns";
     column.style.color = "blue";
     column.innerHTML = "<p> Total: </p>";
     row.appendChild(column);
 
     div.cumulative_column = document.createElement("div");
-    div.cumulative_column.className = "small-2 columns";
+    div.cumulative_column.className = "small-2 medium-1 columns";
     div.cumulative_column.innerHTML = "";
     row.appendChild(div.cumulative_column);
 
   }
 
   column = document.createElement("div");
-  column.className = "small-2 columns";
+  column.className = "small-2 medium-1 columns";
   column.style.color = "blue";
   column.innerHTML = "<p> Rank: </p>";
   row.appendChild(column);
 
   div.rank_column = document.createElement("div");
-  div.rank_column.className = "small-2 columns end";
+  div.rank_column.className = "small-2 medium-1 columns end";
   div.rank_column.innerHTML = "";
   row.appendChild(div.rank_column);
 
