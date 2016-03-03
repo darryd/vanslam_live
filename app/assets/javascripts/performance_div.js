@@ -141,9 +141,7 @@ function p_div_build_titles_row(div) {
     var column = document.createElement("div");
     column.className = "small-" + div.columns[div.titles[i]] + " columns";
 
-    var visibility = i != (div.titles.length - 1) ? "" : " class='visible-for-medium-up' ";
-
-    column.innerHTML = "<span " + visibility + "style='color:blue;'>" + div.titles[i] + "</span>";
+    column.innerHTML = "<span style='color:blue;'>" + div.titles[i] + "</span>";
 
     row.appendChild(column);
 
@@ -176,16 +174,9 @@ function p_div_build_sub_titles(div) {
   row.appendChild(column);
 
   column = document.createElement("div");
-  column.className = "small-1 columns";
+  column.className = "small-1 columns end";
   column.innerHTML = "<span style='color:brown'>s</span>";
   row.appendChild(column);
-
-  // Penalty
-  column = document.createElement("div");
-  column.className = "small-1 columns end";
-  column.innerHTML = "<span class='visible-for-small-only' style='color:brown'>penalty</span>";
-  row.appendChild(column);
-
 
   div.appendChild(row);
 }
