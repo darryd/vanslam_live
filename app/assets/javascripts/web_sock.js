@@ -5,10 +5,16 @@ window.init_web_sock = _.once(function() {
   keep_trying_to_connect();
 });
 /*-------------------------------------------------------------------------------------*/
+function is_https() {
 
+  var patt = new RegExp("^https:");
+
+  return patt.test(window.location.href);
+}
+/*-------------------------------------------------------------------------------------*/
 function connect_websocket() {
 
-  var scheme = "ws://";
+  var scheme = is_https() ? "wss://" : "ws://";
 
   var uri = settings.web_sock_uri;
   if (uri == null)
