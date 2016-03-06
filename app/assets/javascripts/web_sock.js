@@ -8,7 +8,7 @@ window.init_web_sock = _.once(function() {
 
 function connect_websocket() {
 
-  var scheme = "wss://";
+  var scheme = "ws://";
 
   var uri = settings.web_sock_uri;
   if (uri == null)

@@ -27,7 +27,7 @@ module VanslamLive3
     config.active_record.raise_in_transactional_callbacks = true
     config.middleware.use ChatDemo::ChatBackend
 
-    config.force_ssl = true
+    #config.force_ssl = true
     config.filter_parameters += ['passwd', 'authenticity_token', :session_id]
   end
 end
