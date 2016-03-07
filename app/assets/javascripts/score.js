@@ -3,7 +3,6 @@
 
 var places = [0, "first", "second", "third", "fouth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"];
 
-var num_rounds = 2;
 var grace_time = 10;
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
@@ -328,11 +327,9 @@ round_new = function (num_places, round_number) {
       // Are there any ties?
       if (rankings_count.hasOwnProperty(subscore)) {
 	rankings_count[subscore]++;
-	//rankings_names[subscore] = [me.performances[i].name];
       }
       else {
 	rankings_count[subscore] = 1;
-	//rankings_names[subscore].push(me.performances[i].name);
       }
 
       if (!rankings_names.hasOwnProperty(subscore))
