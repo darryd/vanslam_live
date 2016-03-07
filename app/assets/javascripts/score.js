@@ -145,9 +145,10 @@ performance_new = function (name, prev, time_limit, num_judges) {
 
   /*--------------------------------------------------------------------------------------------------------------------------------*/
 
-  performance.set_rank= function(rank, count) {
+  performance.set_rank= function(rank, count, names_tied_with) {
     this.rank = rank;
     this.is_tied = count > 1;
+    this.names_tied_with = names_tied_with
     
     this.notify_rank();
   }
@@ -317,6 +318,7 @@ round_new = function (num_places, round_number) {
 
     var rankings = [];
     var rankings_count = {};
+    var rankings_names = {};
 
     for (var i=0; i<me.performances.length; i++) {
       // Turn subscore into an "integer" because "floats" don't work well with comparisons 
@@ -324,11 +326,23 @@ round_new = function (num_places, round_number) {
       rankings.push(subscore);
 
       // Are there any ties?
-      if (rankings_count.hasOwnProperty(subscore))
+      if (rankings_count.hasOwnProperty(subscore)) {
 	rankings_count[subscore]++;
-      else
+	//rankings_names[subscore] = [me.performances[i].name];
+      }
+      else {
 	rankings_count[subscore] = 1;
+	//rankings_names[subscore].push(me.performances[i].name);
+      }
+
+      if (!rankings_names.hasOwnProperty(subscore))
+	rankings_names[subscore] = [];
+
+      rankings_names[subscore].push(me.performances[i].name);
     }
+
+
+
 
     rankings.sort(function(a, b){return b - a;});
 
@@ -337,7 +351,12 @@ round_new = function (num_places, round_number) {
       // Turn subscore into an "integer" because "floats" don't work well with comparisons 
       var subscore = Math.round(me.performances[i].subscore * 10);
       var ranking = rankings.indexOf(subscore) + 1;
-      me.performances[i].set_rank(ranking, rankings_count[subscore]);
+
+      var name = me.performances[i].name;
+      var names = _.clone(rankings_names[subscore]);
+      names.splice(names.indexOf(name), 1);
+
+      me.performances[i].set_rank(ranking, rankings_count[subscore], names);
     }
     me.notify_rank();
   }  

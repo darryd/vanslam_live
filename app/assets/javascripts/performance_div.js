@@ -100,11 +100,14 @@ function p_div_new(performance) {
   div.rank_column.innerHTML = "";
   row.appendChild(div.rank_column);
 
+  div.appendChild(row);
 
+  row = document.createElement("div");
+  row.className = "row";
 
-
-
-
+  div.tied_with = document.createElement("div");
+  div.tied_with.className = "small-12 columns";
+  row.appendChild(div.tied_with);
   div.appendChild(row);
 
   return div;
@@ -271,9 +274,7 @@ function p_div_rank_updated (div, performance) {
 
   div.rank_column.innerHTML = performance.rank;
 
-  div.footers[div.indexes.score_i].innerHTML = performance.is_tied ? "tie" : "";
-
-
+  div.tied_with.innerHTML = performance.is_tied ? "<p> <span style='color:blue'> Tied With: </span> " + performance.names_tied_with.join() + "</p>" : "";
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_get_time(div) {
