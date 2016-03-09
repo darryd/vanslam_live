@@ -1,59 +1,6 @@
 <% # image_tag image_path "logo_slam.png" %>
 <% # FIXME: image_tag just displays a blank image. %>
 
-<input hidden id="foo" class="inputs" onkeyup="testing(this, 0)" onchange="testing_input_changed(this)"></input>
-<input hidden id="bar" class="inputs" onkeyup="testing(this, 1)" onchange="testing_input_changed(this)"></input>
-
-<script>
-
-
-  inputs = [document.getElementById("foo"), document.getElementById("bar")];
- 
-
-  function is_score_entered_fully(score) {
-
-
-    if (score == "10")
-    return false;
-
-    if (score == "100")
-    return true;
-
-
-    if (score.length == 2)
-    return true;
-
-    return false;
-  }
-
-
-  function testing(input, seq_num) {
-
-    input.value = input.value.replace('\.', '');
-
-    if (is_score_entered_fully(input.value)) {
-
-      $(input).trigger("change");
-
-      if (seq_num < inputs.length - 1)  {
-	next_input = inputs[seq_num + 1]
-	next_input.focus();
-      }
-    }
-  }
-
-  function testing_input_changed(input) {
-
-    if (input.old_value != input.value) {
-      console.log(input.value);
-      input.old_value = input.value;
-    }
-  }
-
-
-</script>
-
-
 <h1> <%= @title %> </h1>
 
 <% @slams.each do |slam| %>

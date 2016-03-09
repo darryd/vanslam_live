@@ -270,8 +270,6 @@ function p_div_score_updated(div, performance) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_rank_updated (div, performance) {
 
-  //div.data_columns[div.indexes.rank].innerHTML = performance.rank;
-
   div.rank_column.innerHTML = performance.rank;
 
   div.tied_with.innerHTML = performance.is_tied ? "<p> <span style='color:blue'> Tied With: </span> " + performance.names_tied_with.join() + "</p>" : "";
@@ -283,6 +281,45 @@ function p_div_get_time(div) {
   var seconds = parse_int_or_return_zero(div.data_columns[div.indexes.seconds_i].value);
 
   return {minutes: minutes, seconds: seconds};
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function is_score_entered_fully(score) {
+
+
+  if (score == "10")
+    return false;
+
+  if (score == "100")
+    return true;
+
+
+  if (score.length == 2)
+    return true;
+
+  return false;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+
+function p_div_input_onkeyup(inputs, input) {
+
+  input.value = input.value.replace('\.', '');
+  var index = parseInt(input.getAttribute('data-index'));
+
+  if (is_score_entered_fully(input.value)) {
+
+
+    if (index < inputs.length - 1)  {
+      input.removeAttribute('onkeyup');
+      next_input = inputs[index + 1];
+      next_input.focus();
+    }
+    else {
+      $(input).trigger("change");
+      input.blur();
+    }
+  }
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
@@ -311,7 +348,8 @@ function p_div_input_entered(input) {
       break;
     default:
       if (i >= 0 && i < div.indexes.minutes_i) {
-	var value = input.value /= 10;
+	input.value = input.value.replace('\.', '');
+	var value = input.value / 10;
 	input.value = value;
 	performance.judge(i, value);
 	judge_request(performance.comm, i, value);
@@ -323,6 +361,7 @@ function p_div_input_entered(input) {
 function p_div_set_score(p_div, judge_i, value) {
 
   p_div.data_columns[judge_i].value = value;
+  p_div.data_columns[judge_i].removeAttribute('onkeyup');
   p_div.performance.judge(judge_i, value);
 }
 
@@ -357,15 +396,34 @@ function p_div_build_data_row(div) {
   var num_columns = slam.num_judges + 3; // Judges + Minutes + Seconds + Penalty
 
   var i;
+
+  div.judge_inputs = [];
+
+
   for (i=0; i<num_columns; i++) {
     var column = document.createElement("div");
     column.className = "small-1 columns";
 
     var input = document.createElement("input");
+    input.inputs = div.judge_inputs;
+
+    // This (the if statement to follow) is to faciliate automatic refocusing of the next judge
+    // after two digit are entered for the score (exception 10 and 100)
+    // The last input will be Minutes so that the last judge 
+    // (the one that comes before Minutes) will have another input to 
+    // focus on after the score has been entered.
+    if (i <= slam.num_judges)
+      div.judge_inputs.push(input);
+
     input.div = div;
     input.className =  "scorekeeper_input";
     input.setAttribute('size', 4);
     input.setAttribute('onchange', 'p_div_input_entered(this)');
+
+    if (i < slam.num_judges)
+      // Only do this for inputs that are judges
+      input.setAttribute('onkeyup', 'p_div_input_onkeyup(this.inputs, this)');
+
     input.setAttribute('data-index', i);
     input.type = "number";
     input.style.width = "60px";
