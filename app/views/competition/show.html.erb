@@ -7,14 +7,6 @@
   var events = JSON.parse('<%= @events.to_json.gsub("'", "&#39;").html_safe %>');
 </script>
 
-
-<div id="metrics" class="visible_when_logged_in">
-  <div id="number_of_connections" hidden>
-  </div>
-
-</div>
-
-
 <div id="poets_competing" hidden>
   <div id="list_poets"><span style='font-weight:bold'> Poets: </span></div>
 
@@ -43,3 +35,15 @@
 <div id="extra_round_div" hidden>
   <button id="button_extra_round" onclick='add_extra_round()'> Extra Round </button>
 </div>
+
+
+
+<div id="metrics" class="visible_when_logged_in" style="position:fixed; top: 20px; background: blue" hidden>
+
+  <div class="row">
+    <div class="small-12 columns" id="number_of_connections" style="float:right; color:white"> </div>
+  </div>
+
+</div>
+
+
