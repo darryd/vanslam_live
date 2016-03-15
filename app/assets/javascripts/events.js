@@ -84,32 +84,31 @@ function do_event(event) {
 
   slam.local_event_number = event.event_number;
 
-  if (event.web_sock_id == web_sock_id)
+  if (event.event != 'signup_poet')
+    last_updated(event);
+
+  if (event.web_sock_id == web_sock_id) {
     return;
+  }
 
   switch (event.event) {
 
     case 'new_performance':
-      last_updated(event);
       event_new_performance(event);
       break;
     case 'judge':
-      last_updated(event);
       event_judge(event);
       break;
     case 'set_time':
-      last_updated(event);
       event_set_time(event);
       break;
     case 'set_penalty':
-      last_updated(event);
       event_set_penalty(event);
       break;
     case 'signup_poet':
       signup_poet(event.name);
       break;
     case 'remove_performance':
-      last_updated(event);
       event_remove_performance(event);
       break;
   }
