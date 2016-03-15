@@ -59,6 +59,24 @@ function process_event(event) {
   }
 }
 
+function last_updated(event) {
+
+  var div = document.getElementById("last_updated");
+
+  var date_pat = /(.*)T/;
+  var date =  _.last(date_pat.exec(event.datetime));
+
+  var time_pat = /T(\d*):(\d*):(\d*)/;
+  var times = time_pat.exec(event.datetime);
+
+  var time = " " + times[1] + ":" + times[2] + ":" + times[3];
+
+  var datetime = date + time;
+
+  div.innerHTML = "<p> Last updated: " + datetime + "</p>";
+}
+
+
 function do_event(event) {
 
   if (slam.local_event_number + 1 != event.event_number)
@@ -72,21 +90,26 @@ function do_event(event) {
   switch (event.event) {
 
     case 'new_performance':
+      last_updated(event);
       event_new_performance(event);
       break;
     case 'judge':
+      last_updated(event);
       event_judge(event);
       break;
     case 'set_time':
+      last_updated(event);
       event_set_time(event);
       break;
     case 'set_penalty':
+      last_updated(event);
       event_set_penalty(event);
       break;
     case 'signup_poet':
       signup_poet(event.name);
       break;
     case 'remove_performance':
+      last_updated(event);
       event_remove_performance(event);
       break;
   }
