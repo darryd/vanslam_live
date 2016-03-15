@@ -73,7 +73,7 @@ function last_updated(event) {
 
   var datetime = date + time;
 
-  div.innerHTML = "<p> Last updated: " + datetime + "</p>";
+  div.innerHTML = "<p><font size='2'> Last updated: " + datetime + "</font></p>";
 }
 
 
