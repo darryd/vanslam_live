@@ -425,7 +425,10 @@ class CompetitionController < ApplicationController
 
     events.each do |e|
       result_e = JSON.parse(e.event)
-      result_e['datetime'] = e.updated_at #todo really do this if 'datetime' is null
+
+      if result_e[:datetime] == nil
+	result_e['datetime'] = e.updated_at
+      end
 
       result_events << result_e
     end
@@ -456,7 +459,7 @@ class CompetitionController < ApplicationController
       # add event_number and competition_id
       event_hash[:event_number] = event_number
       event_hash[:competition_id] = competition.id
-      event_hash[:datetime] = Time.zone.now.to_json
+      event_hash[:datetime] = Time.zone.now.to_json.sub('"', '')
 
       event = Event.new(competition_id: competition.id)
       event.event_number = event_number
