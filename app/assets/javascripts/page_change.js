@@ -22,7 +22,7 @@ $(document).on('page:change', function () {
   switch(e[i].getAttribute('data-run')){
 
     case 'index':
-      Strugnell.singleTwitterMatrix();
+      page_change_index();
       break;
     case 'competition':
       page_change_competition();
@@ -36,6 +36,18 @@ $(document).on('page:change', function () {
   }
 });
 
+/*-------------------------------------------------------------------------------------*/
+function page_change_index() {
+
+  var canvas = document.getElementById("dotmatrix_canvas");
+  var margin = 25;
+
+  var width = parseInt(window.innerWidth) - margin;
+  canvas.style.width = "" + width + "px";
+
+  Strugnell.singleTwitterMatrix();
+
+}
 /*-------------------------------------------------------------------------------------*/
 function prepare_round(index) {
 
@@ -66,7 +78,7 @@ function extract_extra_round() {
 
   if (last_round.is_extra) {
 
-    
+
     $(div).show(); //Not tested -- but this whole thing extra round thing will probably be rewritten/redesigned
 
 
@@ -79,7 +91,7 @@ function extract_extra_round() {
 
     rounds.pop();
 
-    
+
   }
   else {
 
