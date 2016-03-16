@@ -89,7 +89,7 @@ Strugnell.Dotmatrix = (function() {
 		dotHeight : 2,
 		dotWidth : 2,
 		dotGap : 1,
-		dotColorArray : ["#666","#fff","#F60"],
+		dotColorArray : [/*"#666","#fff",*/"#F60", "yellow", "orange" ],
 		drawTimeout : 100, //smaller the quicker
 		message : "HELLO",
 		messageType : "message",
