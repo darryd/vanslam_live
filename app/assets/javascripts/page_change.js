@@ -40,7 +40,7 @@ $(document).on('page:change', function () {
 function page_change_index() {
 
   var canvas = document.getElementById("dotmatrix_canvas");
-  var margin = 25;
+  var margin = 0;
 
   var width = parseInt(window.innerWidth) - margin;
   canvas.style.width = "" + width + "px";
