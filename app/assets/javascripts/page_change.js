@@ -37,6 +37,8 @@ $(document).on('page:change', function () {
 });
 
 /*-------------------------------------------------------------------------------------*/
+
+var dot_matrix_running = false;
 function page_change_index() {
 
   var canvas = document.getElementById("dotmatrix_canvas");
@@ -45,7 +47,10 @@ function page_change_index() {
   var width = parseInt(window.innerWidth) - margin;
   canvas.style.width = "" + width + "px";
 
-  Strugnell.singleTwitterMatrix();
+  if (!dot_matrix_running) {
+    Strugnell.singleTwitterMatrix();
+    dot_matrix_running = true;
+  }
 
 }
 /*-------------------------------------------------------------------------------------*/
