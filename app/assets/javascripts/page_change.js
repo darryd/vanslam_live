@@ -21,6 +21,9 @@ $(document).on('page:change', function () {
   for (var i=0 ; i < e.length; i++)
   switch(e[i].getAttribute('data-run')){
 
+    case 'index':
+      Strugnell.singleTwitterMatrix();
+      break;
     case 'competition':
       page_change_competition();
       break;

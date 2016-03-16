@@ -1,7 +1,16 @@
 <% # image_tag image_path "logo_slam.png" %>
 <% # FIXME: image_tag just displays a blank image. %>
 
-<h1> <%= @title %> </h1>
+<div class="page_change" data-run="index" hidden></div>
+
+<div class="row">
+  <div class="small-12 columns">
+	<canvas id="dotmatrix_canvas" width="847" height="85" data-message="<%= @title %>">
+		<h1> <%= @title %> </h1>
+	</canvas>
+  </div>
+</div>
+	
 
 <% @slams.each do |slam| %>
   <h2> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s %> </h2>
