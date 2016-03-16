@@ -14,6 +14,15 @@ class WelcomeController < ApplicationController
   end
 
   #------------------------------------------------------------------------------------#
+  def events
+
+    host = Host.where(host: request.host).take
+    @title = host.organization.title
+
+    @slams = host.organization.competitions.order('created_at DESC')
+  end
+
+  #------------------------------------------------------------------------------------#
   def login
 
     @page = params[:page]
