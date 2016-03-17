@@ -41,6 +41,12 @@ $(document).on('page:change', function () {
 var dot_matrix_running = false;
 function page_change_index() {
 
+  // Let's not display dot matrix on small screens
+  if (Foundation.utils.is_small_only()) {
+    window.location = "welcome/events";
+    return;
+  }
+
   var canvas = document.getElementById("dotmatrix_canvas");
   var margin = 0;
 
