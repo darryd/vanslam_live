@@ -1,8 +1,30 @@
 <% # image_tag image_path "logo_slam.png" %>
 <% # FIXME: image_tag just displays a blank image. %>
-	
-<h1> Events </h1>
 
-<% @slams.each do |slam| %>
-  <h2> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s %> </h2>
-<% end %>
+<div id="dot_matrix">
+<div class="page_change" data-run="index" hidden></div>
+
+	<canvas id="dotmatrix_canvas" width="847" height="40" data-message="<%= @title %>">
+		<h1> <%= @title %> </h1>
+	</canvas>
+	<p> <small> Dot Matrix from <a href="http://strugnell.com/labs/canvas_dot_matrix_prototype"> strugnell.com </a> </small></p>
+</div>
+
+<iframe id="content_frame" width="100%" height="100%" frameborder="0" src="welcome/events"></iframe>
+
+
+<script>
+  window.onresize = function() {
+
+    var dot_matrix = document.getElementById("dot_matrix");
+    var iframe = document.getElementById("content_frame");
+    var rect = dot_matrix.getBoundingClientRect();
+
+    var height = window.innerHeight - rect.bottom;
+    var width = window.innerWidth;
+
+    iframe.height = height - 32;
+    iframe.width = width;
+  };
+
+</script>
