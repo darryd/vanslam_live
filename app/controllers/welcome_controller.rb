@@ -44,7 +44,7 @@ class WelcomeController < ApplicationController
 
   def check_credentials (user_name, password)
 
-    scorekeeper = Scorekeeper.where(user_name: user_name).take
+    scorekeeper = Scorekeeper.where('lower(user_name) = ?', user_name.downcase).take
 
     if scorekeeper == nil
       result = false
