@@ -128,4 +128,6 @@ function click_poet(button) {
   for (var i=0; i<buttons.length; i++) {
     $(buttons[i]).remove();
   }
+
+  p_div.judge_inputs[0].focus();
 }
