@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get 'welcome/login'
   root :to => "welcome#index"
 
+
+  get 'welcome/competitions_json'
+
   get "/login", to: "welcome#login"
 
   post "welcome/do_log_in"

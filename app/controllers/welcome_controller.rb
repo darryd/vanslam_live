@@ -14,6 +14,17 @@ class WelcomeController < ApplicationController
   end
 
   #------------------------------------------------------------------------------------#
+  def competitions_json
+
+    host = Host.where(host: request.host).take
+    title = host.organization.title
+    slams = host.organization.competitions.order('created_at DESC')
+
+
+    render json: {:title => title, :slams => slams}
+  end
+  #------------------------------------------------------------------------------------#
+
   def events
 
     host = Host.where(host: request.host).take
