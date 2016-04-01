@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   post "competition/get_event_range"
 
 
-  #get "competition/what_did_i_miss"
+  get "competition/what_did_i_miss"
   post "competition/what_did_i_miss"
   
 
