@@ -12,7 +12,7 @@ class CompetitionController < ApplicationController
       @events = _get_event_range(@slam.id, 1, @slam.event_number)
 
       if params.has_key?(:json)
-	render json: {:settings => @settings, :slam => @slam, :events => @events}
+	render json: {:settings => @settings, :slam => @slam, :events => @events, :rounds => @slam.rounds}
 	return
       end
 
