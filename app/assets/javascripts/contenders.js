@@ -46,7 +46,7 @@ function get_round_buttons(winners, round_number) {
   var round = rounds[round_number - 1];
 
   var div = document.createElement("div");
-  div.className = 'visible_when_logged_in';
+  div.className = 'vwli';
 
   var p = document.createElement("p");
   p.innerHTML = "Select next poet.";

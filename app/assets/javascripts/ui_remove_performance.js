@@ -5,7 +5,7 @@ function make_remove_me_div(table) {
 
   var a = document.createElement("a");
 
-  div.className = "visible_when_logged_in";
+  div.className = "vwli";
   div.setAttribute('hidden', null);
   
   a.setAttribute("href", "javascript:remove_performance_by_uiid('" + table.id + "')");

@@ -81,7 +81,7 @@ function prepare_round(index) {
 function extract_extra_round() {
 
   var div = document.getElementById('extra_round_div');
-  //div.className = "visible_when_logged_in";
+  //div.className = "vwli";
 
   var last_round = rounds[rounds.length - 1];
 
@@ -127,11 +127,11 @@ function prepare_rounds() {
 }
 /*-------------------------------------------------------------------------------------*/
 
-function manage_class_visible_when_logged_in() {
+function manage_class_vwli() {
 
   var done_func = function(login) {
 
-    var elements = document.getElementsByClassName('visible_when_logged_in');
+    var elements = document.getElementsByClassName('vwli');
     for (var i=0; i < elements.length; i++)
       if (login.is_logged_in)
 	elements[i].removeAttribute('hidden')
@@ -144,7 +144,7 @@ function manage_class_visible_when_logged_in() {
 
 function page_change_competition() {
 
-  manage_class_visible_when_logged_in();
+  manage_class_vwli();
   prepare_rounds();
 
   var done_func = function(login) {
@@ -170,7 +170,7 @@ function page_change_competition() {
 
 
 	// Hide elements that should only be visible when logged in.
-	var elements = document.getElementsByClassName('visible_when_logged_in'); // TODO Perhaps this should be default behavior for logging out?
+	var elements = document.getElementsByClassName('vwli'); // TODO Perhaps this should be default behavior for logging out?
 	for (var i=0; i<elements.length; i++)
 	  elements[i].setAttribute('hidden', null);
 
