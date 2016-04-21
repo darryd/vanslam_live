@@ -35,10 +35,11 @@ class CompetitionController < ApplicationController
       end
 
       # 'round_number'?
-      if missing_params(params, ['competition_id', 'web_sock_id', 'round_number', 'time_limit'])
+      if missing_params(params, ['competition_id', 'web_sock_id', 'round_number', 'time_limit', 'grace'])
 	return
       end
 
+=begin
       r = Round.new
 
       r.competition_id = params[:competition_id]
@@ -52,7 +53,16 @@ class CompetitionController < ApplicationController
       if r.save
 	render json: {:result => true, :round_id => r.id}
       end
+=end
 
+
+	event_hash = {};
+	event_hash[:event] = "new_round"
+	event_hash[:web_sock_id] = params[:web_sock_id]
+
+	new_event(performance.round.competition, event_hash)
+
+      else
     end
 
     #-----------------------------------------------------------------------------------------#

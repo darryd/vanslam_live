@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   
 
   get "competition/new_round"
+  post "competition/new_round"
 
 
 
