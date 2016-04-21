@@ -34,35 +34,44 @@ class CompetitionController < ApplicationController
 	return
       end
 
-      # 'round_number'?
-      if missing_params(params, ['competition_id', 'web_sock_id', 'round_number', 'time_limit', 'grace'])
+      if missing_params(params, ['competition_id', 'web_sock_id', 'time_limit', 'grace_period'])
 	return
       end
 
-=begin
-      r = Round.new
-
-      r.competition_id = params[:competition_id]
-      r.round_number = params[:round_number]
-      r.title = "Extra Round"
-      r.are_poets_from_previous = false
-      r.time_limit = params[:time_limit]
-      r.is_extra = true
-      r.is_on_the_fly = true
-
-      if r.save
-	render json: {:result => true, :round_id => r.id}
+      begin
+	competition = Competition.find(params[:competition_id])
+      rescue
+	render json: {:result => false, :message => "Could not find competition."}
+	return
       end
-=end
 
+      # 'round_number'?
+      Round.transaction do
+	round_number = 1 + competition.rounds.maximum(:round_number)
 
-	event_hash = {};
-	event_hash[:event] = "new_round"
-	event_hash[:web_sock_id] = params[:web_sock_id]
+	r = Round.new
+	r.competition_id = params[:competition_id]
+	r.round_number = round_number = round_number
+	r.title = "Extra Round"
+	r.are_poets_from_previous = false
+	r.time_limit = params[:time_limit]
+	r.grace_period = params[:grace_period]
 
-	new_event(performance.round.competition, event_hash)
+	if r.save
+	  render json: {:result => true, :round_number => r.round_number}
 
-      else
+	  event_hash = {};
+	  event_hash[:event] = "new_round"
+	  event_hash[:web_sock_id] = params[:web_sock_id]
+	  event_hash[:round_number] = r.round_number
+
+	  new_event(competition, event_hash)
+
+	else
+	  render json: {:result => false, :message => "Something went wrong"}
+	end
+      end
+
     end
 
     #-----------------------------------------------------------------------------------------#
@@ -496,5 +505,5 @@ class CompetitionController < ApplicationController
     #-----------------------------------------------------------------------------------------#
 
 
-  end
+end
 
