@@ -191,5 +191,9 @@ function event_remove_performance(event) {
 
 function event_new_round(event) {
 
+  if (rounds.length >= parseInt(event.round.round_number))
+    return; // ignore
 
+  var round = event.round;
+  create_round_div(round);
 }
