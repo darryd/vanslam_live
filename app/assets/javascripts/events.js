@@ -111,6 +111,9 @@ function do_event(event) {
     case 'remove_performance':
       event_remove_performance(event);
       break;
+    case 'new_round':
+      event_new_round(event);
+      break;
   }
 
 }
@@ -184,4 +187,9 @@ function event_remove_performance(event) {
   var comm_2 = window.comms_2[event.performance_id];
 
   remove_performance(comm_2.p_div);
+}
+
+function event_new_round(event) {
+
+
 }

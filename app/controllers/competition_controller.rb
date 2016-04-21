@@ -58,12 +58,12 @@ class CompetitionController < ApplicationController
 	r.grace_period = params[:grace_period]
 
 	if r.save
-	  render json: {:result => true, :round_number => r.round_number}
+	  render json: {:result => true, :round => r}
 
 	  event_hash = {};
 	  event_hash[:event] = "new_round"
 	  event_hash[:web_sock_id] = params[:web_sock_id]
-	  event_hash[:round_number] = r.round_number
+	  event_hash[:round] = r
 
 	  new_event(competition, event_hash)
 
