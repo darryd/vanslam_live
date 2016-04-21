@@ -3,8 +3,6 @@
 
 var places = [0, "first", "second", "third", "fouth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth"];
 
-var grace_time = 10;
-
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
 notify_new = function(me) {
@@ -91,12 +89,13 @@ poet_new = function (name) {
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
-performance_new = function (name, prev, time_limit, num_judges) {
+performance_new = function (name, prev, time_limit, grace_period, num_judges) {
 
   var performance = {};
 
   performance.id = makeid(20);
   performance.time_limit = time_limit;
+  performance.grace_period = grace_period;
   performance.num_judges = num_judges; // = 5;// to see if I refactored correctly
   /*--------------------------------------------------------------------------------------------------------------------------------*/
   // Notify that the score has been (re)calculated.
@@ -175,7 +174,7 @@ performance_new = function (name, prev, time_limit, num_judges) {
     var over_time;
     var penalty;
 
-    if (this.seconds <= this.time_limit + grace_time)
+    if (this.seconds <= this.time_limit + this.grace_period)
       return 0;
 
     over_time = this.seconds - this.time_limit;

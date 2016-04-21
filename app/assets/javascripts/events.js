@@ -137,7 +137,7 @@ function event_new_performance(event) {
     prev_performance_2 = comms_2[event.previous_performance_id].p_div.performance;
   }
 
-  var performance_2 = performance_new(event.poet_name, prev_performance_2, round.time_limit, slam.num_judges);
+  var performance_2 = performance_new(event.poet_name, prev_performance_2, round.time_limit, round.grace_period, slam.num_judges);
   var p_div = p_div_new(performance_2);
 
   performance_2.performance_id = event.performance_id;
