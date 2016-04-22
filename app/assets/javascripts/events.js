@@ -87,7 +87,8 @@ function do_event(event) {
   if (event.event != 'signup_poet')
     last_updated(event);
 
-  if (event.web_sock_id == web_sock_id) {
+  // I'm making 'new_round' an exceoption to help keep in sync with the server
+  if (event.web_sock_id == web_sock_id && event.event != 'new_round') {
     return;
   }
 

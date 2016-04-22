@@ -221,3 +221,20 @@ function do_logout_request(done_func) {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function add_round_request(competition_id, time_limit, grace_period) {
+
+  var ticket = new_ticket();
+
+  ticket.url = "/competition/new_round";
+  
+  ticket.get_params = function() {
+    return {competition_id: competition_id, time_limit: time_limit, grace_period: grace_period, web_sock_id: window.web_sock_id};
+  };
+  
+  ticket.done = function(response) {
+    console.log(response);
+  };
+
+  window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/
