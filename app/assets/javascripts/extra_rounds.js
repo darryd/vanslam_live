@@ -1,22 +1,40 @@
 
 function onclick_add_round() {
 
+
+
+
+  var ondone = function(div) {
+
+    $(div).remove();
+    $('#add_round_button').show();
+    
+  };
+
+  $('#add_round_button').hide();
+
   var div = document.getElementById('add_extra_round');
-  var add_round_div = get_add_round_div();
+  var add_round_div = get_add_round_div(ondone);
 
   div.appendChild(add_round_div);
 }
 
-function on_submit_add_round(button) {
+function onclick_submit_add_round(button) {
 
   var time = parse_int_or_return_zero(button.div.time_input.value);
   var grace = parse_int_or_return_zero(button.div.grace_input.value);
 
-  alert ("time: " + time + " grace: " + grace);
+  add_round_request(slam.id, time, grace);
+  button.div.ondone_func(button.div);
 }
 
+function onclick_cancel_add_round(button) {
 
-function get_add_round_div(on_done_func) {
+  button.div.ondone_func(button.div);
+
+}
+
+function get_add_round_div(ondone_func) {
 
   var div = document.createElement('div');
   var row;
@@ -24,7 +42,8 @@ function get_add_round_div(on_done_func) {
   var label;
   var input;
   
-  div.on_done_func = on_done_func;
+
+  div.ondone_func = ondone_func;
 
 
   row = document.createElement('row');
@@ -75,7 +94,7 @@ function get_add_round_div(on_done_func) {
   row.appendChild(column);
 
   button = document.createElement('button');
-  button.setAttribute('onclick', 'on_submit_add_round(this)');
+  button.setAttribute('onclick', 'onclick_submit_add_round(this)');
   button.innerHTML = 'Submit';
   button.div = div;
   column.appendChild(button);
@@ -87,7 +106,9 @@ function get_add_round_div(on_done_func) {
   row.appendChild(column);
 
   button = document.createElement('button');
+  button.setAttribute('onclick', 'onclick_cancel_add_round(this)');
   button.innerHTML = 'Cancel';
+  button.div = div;
   column.appendChild(button);
 
   return div;
