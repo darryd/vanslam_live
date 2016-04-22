@@ -36,6 +36,17 @@ function create_round_div(round) {
   var div = document.createElement('p');
   div.innerHTML = "Grace period: " + round.time_limit + " Grace period: " + round.grace_period;
   round_div.appendChild(div);
+
+  div = document.createElement('div');
+  div.id = "performances_" + round.round_number;
+  round_div.appendChild(div);
+
+  div = document.createElement('div');
+  div.id = "poets_" + round.round_number;
+  div.className = "poets_for_round, vwli";
+  round_div.appendChild(div);
+
+  invisible_round.notify_rank(); // So that the poets will appear as buttons to select
 }
 
 
