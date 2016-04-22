@@ -1,4 +1,14 @@
 
+function seconds_to_time(seconds) {
+
+
+  var s = "" + seconds % 60;
+
+  if (s.length == 1)
+    s = "0" + s;
+
+  return '' + Math.floor(seconds/60) + ':' + s; 
+}
 
 function create_round_div(round) {
 
@@ -34,7 +44,7 @@ function create_round_div(round) {
   rounds_div.appendChild(round_div);
 
   var div = document.createElement('p');
-  div.innerHTML = "Grace period: " + round.time_limit + " Grace period: " + round.grace_period;
+  div.innerHTML = "Time limit: " + seconds_to_time(round.time_limit) + " Grace period: " + round.grace_period;
   round_div.appendChild(div);
 
   div = document.createElement('div');
