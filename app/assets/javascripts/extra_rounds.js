@@ -19,18 +19,22 @@ function on_submit_add_round(button) {
 function get_add_round_div(on_done_func) {
 
   var div = document.createElement('div');
+  var row;
   var column;
   var label;
   var input;
   
   div.on_done_func = on_done_func;
-  div.className = 'row';
 
+
+  row = document.createElement('row');
+  row.className = 'row';
+  div.appendChild(row);
 
   // Time period:
   column = document.createElement('div');
   column.className = 'small-2 columns';
-  div.appendChild(column);
+  row.appendChild(column);
 
   label = document.createElement('label');
   label.innerHTML = 'Time (seceonds):';
@@ -45,7 +49,7 @@ function get_add_round_div(on_done_func) {
   // Grace Period:
   column = document.createElement('div');
   column.className = 'small-2 columns';
-  div.appendChild(column);
+  row.appendChild(column);
 
   label = document.createElement('div');
   label.innerHTML = 'Grace (seconds):';
@@ -60,23 +64,23 @@ function get_add_round_div(on_done_func) {
   // Submit
   column = document.createElement('div');
   column.className = 'small-2 columns';
-  div.appendChild(column);
+  row.appendChild(column);
 
   button = document.createElement('button');
   button.setAttribute('onclick', 'on_submit_add_round(this)');
   button.innerHTML = 'Submit';
   button.div = div;
-  div.appendChild(button);
+  column.appendChild(button);
 
 
   // Cancel
   column = document.createElement('div');
   column.className = 'small-2 columns end';
-  div.appendChild(column);
+  row.appendChild(column);
 
   button = document.createElement('button');
   button.innerHTML = 'Cancel';
-  div.appendChild(button);
+  column.appendChild(button);
 
   return div;
 }
