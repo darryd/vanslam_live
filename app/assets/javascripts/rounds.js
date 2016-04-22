@@ -32,6 +32,10 @@ function create_round_div(round) {
   
   round_div.appendChild(h2);
   rounds_div.appendChild(round_div);
+
+  var div = document.createElement('p');
+  div.innerHTML = "Grace period: " + round.time_limit + " Grace period: " + round.grace_period;
+  round_div.appendChild(div);
 }
 
 
