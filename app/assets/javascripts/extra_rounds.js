@@ -33,7 +33,7 @@ function get_add_round_div(on_done_func) {
 
   // Time period:
   column = document.createElement('div');
-  column.className = 'small-2 columns';
+  column.className = 'small-4 medium-2 columns';
   row.appendChild(column);
 
   label = document.createElement('label');
@@ -48,7 +48,7 @@ function get_add_round_div(on_done_func) {
 
   // Grace Period:
   column = document.createElement('div');
-  column.className = 'small-2 columns end';
+  column.className = 'small-4 medium-2 columns end';
   row.appendChild(column);
 
   label = document.createElement('div');
