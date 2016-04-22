@@ -71,7 +71,7 @@ function get_add_round_div(on_done_func) {
 
   // Submit
   column = document.createElement('div');
-  column.className = 'small-2 columns';
+  column.className = 'small-4 medium-2 columns';
   row.appendChild(column);
 
   button = document.createElement('button');
