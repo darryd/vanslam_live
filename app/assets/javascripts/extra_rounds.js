@@ -37,7 +37,7 @@ function get_add_round_div(on_done_func) {
   row.appendChild(column);
 
   label = document.createElement('label');
-  label.innerHTML = 'Time (seceonds):';
+  label.innerHTML = 'Time:';
   column.appendChild(label);
 
   input = document.createElement('input');
@@ -48,11 +48,11 @@ function get_add_round_div(on_done_func) {
 
   // Grace Period:
   column = document.createElement('div');
-  column.className = 'small-2 columns';
+  column.className = 'small-2 columns end';
   row.appendChild(column);
 
   label = document.createElement('div');
-  label.innerHTML = 'Grace (seconds):';
+  label.innerHTML = 'Grace:';
   column.appendChild(label);
 
   input = document.createElement('input');
@@ -60,6 +60,14 @@ function get_add_round_div(on_done_func) {
   input.value = '10';
   label.appendChild(input);
   div.grace_input = input;
+
+
+  if (matchMedia('only screen and (max-width: 40em)').matches) {
+    row = document.createElement('div');
+    row.className = 'row';
+    div.appendChild(row);
+  }
+
 
   // Submit
   column = document.createElement('div');
