@@ -120,14 +120,5 @@ function click_poet(button) {
   // Send request to server
   
   new_performance_request(round, button.name, p_div);
-
-  // Remove the button
-  var class_name = button.className;
-
-  var buttons = document.getElementsByClassName(class_name);
-  for (var i=0; i<buttons.length; i++) {
-    $(buttons[i]).remove();
-  }
-
   p_div.judge_inputs[0].focus();
 }
