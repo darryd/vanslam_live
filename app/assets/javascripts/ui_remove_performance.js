@@ -1,42 +1,69 @@
-function make_are_you_sure_div() {
+
+
+
+
+function make_are_you_sure_div(remove_me_div) {
 
   var row = document.createElement('div');
   row.className = 'row';
+  row.uiid = remove_me_div.uiid;
 
   var column = document.createElement('div');
-  column.className = 'small-1 columns';
+  column.className = 'small-2 columns';
   row.appendChild(column);
 
   var yes = document.createElement('a');
-  yes.setAttribute('href', 'javascript:remove_performance_by_uiid("' + table.id + '")');
-  column.append(yes);
+  yes.innerHTML = "Yes";
+  yes.uiid = remove_me_div.uiid;
+  yes.setAttribute('onclick', 'remove_performance_by_uiid(this.uiid)');
 
-  var no = document.createElement('no');
-  
-
-  
+  column.appendChild(yes);
 
 
+  column = document.createElement('div');
+  column.className = 'small-2 columns';
+  row.appendChild(column);
 
+  var no = document.createElement('a');
+  no.innerHTML = "No";
+  no.yes_no_div = row;
+  no.setAttribute('onclick', 'replace_yes_no_with_remove_div(this.yes_no_div)');
+  column.appendChild(no);
 
+  $(remove_me_div).replaceWith(row);
 }
+
+
+function replace_yes_no_with_remove_div(yes_no_div) {
+
+  var remove_div = make_remove_me_div(yes_no_div.uiid);
+
+  $(yes_no_div).replaceWith(remove_div);
+
+
+} 
 
 function make_remove_me_div(uiid) {
 
-  var div = document.createElement("div");
-  var a = document.createElement("a");
 
-  div.className = "vwli";
+  var remove_me_div = document.createElement("div");
+  
+  remove_me_div.uiid = uiid;
+
+  var a = document.createElement("a");
+  a.remove_me_div = remove_me_div;
+
+  remove_me_div.className = "vwli";
 
   if (!login_info.is_logged_in)
-    div.setAttribute('hidden', null);
+    remove_me_div.setAttribute('hidden', null);
 
-  a.setAttribute("href", "javascript:remove_performance_by_uiid('" + uiid + "')");
+  a.setAttribute('onclick', 'make_are_you_sure_div(this.remove_me_div)');
   a.innerHTML = "Remove";
 
-  div.appendChild(a);
+  remove_me_div.appendChild(a);
 
-  return div;
+  return remove_me_div;
 }
 
 function remove_performance(id) {
