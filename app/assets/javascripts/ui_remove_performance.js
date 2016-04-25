@@ -1,11 +1,3 @@
-
-function self_destruct(yes_no_div) {
-
-  var time_left = parseInt(yes_no_div.time_left.innerHTML) - 1;
-
-  remove_me_div.time_left.innerHTML = time_left;
-}
-
 function make_are_you_sure_div(remove_me_div) {
 
   var row = document.createElement('div');
@@ -46,7 +38,19 @@ function make_are_you_sure_div(remove_me_div) {
   column.appendChild(p);
   row.time_left = p;
 
-  setInterval(self_destruct, 100, row);
+  row.interval = setInterval(function(row) {
+
+    var time_left = parseInt(row.time_left.innerHTML);
+    time_left = time_left - 1;
+
+    row.time_left.innerHTML = "" + time_left;
+
+    if (time_left == 0) {
+      replace_yes_no_with_remove_div(row);
+    }
+
+
+  }, 1000, row);
 
   $(remove_me_div).replaceWith(row);
 }
@@ -54,6 +58,7 @@ function make_are_you_sure_div(remove_me_div) {
 
 function replace_yes_no_with_remove_div(yes_no_div) {
 
+  clearTimeout(yes_no_div.interval);
   var remove_div = make_remove_me_div(yes_no_div.uiid);
 
   $(yes_no_div).replaceWith(remove_div);
