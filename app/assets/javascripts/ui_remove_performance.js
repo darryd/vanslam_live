@@ -1,14 +1,37 @@
-function make_remove_me_div(table) {
+function make_are_you_sure_div() {
+
+  var row = document.createElement('div');
+  row.className = 'row';
+
+  var column = document.createElement('div');
+  column.className = 'small-1 columns';
+  row.appendChild(column);
+
+  var yes = document.createElement('a');
+  yes.setAttribute('href', 'javascript:remove_performance_by_uiid("' + table.id + '")');
+  column.append(yes);
+
+  var no = document.createElement('no');
+  
+
+  
+
+
+
+
+}
+
+function make_remove_me_div(uiid) {
 
   var div = document.createElement("div");
-  div.table = table;
-
   var a = document.createElement("a");
 
   div.className = "vwli";
-  div.setAttribute('hidden', null);
-  
-  a.setAttribute("href", "javascript:remove_performance_by_uiid('" + table.id + "')");
+
+  if (!login_info.is_logged_in)
+    div.setAttribute('hidden', null);
+
+  a.setAttribute("href", "javascript:remove_performance_by_uiid('" + uiid + "')");
   a.innerHTML = "Remove";
 
   div.appendChild(a);
@@ -50,7 +73,7 @@ function remove_performance(performance_ui) {
 
   // Hide or delete the DOM
   performance_ui.setAttribute('hidden', null);
- 
+
   // Remove the performance object from round_js 
   var performance = performance_ui.performance;
   var round_js = performance.round;
