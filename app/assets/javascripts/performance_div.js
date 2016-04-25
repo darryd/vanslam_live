@@ -22,7 +22,7 @@ function p_div_new(performance) {
 
   
   var column = document.createElement("div");
-  column.className = 'small-1 columns';
+  column.className = 'small-2 columns';
 
   var remove_me = make_remove_me_div(div.id);
   column.appendChild(remove_me);

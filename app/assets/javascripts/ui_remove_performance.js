@@ -1,6 +1,10 @@
 
+function self_destruct(yes_no_div) {
 
+  var time_left = parseInt(yes_no_div.time_left.innerHTML) - 1;
 
+  remove_me_div.time_left.innerHTML = time_left;
+}
 
 function make_are_you_sure_div(remove_me_div) {
 
@@ -8,8 +12,10 @@ function make_are_you_sure_div(remove_me_div) {
   row.className = 'row';
   row.uiid = remove_me_div.uiid;
 
-  var column = document.createElement('div');
-  column.className = 'small-2 columns';
+  var column;
+
+  column = document.createElement('div');
+  column.className = 'small-4 columns';
   row.appendChild(column);
 
   var yes = document.createElement('a');
@@ -21,7 +27,7 @@ function make_are_you_sure_div(remove_me_div) {
 
 
   column = document.createElement('div');
-  column.className = 'small-2 columns';
+  column.className = 'small-4 columns';
   row.appendChild(column);
 
   var no = document.createElement('a');
@@ -29,6 +35,18 @@ function make_are_you_sure_div(remove_me_div) {
   no.yes_no_div = row;
   no.setAttribute('onclick', 'replace_yes_no_with_remove_div(this.yes_no_div)');
   column.appendChild(no);
+
+
+  column = document.createElement('div');
+  column.className = 'small-2 column';
+  row.appendChild(column);
+
+  var p = document.createElement('p');
+  p.innerHTML = '5';
+  column.appendChild(p);
+  row.time_left = p;
+
+  setInterval(self_destruct, 100, row);
 
   $(remove_me_div).replaceWith(row);
 }
