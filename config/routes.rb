@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get "poet/lookup"
 
   post "competition/signup_poet"
- # get "competition/signup_poet"
+  get "competition/signup_poet"
 
   post "competition/remove_performance"
   #get "competition/remove_performance"

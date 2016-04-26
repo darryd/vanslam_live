@@ -116,6 +116,8 @@ function click_poet(button) {
   $("#performances_" + round.round_number).append(p_div);
   round.names_already_performing.push(performance_2.name);
   invisible_round.notify_rank();
+  round.round_js.rank(); //bookmark bookmark bookmark
+  
 
   // Send request to server
   

@@ -305,7 +305,7 @@ class CompetitionController < ApplicationController
       end
 
       host = Host.where(host: request.host).take
-      host.organization.poets.where(name: params[:name]).take
+      poet = host.organization.poets.where(name: params[:name]).take
 
 
       if poet == nil
