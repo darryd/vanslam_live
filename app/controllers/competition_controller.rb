@@ -96,7 +96,8 @@ class CompetitionController < ApplicationController
 	return
       end
 
-      poet = Poet.where(name: params[:name]).first  
+      host = Host.where(host: request.host).take
+      poet = host.organization.poets.where(name: params[:name]).first
 
       if poet == nil
 	render json: {:result => false, :message => "No poet found"}
@@ -294,7 +295,10 @@ class CompetitionController < ApplicationController
 	return
       end
 
-      poet = Poet.where(name: params[:name]).take
+      host = Host.where(host: request.host).take
+      host.organization.poets.where(name: params[:name]).take
+
+
       if poet == nil
 	render json: {:result => false, :message => "Could not find poet."}
 	return
