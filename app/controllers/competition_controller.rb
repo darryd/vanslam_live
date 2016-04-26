@@ -7,8 +7,12 @@ class CompetitionController < ApplicationController
 
   def show
     begin
+
+      host = Host.where(host: request.host).take
+
+
       @settings = Setting.take
-      @slam = Competition.find(params[:id])
+      @slam = host.organization.competitions.find(params[:id])
       @events = _get_event_range(@slam.id, 1, @slam.event_number)
 
       if params.has_key?(:json)
@@ -38,8 +42,11 @@ class CompetitionController < ApplicationController
 	return
       end
 
+
+      host = Host.where(host: request.host).take
+
       begin
-	competition = Competition.find(params[:competition_id])
+	competition = host.organization.competitions.find(params[:competition_id])
       rescue
 	render json: {:result => false, :message => "Could not find competition."}
 	return
@@ -288,8 +295,10 @@ class CompetitionController < ApplicationController
 	return
       end
 
+      host = Host.where(host: request.host).take
+
       begin
-	competition = Competition.find(params[:competition_id])
+	competition = host.organization.competitions.find(params[:competition_id])
       rescue
 	render json: {:result => false, :message => "Could not find competition."}
 	return
@@ -357,8 +366,9 @@ class CompetitionController < ApplicationController
 	return
       end
 
+      host = Host.where(host: request.host).take
       begin
-	competition = Competition.find(params[:competition_id])
+	competition = host.organization.competitions.find(params[:competition_id])
       rescue
 	render json: {:result => false, :message => "Could not find competition."}
 	return
@@ -373,8 +383,9 @@ class CompetitionController < ApplicationController
 	return
       end
 
+      host = Host.where(host: request.host).take
       begin
-	competition = Competition.find(params[:competition_id])
+	competition = host.organization.competitions.find(params[:competition_id])
       rescue
 	render json: {:result => false, :message => "Could not find competition."}
 	return
@@ -399,8 +410,9 @@ class CompetitionController < ApplicationController
 	return
       end
 
+      host = Host.where(host: request.host).take
       begin
-	competition = Competition.find(params[:competition_id])
+	competition = host.organization.competitions.find(params[:competition_id])
       rescue
 	render json: {:result => false, :message => "Could not find competition."}
 	return
@@ -424,8 +436,9 @@ class CompetitionController < ApplicationController
 	return
       end
 
+      host = Host.where(host: request.host).take
       begin
-	competition = Competition.find(params[:competition_id])
+	competition = host.organization.competitions.find(params[:competition_id])
       rescue
 	render json: {:result => false, :message => "Could not find competition."}
 	return
@@ -441,8 +454,9 @@ class CompetitionController < ApplicationController
     #-----------------------------------------------------------------------------------------#
     def _get_event_range (competition_id, event_number_i, event_number_j)
 
+      host = Host.where(host: request.host).take
       begin
-	competition = Competition.find(competition_id)
+	competition = host.organization.competitions.find(competition_id)
       rescue
 	return []
       end
@@ -470,7 +484,7 @@ class CompetitionController < ApplicationController
       competition.with_lock do
 
 
-	# Update Competition
+	# Update host.organization.competitions
 	if competition.event_number == nil
 	  competition.event_number = 0
 	end
