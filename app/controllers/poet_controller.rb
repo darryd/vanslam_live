@@ -2,9 +2,11 @@ class PoetController < ApplicationController
   #------------------------------------------------------------------------------------#
   def names
 
+    host = Host.where(host: request.host).take
+
     names = []
 
-    Poet.find_each do |poet|
+    host.organization.poets.find_each do |poet|
       names << poet.name
     end
 
@@ -25,11 +27,13 @@ class PoetController < ApplicationController
       return 
     end
 
+    host = Host.where(host: request.host).take
+
     name = params[:name].gsub(/\s+/, " ").strip # Get rid of extra spaces
     sanitizer = Rails::Html::FullSanitizer.new  # Remove html
     name = sanitizer.sanitize(name)
 
-    poet = Poet.where('lower(name) = ?', name.downcase).first_or_create(:name=>name)
+    poet = host.organization.poets.where('lower(name) = ?', name.downcase).first_or_create(:name=>name, :organization_id=>host.organization.id)
 
     render json: {:result => true, :poet => poet}
 
@@ -43,10 +47,11 @@ class PoetController < ApplicationController
       return 
     end
 
+    host = Host.where(host: request.host).take
 
     name = params[:name].downcase.gsub(/\s+/, ' ').strip
 
-    poets = Poet.where("lower(name) like ?", "%#{name}%").order(:name)
+    poets = host.organization.poets.where("lower(name) like ?", "%#{name}%").order(:name)
     names = []
     poets.each do |poet|
 
