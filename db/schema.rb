@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421001323) do
+ActiveRecord::Schema.define(version: 20160427011848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20160421001323) do
     t.integer  "num_places"
     t.boolean  "is_extra"
     t.integer  "grace_period"
+    t.integer  "previous_round_id"
   end
 
   create_table "scorekeepers", force: :cascade do |t|
