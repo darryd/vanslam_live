@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20160427011848) do
     t.integer  "num_places"
     t.boolean  "is_extra"
     t.integer  "grace_period"
-    t.integer  "previous_round_id"
+    t.integer  "previous_round_number"
   end
 
   create_table "scorekeepers", force: :cascade do |t|

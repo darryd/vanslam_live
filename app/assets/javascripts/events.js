@@ -159,8 +159,11 @@ function event_new_performance(event) {
   window.comms_2[event.performance_id] = p_div.comm;
 
   // Trigger contenders.get_winners() so that the button to add the performer will be removed  
-  if (round.are_poets_from_previous)
-    rounds[event.round_number - 2].round_js.rank();
+  if (round.are_poets_from_previous) {
+
+    var previous_round_index = round.previous_round_id == null ? event.round_number - 2 : round.previous_round_number -1;_
+    rounds[previous_round_index].round_js.rank();
+  }
 
 }
 
