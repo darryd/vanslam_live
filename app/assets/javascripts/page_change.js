@@ -69,10 +69,20 @@ function prepare_round(index) {
   rounds[i].round_js.debug_str = "round " + i;
   rounds[i].names_already_performing = [];
 
+  var prev_round = window.invisible_round;
 
-  var prev_round = rounds[i].are_poets_from_previous ? rounds[i-1].round_js : window.invisible_round;
+  if (rounds[i].are_poets_from_previous) {
+
+    if (rounds[i].previous_round_number == null) 
+      rounds[i].previous_round_number = i;
+
+
+    var prev_i = rounds[i].previous_round_number - 1;
+
+    prev_round = rounds[prev_i].round_js;
+  }
+
   rounds[i].contenders = contenders_new(rounds[i].round_number, prev_round);
-
 }
 /*-------------------------------------------------------------------------------------*/
 

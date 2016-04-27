@@ -161,7 +161,7 @@ function event_new_performance(event) {
   // Trigger contenders.get_winners() so that the button to add the performer will be removed  
   if (round.are_poets_from_previous) {
 
-    var previous_round_index = round.previous_round_id == null ? event.round_number - 2 : round.previous_round_number -1;_
+    var previous_round_index = round.previous_round_number == null ? event.round_number - 2 : round.previous_round_number -1;
     rounds[previous_round_index].round_js.rank();
   }
 
