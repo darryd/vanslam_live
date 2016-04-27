@@ -41,6 +41,13 @@ function process_event(event) {
       process_metrics(metric);
       return;
     }
+
+    if (event.type == "reload") {
+      location.reload(true);
+      return;
+    }
+
+
   }
   catch(e) {}
 

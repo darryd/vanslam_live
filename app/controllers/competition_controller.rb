@@ -520,6 +520,22 @@ class CompetitionController < ApplicationController
       ChatDemo::ChatBackend.hello(event_hash)
 
     end
+
+
+    def browsers_reload
+
+
+      if not_allowed() 
+	return
+      else
+      	ChatDemo::ChatBackend.ask_browsers_to_reload
+	render nothing: true, status: :ok, content_type: "text/html"
+      end
+
+
+    end
+
+
     #-----------------------------------------------------------------------------------------#
 
 

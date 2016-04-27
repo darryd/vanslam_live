@@ -42,6 +42,20 @@ module ChatDemo
     end
 
 
+    def self.ask_browsers_to_reload
+      
+      # Use this when you need browsers to reload (probably because you made changes to a Competition)
+
+      data = {}
+      data = {:type => "reload"}
+
+      p data
+
+      ChatDemo::ChatBackend.hello(data)
+
+    end
+
+
     def call(env)
 
       if Faye::WebSocket.websocket?(env)

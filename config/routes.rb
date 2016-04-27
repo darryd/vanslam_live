@@ -68,6 +68,7 @@ Rails.application.routes.draw do
   get "competition/new_round"
   post "competition/new_round"
 
+  get "competition/browsers_reload"
 
 
   # The priority is based upon order of creation: first created -> highest priority.
