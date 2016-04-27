@@ -17,6 +17,7 @@ function onclick_add_round() {
   var add_round_div = get_add_round_div(ondone);
 
   div.appendChild(add_round_div);
+  window.scrollTo(0, document.body.scrollHeight);
 }
 
 function onclick_submit_add_round(button) {
