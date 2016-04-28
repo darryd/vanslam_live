@@ -43,6 +43,13 @@ function start_next(ticket) {
     }
   };
 
+  // Timeout
+  ticket.xmlhttp.timeout = 9000;
+  ticket.xmlhttp.ontimeout = function() {
+    ticket.state = START;
+    console.log("Request timed out");
+  };
+
   // If there's an error reset to START
   ticket.xmlhttp.onerror = function() {
     ticket.state = START;
