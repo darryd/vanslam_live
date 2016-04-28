@@ -32,6 +32,11 @@ contenders_new = function(round_number, prev_round) {
     $('#poets_' + me.round_number).replaceWith(div);
     var d = document.getElementById(id)
     d.setAttribute('id', 'poets_' + me.round_number);
+    
+    // Hide the div is the round is full. (ex, only 1 poet for a sacrificial round)
+    var round = rounds[me.round_number - 1];
+    if (round.names_already_performing.length == round.num_poets)
+      $(div).hide();
 
   };
   
