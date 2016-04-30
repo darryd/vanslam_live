@@ -141,6 +141,40 @@ module MakeSlam
 		 grace_period: 10)
   end
 
+  def self.verses_friday(title)
+
+    c = Competition.create(event_number: 0, num_judges: 5, do_not_include_min_and_max_scores:true, organization_id: 2)
+    c.title = title
+    c.save
+
+    Round.create(competition_id: c.id,
+		 round_number: 1,
+		 title: "Sacrificial Round",
+		 time_limit: 2 * 60,
+		 grace_period: 10,
+		 num_poets: 1)
+
+    Round.create(competition_id: c.id,
+		 round_number: 2,
+		 title: "Round 1",
+		 time_limit: 2 * 60, 
+		 grace_period: 10)
+
+    Round.create(competition_id: c.id, 
+		 round_number: 3,
+		 title: "Sacrificial Round",
+		 time_limit: 3 * 60,
+		 grace_period: 10,
+		 num_poets: 1)
+
+    Round.create(competition_id: c.id,
+		 round_number: 4,
+		 title: "Round 2",
+		 time_limit: 3 * 60,
+		 grace_period: 10)
+  end
+
+
   def self.finals
 
     c = Competition.create(event_number: 0, num_judges: 5, do_not_include_min_and_max_scores:true, organization_id: 1)
