@@ -13,7 +13,7 @@ function process_ajax_queue() {
      window.ajax_queue[0].clicks++;
 
      // Experimental
-     if (window.ajax_queue[0].clicks == 9000)
+     if (window.ajax_queue[0].clicks == 4000)
        window.ajax_queue[0].state = START;
 
      return;
