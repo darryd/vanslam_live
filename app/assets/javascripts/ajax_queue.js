@@ -9,8 +9,15 @@ function process_ajax_queue() {
    if (window.ajax_queue.length == 0)
      return;
    
-   if (window.ajax_queue[0].state == PENDING)
+   if (window.ajax_queue[0].state == PENDING) {
+     window.ajax_queue[0].clicks++;
+
+     // Experimental
+     if (window.ajax_queue[0].clicks == 9000)
+       window.ajax_queue[0].state = START;
+
      return;
+   }
 
    if (window.ajax_queue[0].state == DONE) {
      window.ajax_queue.splice(0,1);
@@ -25,6 +32,7 @@ function process_ajax_queue() {
 function start_next(ticket) {
 
   ticket.state = PENDING;
+  ticket.clicks = 0;
   
   ticket.xmlhttp = get_xmlhttp();
 
