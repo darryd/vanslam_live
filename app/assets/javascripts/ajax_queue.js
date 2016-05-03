@@ -44,10 +44,24 @@ function start_next(ticket) {
     console.log(['status', ticket.xmlhttp.status]);
 
 
-    if (ticket.xmlhttp.readyState==4 && ticket.xmlhttp.status==200) {
-      // Run done function.
-      ticket.done(jQuery.parseJSON(ticket.xmlhttp.responseText));
-      ticket.state = DONE;
+    try {
+      if (ticket.xmlhttp.readyState==4) {
+	if (ticket.xmlhttp.status==200) {
+	  // Run done function.
+	  ticket.done(jQuery.parseJSON(ticket.xmlhttp.responseText));
+	  ticket.state = DONE;
+	}
+	else {
+	
+	  // Try again
+	  ticket.state = START;
+	}
+      }
+    }
+    catch(e) {
+
+      alert (e.description);
+      console.log(e.description);
     }
   };
 
