@@ -6,6 +6,10 @@ var DONE = 4;
 /*-----------------------------------------------------------------------*/
 function process_ajax_queue() {
 
+
+  display_queue();
+  
+
    if (window.ajax_queue.length == 0)
      return;
    
@@ -29,11 +33,39 @@ function process_ajax_queue() {
 
 }
 /*-----------------------------------------------------------------------*/
+function display_queue() {
+
+  var p = document.getElementById("ajax_queue");
+  p.innerHTML = ajax_queue_to_str();
+
+}
+/*-----------------------------------------------------------------------*/
+function ajax_queue_to_str() {
+
+  var str = "Queue: ";
+
+  for (var i = 0; i < window.ajax_queue.length; i++) {
+    switch (window.ajax_queue[i].state) {
+      case START:
+	str += " S ";
+	break;
+      case PENDING:
+	str += " P ";
+	break;
+      case DONE:
+	str += " D ";
+	break;
+    }
+  }
+
+  return str;
+}
+/*-----------------------------------------------------------------------*/
 function start_next(ticket) {
 
   ticket.state = PENDING;
   ticket.clicks = 0;
-  
+
   ticket.xmlhttp = get_xmlhttp();
 
   // Run ticket.done when request is complete.
@@ -52,7 +84,7 @@ function start_next(ticket) {
 	  ticket.state = DONE;
 	}
 	else {
-	
+
 	  // Try again
 	  ticket.state = START;
 	}
