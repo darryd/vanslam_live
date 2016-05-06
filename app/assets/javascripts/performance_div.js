@@ -4,6 +4,7 @@ var NUM_COLUMNS = 12;
 function p_div_new(performance) {
 
   var div = document.createElement("div");
+  div.className = "performance_div";
   div.id = makeid(20);
   var name = performance.name;
 
@@ -406,10 +407,11 @@ function p_div_build_data_row(div) {
 
     var input = document.createElement("input");
     input.inputs = div.judge_inputs;
+    input.className = "scorekeeper_input"; 
 
     // This (the if statement to follow) is to faciliate automatic refocusing of the next judge
     // after two digit are entered for the score (exception 10 and 100)
-    // The last input will be Minutes so that the last judge 
+    // last input will be Minutes so that the last judge 
     // (the one that comes before Minutes) will have another input to 
     // focus on after the score has been entered.
     if (i <= slam.num_judges)
@@ -427,6 +429,7 @@ function p_div_build_data_row(div) {
     input.setAttribute('data-index', i);
     input.type = "number";
     input.style.width = "60px";
+    input.setAttribute('data-max-width', '60');
 
     if (!login_info.is_logged_in)
       input.setAttribute('readonly', null);
@@ -472,4 +475,26 @@ function p_div_build_footers(div) {
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
+window.addEventListener("resize", function() {
+
+  var performance_divs = document.getElementsByClassName('performance_div');
+
+  if (performance_divs.length > 0) {
+
+    var p_div = performance_divs[0];
+    var x1 = p_div.data_columns[0].getBoundingClientRect().left;
+    var x2 = p_div.data_columns[1].getBoundingClientRect().left;
+
+    var distance = x2 - x1;
+    var max_width = parseInt(p_div.data_columns[0].getAttribute('data-max-width'));
+    var width = Math.min(distance, max_width);
+
+    // Set Width for all inputs
+    var inputs = document.getElementsByClassName('scorekeeper_input');
+
+    for (var i=0; i<inputs.length; i++) {
+      inputs[i].style.width = width + "px";
+    }
+  }
+});
 
