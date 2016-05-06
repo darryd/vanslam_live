@@ -475,6 +475,7 @@ function p_div_build_footers(div) {
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
+/*
 window.addEventListener("resize", function() {
 
   var performance_divs = document.getElementsByClassName('performance_div');
@@ -497,4 +498,4 @@ window.addEventListener("resize", function() {
     }
   }
 });
-
+*/
