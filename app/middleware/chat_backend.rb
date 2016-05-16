@@ -101,10 +101,10 @@ module MakeSlam
 
     c = Competition.create(title: title, event_number: 0, num_judges: 5, do_not_include_min_and_max_scores: true, organization_id: 1)
 
-    Round.create(competition_id: c.id, round_number: 1, title: "Sacrifical Round", are_poets_from_previous: false, time_limit: 120, num_poets: 1)
-    Round.create(competition_id: c.id, round_number: 2, title: "Round 1", are_poets_from_previous: false, time_limit: 120, num_places: 6)
-    Round.create(competition_id: c.id, round_number: 3, title: "Round 2", are_poets_from_previous: true , time_limit:  60, num_places: 3)
-    Round.create(competition_id: c.id, round_number: 4, title: "Round 3", are_poets_from_previous: true , time_limit: 240)
+    Round.create(competition_id: c.id, round_number: 1, title: "Sacrifical Round", are_poets_from_previous: false, time_limit: 120, grace_period: 10, num_poets: 1)
+    Round.create(competition_id: c.id, round_number: 2, title: "Round 1", are_poets_from_previous: false, time_limit: 120, grace_period: 10, num_places: 6, num_poets: 12)
+    Round.create(competition_id: c.id, round_number: 3, title: "Round 2", are_poets_from_previous: true , time_limit:  60, grace_period: 10, num_places: 3)
+    Round.create(competition_id: c.id, round_number: 4, title: "Round 3", are_poets_from_previous: true , time_limit: 240, grace_period: 10)
 
   end
 
