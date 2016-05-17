@@ -99,12 +99,43 @@ module MakeSlam
 
   def self.new_summer_slam(title) 
 
-    c = Competition.create(title: title, event_number: 0, num_judges: 5, do_not_include_min_and_max_scores: true, organization_id: 1)
+    c = Competition.create(title: title, 
+			   event_number: 0, 
+			   num_judges: 5, 
+			   do_not_include_min_and_max_scores: true,
+			   organization_id: 1)
 
-    Round.create(competition_id: c.id, round_number: 1, title: "Sacrifical Round", are_poets_from_previous: false, time_limit: 120, grace_period: 10, num_poets: 1)
-    Round.create(competition_id: c.id, round_number: 2, title: "Round 1", are_poets_from_previous: false, time_limit: 120, grace_period: 10, num_places: 6, num_poets: 12)
-    Round.create(competition_id: c.id, round_number: 3, title: "Round 2", are_poets_from_previous: true , time_limit:  60, grace_period: 10, num_places: 3)
-    Round.create(competition_id: c.id, round_number: 4, title: "Round 3", are_poets_from_previous: true , time_limit: 240, grace_period: 10)
+    Round.create(competition_id: c.id, 
+		 round_number: 1, 
+		 title: "Sacrifical Round", 
+		 are_poets_from_previous: false, 
+		 time_limit: 120, 
+		 grace_period: 10, 
+		 num_poets: 1)
+
+    Round.create(competition_id: c.id, 
+		 round_number: 2, 
+		 title: "Round 1", 
+		 are_poets_from_previous: false, 
+		 time_limit: 120, 
+		 grace_period: 10, 
+		 num_places: 6, 
+		 num_poets: 12)
+
+    Round.create(competition_id: c.id, 
+		 round_number: 3, 
+		 title: "Round 2", 
+		 are_poets_from_previous: true, 
+		 time_limit:  60, 
+		 grace_period: 10, 
+		 num_places: 3)
+
+    Round.create(competition_id: c.id, 
+		 round_number: 4, 
+		 title: "Round 3", 
+		 are_poets_from_previous: true , 
+		 time_limit: 240, 
+		 grace_period: 10)
 
   end
 
@@ -304,6 +335,32 @@ module MakeSlam
     # round_number = 0 will be the extra round
   #  Round.create(competition_id: c.id, round_number: 7, title: "Extra Round", are_poets_from_previous: false, time_limit: 180, is_extra: true)
 
+  end
+
+
+  def self.mitch
+
+
+    mitch1 = Poet.where(name: 'Mitcholos').take
+    mitch2 = Poet.where(name: 'Mictcholos Touchie').take
+
+    performances = Performance.where(:poet_id => [mitch1.id, mitch2.id])
+
+    sum = 0
+    count = 0
+
+    performances.each do |p|
+       
+      p.judges.each do |j|
+
+	sum = sum + judge.value
+	count = count + count
+      end
+
+    end
+
+    p ['average', sum / count]
+    
   end
 
 end
