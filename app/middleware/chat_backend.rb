@@ -392,3 +392,28 @@ module MakeSlam
   end
 
 end
+
+module CleanUP
+
+  def self.find_orphan_judges
+
+
+    count = 0
+    p "Looking for orphan judges"
+
+    Judge.all do |judge|
+
+
+      if Round.where(id: judge.round_id) == 0
+	p "Found orphan Judge"
+	p judge.id
+	count = count + 1
+      end
+    end
+
+    p "Found " + count.to_s + " orphan judge(s)"
+  end
+end
+
+
+
