@@ -402,10 +402,7 @@ module CleanUp
 
     Judge.all.each do |judge|
 
-      p judge.id
-      p ['performance_id', judge.performance_id]
-
-      if Performance.where(id: judge.performance_id).count == 0
+      if not Performance.exists?(:id => judge.performance_id)
 	p "Found orphan Judge"
 	p judge.id
 	count = count + 1
