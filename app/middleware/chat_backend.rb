@@ -429,6 +429,22 @@ module CleanUp
     orphans
   end
 
+  def self.find_orphan_rounds
+
+    orphans = []
+    p "Looking for orphan rounds"
+
+    Round.all.each do |round|
+
+      if not Competition.exists?(:id => round.competition_id)
+	orphans << round
+      end
+    end
+
+    p "Found " + orphans.size.to_s + " orphan round(s)"
+
+    orphans
+  end
   def self.delete_orphan_judges
 
     orphans = find_orphan_judges
