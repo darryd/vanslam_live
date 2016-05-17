@@ -354,7 +354,7 @@ module MakeSlam
       p.judges.each do |j|
 
 	sum = sum + j.value
-	count = count + count
+	count = count + 1
       end
 
     end
