@@ -474,6 +474,13 @@ module CleanUp
     end
   end
 
+  def self.delete_all_orpans
+
+    delete_orphan_rounds
+    delete_orphan_performances
+    delete_orphan_judges
+  end
+
 end
 
 
