@@ -364,4 +364,29 @@ module MakeSlam
     
   end
 
+
+  def self.average_score(name)
+
+    poet = Poet.where('name = ?', name).take
+
+    performances = Performance.where(poet_id: poet.id)
+
+    sum = 0
+    count = 0
+
+    performances.each do |p|
+       
+      p.judges.each do |j|
+
+	sum = sum + j.value
+	count = count + 1
+      end
+
+    end
+
+    p ['sum', sum, 'count', count]
+    p ['average', sum / count]
+    
+  end
+
 end
