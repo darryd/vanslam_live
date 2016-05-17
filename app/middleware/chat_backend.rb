@@ -342,7 +342,7 @@ module MakeSlam
 
 
     mitch1 = Poet.where(name: 'Mitcholos').take
-    mitch2 = Poet.where(name: 'Mictcholos Touchie').take
+    mitch2 = Poet.where(name: 'Mitcholos Touchie').take
 
     performances = Performance.where(:poet_id => [mitch1.id, mitch2.id])
 
