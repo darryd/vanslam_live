@@ -397,18 +397,47 @@ module CleanUp
 
   def self.find_orphan_judges
 
-    count = 0
+    orphans = []
     p "Looking for orphan judges"
 
     Judge.all.each do |judge|
 
       if not Performance.exists?(:id => judge.performance_id)
-	count = count + 1
+	orphans << judge
       end
     end
 
-    p "Found " + count.to_s + " orphan judge(s)"
+    p "Found " + orphans.size.to_s + " orphan judge(s)"
+
+    orphans
   end
+
+  def self.find_orphan_performances
+
+    orphans = []
+    p "Looking for orphan performances"
+
+    Performance.all.each do |performance|
+
+      if not Round.exists?(:id => performance.round_id)
+	orphans << performance
+      end
+    end
+
+    p "Found " + orphans.size.to_s + " orphan performance(s)"
+
+    orphans
+  end
+
+  def self.delete_orphan_judges
+
+    orphans = find_orphan_judges
+
+    orphans.each do |judge|
+      judge.delete
+    end
+  end
+
 end
 
 
