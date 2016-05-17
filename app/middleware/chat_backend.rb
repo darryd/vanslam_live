@@ -445,12 +445,32 @@ module CleanUp
 
     orphans
   end
+  
   def self.delete_orphan_judges
 
     orphans = find_orphan_judges
 
     orphans.each do |judge|
       judge.delete
+    end
+  end
+
+  
+  def self.delete_orphan_performances
+
+    orphans = find_orphan_performances
+
+    orphans.each do |performance|
+      performance.delete
+    end
+  end
+
+  def self.delete_orphan_rounds
+
+    orphans = find_orphan_rounds
+
+    orphans.each do |round|
+      round.delete
     end
   end
 
