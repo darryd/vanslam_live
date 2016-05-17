@@ -359,6 +359,7 @@ module MakeSlam
 
     end
 
+    p ['sum', sum, 'count', count]
     p ['average', sum / count]
     
   end
