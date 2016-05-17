@@ -30,7 +30,9 @@ module ChatDemo
     end
 
     def self.hello(data)
-      $clients.each {|client| client.send(data.to_json) }
+      Thread.new {
+	$clients.each {|client| client.send(data.to_json) }
+      }
     end
 
     def self.broadcast_number_of_clients
@@ -43,7 +45,7 @@ module ChatDemo
 
 
     def self.ask_browsers_to_reload
-      
+
       # Use this when you need browsers to reload (probably because you made changes to a Competition)
 
       data = {}
@@ -68,7 +70,7 @@ module ChatDemo
 
 	ws.on :message do |event|
 	  p [:message, event.data]
-#	  $clients.each {|client| client.send(event.data) }
+	  #	  $clients.each {|client| client.send(event.data) }
 	end
 
 	ws.on :close do |event|
@@ -315,7 +317,7 @@ module MakeSlam
     Round.create(competition_id: c.id, round_number: 2, title: "Round 1", are_poets_from_previous: false, time_limit: 180, num_places: 5) 
     Round.create(competition_id: c.id, round_number: 3, title: "Round 2", are_poets_from_previous: true, time_limit: 180, is_cumulative: true)
   end
-  
+
   def self.new_playoffs
 
     title = "Vancouver Individual Poetry Slam Playoffs"
@@ -333,7 +335,7 @@ module MakeSlam
 
     # Extra Round in case of a tie at the end... 
     # round_number = 0 will be the extra round
-  #  Round.create(competition_id: c.id, round_number: 7, title: "Extra Round", are_poets_from_previous: false, time_limit: 180, is_extra: true)
+    #  Round.create(competition_id: c.id, round_number: 7, title: "Extra Round", are_poets_from_previous: false, time_limit: 180, is_extra: true)
 
   end
 
@@ -350,7 +352,7 @@ module MakeSlam
     count = 0
 
     performances.each do |p|
-       
+
       p.judges.each do |j|
 
 	sum = sum + j.value
@@ -361,7 +363,7 @@ module MakeSlam
 
     p ['sum', sum, 'count', count]
     p ['average', sum / count]
-    
+
   end
 
 
@@ -375,7 +377,7 @@ module MakeSlam
     count = 0
 
     performances.each do |p|
-       
+
       p.judges.each do |j|
 
 	sum = sum + j.value
@@ -386,7 +388,7 @@ module MakeSlam
 
     p ['sum', sum, 'count', count]
     p ['average', sum / count]
-    
+
   end
 
 end
