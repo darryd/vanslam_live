@@ -72,10 +72,10 @@ module ChatDemo
 	  p [:message, event.data]
 
 	  begin
-	    object = JSON.parse(event.data);
+	    message = JSON.parse(event.data);
 	    p ["key", object["key"]]
 	    if LoggedIn.where(key: object["key"]).count != 0
-	      $clients.each {|client| client.send(event.data) }
+	      $clients.each {|client| client.send(message.except('key')) }
 	    end
 	  rescue
 	  end
