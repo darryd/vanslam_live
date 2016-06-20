@@ -133,9 +133,21 @@ function do_event(event) {
 
 function do_heads_up(event) {
   
-  
+ if (event.web_sock_id == web_sock_id && event.competition_id != slam.id && comm_2[event.performance_id] != undefined)
+  return; 
 
+ switch (event.event) {
 
+   case 'judge':
+     event_judge(event);
+     break;
+   case 'set_time':
+     event_set_time(event);
+     break;
+   case 'set_penalty':
+     event_set_penalty(event);
+     break;
+ }
 }
 
 // Send requests to the server up to and including 'event_number'
