@@ -58,16 +58,8 @@ function judge_request(comm, judge_i, value) {
   window.ajax_queue.push(ticket);
 
   // experimental
-  window.web_sock.send(JSON.stringify( { 
-    type: 'heads_up', 
-    event: 'judge',
-    performance_id: comm.performance_id, 
-    judge_name: judge_i, 
-    value: value, 
-    key: login_info.key,
-    web_sock_id: window.web_sock_id,
-    competition_id: slam.id
-  }));
+
+  heads_up_judge(comm.performance_id, judge_i, value);
 }
 /*-----------------------------------------------------------------------*/
 function set_time_request(comm, minutes, seconds) {
@@ -87,16 +79,7 @@ function set_time_request(comm, minutes, seconds) {
   window.ajax_queue.push(ticket);
 
   // experimental
-  window.web_sock.send(JSON.stringify( { 
-    type: 'heads_up',
-    event: 'set_time', 
-    performance_id: comm.performance_id, 
-    minutes: minutes,
-    seconds: seconds,
-    key: login_info.key,
-    web_sock_id: window.web_sock_id,
-    competition_id: slam.id
-  }));
+  heads_up_set_time(comm.performance_id, minutes, seconds);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -116,15 +99,7 @@ function set_penalty_request(comm, penalty) {
 
   window.ajax_queue.push(ticket);
   // experimental
-  window.web_sock.send(JSON.stringify( { 
-    type: 'heads_up',
-    event: 'set_penalty', 
-    performance_id: comm.performance_id, 
-    penalty: penalty,
-    key: login_info.key,
-    web_sock_id: window.web_sock_id,
-    competition_id: slam.id
-  }));
+  heads_up_set_penalty(comm.performance_id, penalty);
 }
 
 /*-----------------------------------------------------------------------*/
