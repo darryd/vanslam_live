@@ -69,13 +69,12 @@ module ChatDemo
 	end
 
 	ws.on :message do |event|
-	  p [:message, event.data]
 
 	  begin
 	    message = JSON.parse(event.data);
-	    p ["key", object["key"]]
-	    if LoggedIn.where(key: object["key"]).count != 0
-	      $clients.each {|client| client.send(message.except('key')) }
+	    # Only logged in users may send messages
+	    if LoggedIn.where(key: message["key"]).count != 0
+	      $clients.each {|client| client.send(message.except('key').to_json) }
 	    end
 	  rescue
 	  end
