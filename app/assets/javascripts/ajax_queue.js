@@ -36,7 +36,9 @@ function process_ajax_queue() {
 function display_queue() {
 
   var p = document.getElementById("ajax_queue");
-  p.innerHTML = ajax_queue_to_str();
+
+  if (p != null)
+    p.innerHTML = ajax_queue_to_str();
 
 }
 /*-----------------------------------------------------------------------*/
