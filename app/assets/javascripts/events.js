@@ -42,6 +42,11 @@ function process_event(event) {
       return;
     }
 
+    if (event.type == "heads_up") {
+      do_heads_up();
+      return;
+    }
+
     if (event.type == "reload") {
       location.reload(true);
       return;
@@ -86,13 +91,6 @@ function last_updated(event) {
 
 function do_event(event) {
 
-  /*
-  if (event.event == 'heads_up') {
-    do_heads_up(event);
-    return;
-  }
-  */
-
   if (slam.local_event_number + 1 != event.event_number)
     return;
 
@@ -133,13 +131,12 @@ function do_event(event) {
 
 }
 
-/*
 function do_heads_up(event) {
+  
+  
 
-  console.log("heads up");
-  console.log(event);
+
 }
-*/
 
 // Send requests to the server up to and including 'event_number'
 function event_catch_up(event_number) {

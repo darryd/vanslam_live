@@ -59,13 +59,14 @@ function judge_request(comm, judge_i, value) {
 
   // experimental
   window.web_sock.send(JSON.stringify( { 
-    event: 'heads_up', 
-    for_event: 'judge',
+    type: 'heads_up', 
+    event: 'judge',
     performance_id: comm.performance_id, 
     judge_name: judge_i, 
     value: value, 
     key: login_info.key,
-    web_sock_id: window.web_sock_id
+    web_sock_id: window.web_sock_id,
+    competition_id: slam.id
   }));
 }
 /*-----------------------------------------------------------------------*/
@@ -87,13 +88,14 @@ function set_time_request(comm, minutes, seconds) {
 
   // experimental
   window.web_sock.send(JSON.stringify( { 
-    event: 'heads_up',
-    for_event: 'set_time', 
+    type: 'heads_up',
+    event: 'set_time', 
     performance_id: comm.performance_id, 
     minutes: minutes,
     seconds: seconds,
     key: login_info.key,
-    web_sock_id: window.web_sock_id
+    web_sock_id: window.web_sock_id,
+    competition_id: slam.id
   }));
 }
 
@@ -115,12 +117,13 @@ function set_penalty_request(comm, penalty) {
   window.ajax_queue.push(ticket);
   // experimental
   window.web_sock.send(JSON.stringify( { 
-    event: 'heads_up',
-    for_event: 'set_penalty', 
+    type: 'heads_up',
+    event: 'set_penalty', 
     performance_id: comm.performance_id, 
     penalty: penalty,
     key: login_info.key,
-    web_sock_id: window.web_sock_id
+    web_sock_id: window.web_sock_id,
+    competition_id: slam.id
   }));
 }
 
