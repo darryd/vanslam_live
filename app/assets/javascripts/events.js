@@ -223,20 +223,23 @@ function event_new_performance(event) {
 
 function event_judge(event) {
   var comm_2 = window.comms_2[event.performance_id];
+  var is_this_a_heads_up = event.type == 'heads_up' ? true : false;
 
-  p_div_set_score(comm_2.p_div, parseInt(event.judge_name), event.value);
+  p_div_set_score(comm_2.p_div, parseInt(event.judge_name), event.value, is_this_a_heads_up);
 }
 
 function event_set_time(event) {
 
   var p_div = window.comms_2[event.performance_id].p_div;
-  p_div_set_time(p_div, event.minutes, event.seconds);
+  var is_this_a_heads_up = event.type == 'heads_up' ? true : false;
+  p_div_set_time(p_div, event.minutes, event.seconds, is_this_a_heads_up);
 }
 
 
 function event_set_penalty(event) {
   var p_div = window.comms_2[event.performance_id].p_div;
-  p_div_set_penalty(p_div, event.penalty);
+  var is_this_a_heads_up = event.type == 'heads_up' ? true : false;
+  p_div_set_penalty(p_div, event.penalty, is_this_a_heads_up);
 
 }
 

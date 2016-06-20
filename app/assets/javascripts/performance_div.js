@@ -395,30 +395,39 @@ function p_div_input_entered(input) {
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-function p_div_set_score(p_div, judge_i, value) {
+function p_div_set_score(p_div, judge_i, value, is_this_a_heads_up) {
 
   p_div.data_columns[judge_i].value = value;
   p_div.data_columns[judge_i].please_advance_automatically = false;
   p_div.performance.judge(judge_i, value);
+
+  if (is_this_a_heads_up)
+    p_div.data_columns[judge_i].style.fontStyle = "italic";
+  else
+    p_div.data_columns[judge_i].style.fontStyle = "normal";
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-function p_div_set_time(p_div, minutes, seconds) {
+function p_div_set_time(p_div, minutes, seconds, is_this_a_heads_up) {
 
   var i = p_div.indexes.minutes_i;
 
   p_div.data_columns[i].value = minutes;
+  p_div.data_columns[i].style.fontStyle = is_this_a_heads_up ? "italic" : "normal";
+
   p_div.data_columns[++i].value = seconds;
+  p_div.data_columns[i].style.fontStyle = is_this_a_heads_up ? "italic" : "normal";
 
   p_div.performance.set_time(minutes, seconds);
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-function p_div_set_penalty(p_div, value) {
+function p_div_set_penalty(p_div, value, is_this_a_heads_up) {
 
   var i = p_div.indexes.penalty_i;
 
   p_div.data_columns[i].value = value;
+  p_div.data_columns[i].style.fontStyle = is_this_a_heads_up ? "italic" : "normal";
 
   p_div.performance.set_penalty(value);
 }
