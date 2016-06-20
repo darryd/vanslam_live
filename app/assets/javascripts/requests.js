@@ -56,6 +56,16 @@ function judge_request(comm, judge_i, value) {
   };
 
   window.ajax_queue.push(ticket);
+
+  // experimental
+  window.web_sock.send(JSON.stringify( { 
+    event: 'headsup_judge', 
+    performance_id: comm.performance_id, 
+    judge_name: judge_i, 
+    value: value, 
+    key: login_info.key,
+    web_sock_id: window.web_sock_id
+  }));
 }
 /*-----------------------------------------------------------------------*/
 function set_time_request(comm, minutes, seconds) {
@@ -73,6 +83,16 @@ function set_time_request(comm, minutes, seconds) {
   ticket.done = function(response_json) {console.log(response_json);};
 
   window.ajax_queue.push(ticket);
+
+  // experimental
+  window.web_sock.send(JSON.stringify( { 
+    event: 'headsup_set_time', 
+    performance_id: comm.performance_id, 
+    minutes: minutes,
+    seconds: seconds,
+    key: login_info.key,
+    web_sock_id: window.web_sock_id
+  }));
 }
 
 /*-----------------------------------------------------------------------*/
@@ -91,6 +111,14 @@ function set_penalty_request(comm, penalty) {
   ticket.done = function(response_json) {console.log(response_json);};
 
   window.ajax_queue.push(ticket);
+  // experimental
+  window.web_sock.send(JSON.stringify( { 
+    event: 'headsup_set_penalty', 
+    performance_id: comm.performance_id, 
+    penalty: penalty,
+    key: login_info.key,
+    web_sock_id: window.web_sock_id
+  }));
 }
 
 /*-----------------------------------------------------------------------*/
@@ -111,7 +139,7 @@ function get_event_request(event_number) {
 /*-----------------------------------------------------------------------*/
 // Gets the current event number and then updates by calling event_catch_up()
 function get_current_event_number_request() {
-  
+
   var ticket = new_ticket();
 
   ticket.url = "/competition/get_current_event_number";
@@ -132,7 +160,7 @@ function get_current_event_number_request() {
 function get_event_range_request(event_number_i, event_number_j) {
 
   var ticket = new_ticket();
-  
+
   ticket.url = "/competition/get_event_range";
   ticket.get_params = function() {
     return {competition_id: slam.id, event_number_i: event_number_i, event_number_j: event_number_j};
@@ -165,7 +193,7 @@ function what_did_i_miss_request() {
 function signup_poet_request(name) {
 
   var ticket = new_ticket();
-  
+
   ticket.url = "/competition/signup_poet";
   ticket.get_params = function() {
     return {competition_id: slam.id, name: name, web_sock_id: window.web_sock_id};
@@ -181,7 +209,7 @@ function signup_poet_request(name) {
 function remove_performance_request(comm) {
 
   var ticket = new_ticket();
-  
+
   ticket.url = "/competition/remove_performance";
   ticket.get_params = function() {
 
@@ -226,11 +254,11 @@ function add_round_request(competition_id, time_limit, grace_period) {
   var ticket = new_ticket();
 
   ticket.url = "/competition/new_round";
-  
+
   ticket.get_params = function() {
     return {competition_id: competition_id, time_limit: time_limit, grace_period: grace_period, web_sock_id: window.web_sock_id};
   };
-  
+
   ticket.done = function(response) {
     console.log(response);
   };
