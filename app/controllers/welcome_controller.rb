@@ -81,6 +81,7 @@ class WelcomeController < ApplicationController
 	logged_in = LoggedIn.new
 	logged_in.scorekeeper_id = scorekeeper.id
 	logged_in.session_id = session[:session_id]
+	logged_in.key = [*('a'..'z'),*('0'..'9')].shuffle[0,20].join
 	logged_in.save
       end
 

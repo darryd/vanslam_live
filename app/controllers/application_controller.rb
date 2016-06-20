@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
     result  = is_logged_in()
     if result
-      info = { :is_logged_in => true, :user => result.scorekeeper.user_name }
+      info = { :is_logged_in => true, :user => result.scorekeeper.user_name, :key => result.key }
     else
       info = { :is_logged_in => false }
     end

@@ -70,7 +70,15 @@ module ChatDemo
 
 	ws.on :message do |event|
 	  p [:message, event.data]
-	  #	  $clients.each {|client| client.send(event.data) }
+
+	  begin
+	    object = JSON.parse(event.data);
+	    p ["key", object["key"]]
+	    if LoggedIn.where(key: object["key"]).count != 0
+	      $clients.each {|client| client.send(event.data) }
+	    end
+	  rescue
+	  end
 	end
 
 	ws.on :close do |event|
@@ -445,7 +453,7 @@ module CleanUp
 
     orphans
   end
-  
+
   def self.delete_orphan_judges
 
     orphans = find_orphan_judges
@@ -455,7 +463,7 @@ module CleanUp
     end
   end
 
-  
+
   def self.delete_orphan_performances
 
     orphans = find_orphan_performances
