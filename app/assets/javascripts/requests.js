@@ -88,7 +88,7 @@ function set_time_request(comm, minutes, seconds) {
   // experimental
   window.web_sock.send(JSON.stringify( { 
     event: 'heads_up',
-    for_event'set_time', 
+    for_event: 'set_time', 
     performance_id: comm.performance_id, 
     minutes: minutes,
     seconds: seconds,
