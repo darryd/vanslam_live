@@ -59,7 +59,8 @@ function judge_request(comm, judge_i, value) {
 
   // experimental
   window.web_sock.send(JSON.stringify( { 
-    event: 'headsup_judge', 
+    event: 'heads_up', 
+    for_event: 'judge',
     performance_id: comm.performance_id, 
     judge_name: judge_i, 
     value: value, 
@@ -86,7 +87,8 @@ function set_time_request(comm, minutes, seconds) {
 
   // experimental
   window.web_sock.send(JSON.stringify( { 
-    event: 'headsup_set_time', 
+    event: 'heads_up',
+    for_event'set_time', 
     performance_id: comm.performance_id, 
     minutes: minutes,
     seconds: seconds,
@@ -113,7 +115,8 @@ function set_penalty_request(comm, penalty) {
   window.ajax_queue.push(ticket);
   // experimental
   window.web_sock.send(JSON.stringify( { 
-    event: 'headsup_set_penalty', 
+    event: 'heads_up',
+    for_event: 'set_penalty', 
     performance_id: comm.performance_id, 
     penalty: penalty,
     key: login_info.key,
