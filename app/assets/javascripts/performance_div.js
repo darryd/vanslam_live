@@ -398,7 +398,7 @@ function p_div_input_entered(input) {
 function p_div_set_score(p_div, judge_i, value) {
 
   p_div.data_columns[judge_i].value = value;
-  p_div.data_columns[judge_i].removeAttribute('onkeyup');
+  p_div.data_columns[judge_i].please_advance_automatically = false;
   p_div.performance.judge(judge_i, value);
 }
 
