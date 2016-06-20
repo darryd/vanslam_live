@@ -133,8 +133,31 @@ function do_event(event) {
 
 function do_heads_up(event) {
   
- if (event.web_sock_id == web_sock_id || event.competition_id != slam.id || comm_2[event.performance_id] != undefined)
+ /*
+ if (event.web_sock_id == web_sock_id || event.competition_id != slam.id || comm_2[event.performance_id] == undefined) {
   return; 
+ }
+ */
+
+
+ if (event.web_sock_id == web_sock_id) {
+   console.log("bad web_sock_id");
+   return;
+ }
+
+ if (event.competition_id != slam.id) {
+
+   console.log("wrong competition");
+   return 
+ }
+
+ if (comms_2[event.performance_id] == undefined) {
+
+   console.log("no performance id")
+   return;
+ }
+
+
 
  switch (event.event) {
 

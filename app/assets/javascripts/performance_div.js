@@ -302,8 +302,7 @@ function is_score_entered_fully(score) {
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-
-function p_div_input_onkeyup(inputs, input) {
+function p_div_judge_input_onkeyup(inputs, input) {
 
   input.value = input.value.replace('\.', '');
   var index = parseInt(input.getAttribute('data-index'));
@@ -312,7 +311,7 @@ function p_div_input_onkeyup(inputs, input) {
 
 
     if (index < inputs.length - 1)  {
-      input.removeAttribute('onkeyup');
+      input.please_advance_automatically = false;
       next_input = inputs[index + 1];
       next_input.focus();
     }
@@ -320,6 +319,43 @@ function p_div_input_onkeyup(inputs, input) {
       $(input).trigger("change");
       input.blur();
     }
+  }
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+
+function p_div_input_onkeyup(inputs, input) {
+
+  if (!login_info.is_logged_in)
+    return;
+
+  if (input.my_input_type == 'judge' && input.please_advance_automatically)
+    p_div_judge_input_onkeyup(inputs, input);
+
+  var i = parseInt(input.getAttribute('data-index'));
+  var div = input.div;
+  var performance = div.performance;
+
+  var value = parse_float_or_return_zero(input.value);
+
+  switch (i) 
+  {
+    case div.indexes.minutes_i:
+    case div.indexes.seconds_i:
+      var time = p_div_get_time(div);
+      performance.set_time(time.minutes, time.seconds);
+      heads_up_set_time(performance.performance_id, time.minutes, time.seconds);
+      break;
+    case div.indexes.penalty_i:
+      performance.set_penalty(value);
+      heads_up_set_penalty(performance.performance_id, value);
+      break;
+    default:
+      if (i >= 0 && i < div.indexes.minutes_i) {
+	
+	heads_up_judge(performance.comm.performance_id, i, value);
+	performance.judge(i, value);
+	
+      }
   }
 }
 
@@ -422,9 +458,13 @@ function p_div_build_data_row(div) {
     input.setAttribute('size', 4);
     input.setAttribute('onchange', 'p_div_input_entered(this)');
 
-    if (i < slam.num_judges)
+    input.setAttribute('onkeyup', 'p_div_input_onkeyup(this.inputs, this)');
+
+    if (i < slam.num_judges) {
       // Only do this for inputs that are judges
-      input.setAttribute('onkeyup', 'p_div_input_onkeyup(this.inputs, this)');
+      input.my_input_type = 'judge';
+      input.please_advance_automatically = true;
+    }
 
     input.setAttribute('data-index', i);
     input.type = "number";
