@@ -43,7 +43,7 @@ function process_event(event) {
     }
 
     if (event.type == "heads_up") {
-      do_heads_up();
+      do_heads_up(event);
       return;
     }
 
