@@ -56,10 +56,6 @@ function judge_request(comm, judge_i, value) {
   };
 
   window.ajax_queue.push(ticket);
-
-  // experimental
-
-  heads_up_judge(comm.performance_id, judge_i, value);
 }
 /*-----------------------------------------------------------------------*/
 function set_time_request(comm, minutes, seconds) {
@@ -77,9 +73,6 @@ function set_time_request(comm, minutes, seconds) {
   ticket.done = function(response_json) {console.log(response_json);};
 
   window.ajax_queue.push(ticket);
-
-  // experimental
-  heads_up_set_time(comm.performance_id, minutes, seconds);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -98,8 +91,6 @@ function set_penalty_request(comm, penalty) {
   ticket.done = function(response_json) {console.log(response_json);};
 
   window.ajax_queue.push(ticket);
-  // experimental
-  heads_up_set_penalty(comm.performance_id, penalty);
 }
 
 /*-----------------------------------------------------------------------*/
