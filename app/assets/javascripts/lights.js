@@ -46,7 +46,7 @@ function new_light () {
     y: undefined,
     confirmation:undefined,
     color: undefined,
-    canvas: undefined
+    canvas: undefined,
 
     set_confirmation: function(confirmation) {
       this.confirmation = confirmation;
