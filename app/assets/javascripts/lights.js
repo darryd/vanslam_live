@@ -1,7 +1,7 @@
 
-var CONFIRMATION_SENT = "red";
-var CONFIRMATION_RECEIVED = "green";
-var LIGHT_WIDTH = 5
+CONFIRMATION_SENT = "red";
+CONFIRMATION_RECEIVED = "green";
+window.LIGHT_WIDTH = 1
 
 var collection_of_lights = {
   lights: [],
@@ -46,6 +46,7 @@ function new_light () {
     y: undefined,
     confirmation:undefined,
     color: undefined,
+    canvas: undefined
 
     set_confirmation: function(confirmation) {
       this.confirmation = confirmation;
