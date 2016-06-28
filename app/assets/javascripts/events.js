@@ -250,14 +250,15 @@ function event_new_performance(event) {
 function event_focus(event) {
 
   try {
-  var p_div = window.comms_2[event.performance_id].p_div;
-  var input = p_div.data_columns[event.index];
+    var p_div = window.comms_2[event.performance_id].p_div;
+    var input = p_div.data_columns[event.index];
 
-  input.style.fontStyle = "italic";
+    input.style.fontStyle = "italic";
 
   }
-  catch (e)
+  catch (e) {
     console.log(e);
+  }
 
 }
 
@@ -265,14 +266,15 @@ function event_blur(event) {
 
 
   try {
-  var p_div = window.comms_2[event.performance_id].p_div;
-  var input = p_div.data_columns[event.index];
+    var p_div = window.comms_2[event.performance_id].p_div;
+    var input = p_div.data_columns[event.index];
 
-  input.style.fontStyle = "normal";
+    input.style.fontStyle = "normal";
 
   }
-  catch (e)
+  catch (e) {
     console.log(e);
+  }
 
 }
 
