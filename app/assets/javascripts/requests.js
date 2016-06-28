@@ -49,7 +49,7 @@ function judge_request(comm, judge_i, value, confirmation) {
 
     var performance_id = comm.performance_id;
 
-    return {performance_id: performance_id, judge_name: judge_i, value: value, web_sock_id: window.web_sock_id + ";junk"};
+    return {performance_id: performance_id, judge_name: judge_i, value: value, web_sock_id: window.web_sock_id + ";" + confirmation};
   };
   ticket.done = function(response_json) {
     console.log(response_json);
@@ -67,7 +67,7 @@ function set_time_request(comm, minutes, seconds, confirmation) {
 
     var performance_id = comm.performance_id;
 
-    return {performance_id: performance_id, minutes: minutes,seconds: seconds, web_sock_id: window.web_sock_id};
+    return {performance_id: performance_id, minutes: minutes,seconds: seconds, web_sock_id: window.web_sock_id + ";" + confirmation};
   };
 
   ticket.done = function(response_json) {console.log(response_json);};
@@ -85,7 +85,7 @@ function set_penalty_request(comm, penalty, confirmation) {
 
     var performance_id = comm.performance_id;
 
-    return {performance_id: performance_id, penalty: penalty, web_sock_id: window.web_sock_id};
+    return {performance_id: performance_id, penalty: penalty, web_sock_id: window.web_sock_id + ";" + confirmation};
   };
 
   ticket.done = function(response_json) {console.log(response_json);};

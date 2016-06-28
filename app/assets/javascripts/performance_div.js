@@ -372,17 +372,21 @@ function p_div_input_entered(input) {
 
   var value = parse_float_or_return_zero(input.value);
 
+  var light_index = input.light_index;
+  
+  var confirmation = collection_of_lights.confirmation_send(light_index);
+
   switch (i) 
   {
     case div.indexes.minutes_i:
     case div.indexes.seconds_i:
       var time = p_div_get_time(div);
       performance.set_time(time.minutes, time.seconds);
-      set_time_request(performance.comm, time.minutes, time.seconds);
+      set_time_request(performance.comm, time.minutes, time.seconds, confirmation);
       break;
     case div.indexes.penalty_i:
       performance.set_penalty(value);
-      set_penalty_request(performance.comm, value);
+      set_penalty_request(performance.comm, value, confirmation);
       break;
     default:
       if (i >= 0 && i < div.indexes.minutes_i) {
@@ -390,7 +394,7 @@ function p_div_input_entered(input) {
 	var value = input.value / 10;
 	input.value = value;
 	performance.judge(i, value);
-	judge_request(performance.comm, i, value);
+	judge_request(performance.comm, i, value, confirmation);
       }
   }
 }

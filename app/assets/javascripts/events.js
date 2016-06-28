@@ -60,6 +60,8 @@ function process_event(event) {
 	if (strings.length > 1) {
 	  event.web_sock_id = strings[0];
 	  event.confirmation = strings[1];
+
+	  collection_of_lights.confirmation_received(event.confirmation);
 	}
 
       }
