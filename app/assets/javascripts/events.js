@@ -188,6 +188,12 @@ function do_heads_up(event) {
     case 'set_penalty':
       event_set_penalty(event);
       break;
+    case 'focus':
+      event_focus(event);
+      break;
+    case 'blur':
+      event_focus(event);
+      break;
   }
 }
 
@@ -238,6 +244,35 @@ function event_new_performance(event) {
     var previous_round_index = round.previous_round_number == null ? event.round_number - 2 : round.previous_round_number -1;
     rounds[previous_round_index].round_js.rank();
   }
+
+}
+
+function event_focus(event) {
+
+  try {
+  var p_div = window.comms_2[event.performance_id].p_div;
+  var input = p_div.data_columns[event.index];
+
+  input.style.fontStyle = "italic";
+
+  }
+  catch (e)
+    console.log(e);
+
+}
+
+function event_blur(event) {
+
+
+  try {
+  var p_div = window.comms_2[event.performance_id].p_div;
+  var input = p_div.data_columns[event.index];
+
+  input.style.fontStyle = "normal";
+
+  }
+  catch (e)
+    console.log(e);
 
 }
 
