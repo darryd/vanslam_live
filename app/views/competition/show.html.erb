@@ -20,7 +20,7 @@
 <div id="last_updated"></div>
 <h1> <%= @slam.title %> </h1>
 
-<div id="rounds">
+<div id="rounds" style="zindex:1">
 <% @slam.rounds.order(:round_number).where(is_extra: nil).each do |round| %>
   <div id="round_<%=round.round_number%>">
     <h2> <%= round.title %> </h2>

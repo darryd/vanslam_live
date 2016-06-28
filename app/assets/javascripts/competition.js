@@ -114,6 +114,16 @@ function click_poet(button) {
   performance_2.calculate(); //Otherwise rank says 'Infinity'
 
   $("#performances_" + round.round_number).append(p_div);
+
+
+  //experiment TODO Refactor along with code in events.js
+  var canvas = document.getElementById("lights_canvas");
+  canvas.width = $(document).width();
+  canvas.height = $(document).height();
+
+
+
+
   round.names_already_performing.push(performance_2.name);
   invisible_round.notify_rank();
   

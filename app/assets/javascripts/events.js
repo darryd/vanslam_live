@@ -205,6 +205,16 @@ function event_new_performance(event) {
   performance_2.calculate(); // So that it doesn't say Rank is 'Infinity'
 
   $("#performances_" + round.round_number).append(p_div);
+  //experiment TODO Refactor along with code in competition.js
+  var canvas = document.getElementById("lights_canvas");
+  canvas.width = $(document).width();
+  canvas.height = $(document).height();
+
+
+
+
+
+
   round.names_already_performing.push(performance_2.name);
   invisible_round.notify_rank();
 

@@ -6,6 +6,7 @@ function p_div_new(performance) {
   var div = document.createElement("div");
   div.className = "performance_div";
   div.id = makeid(20);
+  div.style.zIndex = "1";
   var name = performance.name;
 
   div.comm = comm_new(div, performance.name); //Create comm object for communictiation with the server. 
@@ -451,8 +452,14 @@ function p_div_build_data_row(div) {
     column.className = "small-1 columns";
 
     var input = document.createElement("input");
+
+    var light = new_light(input);
+    input.light_index = collection_of_lights.add_light(light);
+
     input.inputs = div.judge_inputs;
     input.className = "scorekeeper_input"; 
+
+    
 
     // This (the if statement to follow) is to faciliate automatic refocusing of the next judge
     // after two digit are entered for the score (exception 10 and 100)
@@ -484,6 +491,8 @@ function p_div_build_data_row(div) {
       input.setAttribute('readonly', null);
 
     column.appendChild(input);
+
+    
     div.data_columns.push(input);
 
     row.appendChild(column);

@@ -2,6 +2,9 @@
 /*-------------------------------------------------------------------------------------*/
 $(document).on('page:change', function () {
 
+
+  make_canvas();
+
   // Prepare Queue
   window.ajax_queue = [];
   var interval = 1;
