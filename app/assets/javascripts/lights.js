@@ -56,7 +56,8 @@ var collection_of_lights = {
 
 function draw_all_lights() {
 
-  collection_of_lights.draw();
+  if (login_info.is_logged_in)
+    collection_of_lights.draw();
 
   setTimeout(draw_all_lights, 10);
 } 
@@ -102,7 +103,7 @@ function new_light (object) {
       var ctx = canvas.getContext("2d");
       ctx.clearRect(this.x, this.y, LIGHT_WIDTH, LIGHT_WIDTH);
     },
-    
+
     hover: function() {
       try {
 
