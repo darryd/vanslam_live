@@ -160,6 +160,16 @@ function make_canvas() {
   document.body.appendChild(canvas);
 }
 
+function resize_canvas_if_logged_in() {
+
+  if (!login_info.is_logged_in)
+    return;
+
+
+  var canvas = document.getElementById("lights_canvas");
+  canvas.width = $(document).width();
+  canvas.height = $(document).height();
+}
 
 /*
    window.addEventListener("resize", function() {
