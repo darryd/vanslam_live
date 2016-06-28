@@ -166,9 +166,8 @@ function make_canvas() {
   canvas.style.zIndex = "5";
   canvas.style.pointerEvents = "none";
 
-  canvas.width = $(document).width();
-  canvas.height = $(document).height();
   document.body.appendChild(canvas);
+  resize_canvas_if_logged_in();
 }
 
 function resize_canvas_if_logged_in() {
