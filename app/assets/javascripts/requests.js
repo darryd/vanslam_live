@@ -40,7 +40,7 @@ function new_performance_request(round, name, performance_ui){
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
-function judge_request(comm, judge_i, value) {
+function judge_request(comm, judge_i, value, confirmation) {
 
   var ticket = new_ticket();
   
@@ -49,7 +49,7 @@ function judge_request(comm, judge_i, value) {
 
     var performance_id = comm.performance_id;
 
-    return {performance_id: performance_id, judge_name: judge_i, value: value, web_sock_id: window.web_sock_id};
+    return {performance_id: performance_id, judge_name: judge_i, value: value, web_sock_id: window.web_sock_id + ";junk"};
   };
   ticket.done = function(response_json) {
     console.log(response_json);
@@ -58,7 +58,7 @@ function judge_request(comm, judge_i, value) {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
-function set_time_request(comm, minutes, seconds) {
+function set_time_request(comm, minutes, seconds, confirmation) {
 
   var ticket = new_ticket();
 
@@ -76,7 +76,7 @@ function set_time_request(comm, minutes, seconds) {
 }
 
 /*-----------------------------------------------------------------------*/
-function set_penalty_request(comm, penalty) {
+function set_penalty_request(comm, penalty, confirmation) {
 
   var ticket = new_ticket();
 
