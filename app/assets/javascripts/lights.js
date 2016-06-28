@@ -54,6 +54,13 @@ var collection_of_lights = {
 
 };
 
+function draw_all_lights() {
+
+  collection_of_lights.draw();
+
+  setTimeout(draw_all_lights, 10);
+} 
+
 
 function new_light (object) {
 
@@ -77,7 +84,6 @@ function new_light (object) {
     },
     set_color: function (color) {
       this.color = color;
-      // do something to the canvas
     },
 
     draw: function() {
@@ -98,8 +104,6 @@ function new_light (object) {
     },
     
     hover: function() {
-      //      hover(this);
-
       try {
 
 

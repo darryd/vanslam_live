@@ -4,6 +4,7 @@ $(document).on('page:change', function () {
 
 
   make_canvas();
+  draw_all_lights();
 
   // Prepare Queue
   window.ajax_queue = [];
