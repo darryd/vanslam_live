@@ -34,6 +34,10 @@ var collection_of_lights = {
     for (var i=0; i<this.lights.length; i++) 
       if (this.lights[i].confirmation == confirmation) {
 	this.lights[i].set_color(CONFIRMATION_RECEIVED);
+
+	var interval = 3000;
+	setTimeout(reset_light, interval, this.lights[i]); 
+
 	break;
       }
 
@@ -56,11 +60,17 @@ var collection_of_lights = {
 
 function draw_all_lights() {
 
+  var interval = 33;
+
   if (login_info.is_logged_in)
     collection_of_lights.draw();
 
-  setTimeout(draw_all_lights, 10);
+  setTimeout(draw_all_lights, interval);
 } 
+
+function reset_light(light) {
+  light.set_color(undefined);
+}
 
 
 function new_light (object) {
