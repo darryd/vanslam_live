@@ -361,6 +361,22 @@ function p_div_input_onkeyup(inputs, input) {
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_input_onblur(input) {
+
+  var performance_id = input.div.performance.comm.performance_id;
+  var index = parseInt(input.getAttribute('data-index'));
+
+  heads_up_blur(performance_id, index);
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function p_div_input_onfocus(input) {
+
+  var performance_id = input.div.performance.comm.performance_id;
+  var index = parseInt(input.getAttribute('data-index'));
+
+  heads_up_focus(performance_id, index);
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_entered(input) {
 
   if (!login_info.is_logged_in)
@@ -477,8 +493,9 @@ function p_div_build_data_row(div) {
     input.className =  "scorekeeper_input";
     input.setAttribute('size', 4);
     input.setAttribute('onchange', 'p_div_input_entered(this)');
-
     input.setAttribute('onkeyup', 'p_div_input_onkeyup(this.inputs, this)');
+    input.setAttribute('onfocus', 'p_div_input_onfocus(this)');
+    input.setAttribute('onblur', 'p_div_input_onblur(this)');
 
     if (i < slam.num_judges) {
       // Only do this for inputs that are judges
