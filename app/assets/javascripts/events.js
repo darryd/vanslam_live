@@ -192,7 +192,7 @@ function do_heads_up(event) {
       event_focus(event);
       break;
     case 'blur':
-      event_focus(event);
+      event_blur(event);
       break;
   }
 }
@@ -251,10 +251,18 @@ function event_focus(event) {
 
   try {
     var p_div = window.comms_2[event.performance_id].p_div;
-    var input = p_div.data_columns[event.index];
 
-    input.style.fontStyle = "italic";
+    var minutes_i = p_div.indexes['minutes_i'];
+    var seconds_i = p_div.indexes['seconds_i'];
 
+    if (event.index == minutes_i || event.index == seconds_i ) {
+      p_div.data_columns[minutes_i].style.fontStyle = 'italic';
+      p_div.data_columns[seconds_i].style.fontStyle = 'italic';
+    }
+    else {
+      var input = p_div.data_columns[event.index];
+      input.style.fontStyle = "italic";
+    }
   }
   catch (e) {
     console.log(e);
@@ -264,13 +272,20 @@ function event_focus(event) {
 
 function event_blur(event) {
 
-
   try {
     var p_div = window.comms_2[event.performance_id].p_div;
-    var input = p_div.data_columns[event.index];
 
-    input.style.fontStyle = "normal";
+    var minutes_i = p_div.indexes['minutes_i'];
+    var seconds_i = p_div.indexes['seconds_i'];
 
+    if (event.index == minutes_i || event.index == seconds_i ) {
+      p_div.data_columns[minutes_i].style.fontStyle = 'normal';
+      p_div.data_columns[seconds_i].style.fontStyle = 'normal';
+    }
+    else {
+      var input = p_div.data_columns[event.index];
+      input.style.fontStyle = "normal";
+    }
   }
   catch (e) {
     console.log(e);
