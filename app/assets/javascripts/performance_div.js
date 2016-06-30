@@ -478,6 +478,7 @@ function p_div_build_data_row(div) {
 
     input.inputs = div.judge_inputs;
     input.className = "scorekeeper_input"; 
+    input.style.padding = "0px";
 
     
 
