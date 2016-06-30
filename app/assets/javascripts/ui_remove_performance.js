@@ -89,15 +89,21 @@ function make_remove_me_div(uiid) {
   return remove_me_div;
 }
 
+/*
 function remove_performance(id) {
 
+  alert ("Do I ever get called?");
 
   var e = document.getElementById(id);
   if (e == null)
     return;
 
-  e.setAttribute('hidden', null);
+  e.setAttribute('hidden', null); // Why not delete it?
+  
+  
+
 }
+*/
 
 // Request server remove performance
 // Send remove performance event
@@ -121,8 +127,6 @@ function remove_performance_by_uiid(id) {
 
 function remove_performance(performance_ui) {
 
-  // Hide or delete the DOM
-  performance_ui.setAttribute('hidden', null);
 
   // Remove the performance object from round_js 
   var performance = performance_ui.performance;
@@ -150,4 +154,6 @@ function remove_performance(performance_ui) {
   var contenders = round.contenders;
   contenders.get_winners(contenders);
 
+  // Now delete the div
+  performance_ui.parentNode.removeChild(performance_ui);
 }

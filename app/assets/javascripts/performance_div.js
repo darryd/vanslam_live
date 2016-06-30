@@ -554,7 +554,6 @@ function p_div_build_footers(div) {
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
-/*
 window.addEventListener("resize", function() {
 
   var performance_divs = document.getElementsByClassName('performance_div');
@@ -562,8 +561,8 @@ window.addEventListener("resize", function() {
   if (performance_divs.length > 0) {
 
     var p_div = performance_divs[0];
-    var x1 = p_div.data_columns[0].getBoundingClientRect().left;
-    var x2 = p_div.data_columns[1].getBoundingClientRect().left;
+    var x1 = $(p_div.data_columns[0]).offset().left;
+    var x2 = $(p_div.data_columns[1]).offset().left;
 
     var distance = x2 - x1;
     var max_width = parseInt(p_div.data_columns[0].getAttribute('data-max-width'));
@@ -577,4 +576,3 @@ window.addEventListener("resize", function() {
     }
   }
 });
-*/
