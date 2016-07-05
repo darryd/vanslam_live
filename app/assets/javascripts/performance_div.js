@@ -290,13 +290,9 @@ function is_score_entered_fully(score) {
 
 
   if (score == "10")
-    return false;
-
-  if (score == "100")
     return true;
 
-
-  if (score.length == 2)
+  if (score.length == 3) // eg. 9.6 (two digits and one decimal point)
     return true;
 
   return false;
@@ -305,7 +301,7 @@ function is_score_entered_fully(score) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_judge_input_onkeyup(inputs, input) {
 
-  input.value = input.value.replace('\.', '');
+  //input.value = input.value.replace('\.', '');
   var index = parseInt(input.getAttribute('data-index'));
 
   if (is_score_entered_fully(input.value)) {
@@ -329,18 +325,13 @@ function p_div_input_onkeyup(inputs, input) {
   if (!login_info.is_logged_in)
     return;
 
-  if (input.my_input_type == 'judge' && input.please_advance_automatically)
-    p_div_judge_input_onkeyup(inputs, input);
 
   var i = parseInt(input.getAttribute('data-index'));
   var div = input.div;
   var performance = div.performance;
 
   var value = parse_float_or_return_zero(input.value);
-  if (value > 10 && i < slam.num_judges) {
-    value /= 10;
-    input.value = value;
-  }
+
 
   switch (i) 
   {
@@ -356,10 +347,20 @@ function p_div_input_onkeyup(inputs, input) {
       break;
     default:
       if (i >= 0 && i < div.indexes.minutes_i) {
-	
+
+	if (value > 10) {
+	  value /= 10;
+	  input.value = value;
+	}
+
 	heads_up_judge(performance.comm.performance_id, i, value);
+	if (input.please_advance_automatically)
+	  p_div_judge_input_onkeyup(inputs, input);
+	else if (is_score_entered_fully(input.value)){
+	  $(input).trigger("change");
+	  input.blur();
+	}
 	//performance.judge(i, value);
-	
       }
   }
 }
@@ -393,7 +394,7 @@ function p_div_input_entered(input) {
   var value = parse_float_or_return_zero(input.value);
 
   var light_index = input.light_index;
-  
+
   var confirmation = collection_of_lights.confirmation_send(light_index);
 
   switch (i) 
@@ -410,11 +411,6 @@ function p_div_input_entered(input) {
       break;
     default:
       if (i >= 0 && i < div.indexes.minutes_i) {
-	input.value = input.value.replace('\.', '');
-	input.value = input.value / 10;
-
-	var value = parseFloat(input.value);
-
 	performance.judge(i, value);
 	judge_request(performance.comm, i, value, confirmation);
       }
@@ -486,7 +482,7 @@ function p_div_build_data_row(div) {
     input.className = "scorekeeper_input"; 
     input.style.padding = "0px";
 
-    
+
 
     // This (the if statement to follow) is to faciliate automatic refocusing of the next judge
     // after two digit are entered for the score (exception 10 and 100)
@@ -521,7 +517,7 @@ function p_div_build_data_row(div) {
 
     column.appendChild(input);
 
-    
+
     div.data_columns.push(input);
 
     row.appendChild(column);
