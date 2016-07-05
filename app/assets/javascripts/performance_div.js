@@ -565,10 +565,10 @@ function p_div_build_footers(div) {
   div.appendChild(row);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-
-window.addEventListener("resize", function() {
+function get_distance_available_between_inputs() {
 
   var performance_divs = document.getElementsByClassName('performance_div');
+  var width = 0;
 
   if (performance_divs.length > 0) {
 
@@ -578,13 +578,26 @@ window.addEventListener("resize", function() {
 
     var distance = x2 - x1;
     var max_width = parseInt(p_div.data_columns[0].getAttribute('data-max-width'));
-    var width = Math.min(distance, max_width);
+    width = Math.min(distance, max_width);
 
-    // Set Width for all inputs
-    var inputs = document.getElementsByClassName('scorekeeper_input');
-
-    for (var i=0; i<inputs.length; i++) {
-      inputs[i].style.width = width + "px";
-    }
   }
-});
+
+  return width;
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+function resize_inputs() {
+
+  // Set Width for all inputs
+  //
+  var width = get_distance_available_between_inputs();
+
+  var inputs = document.getElementsByClassName('scorekeeper_input');
+
+  for (var i=0; i<inputs.length; i++) {
+    inputs[i].style.width = width + "px";
+  }
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+
+window.addEventListener("resize", resize_inputs);
+/*----------------------------------------------------------------------------------------------------------------------------------*/
