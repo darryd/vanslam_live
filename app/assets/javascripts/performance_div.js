@@ -311,7 +311,7 @@ function p_div_judge_input_onkeyup(inputs, input) {
   if (is_score_entered_fully(input.value)) {
 
 
-    if (index < inputs.length - 1)  {
+    if (index < slam.num_judges - 1)  {
       input.please_advance_automatically = false;
       next_input = inputs[index + 1];
       next_input.focus();
