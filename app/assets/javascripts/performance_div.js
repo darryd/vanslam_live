@@ -517,7 +517,7 @@ function p_div_build_data_row(div) {
 
     input.setAttribute('data-index', i);
     input.type = "number";
-    input.style.width = "" + get_distance_available_between_inputs() + "60px";
+    input.style.width = "60px";
     input.setAttribute('data-max-width', '60');
 
     if (!login_info.is_logged_in)
@@ -540,6 +540,8 @@ function p_div_build_data_row(div) {
 
     div.data_columns.push(column);
   }
+
+  resize_inputs();
 
   div.appendChild(row);
 }
