@@ -337,6 +337,10 @@ function p_div_input_onkeyup(inputs, input) {
   var performance = div.performance;
 
   var value = parse_float_or_return_zero(input.value);
+  if (value > 10 && i < slam.num_judges) {
+    //value /= 10;
+    //input.value = value;
+  }
 
   switch (i) 
   {
@@ -407,9 +411,11 @@ function p_div_input_entered(input) {
     default:
       if (i >= 0 && i < div.indexes.minutes_i) {
 	input.value = input.value.replace('\.', '');
-	var value = input.value / 10;
-	input.value = value;
-	performance.judge(i, value);
+	input.value = input.value / 10;
+	performance.judge(i, input.value);
+
+	var value = parseFloat(input.value);
+
 	judge_request(performance.comm, i, value, confirmation);
       }
   }
@@ -502,6 +508,7 @@ function p_div_build_data_row(div) {
       // Only do this for inputs that are judges
       input.my_input_type = 'judge';
       input.please_advance_automatically = true;
+      input.step = "0.1";
     }
 
     input.setAttribute('data-index', i);
