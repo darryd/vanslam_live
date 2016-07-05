@@ -116,6 +116,7 @@ function click_poet(button) {
   $("#performances_" + round.round_number).append(p_div);
 
   resize_canvas_if_logged_in();
+  resize_inputs();
 
   round.names_already_performing.push(performance_2.name);
   invisible_round.notify_rank();

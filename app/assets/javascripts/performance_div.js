@@ -540,9 +540,6 @@ function p_div_build_data_row(div) {
 
     div.data_columns.push(column);
   }
-
-  resize_inputs();
-
   div.appendChild(row);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
