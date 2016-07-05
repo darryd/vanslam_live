@@ -338,8 +338,8 @@ function p_div_input_onkeyup(inputs, input) {
 
   var value = parse_float_or_return_zero(input.value);
   if (value > 10 && i < slam.num_judges) {
-    //value /= 10;
-    //input.value = value;
+    value /= 10;
+    input.value = value;
   }
 
   switch (i) 
@@ -347,18 +347,18 @@ function p_div_input_onkeyup(inputs, input) {
     case div.indexes.minutes_i:
     case div.indexes.seconds_i:
       var time = p_div_get_time(div);
-      performance.set_time(time.minutes, time.seconds);
+      //performance.set_time(time.minutes, time.seconds);
       heads_up_set_time(performance.performance_id, time.minutes, time.seconds);
       break;
     case div.indexes.penalty_i:
-      performance.set_penalty(value);
+      //performance.set_penalty(value);
       heads_up_set_penalty(performance.performance_id, value);
       break;
     default:
       if (i >= 0 && i < div.indexes.minutes_i) {
 	
 	heads_up_judge(performance.comm.performance_id, i, value);
-	performance.judge(i, value);
+	//performance.judge(i, value);
 	
       }
   }
@@ -412,10 +412,10 @@ function p_div_input_entered(input) {
       if (i >= 0 && i < div.indexes.minutes_i) {
 	input.value = input.value.replace('\.', '');
 	input.value = input.value / 10;
-	performance.judge(i, input.value);
 
 	var value = parseFloat(input.value);
 
+	performance.judge(i, value);
 	judge_request(performance.comm, i, value, confirmation);
       }
   }
