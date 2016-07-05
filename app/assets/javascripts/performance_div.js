@@ -484,7 +484,7 @@ function p_div_build_data_row(div) {
 
     input.inputs = div.judge_inputs;
     input.className = "scorekeeper_input"; 
-    //input.style.padding = "0px";
+    input.style.padding = "0px";
 
     
 
@@ -580,7 +580,7 @@ window.addEventListener("resize", function() {
     var inputs = document.getElementsByClassName('scorekeeper_input');
 
     for (var i=0; i<inputs.length; i++) {
-      //inputs[i].style.width = width + "px";
+      inputs[i].style.width = width + "px";
     }
   }
 });
