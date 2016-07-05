@@ -319,6 +319,12 @@ function p_div_judge_input_onkeyup(inputs, input) {
   }
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
+// Assumes String is a valid number
+function is_str_integer(str) {
+
+  return parseInt(str) == parseFloat(str);
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
 
 function p_div_input_onkeyup(inputs, input) {
 
@@ -351,6 +357,8 @@ function p_div_input_onkeyup(inputs, input) {
 	if (value > 10) {
 	  value /= 10;
 	  input.value = value;
+	  if (is_str_integer(input.value))
+	    input.value = value + ".0";
 	}
 
 	heads_up_judge(performance.comm.performance_id, i, value);
