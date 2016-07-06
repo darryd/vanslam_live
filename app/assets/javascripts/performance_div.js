@@ -22,6 +22,9 @@ function p_div_new(performance) {
   column.innerHTML = "<h3> <span style='color:purple'>" + name + "</span> </h3>";
   row.appendChild(column);
 
+  var light = new_light(column);
+  div.light_index = collection_of_lights.add_light(light);
+
   
   var column = document.createElement("div");
   column.className = 'small-2 columns';

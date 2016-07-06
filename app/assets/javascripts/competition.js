@@ -124,7 +124,8 @@ function click_poet(button) {
 
   // Send request to server
   
-  new_performance_request(round, button.name, p_div);
+  var confirmation = collection_of_lights.confirmation_send(p_div.light_index);
+  new_performance_request(round, button.name, p_div, confirmation);
   p_div.judge_inputs[0].focus();
   
   $(button).remove(); 

@@ -6,7 +6,7 @@ window.comms_2 = {}; // a 'comm_2' is the connection between the p_ui and the se
  * Send a new_performance_request and update the performance info
  * once the server responds. This is done in the ticket.done function.
  */
-function new_performance_request(round, name, performance_ui){
+function new_performance_request(round, name, performance_ui, confirmation){
 
   var ticket = new_ticket();
 
@@ -15,7 +15,7 @@ function new_performance_request(round, name, performance_ui){
     
     var previous_performance_id = null;
 
-    var params = {round_id: round.id, name: name, web_sock_id: window.web_sock_id};
+    var params = {round_id: round.id, name: name, web_sock_id: window.web_sock_id + ";" + confirmation};
     if (round.is_cumulative) {
       // Get previous_performance_id 
       params.previous_performance_id = performance_ui.performance.prev.performance_id;
