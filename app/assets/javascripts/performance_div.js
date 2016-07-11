@@ -25,7 +25,7 @@ function p_div_new(performance) {
   var light = new_light(column);
   div.light_index = collection_of_lights.add_light(light);
 
-  
+
   var column = document.createElement("div");
   column.className = 'small-2 columns';
 
@@ -56,13 +56,13 @@ function p_div_new(performance) {
   row.className = "row";
 
   /*
-  column = document.createElement("div");
-  column.className = "small-12 columns";
-  column.style.minHeight = "15px"; //http://stackoverflow.com/a/25431669
+     column = document.createElement("div");
+     column.className = "small-12 columns";
+     column.style.minHeight = "15px"; //http://stackoverflow.com/a/25431669
 
-  row.appendChild(column);
-  div.appendChild(row);
-  */
+     row.appendChild(column);
+     div.appendChild(row);
+     */
 
   row = document.createElement("div");
   row.className = "row";
@@ -493,13 +493,6 @@ function p_div_build_data_row(div) {
     input.className = "scorekeeper_input"; 
     input.style.padding = "0px";
 
-
-
-    // This (the if statement to follow) is to faciliate automatic refocusing of the next judge
-    // after two digit are entered for the score (exception 10 and 100)
-    // last input will be Minutes so that the last judge 
-    // (the one that comes before Minutes) will have another input to 
-    // focus on after the score has been entered.
     if (i <= slam.num_judges)
       div.judge_inputs.push(input);
 
@@ -510,6 +503,10 @@ function p_div_build_data_row(div) {
     input.setAttribute('onkeyup', 'p_div_input_onkeyup(this.inputs, this)');
     input.setAttribute('onfocus', 'p_div_input_onfocus(this)');
     input.setAttribute('onblur', 'p_div_input_onblur(this)');
+    // http://stackoverflow.com/a/14236929
+    $(input).on("keydown", function (e) {
+      return e.which !== 32;
+    });
 
     if (i < slam.num_judges) {
       // Only do this for inputs that are judges
