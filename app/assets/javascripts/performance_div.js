@@ -504,9 +504,11 @@ function p_div_build_data_row(div) {
     input.setAttribute('onfocus', 'p_div_input_onfocus(this)');
     input.setAttribute('onblur', 'p_div_input_onblur(this)');
     // http://stackoverflow.com/a/14236929
+    /*
     $(input).on("keydown", function (e) {
       return e.which !== 32;
     });
+    */
 
     if (i < slam.num_judges) {
       // Only do this for inputs that are judges
