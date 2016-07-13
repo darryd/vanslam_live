@@ -400,6 +400,10 @@ function p_div_input_entered(input) {
   if (!login_info.is_logged_in)
     return;
 
+  if (input.old_value == input.value)
+    return;
+  input.old_value = input.value
+
   var i = parseInt(input.getAttribute('data-index'));
   var div = input.div;
   var performance = div.performance;
