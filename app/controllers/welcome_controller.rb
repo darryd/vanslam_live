@@ -10,7 +10,8 @@ class WelcomeController < ApplicationController
     host = Host.where(host: request.host).take
     @title = host.organization.title
 
-    @slams = host.organization.competitions.order('created_at DESC')
+    @templates = host.organization.competitions.order('created_at DESC').where(is_template: true)
+    @slams = host.organization.competitions.order('created_at DESC').where(is_template: [nil, false])
   end
 
   #------------------------------------------------------------------------------------#
@@ -18,7 +19,7 @@ class WelcomeController < ApplicationController
 
     host = Host.where(host: request.host).take
     title = host.organization.title
-    slams = host.organization.competitions.order('created_at DESC')
+    slams = host.organization.competitions.order('created_at DESC').where(is_template: [nil, false])
 
 
     render json: {:title => title, :slams => slams}
