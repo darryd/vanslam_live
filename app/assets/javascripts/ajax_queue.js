@@ -3,6 +3,9 @@ var START = 1;
 var PENDING = 2;
 var DONE = 4;
 
+var ERROR_COLOR = "red";
+var DEFAULT_COLOR = "blue";
+
 /*-----------------------------------------------------------------------*/
 function process_ajax_queue() {
 
@@ -65,15 +68,30 @@ function ajax_queue_to_str() {
 /*-----------------------------------------------------------------------*/
 function display_messages_if_any(response_json) {
 
+  var clear_message_interval = 5000;
+
   if (response_json.message != undefined) {
+
 
     var messages = document.getElementById('messages');
     if (messages != null) {
-      messages.innerHTML = response_json.message;
+
+      if (messages.timer_id != undefined)
+	clearTimeout(messages.timer_id);
+
+      messages.innerHTML = "Server: " + response_json.message;
+      messages.style.color = response_json.result ? DEFAULT_COLOR : ERROR_COLOR;
+
+      messages.timer_id = setTimeout(function() {
+
+	var messages = document.getElementById('messages');
+	if (messages.style.color != ERROR_COLOR) {
+	  messages.innerHTML = "";
+	}
+
+      }, clear_message_interval);
     }
-
   }
-
 }
 /*-----------------------------------------------------------------------*/
 function start_next(ticket) {
@@ -94,7 +112,7 @@ function start_next(ticket) {
       if (ticket.xmlhttp.readyState==4) {
 	if (ticket.xmlhttp.status==200) {
 	  // Run done function.
-	  
+
 	  var response_json = jQuery.parseJSON(ticket.xmlhttp.responseText);
 	  display_messages_if_any(response_json);
 	  ticket.done(response_json);
@@ -109,6 +127,7 @@ function start_next(ticket) {
     }
     catch(e) {
 
+      console.log(e);
       alert (e.description);
       console.log(e.description);
     }
