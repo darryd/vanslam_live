@@ -127,7 +127,8 @@ class CompetitionController < ApplicationController
 
       if performance.save
 
-	render json: {:result  => true, :performance_id => performance.id}    
+
+	render json: {:result  => true, :message => "Sucessfully added new performance: " + params[:name], :performance_id => performance.id}    
 
 	# Send event to web socket
 
@@ -179,7 +180,9 @@ class CompetitionController < ApplicationController
 
       if judge.save
 
-	render json: {:result => true, :judge => judge}
+
+	message = "Judge " + (judge_name.to_i + 1).to_s + " updated to: " + judge.value.to_s
+	render json: {:result => true, :message => message, :judge => judge}
 
 	# Send event to web socket
 
@@ -222,8 +225,8 @@ class CompetitionController < ApplicationController
       performance.seconds = params[:seconds].to_i
 
       if performance.save
-	render json: {:result => true, :performance => performance}
-
+	message = "Time set: " + params[:minutes] + ":" + params[:seconds]
+	render json: {:result => true, :message=> message, :performance => performance}
 
 	# Send event to web socket
 
@@ -263,7 +266,8 @@ class CompetitionController < ApplicationController
       performance.penalty = params[:penalty].to_f
 
       if performance.save
-	render json: {:result => true, :performance => performance}
+	message = "Penalty set to " + params[:penalty]
+	render json: {:result => true, :message => message, :performance => performance}
 
 
 	# Send event to web socket

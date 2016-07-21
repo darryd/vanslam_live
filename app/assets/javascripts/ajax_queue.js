@@ -63,6 +63,19 @@ function ajax_queue_to_str() {
   return str;
 }
 /*-----------------------------------------------------------------------*/
+function display_messages_if_any(response_json) {
+
+  if (response_json.message != undefined) {
+
+    var messages = document.getElementById('messages');
+    if (messages != null) {
+      messages.innerHTML = response_json.message;
+    }
+
+  }
+
+}
+/*-----------------------------------------------------------------------*/
 function start_next(ticket) {
 
   ticket.state = PENDING;
@@ -77,12 +90,14 @@ function start_next(ticket) {
     console.log(['ReadyState', ticket.xmlhttp.readyState]);
     console.log(['status', ticket.xmlhttp.status]);
 
-
     try {
       if (ticket.xmlhttp.readyState==4) {
 	if (ticket.xmlhttp.status==200) {
 	  // Run done function.
-	  ticket.done(jQuery.parseJSON(ticket.xmlhttp.responseText));
+	  
+	  var response_json = jQuery.parseJSON(ticket.xmlhttp.responseText);
+	  display_messages_if_any(response_json);
+	  ticket.done(response_json);
 	  ticket.state = DONE;
 	}
 	else {

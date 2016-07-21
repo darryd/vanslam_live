@@ -37,10 +37,6 @@ function new_performance_request(round, name, performance_ui, confirmation){
 
       window.comms_2[performance_id] = performance_ui.comm;
     } 
-    else {
-      var messages = document.getElementById('messages');
-      messages.innerHTML = response_json.message;
-     }
   };
 
   window.ajax_queue.push(ticket);
