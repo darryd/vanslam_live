@@ -26,15 +26,21 @@ function new_performance_request(round, name, performance_ui, confirmation){
   ticket.done = function(response_json) {
     console.log(response_json);
 
-// TODO We can check response_json.result
 
-    var performance_id = response_json.performance_id;
+    if (response_json.result) {
 
-    // We just found out the 'performance_id'
-    performance_ui.comm.performance_id = performance_id;
-    performance_ui.performance.performance_id = performance_id; // For when we need to find the previous_performance_id
+      var performance_id = response_json.performance_id;
 
-    window.comms_2[performance_id] = performance_ui.comm;
+      // We just found out the 'performance_id'
+      performance_ui.comm.performance_id = performance_id;
+      performance_ui.performance.performance_id = performance_id; // For when we need to find the previous_performance_id
+
+      window.comms_2[performance_id] = performance_ui.comm;
+    } 
+    else {
+      var messages = document.getElementById('messages');
+      messages.innerHTML = response_json.message;
+     }
   };
 
   window.ajax_queue.push(ticket);
@@ -43,7 +49,7 @@ function new_performance_request(round, name, performance_ui, confirmation){
 function judge_request(comm, judge_i, value, confirmation) {
 
   var ticket = new_ticket();
-  
+
   ticket.url = "/competition/judge";
   ticket.get_params = function() {
 

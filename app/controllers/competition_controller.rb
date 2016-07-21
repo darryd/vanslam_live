@@ -99,7 +99,7 @@ class CompetitionController < ApplicationController
       begin
 	round = Round.find(params[:round_id])
       rescue
-	render json: {:result => false, :message => "No round found"}
+	render json: {:result => false, :message => "Could not find round_id '" + params[:round_id] + "'"}
 	return
       end
 
@@ -107,7 +107,7 @@ class CompetitionController < ApplicationController
       poet = host.organization.poets.where(name: params[:name]).first
 
       if poet == nil
-	render json: {:result => false, :message => "No poet found"}
+	render json: {:result => false, :message => "Could not find poet '" + params[:name] + "'"}
 	return
       end
 
