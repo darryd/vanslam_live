@@ -128,7 +128,7 @@ class CompetitionController < ApplicationController
       if performance.save
 
 
-	render json: {:result  => true, :message => "Sucessfully added new performance: " + params[:name], :performance_id => performance.id}    
+	render json: {:result  => true, :message => "New performance: " + params[:name], :performance_id => performance.id}    
 
 	# Send event to web socket
 
@@ -351,7 +351,7 @@ class CompetitionController < ApplicationController
       competition = performance.round.competition
       performance.delete
 
-      render json: {:result => true}
+      render json: {:result => true, :message => "Performance removed"}
 
       # Send event
       event_hash = {}
