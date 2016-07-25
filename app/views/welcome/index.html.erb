@@ -3,6 +3,10 @@
 	
 <h1> <%= @title %>  </h1>
 
+<div id="create_new_slam" class="vwli">
+  <div id="template_slams"></div>
+</div>
+
 <% @slams.each do |slam| %>
   <h2> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s %> </h2>
 <% end %>
