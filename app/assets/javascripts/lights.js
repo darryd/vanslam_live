@@ -155,21 +155,6 @@ function cumulativeOffset (element) {
 function hover(light) {
 }
 
-/*
-function make_canvas() {
-  var canvas = document.createElement("canvas");
-  canvas.id = "lights_canvas";
-  canvas.style.position = "absolute";
-  canvas.style.left = "0px";
-  canvas.style.top = "0px";
-  canvas.style.zIndex = "5";
-  canvas.style.pointerEvents = "none";
-
-  document.body.appendChild(canvas);
-  resize_canvas_if_logged_in();
-}
-*/
-
 function new_canvas() {
   var canvas = document.createElement("canvas");
 
@@ -178,17 +163,10 @@ function new_canvas() {
   canvas.style.top = "0px";
   canvas.style.zIndex = "5";
   canvas.style.pointerEvents = "none";
+  canvas.width = LIGHT_WIDTH;
+  canvas.height = LIGHT_WIDTH;
 
   document.body.appendChild(canvas);
 
   return canvas;
 }
-/*
-   window.addEventListener("resize", function() {
-
-   var canvas = document.getElementById("lights_canvas");
-   canvas.width = $(document).width();
-   canvas.height = $(document).height();
-
-   });
-   */
