@@ -578,7 +578,5 @@ class CompetitionController < ApplicationController
 
   end
   #------------------------------------------------------------------------------------#
-
-
 end
 

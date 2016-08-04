@@ -3,8 +3,16 @@
 	
 <h1> <%= @title %>  </h1>
 
+<div class="page_change" data-run="index" hidden></div>
+
 <div id="create_new_slam" class="vwli">
-  <div id="template_slams"></div>
+  <div id="template_slams">
+    <select>
+      <% @templates.each do |template| %>
+	<option> <%= template.title %> </option>
+      <% end %>
+    </select>
+  </div>
 </div>
 
 <% @slams.each do |slam| %>
