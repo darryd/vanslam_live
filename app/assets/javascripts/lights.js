@@ -45,7 +45,7 @@ var collection_of_lights = {
 
   },
 
-  draw: function () {
+  hover: function () {
 
     for (var i=0; i<this.lights.length; i++) {
       var light = this.lights[i];
@@ -55,14 +55,14 @@ var collection_of_lights = {
 
 };
 
-function draw_all_lights() {
+function hover_all_lights() {
 
   var interval = 33;
 
   if (login_info.is_logged_in)
-    collection_of_lights.draw();
+    collection_of_lights.hover();
 
-  setTimeout(draw_all_lights, interval);
+  setTimeout(hover_all_lights, interval);
 } 
 
 function reset_light(light) {

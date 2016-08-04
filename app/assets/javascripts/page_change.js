@@ -2,7 +2,7 @@
 /*-------------------------------------------------------------------------------------*/
 $(document).on('page:change', function () {
 
-  draw_all_lights();
+  hover_all_lights();
 
   // Prepare Queue
   window.ajax_queue = [];
