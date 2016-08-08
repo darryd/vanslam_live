@@ -240,3 +240,20 @@ function add_round_request(competition_id, time_limit, grace_period) {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function annoucement_request(competition_id, round_number, message) {
+
+  var ticket = new_ticket();
+
+  ticket.url = "/competition/annoucement";
+
+  ticket.get_params = function() {
+    return {competition_id: competition_id, round_number: round_number, message: message};
+  };
+
+  ticket.done = function(response) {
+    console.log(response);
+  };
+
+  window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/

@@ -24,11 +24,15 @@
 <% @slam.rounds.order(:round_number).where(is_extra: nil).each do |round| %>
   <div id="round_<%=round.round_number%>">
     <h2> <%= round.title %> </h2>
+    <div id="annoucement_<%= round.round_number %>" class="vwli" data-round="<%= round.round_number %>"  hidden>
+      <button data-round="<%= round.round_number %>" onclick="annoucement_button_pressed(this)">Annoucement</button>
+    </div>
     <p>
     Time limit: <%= (round.time_limit / 60).floor %>:<%= sprintf("%02d", round.time_limit % 60) %>,
     Grace period: <%= round.grace_period %>  seconds
     </p>
     <div id="performances_<%= round.round_number %>"></div>
+    <div id="annoucement_recv_<%= round.round_number %>" data-round="<%= round.round_number %>"></div>
     <div id="poets_<%= round.round_number %>" class="poets_for_round, vwli"></div>
   </div>
 <% end %>

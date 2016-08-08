@@ -288,6 +288,35 @@ class CompetitionController < ApplicationController
     end
 
     #-----------------------------------------------------------------------------------------#
+    def annoucement
+
+      if not_allowed()
+	return
+      end
+
+      if missing_params(params, ['competition_id', 'round_number', 'message'])
+	return
+      end
+
+      begin 
+	id = params[:competition_id].to_i
+	competition = Competition.find(id) #TODO Limit by Organization
+      rescue
+	render json: {:result => false, :message => "Error finding competition"}
+	return 
+      end
+
+      render json: {:result => true}
+
+      event_hash = {};
+      event_hash[:event] = "annoucement"
+      event_hash[:round_number] = params[:round_number]
+      event_hash[:web_sock_id] = '0'
+      event_hash[:message] = params[:message]
+
+      new_event(competition, event_hash)
+    end
+    #-----------------------------------------------------------------------------------------#
 
     def signup_poet
 
