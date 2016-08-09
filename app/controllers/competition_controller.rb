@@ -312,7 +312,9 @@ class CompetitionController < ApplicationController
       event_hash[:event] = "annoucement"
       event_hash[:round_number] = params[:round_number]
       event_hash[:web_sock_id] = '0'
-      event_hash[:message] = params[:message]
+
+      sanitizer = Rails::Html::FullSanitizer.new  # Remove html
+      event_hash[:message] = sanitizer.sanitize(params[:message])
 
       new_event(competition, event_hash)
     end
@@ -561,51 +563,51 @@ class CompetitionController < ApplicationController
       if not_allowed() 
 	return
       else
-      	ChatDemo::ChatBackend.ask_browsers_to_reload
+	ChatDemo::ChatBackend.ask_browsers_to_reload
 	render nothing: true, status: :ok, content_type: "text/html"
       end
 
 
     end
 
-  #------------------------------------------------------------------------------------#
+    #------------------------------------------------------------------------------------#
 
-  def clone_slam
+    def clone_slam
 
-    if not_allowed()
-      return
-    end
-
-    if missing_params(params, ['competition_id', 'title'])
-      return
-    end
-
-    begin
-      slam = Competition.find(params[:competition_id])
-    rescue
-      render json: {:result => false, :message => "Could not find competition to clone."}
-      return
-    end
-
-    new_slam = slam.dup
-    new_slam.title = params[:title]
-    new_slam.event_number = 0
-    new_slam.is_template = false
-    if not new_slam.save
-      render json: {:result => false, :message => "Could not save competition to database."}
-    end
-    
-    slam.rounds.each do |round|
-      new_round = round.dup
-      new_round.competition_id = new_slam.id
-      if not new_round.save
-	render json: {:result => false, :message => "Could not save round to database."}
+      if not_allowed()
+	return
       end
+
+      if missing_params(params, ['competition_id', 'title'])
+	return
+      end
+
+      begin
+	slam = Competition.find(params[:competition_id])
+      rescue
+	render json: {:result => false, :message => "Could not find competition to clone."}
+	return
+      end
+
+      new_slam = slam.dup
+      new_slam.title = params[:title]
+      new_slam.event_number = 0
+      new_slam.is_template = false
+      if not new_slam.save
+	render json: {:result => false, :message => "Could not save competition to database."}
+      end
+
+      slam.rounds.each do |round|
+	new_round = round.dup
+	new_round.competition_id = new_slam.id
+	if not new_round.save
+	  render json: {:result => false, :message => "Could not save round to database."}
+	end
+      end
+
+      render json: {:result => true, :message => "Cloned slam", new_slam => new_slam}
+
     end
-
-    render json: {:result => true, :message => "Cloned slam", new_slam => new_slam}
-
-  end
-  #------------------------------------------------------------------------------------#
+    #------------------------------------------------------------------------------------#
 end
 
