@@ -255,7 +255,7 @@ function event_announcement(event) {
   var announcement_recv_id = "annoucement_recv_" + event.round_number;
   var annoucement_recv = document.getElementById(announcement_recv_id);
   
-  annoucement_recv.innerHTML = "<h3>" + event.message + "</h3";
+  annoucement_recv.innerHTML = event.message;
 }
 
 
