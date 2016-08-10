@@ -288,7 +288,7 @@ function p_div_rank_updated (div, performance) {
 
   div.tied_with.innerHTML = performance.is_tied ? "<p> <span style='color:blue'> Tied With: </span> " + performance.names_tied_with.join() + "</p>" : "";
 
-  div.is_going_on.innerHTML = performance.rank <= performance.round.num_places ? "<span style='color:purple'>Moving On!</span>" : "";
+  div.is_going_on.innerHTML = performance.rank <= performance.round.num_places ? "<span style='color:purple'>Moving on!</span>" : "";
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_get_time(div) {
