@@ -107,12 +107,21 @@ function p_div_new(performance) {
 
   div.appendChild(row);
 
+  // Tied with
   row = document.createElement("div");
   row.className = "row";
-
   div.tied_with = document.createElement("div");
   div.tied_with.className = "small-12 columns";
   row.appendChild(div.tied_with);
+  div.appendChild(row);
+
+
+  // Going into the next round
+  row = document.createElement("div");
+  row.className = "row";
+  div.is_going_on = document.createElement("div");
+  div.is_going_on.className = "small-12 columns";
+  row.appendChild(div.is_going_on);
   div.appendChild(row);
 
   return div;
@@ -278,6 +287,8 @@ function p_div_rank_updated (div, performance) {
   div.rank_column.innerHTML = performance.rank;
 
   div.tied_with.innerHTML = performance.is_tied ? "<p> <span style='color:blue'> Tied With: </span> " + performance.names_tied_with.join() + "</p>" : "";
+
+  div.is_going_on.innerHTML = performance.rank <= performance.round.num_places ? "<span style='color:purple'>Moving On!!</span>" : "";
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_get_time(div) {
