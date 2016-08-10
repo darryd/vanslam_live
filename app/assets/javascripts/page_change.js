@@ -139,6 +139,7 @@ function page_change_competition() {
 
   manage_class_vwli();
   prepare_rounds();
+  append_annoucement_dom();
 
   var done_func = function(login) {
 
@@ -217,4 +218,3 @@ function page_change_view_lookup() {
 
 }
 /*-------------------------------------------------------------------------------------*/
-

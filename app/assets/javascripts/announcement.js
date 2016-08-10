@@ -40,6 +40,8 @@ function annoucement_button_pressed(button) {
   annoucement_div.cancel_button = cancel_button;
   annoucement_div.submit_button = submit_button;
   annoucement_div.annoucement_button = button;
+
+  input.focus();
 }
 
 function annoucement_cancel(cancel_button) {
@@ -61,4 +63,56 @@ function annoucement_submit(submit_button) {
 
   annoucement_cancel(submit_button);
 
+}
+
+/*
+ * Dynamically create this:
+  
+   <div id="annoucement_0" class="vwli" data-round="0"  hidden>
+      <button data-round="0" onclick="annoucement_button_pressed(this)">Annoucement</button>
+   </div>
+   <h3 id="annoucement_recv_0" data-round="0"></h3>
+
+*/
+function generate_annoucement_dom(index) {
+
+
+  var dom = [];
+
+  var div = document.createElement('div');
+  div.id = 'annoucement_' + index;
+  div.className = 'vwli';
+  div.setAttribute('data-round', index);
+
+  if (!login_info.is_logged_in)
+    div.setAttribute('hidden', null);
+
+  var button = document.createElement('button');
+  button.setAttribute('data-round', index);
+  button.setAttribute('onclick', 'annoucement_button_pressed(this)');
+  button.appendChild(document.createTextNode('Annoucement'));
+
+  div.appendChild(button);
+  dom.push(div);
+
+  var h3 = document.createElement('h3');
+  h3.id = 'annoucement_recv_' + index;
+  h3.setAttribute('data-round', index);
+
+  dom.push(h3);
+
+  return dom;
+}
+
+function append_annoucement_dom() {
+
+  var annoucements = document.getElementsByClassName('annoucement');
+  for (var i = 0; i < annoucements.length; i++) {
+
+    var index = annoucements[i].getAttribute('data-index');
+    var dom = generate_annoucement_dom(index);
+
+    for (var j = 0; j < dom.length; j++) 
+      annoucements[i].appendChild(dom[j]);
+  }
 }
