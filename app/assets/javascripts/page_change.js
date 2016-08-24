@@ -135,11 +135,26 @@ function manage_class_vwli() {
   check_login_request(done_func);
 }
 
+function init_refresh_button() {
+
+  var button = document.getElementById('refresh_button');
+  button.appendChild(document.createTextNode('Refresh Browsers'));
+
+  $('#refresh_button').click(function() {
+
+    if (login_info.is_logged_in) {
+      browsers_reload_request();
+    }
+  });
+}
+
+
 function page_change_competition() {
 
   manage_class_vwli();
   prepare_rounds();
   append_annoucement_dom();
+  init_refresh_button();
 
   var done_func = function(login) {
 

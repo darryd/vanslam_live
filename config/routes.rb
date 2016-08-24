@@ -69,6 +69,8 @@ Rails.application.routes.draw do
   post "competition/new_round"
 
   get "competition/browsers_reload"
+  post "competition/browsers_reload"
+  
 
   get "competition/clone_slam"
   post "competition/clone_slam"

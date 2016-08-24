@@ -257,3 +257,15 @@ function annoucement_request(competition_id, round_number, message) {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function browsers_reload_request() {
+
+  var ticket = new_ticket();
+
+  ticket.url = "/competition/browsers_reload";
+
+  ticket.get_params = function(){return {};};
+
+  ticket.done = function(response) {}; 
+  window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/

@@ -564,7 +564,9 @@ class CompetitionController < ApplicationController
 	return
       else
 	ChatDemo::ChatBackend.ask_browsers_to_reload
-	render nothing: true, status: :ok, content_type: "text/html"
+	#render nothing: true, status: :ok, content_type: "text/html"
+	
+	render json: {:result => true}
       end
 
 

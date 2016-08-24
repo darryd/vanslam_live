@@ -128,7 +128,7 @@ function start_next(ticket) {
     catch(e) {
 
       console.log(e);
-      alert (e.description);
+      alert ("Error " + e.description);
       console.log(e.description);
     }
   };
