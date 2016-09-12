@@ -601,19 +601,26 @@ function get_distance_available_between_inputs() {
   return width;
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
-function resize_inputs() {
+function resize_inputs(inputs) {
 
   // Set Width for all inputs
   //
   var width = get_distance_available_between_inputs();
 
-  var inputs = document.getElementsByClassName('scorekeeper_input');
 
   for (var i=0; i<inputs.length; i++) {
     inputs[i].style.width = width + "px";
   }
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
+function resize_all_inputs() {
 
-window.addEventListener("resize", resize_inputs);
+  var inputs = document.getElementsByClassName('scorekeeper_input');
+
+  resize_inputs(inputs);
+}
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+
+
+window.addEventListener("resize", resize_all_inputs);
 /*----------------------------------------------------------------------------------------------------------------------------------*/

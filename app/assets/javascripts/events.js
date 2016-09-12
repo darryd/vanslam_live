@@ -232,7 +232,7 @@ function event_new_performance(event) {
   performance_2.calculate(); // So that it doesn't say Rank is 'Infinity'
 
   $("#performances_" + round.round_number).append(p_div);
-  resize_inputs();
+  resize_inputs(p_div.judge_inputs);
 
   round.names_already_performing.push(performance_2.name);
   invisible_round.notify_rank();
