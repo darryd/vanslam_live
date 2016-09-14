@@ -153,7 +153,7 @@ function page_change_competition() {
 
   manage_class_vwli();
   prepare_rounds();
-  append_annoucement_dom();
+  append_announcement_dom();
   init_refresh_button();
 
   var done_func = function(login) {

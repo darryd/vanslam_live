@@ -75,8 +75,8 @@ Rails.application.routes.draw do
   get "competition/clone_slam"
   post "competition/clone_slam"
 
-  get "competition/annoucement"
-  post "competition/annoucement"
+  get "competition/announcement"
+  post "competition/announcement"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

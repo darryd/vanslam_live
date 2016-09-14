@@ -288,7 +288,7 @@ class CompetitionController < ApplicationController
     end
 
     #-----------------------------------------------------------------------------------------#
-    def annoucement
+    def announcement
 
       if not_allowed()
 	return
@@ -309,7 +309,7 @@ class CompetitionController < ApplicationController
       render json: {:result => true}
 
       event_hash = {};
-      event_hash[:event] = "annoucement"
+      event_hash[:event] = "announcement"
       event_hash[:round_number] = params[:round_number]
       event_hash[:web_sock_id] = '0'
 
