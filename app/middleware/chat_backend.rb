@@ -106,6 +106,67 @@ module MakeSlam
     p "hello"
   end
 
+
+  def self.summer_playoffs(title)
+
+    c = Competition.create(title: title,
+			   event_number: 0,
+			   num_judges: 5, 
+			   do_not_include_min_and_max_scores: true,
+			   organization_id: 1)
+
+    Round.create(competition_id: c.id, 
+		 round_number: 1, 
+		 title: "Sacrifice 1", 
+		 are_poets_from_previous: false, 
+		 time_limit: 60, 
+		 grace_period: 10, 
+		 num_poets: 1)
+
+    Round.create(competition_id: c.id, 
+		 round_number: 2, 
+		 title: "Sacrifice 2", 
+		 are_poets_from_previous: false, 
+		 time_limit: 60, 
+		 grace_period: 10, 
+		 num_poets: 1)
+
+    Round.create(competition_id: c.id, 
+		 round_number: 3, 
+		 title: "Round 1", 
+		 are_poets_from_previous: false, 
+		 time_limit: 60, 
+		 grace_period: 10, 
+		 num_places: 8, 
+		 num_poets: 10)
+
+    Round.create(competition_id: c.id, 
+		 round_number: 4, 
+		 title: "Round 2", 
+		 are_poets_from_previous: true, 
+		 time_limit: 120, 
+		 grace_period: 10, 
+		 num_places: 6,
+		 is_cumulative: true)
+
+    Round.create(competition_id: c.id, 
+		 round_number: 5, 
+		 title: "Round 3", 
+		 are_poets_from_previous: true, 
+		 time_limit: 180, 
+		 grace_period: 10, 
+		 num_places: 4,
+		 is_cumulative: true)
+
+    Round.create(competition_id: c.id, 
+		 round_number: 6, 
+		 title: "Round 4", 
+		 are_poets_from_previous: true, 
+		 time_limit: 240, 
+		 grace_period: 10, 
+		 is_cumulative: true)
+  end
+
   def self.new_summer_slam(title) 
 
     c = Competition.create(title: title, 
