@@ -114,7 +114,7 @@ function click_poet(button) {
   performance_2.calculate(); //Otherwise rank says 'Infinity'
 
   $("#performances_" + round.round_number).append(p_div);
-  resize_inputs(p_div.judge_inputs);
+  resize_inputs(p_div.data_columns);
 
   round.names_already_performing.push(performance_2.name);
   invisible_round.notify_rank();
