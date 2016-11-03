@@ -23,7 +23,7 @@
 <div class="announcement" data-index="0"> </div>
 
 <div id="rounds" style="zindex:1">
-  <% @slam.rounds.order(:round_number).where(is_extra: nil).each do |round| %>
+  <% @slam.rounds.order(:round_number).each do |round| %>
     <div id="round_<%=round.round_number%>">
       <h2> <%= round.title %> </h2>
       <p>

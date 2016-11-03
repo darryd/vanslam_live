@@ -424,16 +424,10 @@ module MakeSlam
     Round.create(competition_id: c.id, round_number: 5, title: "Round 2", are_poets_from_previous: true, time_limit: 120, num_places: 6, is_cumulative: true)
     Round.create(competition_id: c.id, round_number: 6, title: "Round 3", are_poets_from_previous: true, time_limit: 180, num_places: 4,is_cumulative: true)
     Round.create(competition_id: c.id, round_number: 7, title: "Round 4", are_poets_from_previous: true, time_limit: 240, is_cumulative: true)
-
-    # Extra Round in case of a tie at the end... 
-    # round_number = 0 will be the extra round
-    #  Round.create(competition_id: c.id, round_number: 7, title: "Extra Round", are_poets_from_previous: false, time_limit: 180, is_extra: true)
-
   end
 
 
   def self.mitch
-
 
     mitch1 = Poet.where(name: 'Mitcholos').take
     mitch2 = Poet.where(name: 'Mitcholos Touchie').take

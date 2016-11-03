@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715053341) do
+ActiveRecord::Schema.define(version: 20161103011958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,7 +96,6 @@ ActiveRecord::Schema.define(version: 20160715053341) do
     t.boolean  "are_poets_from_previous"
     t.integer  "time_limit"
     t.integer  "num_places"
-    t.boolean  "is_extra"
     t.integer  "grace_period"
     t.integer  "previous_round_number"
   end
