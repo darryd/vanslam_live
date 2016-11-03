@@ -68,47 +68,7 @@ function prepare_round(index) {
   rounds[i].contenders = contenders_new(rounds[i].round_number, prev_round);
 }
 /*-------------------------------------------------------------------------------------*/
-
-// Extract the extra round (if there is one, it will be at the end)
-// Only call this once!
-function extract_extra_round() {
-
-  var div = document.getElementById('extra_round_div');
-  //div.className = "vwli";
-
-  var last_round = rounds[rounds.length - 1];
-
-  window.is_there_an_extra_round = false;
-
-  if (last_round.is_extra) {
-
-
-    $(div).show(); //Not tested -- but this whole thing extra round thing will probably be rewritten/redesigned
-
-
-    if (!login_info.is_logged_in)
-      div.setAttribute('hidden', null);
-
-
-    window.is_there_an_extra_round = true;
-    window.extra_round = last_round;
-
-    rounds.pop();
-
-
-  }
-  else {
-
-    // Hide Extra Round button
-    div.setAttribute('hidden', null);
-  }
-}
-
-/*-------------------------------------------------------------------------------------*/
 function prepare_rounds() {
-
-
-  extract_extra_round();
 
   window.invisible_round = round_new(0); // we'll keep num_places growing for the invisible round
   window.invisible_round.debug_str = "invisible round"; //debugging
