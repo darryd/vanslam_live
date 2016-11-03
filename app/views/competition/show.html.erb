@@ -26,6 +26,7 @@
   <% @slam.rounds.order(:round_number).each do |round| %>
     <div id="round_<%=round.round_number%>">
       <h2> <%= round.title %> </h2>
+      <a class="vwli" href="#" hidden> Edit Round <%= round.round_number %></a>
       <p>
       Time limit: <%= (round.time_limit / 60).floor %>:<%= sprintf("%02d", round.time_limit % 60) %>,
       Grace period: <%= round.grace_period %>  seconds
