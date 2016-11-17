@@ -109,7 +109,7 @@ function init_refresh_button() {
 }
 
 function init_edit_round_a() {
-  $('.edit_round').click(onclick_edit_round);
+  $('.edit_round_a').click(onclick_edit_round);
 }
 
 function page_change_competition() {
