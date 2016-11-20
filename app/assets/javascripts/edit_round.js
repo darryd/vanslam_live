@@ -17,7 +17,21 @@ function onclick_edit_round() {
   hide_a.innerHTML = "Hide Round " + round_number + " Info";
 
   edit_round_div.appendChild(hide_a);
+
+  var info_div = make_info_div(round);
   
+  edit_round_div.appendChild(info_div);
+  $(hide_a).click(function() {
+    this.remove();
+    info_div.remove();
+    $(edit_round_a).show();
+  });
+
+  $(this).hide();
+
+}
+
+function make_info_div (round) {
 
   var info_div = document.createElement("p");
 
@@ -34,13 +48,6 @@ function onclick_edit_round() {
 
   info_div.innerHTML = info_str;
 
-  edit_round_div.appendChild(info_div);
-  $(hide_a).click(function() {
-    this.remove();
-    info_div.remove();
-    $(edit_round_a).show();
-  });
 
-  $(this).hide();
-
+  return info_div;
 }
