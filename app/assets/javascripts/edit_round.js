@@ -21,15 +21,15 @@ function onclick_edit_round() {
 
   var info_div = document.createElement("p");
 
-  info_str = "Title: " + round.title;
-  info_str = info_str + ", Number Of Poets: " + round.num_poets;
-  info_str = info_str + ", Number of Places: " + round.num_places;
-  info_str = info_str + ", Title: " + round.title;
-  info_str = info_str + ", Time limit: " + round.time_limit;
-  info_str = info_str + ", Grace period: " + round.grace_period;
-  info_str = info_str + ", Is Cumulative: " + round.is_cumulative;
+  info_str = "<strong>Title: </strong>" + round.title;
+  info_str = info_str + ",<strong> Number Of Poets: </strong> " + round.num_poets;
+  info_str = info_str + ",<strong> Number of Places:  </strong>" + round.num_places;
+  info_str = info_str + ",<strong> Title:  </strong>" + round.title;
+  info_str = info_str + ",<strong> Time limit:  </strong>" + round.time_limit;
+  info_str = info_str + ",<strong> Grace period:  </strong>" + round.grace_period;
+  info_str = info_str + ",<strong> Is Cumulative:  </strong>" + round.is_cumulative;
   if (round.is_cumulative) 
-    info_str = info_str + ", Previous round number: " + round.previous_round_number;
+    info_str = info_str + ",<strong> Previous round number:  </strong>" + round.previous_round_number;
 
 
   info_div.innerHTML = info_str;
