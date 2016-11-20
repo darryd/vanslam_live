@@ -14,19 +14,23 @@ function onclick_edit_round() {
 
 
   var hide_a = document.createElement("a");
-  hide_a.innerHTML = "Hide Round Info";
+  hide_a.innerHTML = "Hide Round " + round_number + " Info";
 
   edit_round_div.appendChild(hide_a);
   
 
   var info_div = document.createElement("p");
 
-  var info_str = "Number Of Poets: " + round.num_poets;
-  info_str = info_str + "Is Cumulative: " + round.is_cumulative;
-  info_str = info_str + " Title: " + round.title;
-  info_str = info_str + " Time limit: " + round.time_limit;
-  info_str = info_str + " Grace period: " + round.grace_period;
-  info_str = info_str + " Previous round number: " + round.previous_round_number;
+  info_str = "Title: " + round.title;
+  info_str = info_str + ", Number Of Poets: " + round.num_poets;
+  info_str = info_str + ", Number of Places: " + round.num_places;
+  info_str = info_str + ", Title: " + round.title;
+  info_str = info_str + ", Time limit: " + round.time_limit;
+  info_str = info_str + ", Grace period: " + round.grace_period;
+  info_str = info_str + ", Is Cumulative: " + round.is_cumulative;
+  if (round.is_cumulative) 
+    info_str = info_str + ", Previous round number: " + round.previous_round_number;
+
 
   info_div.innerHTML = info_str;
 

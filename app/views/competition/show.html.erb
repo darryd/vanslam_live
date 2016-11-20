@@ -27,7 +27,7 @@
     <div id="round_<%=round.round_number%>">
       <h2> <%= round.title %> </h2>
       <div id="edit_round_div_<%= round.round_number %>">
-	<a class="edit_round_a vwli" href="#" data-round_number="<%= round.round_number %>" hidden> Edit Round <%= round.round_number %></a>
+	<a class="edit_round_a vwli" data-round_number="<%= round.round_number %>" hidden> Show Round <%= round.round_number %> Info</a>
       </div>
       <p>
       Time limit: <%= (round.time_limit / 60).floor %>:<%= sprintf("%02d", round.time_limit % 60) %>,
