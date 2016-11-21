@@ -47,7 +47,7 @@ function get_add_round_div(ondone_func) {
   div.ondone_func = ondone_func;
 
 
-  row = document.createElement('row');
+  row = document.createElement('div');
   row.className = 'row';
   div.appendChild(row);
 
