@@ -74,6 +74,9 @@ module ChatDemo
 	    message = JSON.parse(event.data);
 	    # Only logged in users may send messages
 
+	    if message["type"] == "subscribe"
+	      p ['subscribe', message['competition_id']]
+	    end
 
 	    if message["type"] == "heads_up"
 	      if LoggedIn.where(key: message["key"]).count != 0
