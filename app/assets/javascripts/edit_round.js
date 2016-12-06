@@ -18,42 +18,18 @@ function onclick_edit_round() {
 
   edit_round_div.appendChild(hide_a);
 
-  //var info_div = make_info_div(round);
-
   var form_div = make_submit_round_info(round); // TODO Rename this
-  
-  //edit_round_div.appendChild(info_div);
   edit_round_div.appendChild(form_div);
 
 
   $(hide_a).click(function() {
     this.remove();
-    //info_div.remove();
     form_div.remove();
     $(edit_round_a).show();
   });
 
   $(this).hide();
 
-}
-
-function make_info_div(round) {
-
-  var info_div = document.createElement("p");
-
-  info_str = "<strong> Number Of Poets: </strong> " + round.num_poets;
-  info_str = info_str + ",<strong> Number of Places:  </strong>" + round.num_places;
-  info_str = info_str + ",<strong> Time limit:  </strong>" + round.time_limit;
-  info_str = info_str + ",<strong> Grace period:  </strong>" + round.grace_period;
-  info_str = info_str + ",<strong> Is Cumulative:  </strong>" + round.is_cumulative;
-  if (round.is_cumulative) 
-    info_str = info_str + ",<strong> Previous round number:  </strong>" + round.previous_round_number;
-
-
-  info_div.innerHTML = info_str;
-
-
-  return info_div;
 }
 
 // TODO Rename this.
