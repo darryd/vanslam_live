@@ -137,11 +137,6 @@ function page_change_competition() {
 	document.getElementById("poets_competing").setAttribute("hidden", null);
 	document.getElementById("poet_lookup").setAttribute("hidden", null);
 
-
-	var div = document.getElementById('extra_round_div');
-	div.setAttribute('hidden', null);
-
-
 	// Hide elements that should only be visible when logged in.
 	var elements = document.getElementsByClassName('vwli'); // TODO Perhaps this should be default behavior for logging out?
 	for (var i=0; i<elements.length; i++)
