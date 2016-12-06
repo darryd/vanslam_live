@@ -73,8 +73,12 @@ module ChatDemo
 	  begin
 	    message = JSON.parse(event.data);
 	    # Only logged in users may send messages
-	    if LoggedIn.where(key: message["key"]).count != 0
-	      $clients.each {|client| client.send(message.except('key').to_json) }
+
+
+	    if message["type"] == "heads_up"
+	      if LoggedIn.where(key: message["key"]).count != 0
+		$clients.each {|client| client.send(message.except('key').to_json) }
+	      end
 	    end
 	  rescue
 	  end
