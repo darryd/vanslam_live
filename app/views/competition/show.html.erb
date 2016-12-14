@@ -26,7 +26,7 @@
   <% @slam.rounds.order(:round_number).each do |round| %>
     <div id="round_<%=round.round_number%>">
       <h2> <%= round.title %> </h2>
-      <div id="edit_round_div_<%= round.round_number %>">
+      <div id="edit_round_div_<%= round.round_number %> class='vwli'">
 	<a class="edit_round_a vwli" data-round_number="<%= round.round_number %>" hidden> Show Round <%= round.round_number %> Info</a>
       </div>
       <p>
