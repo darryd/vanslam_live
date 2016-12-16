@@ -49,6 +49,26 @@ function make_submit_round_info(round) {
   add_label_input_to_row(row, "Is cumulative", round.is_cumulative);
   add_label_input_to_row(row, "Previous round number", round.previous_round_number);
 
+  var submit_button = document.createElement("button");
+  submit_button.innerHTML = "Submit";
+  row.appendChild(submit_button);
+
+  $(submit_button).click(function() {
+    alert("submit");
+  });
+
+
+  var cancel_button = document.createElement("button");
+  cancel_button.innerHTML = "Cancel";
+  row.appendChild(cancel_button);
+
+
+  cancel_button.string = "Fredom is another word for nothing left to lose";
+  $(cancel_button).click(function() {
+    alert(this.string);
+  });
+
+
   return row;
 }
 
