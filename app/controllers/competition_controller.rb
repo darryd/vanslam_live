@@ -16,12 +16,12 @@ class CompetitionController < ApplicationController
       @events = _get_event_range(@slam.id, 1, @slam.event_number)
 
       if params.has_key?(:json)
-	render json: {:settings => @settings, :slam => @slam, :events => @events, :rounds => @slam.rounds}
-	return
+        render json: {:settings => @settings, :slam => @slam, :events => @events, :rounds => @slam.rounds}
+        return
       end
 
       rescue
-	redirect_to '/'
+        redirect_to '/'
       end
     end
     #-----------------------------------------------------------------------------------------#
@@ -35,26 +35,26 @@ class CompetitionController < ApplicationController
     def new_round
 
       if not_allowed()
-	return
+     	return
       end
 
       if missing_params(params, ['competition_id', 'web_sock_id', 'time_limit', 'grace_period'])
-	return
+    	return
       end
 
 
       host = Host.where(host: request.host).take
 
       begin
-	competition = host.organization.competitions.find(params[:competition_id])
+	     competition = host.organization.competitions.find(params[:competition_id])
       rescue
-	render json: {:result => false, :message => "Could not find competition."}
-	return
+	      render json: {:result => false, :message => "Could not find competition."}
+	      return
       end
 
       # 'round_number'?
       Round.transaction do
-	round_number = 1 + competition.rounds.maximum(:round_number)
+    round_number = 1 + competition.rounds.maximum(:round_number)
 
 	r = Round.new
 	r.competition_id = params[:competition_id]
@@ -89,64 +89,64 @@ class CompetitionController < ApplicationController
     def new_performance
 
       if not_allowed()
-	return
+        return
       end
 
       if missing_params(params, ['round_id', 'name', 'web_sock_id'])
-	return
+        return
       end
 
       begin
-	round = Round.find(params[:round_id])
+        round = Round.find(params[:round_id])
       rescue
-	render json: {:result => false, :message => "Could not find round_id '" + params[:round_id] + "'"}
-	return
+        render json: {:result => false, :message => "Could not find round_id '" + params[:round_id] + "'"}
+        return
       end
 
       host = Host.where(host: request.host).take
       poet = host.organization.poets.where(name: params[:name]).first
 
       if poet == nil
-	render json: {:result => false, :message => "Could not find poet '" + params[:name] + "'"}
-	return
+        render json: {:result => false, :message => "Could not find poet '" + params[:name] + "'"}
+        return
       end
 
       performance = Performance.new(round_id: round.id, poet_id: poet.id)
 
       # Optional Parameter is passed if the performance is in a cumulative round
       if params.has_key?('previous_performance_id')
-	# Let's check that there is a Performance with such an id, if there isn't, this isn't a valid request. 
-	begin
-	  previous = Performance.find(params[:previous_performance_id])
-	  performance.previous_performance_id = previous.id
-	rescue
-	  render json: {:result => false, :message => "Could not find previous_performance"}
-	  return
-	end
+        # Let's check that there is a Performance with such an id, if there isn't, this isn't a valid request. 
+        begin
+          previous = Performance.find(params[:previous_performance_id])
+          performance.previous_performance_id = previous.id
+        rescue
+          render json: {:result => false, :message => "Could not find previous_performance"}
+          return
+        end
       end
 
       if performance.save
 
 
-	render json: {:result  => true, :message => "New performance: " + params[:name], :performance_id => performance.id}    
+      render json: {:result  => true, :message => "New performance: " + params[:name], :performance_id => performance.id}    
 
-	# Send event to web socket
+# Send event to web socket
 
-	event_hash = {};
-	event_hash[:event] = "new_performance"
-	event_hash[:performance_id] = performance.id
-	event_hash[:previous_performance_id] = performance.previous_performance_id
-	event_hash[:web_sock_id] = params[:web_sock_id]
-	event_hash[:poet_name] = poet.name
-	event_hash[:round_number] = round.round_number
+      event_hash = {};
+    event_hash[:event] = "new_performance"
+    event_hash[:performance_id] = performance.id
+    event_hash[:previous_performance_id] = performance.previous_performance_id
+    event_hash[:web_sock_id] = params[:web_sock_id]
+    event_hash[:poet_name] = poet.name
+    event_hash[:round_number] = round.round_number
 
 
-	competition = performance.round.competition
-	new_event(competition, event_hash)
-      else
-	# Error
-	render json: {result => false, :message => "Error saving to database"}
-	# TODO Some kind of log.
+    competition = performance.round.competition
+    new_event(competition, event_hash)
+    else
+# Error
+        render json: {result => false, :message => "Error saving to database"}
+# TODO Some kind of log.
 
       end
 
@@ -158,18 +158,18 @@ class CompetitionController < ApplicationController
     def judge
 
       if not_allowed()
-	return
+        return
       end
 
       if missing_params(params, ['performance_id', 'judge_name', 'value', 'web_sock_id'])
-	return
+        return
       end
 
       begin
-	performance = Performance.find(params[:performance_id])
+        performance = Performance.find(params[:performance_id])
       rescue
-	render json: {:result => false, :message => "Could not find performance."}
-	return
+        render json: {:result => false, :message => "Could not find performance."}
+        return
       end
 
       judge_name = params[:judge_name]
@@ -181,25 +181,25 @@ class CompetitionController < ApplicationController
       if judge.save
 
 
-	message = "Judge " + (judge_name.to_i + 1).to_s + " updated to: " + judge.value.to_s
-	render json: {:result => true, :message => message, :judge => judge}
+        message = "Judge " + (judge_name.to_i + 1).to_s + " updated to: " + judge.value.to_s
+        render json: {:result => true, :message => message, :judge => judge}
 
 	# Send event to web socket
 
-	event_hash = {}
-	event_hash[:event] = "judge"
-	event_hash[:performance_id] = performance.id
-	event_hash[:web_sock_id] = params[:web_sock_id]
-	event_hash[:judge_name] = judge_name
-	event_hash[:value] = judge.value
+        event_hash = {}
+        event_hash[:event] = "judge"
+        event_hash[:performance_id] = performance.id
+        event_hash[:web_sock_id] = params[:web_sock_id]
+        event_hash[:judge_name] = judge_name
+        event_hash[:value] = judge.value
 
-	competition = performance.round.competition
-	new_event(competition, event_hash)
+        competition = performance.round.competition
+        new_event(competition, event_hash)
 
       else
 
-	render json: {result => false, :message => "Error saving to database"}
-	# TODO Some kind of log.
+        render json: {result => false, :message => "Error saving to database"}
+        # TODO Some kind of log.
 
       end
     end
@@ -210,80 +210,80 @@ class CompetitionController < ApplicationController
       end
 
       if missing_params(params, ['performance_id', 'minutes', 'seconds', 'web_sock_id'])
-	return
+        return
       end
 
 
       begin
-	performance = Performance.find(params[:performance_id])
+        performance = Performance.find(params[:performance_id])
       rescue
-	render json: {:result => false, :message => "Could not find performance"}
-	return
+        render json: {:result => false, :message => "Could not find performance"}
+        return
       end
 
       performance.minutes = params[:minutes].to_i
       performance.seconds = params[:seconds].to_i
 
       if performance.save
-	message = "Time set: " + params[:minutes] + ":" + params[:seconds]
-	render json: {:result => true, :message=> message, :performance => performance}
+        message = "Time set: " + params[:minutes] + ":" + params[:seconds]
+        render json: {:result => true, :message=> message, :performance => performance}
 
 	# Send event to web socket
 
-	event_hash = {}
-	event_hash[:event] = "set_time"
-	event_hash[:performance_id] = performance.id
-	event_hash[:web_sock_id] = params[:web_sock_id]
-	event_hash[:minutes] = performance.minutes
-	event_hash[:seconds] = performance.seconds
+        event_hash = {}
+        event_hash[:event] = "set_time"
+        event_hash[:performance_id] = performance.id
+        event_hash[:web_sock_id] = params[:web_sock_id]
+        event_hash[:minutes] = performance.minutes
+        event_hash[:seconds] = performance.seconds
 
-	competition = performance.round.competition
-	new_event(competition, event_hash)
+        competition = performance.round.competition
+        new_event(competition, event_hash)
       else
 
-	render json: {result => false, :message => "Error saving to database"}
-	# TODO Some kind of log.
+        render json: {result => false, :message => "Error saving to database"}
+        # TODO Some kind of log.
       end
     end
 
     #-----------------------------------------------------------------------------------------#
     def set_penalty
       if not_allowed()
-	return
+        return
       end
 
       if missing_params(params, ['performance_id', 'penalty', 'web_sock_id'])
-	return
+        return
       end
 
       begin
-	performance = Performance.find(params[:performance_id])
+        performance = Performance.find(params[:performance_id])
       rescue
-	render json: {:result => false, :message => "Could not find performance"}
-	return
+        render json: {:result => false, :message => "Could not find performance"}
+        return
       end
 
       performance.penalty = params[:penalty].to_f
 
       if performance.save
-	message = "Penalty set to " + params[:penalty]
-	render json: {:result => true, :message => message, :performance => performance}
+        message = "Penalty set to " + params[:penalty]
+        render json: {:result => true, :message => message, :performance => performance}
 
 
 	# Send event to web socket
 
-	event_hash = {}
-	event_hash[:event] = "set_penalty"
-	event_hash[:performance_id] = performance.id
-	event_hash[:web_sock_id] = params[:web_sock_id]
-	event_hash[:penalty] = performance.penalty
+        event_hash = {}
+        event_hash[:event] = "set_penalty"
+        event_hash[:performance_id] = performance.id
+        event_hash[:web_sock_id] = params[:web_sock_id]
+        event_hash[:penalty] = performance.penalty
 
-	competition = performance.round.competition
-	new_event(competition, event_hash)
+        competition = performance.round.competition
+        new_event(competition, event_hash)
       else
 
-	render json: {result => false, :message => "Error saving to database"}
-	# TODO Some kind of log.
+        render json: {result => false, :message => "Error saving to database"}
+        # TODO Some kind of log.
       end
     end
 
@@ -291,19 +291,19 @@ class CompetitionController < ApplicationController
     def announcement
 
       if not_allowed()
-	return
+        return
       end
 
       if missing_params(params, ['competition_id', 'round_number', 'message'])
-	return
+        return
       end
 
       begin 
-	id = params[:competition_id].to_i
-	competition = Competition.find(id) #TODO Limit by Organization
+        id = params[:competition_id].to_i
+        competition = Competition.find(id) #TODO Limit by Organization
       rescue
-	render json: {:result => false, :message => "Error finding competition"}
-	return 
+        render json: {:result => false, :message => "Error finding competition"}
+        return 
       end
 
       render json: {:result => true}
@@ -323,20 +323,20 @@ class CompetitionController < ApplicationController
     def signup_poet
 
       if not_allowed()
-	return
+        return
       end
 
       if missing_params(params, ['competition_id', 'name', 'web_sock_id'])
-	return
+        return
       end
 
       host = Host.where(host: request.host).take
 
       begin
-	competition = host.organization.competitions.find(params[:competition_id])
+        competition = host.organization.competitions.find(params[:competition_id])
       rescue
-	render json: {:result => false, :message => "Could not find competition."}
-	return
+        render json: {:result => false, :message => "Could not find competition."}
+        return
       end
 
       host = Host.where(host: request.host).take
@@ -344,8 +344,8 @@ class CompetitionController < ApplicationController
 
 
       if poet == nil
-	render json: {:result => false, :message => "Could not find poet."}
-	return
+        render json: {:result => false, :message => "Could not find poet."}
+        return
       end
 
       render json: {:result => true}
@@ -364,19 +364,19 @@ class CompetitionController < ApplicationController
     def remove_performance
 
       if not_allowed()
-	return
+        return
       end
 
       if missing_params(params, ['performance_id', 'web_sock_id'])
-	return
+        return
       end
 
 
       begin
-	performance = Performance.find(params[:performance_id])
+        performance = Performance.find(params[:performance_id])
       rescue
-	render json: {:result => false, :message => "Could not find performance"}
-	return
+        render json: {:result => false, :message => "Could not find performance"}
+        return
       end
 
       competition = performance.round.competition
@@ -398,15 +398,15 @@ class CompetitionController < ApplicationController
     def get_current_event_number
 
       if missing_params(params, ['competition_id'])
-	return
+        return
       end
 
       host = Host.where(host: request.host).take
       begin
-	competition = host.organization.competitions.find(params[:competition_id])
+        competition = host.organization.competitions.find(params[:competition_id])
       rescue
-	render json: {:result => false, :message => "Could not find competition."}
-	return
+        render json: {:result => false, :message => "Could not find competition."}
+        return
       end
 
       render json: {:result => true, :event_number => competition.event_number}
@@ -415,22 +415,22 @@ class CompetitionController < ApplicationController
     def get_event
 
       if missing_params(params, ['competition_id', 'event_number'])
-	return
+        return
       end
 
       host = Host.where(host: request.host).take
       begin
-	competition = host.organization.competitions.find(params[:competition_id])
+        competition = host.organization.competitions.find(params[:competition_id])
       rescue
-	render json: {:result => false, :message => "Could not find competition."}
-	return
+        render json: {:result => false, :message => "Could not find competition."}
+        return
       end
 
       event = competition.events.where(event_number: params[:event_number]).take
 
       if event == nil
-	render json: {:result => false, :message => "Could not find event."}
-	return
+        render json: {:result => false, :message => "Could not find event."}
+        return
       end
 
       event = JSON.parse(event.event)
@@ -442,15 +442,15 @@ class CompetitionController < ApplicationController
     def get_event_range
 
       if missing_params(params, ['competition_id', 'event_number_i', 'event_number_j'])
-	return
+        return
       end
 
       host = Host.where(host: request.host).take
       begin
-	competition = host.organization.competitions.find(params[:competition_id])
+        competition = host.organization.competitions.find(params[:competition_id])
       rescue
-	render json: {:result => false, :message => "Could not find competition."}
-	return
+        render json: {:result => false, :message => "Could not find competition."}
+        return
       end
 
       events = competition.events.where("event_number >= ? and event_number <= ?", params[:event_number_i].to_i, params[:event_number_j].to_i).order(:event_number)
@@ -458,8 +458,8 @@ class CompetitionController < ApplicationController
       result_events = [] # Array to send back to the client
 
       events.each do |e|
-	result_e = JSON.parse(e.event)
-	result_events << result_e
+        result_e = JSON.parse(e.event)
+        result_events << result_e
       end
 
       render json: {:result => true, :events => result_events}
@@ -468,15 +468,15 @@ class CompetitionController < ApplicationController
 
     def what_did_i_miss
       if missing_params(params, ['competition_id', 'event_number'])
-	return
+        return
       end
 
       host = Host.where(host: request.host).take
       begin
-	competition = host.organization.competitions.find(params[:competition_id])
+        competition = host.organization.competitions.find(params[:competition_id])
       rescue
-	render json: {:result => false, :message => "Could not find competition."}
-	return
+        render json: {:result => false, :message => "Could not find competition."}
+        return
       end
 
       event_number_i = params[:event_number].to_i + 1
@@ -491,9 +491,9 @@ class CompetitionController < ApplicationController
 
       host = Host.where(host: request.host).take
       begin
-	competition = host.organization.competitions.find(competition_id)
+        competition = host.organization.competitions.find(competition_id)
       rescue
-	return []
+        return []
       end
 
       events = competition.events.where("event_number >= ? and event_number <= ?", event_number_i, event_number_j).order(:event_number)
@@ -501,18 +501,23 @@ class CompetitionController < ApplicationController
       result_events = [] # Array to send back to the client
 
       events.each do |e|
-	result_e = JSON.parse(e.event)
+        result_e = JSON.parse(e.event)
 
-	if result_e[:datetime] == nil
-	  result_e['datetime'] = e.updated_at
-	end
+        if result_e[:datetime] == nil
+          result_e['datetime'] = e.updated_at
+        end
 
-	result_events << result_e
+        result_events << result_e
       end
 
       result_events
     end
 
+    #-----------------------------------------------------------------------------------------#
+    def edit_round(round_id) 
+
+
+    end
     #-----------------------------------------------------------------------------------------#
     def new_event(competition, event_hash)
 
@@ -561,12 +566,12 @@ class CompetitionController < ApplicationController
 
 
       if not_allowed() 
-	return
+        return
       else
-	ChatDemo::ChatBackend.ask_browsers_to_reload
-	#render nothing: true, status: :ok, content_type: "text/html"
+        ChatDemo::ChatBackend.ask_browsers_to_reload
+        #render nothing: true, status: :ok, content_type: "text/html"
 	
-	render json: {:result => true}
+        render json: {:result => true}
       end
 
 
@@ -577,18 +582,18 @@ class CompetitionController < ApplicationController
     def clone_slam
 
       if not_allowed()
-	return
+        return
       end
 
       if missing_params(params, ['competition_id', 'title'])
-	return
+        return
       end
 
       begin
-	slam = Competition.find(params[:competition_id])
+        slam = Competition.find(params[:competition_id])
       rescue
-	render json: {:result => false, :message => "Could not find competition to clone."}
-	return
+        render json: {:result => false, :message => "Could not find competition to clone."}
+        return
       end
 
       new_slam = slam.dup
@@ -596,15 +601,15 @@ class CompetitionController < ApplicationController
       new_slam.event_number = 0
       new_slam.is_template = false
       if not new_slam.save
-	render json: {:result => false, :message => "Could not save competition to database."}
+        render json: {:result => false, :message => "Could not save competition to database."}
       end
 
       slam.rounds.each do |round|
-	new_round = round.dup
-	new_round.competition_id = new_slam.id
-	if not new_round.save
-	  render json: {:result => false, :message => "Could not save round to database."}
-	end
+        new_round = round.dup
+        new_round.competition_id = new_slam.id
+        if not new_round.save
+          render json: {:result => false, :message => "Could not save round to database."}
+        end
       end
 
       render json: {:result => true, :message => "Cloned slam", new_slam => new_slam}
