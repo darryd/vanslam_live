@@ -514,8 +514,32 @@ class CompetitionController < ApplicationController
     end
 
     #-----------------------------------------------------------------------------------------#
-    def edit_round(round_id) 
+    def edit_round() 
 
+        if not_allowed()
+            return
+        end
+        if missing_params(params, ['round_id', 'web_sock_id', 'title'])
+            return
+        end
+        
+        begin 
+            round_id = params[:round_id]
+            round = Round.find(round_id)
+        rescue
+            render json: {:result => false, :message => "Could not find round by id."}
+            return;
+        end
+
+        sanitizer = Rails::Html::FullSanitizer.new
+        round.title = sanitizer.sanitize(params[:title])
+
+        if not round.save
+            render json: {:result => false, :message => "Could not save changes to round."}
+            return;
+        end
+
+        render json: {:result => true}
 
     end
     #-----------------------------------------------------------------------------------------#
