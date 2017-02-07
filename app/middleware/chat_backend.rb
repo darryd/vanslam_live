@@ -31,7 +31,7 @@ module ChatDemo
 
     def self.hello(data)
       Thread.new {
-	$clients.each {|client| client.send(data.to_json) }
+        $clients.each {|client| client.send(data.to_json) }
       }
     end
 
@@ -60,27 +60,33 @@ module ChatDemo
 
     def call(env)
 
-      if Faye::WebSocket.websocket?(env)
-	ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
-	ws.on :open do |event|
-	  p [:open, ws.object_id]
-	  $clients << ws
-	  ChatDemo::ChatBackend.broadcast_number_of_clients()
-	end
+     if Faye::WebSocket.websocket?(env)
+        ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
+        ws.on :open do |event|
+        p [:open, ws.object_id]
+	    $clients << ws
+	    ChatDemo::ChatBackend.broadcast_number_of_clients()
+	  end
 
-	ws.on :message do |event|
+	  ws.on :message do |event|
 
 	  begin
 	    message = JSON.parse(event.data);
-	    # Only logged in users may send messages
 
+        if message["type"] == "total_connections"
+            data = {:type => "metrics", :total_connections => $clients.length}
+            ws.send(data.to_json);
+        end
+
+
+	    # Only logged in users may send messages
 	    if message["type"] == "subscribe"
 	      p ['subscribe', message['competition_id']]
 	    end
 
 	    if message["type"] == "heads_up"
 	      if LoggedIn.where(key: message["key"]).count != 0
-		$clients.each {|client| client.send(message.except('key').to_json) }
+            $clients.each {|client| client.send(message.except('key').to_json) }
 	      end
 	    end
 	  rescue
@@ -98,7 +104,7 @@ module ChatDemo
 	ws.rack_response
 
       else
-	@app.call(env)
+        @app.call(env)
       end
     end
   end

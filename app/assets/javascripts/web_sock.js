@@ -35,10 +35,14 @@ function connect_websocket() {
     window.web_sock.onopen = function() {
       console.log("websocket connected.");
 
+      window.web_sock.send(JSON.stringify({type: 'total_connections'}));
+
+      /*
       window.web_sock.send(JSON.stringify({
-	type: 'subscribe',
-	competition_id: window.slam.id
+        type: 'subscribe',
+        competition_id: window.slam.id
       }));
+      */
 
       what_did_i_miss_request();
     };
