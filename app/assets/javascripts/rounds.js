@@ -38,6 +38,7 @@ function create_round_div(round) {
   var round_div = document.createElement('div');
   round_div.id = "round_" + round.round_number;
   var h2 = document.createElement('h2');
+  h2.id = "round_title_" + round.round_number;
   h2.innerHTML = round.title;
   
   round_div.appendChild(h2);

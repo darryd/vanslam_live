@@ -519,7 +519,7 @@ class CompetitionController < ApplicationController
         if not_allowed()
             return
         end
-        if missing_params(params, ['round_id', 'web_sock_id', 'title'])
+        if missing_params(params, ['round_id', 'title'])
             return
         end
         
@@ -538,6 +538,13 @@ class CompetitionController < ApplicationController
             render json: {:result => false, :message => "Could not save changes to round."}
             return;
         end
+
+        event_hash = {};
+        event_hash[:event] = "edit_round"
+        event_hash[:round_id] = round.id
+        event_hash[:title] = round.title
+        
+        new_event(round.competition, event_hash)
 
         render json: {:result => true}
 

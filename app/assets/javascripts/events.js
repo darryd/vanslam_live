@@ -56,17 +56,17 @@ function process_event(event) {
     if (event.web_sock_id != undefined) {
 
       try {
-	var strings = event.web_sock_id.split(';');
-	if (strings.length > 1) {
-	  event.web_sock_id = strings[0];
-	  event.confirmation = strings[1];
+        var strings = event.web_sock_id.split(';');
+        if (strings.length > 1) {
+          event.web_sock_id = strings[0];
+          event.confirmation = strings[1];
 
-	  collection_of_lights.confirmation_received(event.confirmation);
-	}
+          collection_of_lights.confirmation_received(event.confirmation);
+        }
 
       }
       catch (e) {
-	console.log(e);
+        console.log(e);
       }
     }
 
@@ -147,6 +147,9 @@ function do_event(event) {
       break;
     case 'announcement':
       event_announcement(event);
+      break;
+    case 'edit_round':
+      event_edit_round(event);
       break;
   }
 
@@ -341,4 +344,22 @@ function event_new_round(event) {
 
   var round = event.round;
   create_round_div(round);
+}
+
+function event_edit_round(event) {
+
+    var round = null;
+
+    for (var i=0; i<rounds.length; i++) {
+        if (rounds[i].id == event.round_id) {
+            round = rounds[i];
+            break;
+        }
+    }
+
+    if (round == null)
+        return;
+
+   var e = document.getElementById("round_title_" + round.round_number);
+   e.innerHTML = event.title;
 }

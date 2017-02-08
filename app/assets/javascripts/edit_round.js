@@ -74,11 +74,13 @@ function make_edit_round_form(round, cancel_a) {
   submit_button.innerHTML = "Submit";
   row.appendChild(submit_button);
 
-  
+  submit_button.round = round;
   submit_button.input_title = input_title;
 
   $(submit_button).click(function() {
-          alert("submit: " + this.input_title.value);
+          edit_round_request(this.round.id, this.input_title.value);
+
+          $(this.cancel_button).click();
   });
 
 
@@ -94,6 +96,8 @@ function make_edit_round_form(round, cancel_a) {
       console.log(this.cancel_a);
       $(this.cancel_a).click();
   });
+
+  submit_button.cancel_button = cancel_button;
 
 
   return div;

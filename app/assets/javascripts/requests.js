@@ -269,3 +269,16 @@ function browsers_reload_request() {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function edit_round_request(round_id, title) {
+
+  var ticket = new_ticket();
+
+  ticket.url = "/competition/edit_round";
+
+  ticket.get_params = function(){return {round_id: round_id, title: title};};
+
+  ticket.done = function(response) {}; 
+  window.ajax_queue.push(ticket);
+}
+
+/*-----------------------------------------------------------------------*/
