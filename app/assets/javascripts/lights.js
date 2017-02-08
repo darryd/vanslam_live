@@ -1,4 +1,5 @@
 
+
 CONFIRMATION_SENT = "red";
 CONFIRMATION_RECEIVED = "green";
 window.LIGHT_WIDTH = 5;
