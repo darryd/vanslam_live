@@ -38,9 +38,6 @@ function make_edit_round_form(round, cancel_a) {
 
   var row;
 
-  row = document.createElement('div');
-  row.className = "row";
-  div.appendChild(row);
 
 /*
   add_label_input_to_row(row, "Title", round.title);
@@ -52,6 +49,12 @@ function make_edit_round_form(round, cancel_a) {
   add_label_input_to_row(row, "Previous round number", round.previous_round_number);
 */
 
+
+// -------------- Title ------------------
+
+  row = document.createElement('div');
+  row.className = "row";
+  div.appendChild(row);
 
   var column_title = document.createElement('div');
   column_title.className = 'small-2 columns';
@@ -65,6 +68,110 @@ function make_edit_round_form(round, cancel_a) {
   column_title.appendChild(label_title);
   label_title.appendChild(input_title);
 
+// -------------- Num Poets ------------------
+
+  row = document.createElement('div');
+  row.className = "row";
+  div.appendChild(row);
+
+  var column_num_poets = document.createElement('div');
+  column_num_poets.className = 'small-2 columns';
+  var label_num_poets = document.createElement('label');
+  label_num_poets.innerHTML = 'Number of Poets';
+
+  var input_num_poets = document.createElement('input');
+  input_num_poets.value = round.num_poets;
+
+  row.appendChild(column_num_poets);
+  column_num_poets.appendChild(label_num_poets);
+  label_num_poets.appendChild(input_num_poets);
+
+// -------------- Num Places ------------------
+
+  row = document.createElement('div');
+  row.className = "row";
+  div.appendChild(row);
+
+  var column_num_places = document.createElement('div');
+  column_num_places.className = 'small-2 columns';
+  var label_num_places = document.createElement('label');
+  label_num_places.innerHTML = 'Number of Places';
+
+  var input_num_places = document.createElement('input');
+  input_num_places.value = round.num_places;
+
+  row.appendChild(column_num_places);
+  column_num_places.appendChild(label_num_places);
+  label_num_places.appendChild(input_num_places);
+// -------------- Time Limit ------------------
+
+  row = document.createElement('div');
+  row.className = "row";
+  div.appendChild(row);
+
+  var column_time_limit = document.createElement('div');
+  column_time_limit.className = 'small-2 columns';
+  var label_time_limit = document.createElement('label');
+  label_time_limit.innerHTML = 'Time Limit';
+
+  var input_time_limit = document.createElement('input');
+  input_time_limit.value = round.time_limit;
+
+  row.appendChild(column_time_limit);
+  column_time_limit.appendChild(label_time_limit);
+  label_time_limit.appendChild(input_time_limit);
+// -------------- Grace Period ------------------
+
+  row = document.createElement('div');
+  row.className = "row";
+  div.appendChild(row);
+
+  var column_grace_period = document.createElement('div');
+  column_grace_period.className = 'small-2 columns';
+  var label_grace_period = document.createElement('label');
+  label_grace_period.innerHTML = 'Grace Period';
+
+  var input_grace_period = document.createElement('input');
+  input_grace_period.value = round.grace_period;
+
+  row.appendChild(column_grace_period);
+  column_grace_period.appendChild(label_grace_period);
+  label_grace_period.appendChild(input_grace_period);
+// -------------- Is Cumulative -----------
+
+  row = document.createElement('div');
+  row.className = "row";
+  div.appendChild(row);
+
+  var column_is_cumulative = document.createElement('div');
+  column_is_cumulative.className = 'small-2 columns';
+  var label_is_cumulative = document.createElement('label');
+  label_is_cumulative.innerHTML = 'Is Cumulative';
+
+  var input_is_cumulative = document.createElement('input');
+  input_is_cumulative.value = round.is_cumulative;
+
+  row.appendChild(column_is_cumulative);
+  column_is_cumulative.appendChild(label_is_cumulative);
+  label_is_cumulative.appendChild(input_is_cumulative);
+// -------------- Previous Round Number -----------
+
+  row = document.createElement('div');
+  row.className = "row";
+  div.appendChild(row);
+
+  var column_previous_round_number = document.createElement('div');
+  column_previous_round_number.className = 'small-2 columns';
+  var label_previous_round_number = document.createElement('label');
+  label_previous_round_number.innerHTML = 'Previous Round Number';
+
+  var input_previous_round_number = document.createElement('input');
+  input_previous_round_number.value = round.previous_round_number;
+
+  row.appendChild(column_previous_round_number);
+  column_previous_round_number.appendChild(label_previous_round_number);
+  label_previous_round_number.appendChild(input_previous_round_number);
+// -------------- Submit and Cancel -----------
 
   row = document.createElement('div');
   row.className = "row";
@@ -76,9 +183,23 @@ function make_edit_round_form(round, cancel_a) {
 
   submit_button.round = round;
   submit_button.input_title = input_title;
-
+  submit_button.input_num_poets = input_num_poets;
+  submit_button.input_num_places = input_num_places;
+  submit_button.input_time_limit = input_time_limit;
+  submit_button.input_grace_period = input_grace_period;
+  submit_button.input_is_cumulative = input_is_cumulative;
+  submit_button.input_previous_round_number = input_previous_round_number;
+ 
   $(submit_button).click(function() {
-          edit_round_request(this.round.id, this.input_title.value);
+          edit_round_request(this.round.id, 
+                             this.input_title.value,
+                             this.input_num_poets.value,
+                             this.input_num_places.value,
+                             this.input_time_limit.value,
+                             this.input_grace_period.value,
+                             this.input_is_cumulative.value,
+                             this.input_previous_round_number.value
+                             );
 
           $(this.cancel_button).click();
   });
@@ -102,19 +223,3 @@ function make_edit_round_form(round, cancel_a) {
 
   return div;
 }
-
-/*
-function add_label_input_to_row (row, label_text, input_value) {
-
-    var column = document.createElement('div');
-    column.className = "small-2 columns";
-    row.appendChild(column);
-
-    var label = document.createElement('label');
-    label.innerHTML = label_text;
-    column.appendChild(label);
-
-    var input = document.createElement('input');
-    label.appendChild(input);
-    input.value = input_value;
-}*/

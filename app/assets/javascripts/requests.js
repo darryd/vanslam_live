@@ -269,13 +269,24 @@ function browsers_reload_request() {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
-function edit_round_request(round_id, title) {
+function edit_round_request(round_id, title, num_poets, num_places, time_limit, grace_period, is_cumulative, previous_round_number) {
 
   var ticket = new_ticket();
 
   ticket.url = "/competition/edit_round";
 
-  ticket.get_params = function(){return {round_id: round_id, title: title};};
+  ticket.get_params = function(){
+      return {
+          round_id: round_id, 
+          title: title,
+          num_poets: num_poets,
+          num_places: num_places,
+          time_limit: time_limit,
+          grace_period: grace_period,
+          is_cumulative: is_cumulative,
+          previous_round_number: previous_round_number
+          };
+      };
 
   ticket.done = function(response) {}; 
   window.ajax_queue.push(ticket);
