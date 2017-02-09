@@ -60,9 +60,11 @@ function prepare_round(index) {
       rounds[i].previous_round_number = i;
 
 
-    var prev_i = rounds[i].previous_round_number - 1;
-
-    prev_round = rounds[prev_i].round_js;
+    try {
+        var prev_i = rounds[i].previous_round_number - 1;
+        prev_round = rounds[prev_i].round_js;
+    }
+    catch (e) {}
   }
 
   rounds[i].contenders = contenders_new(rounds[i].round_number, prev_round);
