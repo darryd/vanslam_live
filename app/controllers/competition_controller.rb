@@ -7,9 +7,7 @@ class CompetitionController < ApplicationController
 
   def show
     begin
-
       host = Host.where(host: request.host).take
-
 
       @settings = Setting.take
       @slam = host.organization.competitions.find(params[:id])
@@ -519,7 +517,14 @@ class CompetitionController < ApplicationController
         if not_allowed()
             return
         end
-        if missing_params(params, ['round_id', 'title'])
+        if missing_params(params, ['round_id', 
+                                    'title',
+                                    'num_poets',
+                                    'num_places',
+                                    'time_limit',
+                                    'grace_period',
+                                    'is_cumulative',
+                                    'previous_round_number'])
             return
         end
         
@@ -533,6 +538,12 @@ class CompetitionController < ApplicationController
 
         sanitizer = Rails::Html::FullSanitizer.new
         round.title = sanitizer.sanitize(params[:title])
+        round.num_poets = params[:num_poets].to_i
+        round.num_places = params[:num_places].to_i
+        round.time_limit = params[:time_limit].to_i
+        round.grace_period = params[:grace_period].to_i
+        round.is_cumulative = params[:is_cumulative].to_s == "true"
+        round.previous_round_number = params[:previous_round_number].to_i
 
         if not round.save
             render json: {:result => false, :message => "Could not save changes to round."}
@@ -543,6 +554,12 @@ class CompetitionController < ApplicationController
         event_hash[:event] = "edit_round"
         event_hash[:round_id] = round.id
         event_hash[:title] = round.title
+        event_hash[:num_poets] = round.num_poets
+        event_hash[:num_places] = round.num_places
+        event_hash[:time_limit] = round.time_limit
+        event_hash[:grace_period] = round.grace_period
+        event_hash[:is_cumulative] = round.is_cumulative
+        event_hash[:previous_round_number] = round.previous_round_number
         
         new_event(round.competition, event_hash)
 
