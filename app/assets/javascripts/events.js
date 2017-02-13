@@ -348,6 +348,15 @@ function event_new_round(event) {
 
 function event_edit_round(event) {
 
+    function update_round(round, event) {
+
+        var keys = _.keys(event);
+
+        for (var i=0; i<keys.length; i++) {
+            round[keys[i]] = event[keys[i]];
+        }
+    }
+
     var round = null;
 
     for (var i=0; i<rounds.length; i++) {
@@ -359,7 +368,24 @@ function event_edit_round(event) {
 
     if (round == null)
         return;
+    
+    update_round(round, event);
 
    var e = document.getElementById("round_title_" + round.round_number);
    e.innerHTML = event.title;
+
+   // Number of Poets
+
+   // Number of Places
+
+   // Time limit
+
+   // Grace period
+
+   // Is cumulative
+
+   // Are poets from previous
+
+   // Previous Round Number
+
 }
