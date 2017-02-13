@@ -163,7 +163,7 @@ function make_edit_round_form(round, cancel_a) {
   var column_are_poets_from_previous = document.createElement('div');
   column_are_poets_from_previous.className = 'small-2 columns';
   var label_are_poets_from_previous = document.createElement('label');
-  label_are_poets_from_previous.innerHTML = 'Previous Round Number';
+  label_are_poets_from_previous.innerHTML = 'Are Poets From Previous';
 
   var input_are_poets_from_previous = document.createElement('input');
   input_are_poets_from_previous.value = round.are_poets_from_previous;
