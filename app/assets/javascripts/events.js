@@ -356,6 +356,20 @@ function event_edit_round(event) {
             round[keys[i]] = event[keys[i]];
         }
     }
+    function update_time_limit_and_grace_period_for_performances(round) {
+
+        var performances = round.round_js.performances;
+
+        for (var i=0; i<performances.length; i++) {
+
+            var performance = performances[i];
+
+            performance.time_limit = round.time_limit;
+            performance.grace_period = round.grace_period;
+
+            performance.calculate();
+        }
+    }
 
     var round = null;
 
@@ -373,14 +387,15 @@ function event_edit_round(event) {
 
    var e = document.getElementById("round_title_" + round.round_number);
    e.innerHTML = event.title;
+   update_time_limit_and_grace_period_for_performances(round);
 
    // Number of Poets
 
    // Number of Places
 
-   // Time limit
-
-   // Grace period
+   // Time limit & Grace period
+   e = document.getElementById("round_info_" + round.round_number);
+   e.innerHTML = generate_round_info_innerHTML(round);
 
    // Is cumulative
 

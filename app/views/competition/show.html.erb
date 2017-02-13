@@ -29,7 +29,7 @@
       <div id="edit_round_div_<%= round.round_number %>" class="vwli">
 	<a class="edit_round_a vwli" data-round_number="<%= round.round_number %>" hidden> Edit Round <%= round.round_number %> </a>
       </div>
-      <p>
+      <p id="round_info_<%=round.round_number%>">
       Time limit: <%= (round.time_limit / 60).floor %>:<%= sprintf("%02d", round.time_limit % 60) %>,
       Grace period: <%= round.grace_period %>  seconds
       </p>

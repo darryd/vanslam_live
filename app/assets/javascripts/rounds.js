@@ -22,6 +22,8 @@ function create_round_div(round) {
   rounds.push(round);
   prepare_round(i);
 
+// TODO <p> for time and grace has an id now
+
 /*
 <div id="round_11">
     <h2> Extra Round </h2>
@@ -45,7 +47,7 @@ function create_round_div(round) {
   rounds_div.appendChild(round_div);
 
   var div = document.createElement('p');
-  div.innerHTML = "Time limit: " + seconds_to_time(round.time_limit) + " Grace period: " + round.grace_period;
+  div.innerHTML = "Time limit: " + seconds_to_time(round.time_limit) + " Grace period: " + round.grace_period + " seconds";
   round_div.appendChild(div);
 
   div = document.createElement('div');
@@ -60,4 +62,6 @@ function create_round_div(round) {
   invisible_round.notify_rank(); // So that the poets will appear as buttons to select
 }
 
-
+function generate_round_info_innerHTML(round) {
+    return "Time limit: " + seconds_to_time(round.time_limit) + " Grace period: " + round.grace_period + " seconds";
+}
