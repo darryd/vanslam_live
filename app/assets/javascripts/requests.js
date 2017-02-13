@@ -269,7 +269,7 @@ function browsers_reload_request() {
   window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
-function edit_round_request(round_id, title, num_poets, num_places, time_limit, grace_period, is_cumulative, previous_round_number) {
+function edit_round_request(round_id, title, num_poets, num_places, time_limit, grace_period, is_cumulative, are_poets_from_previous, previous_round_number) {
 
   var ticket = new_ticket();
 
@@ -284,6 +284,7 @@ function edit_round_request(round_id, title, num_poets, num_places, time_limit, 
           time_limit: time_limit,
           grace_period: grace_period,
           is_cumulative: is_cumulative,
+          are_poets_from_previous: are_poets_from_previous,
           previous_round_number: previous_round_number
           };
       };

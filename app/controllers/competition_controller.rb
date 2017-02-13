@@ -524,6 +524,7 @@ class CompetitionController < ApplicationController
                                     'time_limit',
                                     'grace_period',
                                     'is_cumulative',
+                                    'are_poets_from_previous',
                                     'previous_round_number'])
             return
         end
@@ -543,6 +544,7 @@ class CompetitionController < ApplicationController
         round.time_limit = params[:time_limit].to_i
         round.grace_period = params[:grace_period].to_i
         round.is_cumulative = params[:is_cumulative].to_s == "true"
+        round.are_poets_from_previous = params[:are_poets_from_previous].to_s == "true"
         round.previous_round_number = params[:previous_round_number].to_i
 
         if not round.save

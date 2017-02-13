@@ -154,6 +154,24 @@ function make_edit_round_form(round, cancel_a) {
   row.appendChild(column_is_cumulative);
   column_is_cumulative.appendChild(label_is_cumulative);
   label_is_cumulative.appendChild(input_is_cumulative);
+// -------------- Are Poets From Previous -----------
+
+  row = document.createElement('div');
+  row.className = "row";
+  div.appendChild(row);
+
+  var column_are_poets_from_previous = document.createElement('div');
+  column_are_poets_from_previous.className = 'small-2 columns';
+  var label_are_poets_from_previous = document.createElement('label');
+  label_are_poets_from_previous.innerHTML = 'Previous Round Number';
+
+  var input_are_poets_from_previous = document.createElement('input');
+  input_are_poets_from_previous.value = round.are_poets_from_previous;
+
+  row.appendChild(column_are_poets_from_previous);
+  column_are_poets_from_previous.appendChild(label_are_poets_from_previous);
+  label_are_poets_from_previous.appendChild(input_are_poets_from_previous);
+
 // -------------- Previous Round Number -----------
 
   row = document.createElement('div');
@@ -188,6 +206,7 @@ function make_edit_round_form(round, cancel_a) {
   submit_button.input_time_limit = input_time_limit;
   submit_button.input_grace_period = input_grace_period;
   submit_button.input_is_cumulative = input_is_cumulative;
+  submit_button.input_are_poets_from_previous = input_are_poets_from_previous;
   submit_button.input_previous_round_number = input_previous_round_number;
  
   $(submit_button).click(function() {
@@ -198,6 +217,7 @@ function make_edit_round_form(round, cancel_a) {
                              this.input_time_limit.value,
                              this.input_grace_period.value,
                              this.input_is_cumulative.value,
+                             this.input_are_poets_from_previous.value,
                              this.input_previous_round_number.value
                              );
 
