@@ -28,3 +28,16 @@ input[type=number]::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance:textfield;
 }
+
+body {
+    background-color:#0D0908;
+    color:#9CB99D;
+}
+
+h1 {
+    color:#F2ECD2;
+}
+
+h2 {
+    color:#9CB99D;
+}

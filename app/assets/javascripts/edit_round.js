@@ -35,20 +35,9 @@ function onclick_edit_round() {
 function make_edit_round_form(round, cancel_a) {
   
   var div = document.createElement('div');
+  div.style.border = 'solid';
 
   var row;
-
-
-/*
-  add_label_input_to_row(row, "Title", round.title);
-  add_label_input_to_row(row, "Number of poets", round.num_poets);
-  add_label_input_to_row(row, "Number of places", round.num_places);
-  add_label_input_to_row(row, "Time limit", round.time_limit);
-  add_label_input_to_row(row, "Grace period", round.grace_period);
-  add_label_input_to_row(row, "Is cumulative", round.is_cumulative);
-  add_label_input_to_row(row, "Previous round number", round.previous_round_number);
-*/
-
 
 // -------------- Title ------------------
 

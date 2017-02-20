@@ -19,7 +19,7 @@ function p_div_new(performance) {
   row.className = 'row';
   var column = document.createElement('div');
   column.className = 'small-11 columns';
-  column.innerHTML = "<h3> <span style='color:purple'>" + name + "</span> </h3>";
+  column.innerHTML = "<h3> <span style='color:#5E5C42'>" + name + "</span> </h3>";
   row.appendChild(column);
 
   var light = new_light(column);
@@ -48,7 +48,7 @@ function p_div_new(performance) {
   p_div_build_data_row(div);
   p_div_build_footers(div);
 
-  div.style.backgroundColor = '#F4F4F4';
+  div.style.backgroundColor = 'black';
   div.style.borderStyle = 'solid';
   div.style.borderWidth = '1px';
 
@@ -69,7 +69,7 @@ function p_div_new(performance) {
 
   column = document.createElement("div");
   column.className = "small-2 medium-1 columns";
-  column.style.color = "blue";
+  column.style.color = "#5E5C42";
   column.innerHTML = "<p> Score: </p>";
   row.appendChild(column);
 
@@ -83,7 +83,7 @@ function p_div_new(performance) {
 
     column = document.createElement("div");
     column.className = "small-2 medium-1 columns";
-    column.style.color = "blue";
+    column.style.color = "#5E5C42";
     column.innerHTML = "<p> Total: </p>";
     row.appendChild(column);
 
@@ -96,7 +96,7 @@ function p_div_new(performance) {
 
   column = document.createElement("div");
   column.className = "small-2 medium-1 columns";
-  column.style.color = "blue";
+  column.style.color = "#5E5C42";
   column.innerHTML = "<p> Rank: </p>";
   row.appendChild(column);
 
@@ -158,7 +158,7 @@ function p_div_build_titles_row(div) {
     var column = document.createElement("div");
     column.className = "small-" + div.columns[div.titles[i]] + " columns";
 
-    column.innerHTML = "<span style='color:blue;'>" + div.titles[i] + "</span>";
+    column.innerHTML = "<span style='color:#5E5C42;'>" + div.titles[i] + "</span>";
 
     row.appendChild(column);
 
@@ -180,19 +180,19 @@ function p_div_build_sub_titles(div) {
     column = document.createElement("div");
 
     column.className = "small-1 columns";
-    column.innerHTML = "<span style='color:purple'>" + (i + 1) + "</span>";
+    column.innerHTML = "<span style='color:#5E5C42'>" + (i + 1) + "</span>";
 
     row.appendChild(column);
   }
   // Add Time
   column = document.createElement("div");
   column.className = "small-1 columns";
-  column.innerHTML = "<span style='color:brown'>m</span>";
+  column.innerHTML = "<span style='color:#5E5C42'>m</span>";
   row.appendChild(column);
 
   column = document.createElement("div");
   column.className = "small-1 columns end";
-  column.innerHTML = "<span style='color:brown'>s</span>";
+  column.innerHTML = "<span style='color:#5E5C42'>s</span>";
   row.appendChild(column);
 
   div.appendChild(row);
@@ -250,10 +250,10 @@ function p_div_score_updated(div, performance) {
   if (slam.do_not_include_min_and_max_scores) {
     for (var i=0; i<slam.num_judges; i++) {
       div.footers[i].innerHTML = "<p></p>";
-      div.data_columns[i].style.color = "black";
+      div.data_columns[i].style.color = "#F2ECD2";
     }
 
-    var min_max_color = "darkviolet";
+    var min_max_color = "#F2ECD2";
 
     var low_str = "<p class='visible-for-small-only'>L</p><p class='visible-for-medium-up'>LOW</p>";
     var high_str = "<p class='visible-for-small-only'>H</p><p class='visible-for-medium-up'>HIGH</p>";
@@ -272,9 +272,9 @@ function p_div_score_updated(div, performance) {
   var time_penalty = performance.calculate_time_penalty() * -1;
   if (time_penalty != 0){
     div.footers[slam.num_judges].innerHTML = "P:";
-    div.footers[slam.num_judges].style.color = "green";
+    div.footers[slam.num_judges].style.color = "#5E5C42";
     div.footers[slam.num_judges + 1].innerHTML = time_penalty;
-    div.footers[slam.num_judges + 1].style.color = "green";
+    div.footers[slam.num_judges + 1].style.color = "#5E5C42";
   } 
   else {
     div.footers[slam.num_judges].innerHTML = "<p></p>";
@@ -286,9 +286,9 @@ function p_div_rank_updated (div, performance) {
 
   div.rank_column.innerHTML = performance.rank;
 
-  div.tied_with.innerHTML = performance.is_tied ? "<p> <span style='color:blue'> Tied With: </span> " + performance.names_tied_with.join() + "</p>" : "";
+  div.tied_with.innerHTML = performance.is_tied ? "<p> <span style='color:#5E5C42'> Tied With: </span> " + performance.names_tied_with.join() + "</p>" : "";
 
-  div.is_going_on.innerHTML = performance.rank <= performance.round.num_places ? "<span style='color:purple'>Moving on!</span>" : "";
+  div.is_going_on.innerHTML = performance.rank <= performance.round.num_places ? "<span style='color:#5E5C42'>Moving on!</span>" : "";
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_get_time(div) {
@@ -509,6 +509,8 @@ function p_div_build_data_row(div) {
     input.inputs = div.judge_inputs;
     input.className = "scorekeeper_input"; 
     input.style.padding = "0px";
+    input.style.backgroundColor = "black";
+    input.style.color = "#F2ECD2";
 
     if (i <= slam.num_judges)
       div.judge_inputs.push(input);

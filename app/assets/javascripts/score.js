@@ -171,6 +171,8 @@ performance_new = function (name, prev, time_limit, grace_period, num_judges) {
   /*--------------------------------------------------------------------------------------------------------------------------------*/
   performance.calculate_time_penalty = function() {
 
+// TODO It turns out that Van Slam does this a little diffently when it comes to grace period. fix this.
+
     var over_time;
     var penalty;
 

@@ -385,11 +385,13 @@ function event_edit_round(event) {
     
     update_round(round, event);
 
+    //Title
    var e = document.getElementById("round_title_" + round.round_number);
    e.innerHTML = event.title;
    update_time_limit_and_grace_period_for_performances(round);
 
    // Number of Poets
+   round.contenders.get_winners(round.contenders, round);
 
    // Number of Places
 
