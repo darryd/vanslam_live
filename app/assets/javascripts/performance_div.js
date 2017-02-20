@@ -253,7 +253,7 @@ function p_div_score_updated(div, performance) {
       div.data_columns[i].style.color = "#F2ECD2";
     }
 
-    var min_max_color = "#F2ECD2";
+    var min_max_color = "#A18A59";
 
     var low_str = "<p class='visible-for-small-only'>L</p><p class='visible-for-medium-up'>LOW</p>";
     var high_str = "<p class='visible-for-small-only'>H</p><p class='visible-for-medium-up'>HIGH</p>";
