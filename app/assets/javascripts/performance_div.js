@@ -509,7 +509,8 @@ function p_div_build_data_row(div) {
     input.inputs = div.judge_inputs;
     input.className = "scorekeeper_input"; 
     input.style.padding = "0px";
-    input.style.backgroundColor = "black";
+    input.style.backgroundColor = "#0D0908";
+    input.style.borderColor = "#9CB99D";
     input.style.color = "#F2ECD2";
 
     if (i <= slam.num_judges)
