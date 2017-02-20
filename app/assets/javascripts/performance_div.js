@@ -158,7 +158,7 @@ function p_div_build_titles_row(div) {
     var column = document.createElement("div");
     column.className = "small-" + div.columns[div.titles[i]] + " columns";
 
-    column.innerHTML = "<span style='color:#5E5C42;'>" + div.titles[i] + "</span>";
+    column.innerHTML = "<span style='color:#A18A59;'>" + div.titles[i] + "</span>";
 
     row.appendChild(column);
 
