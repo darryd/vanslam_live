@@ -173,11 +173,14 @@ function page_change_competition() {
 
   for (var i = 0; i < events.length; i++) {
 
+
+
     var json_string = JSON.stringify(events[i]);
     json_string = json_string.replace("&#39;", "'");
     events[i] = JSON.parse(json_string); 
 
-    do_event(events[i]);
+    var slow_it_down = 1000;
+    setTimeout(do_event, i * slow_it_down, events[i]);
   }
 
   what_did_i_miss_request();
