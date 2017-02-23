@@ -29,7 +29,7 @@ auto_scroll = new function() {
       window_height = $(window).height();
       $('html,body').animate({
         scrollTop: div_offset-window_height+div_height
-      },'slow');
+      },/*'slow'*/ 1000);
     }
     
 
