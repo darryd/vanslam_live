@@ -1,6 +1,3 @@
-
-
-
 auto_scroll = new function() {
 
     function get_furthest_div() {
@@ -33,11 +30,29 @@ auto_scroll = new function() {
     }
     
 
-    this.scroll_to_furthest_div = function() {
+    function scroll_to_furthest_div() {
 
         var furthest_div = get_furthest_div();
 
         scrollToBottom(furthest_div);
+    }
+
+    this.is_on = false;
+
+    this.turn_on = function() {
+        this.is_on = true;
+        scroll_to_furthest_div();
+    }
+
+    this.turn_off = function() {
+        this.is_on = false;
+    }
+
+    this.scroll_if_on = function() {
+        if (this.is_on) {
+            scroll_to_furthest_div();
+
+        }
     }
 };
 
