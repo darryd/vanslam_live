@@ -1,7 +1,7 @@
 
 // When user scrolls, turn off auto scrolling
 $(window).scroll(function() {
-    if (!auto_scroll.is_scrolling) {
+    if (auto_scroll.is_scrolling++ > 0) {
         auto_scroll.turn_off();
     }
 });
@@ -30,14 +30,14 @@ var auto_scroll = new function() {
     // modified http://stackoverflow.com/a/13559171
     function scrollToBottom(div){
 
-      auto_scroll.is_scrolling = true;
+      auto_scroll.is_scrolling = -Infinity;
 
       div_height = $(div).height();
       div_offset = $(div).offset().top;
       window_height = $(window).height();
       $('html,body').animate({
         scrollTop: div_offset-window_height+div_height
-      },'slow').promise().done(function() { auto_scroll.is_scrolling = false; }); 
+      },'slow').promise().done(function() { auto_scroll.is_scrolling = -1; }); 
     }
     
 
@@ -48,7 +48,7 @@ var auto_scroll = new function() {
         scrollToBottom(furthest_div);
     }
 
-    this.is_scrolling = false;
+    this.is_scrolling = 0;
     this.is_on = false;
 
     this.turn_on = function() {
