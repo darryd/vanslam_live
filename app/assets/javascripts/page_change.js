@@ -2,6 +2,7 @@
 /*-------------------------------------------------------------------------------------*/
 $(document).on('page:change', function () {
 
+  auto_scroll.turn_off();
   hover_all_lights();
 
   // Prepare Queue
