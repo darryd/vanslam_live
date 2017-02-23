@@ -1,5 +1,28 @@
 <div class="page_change" data-run="competition" hidden></div>
 
+<div class="fixed">
+    <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="/">Live Poetry Slam</a></h1>
+            </li>
+        </ul>   
+        <ul class="right">
+            <li>
+              <div class="switch">
+                 <input class="switch-input" id="autoScrollSwitch" type="checkbox" name="exampleSwitch">
+                 <label class="switch-paddle" for="autoScrollSwitch" onclick="onclick_auto_scroll_switch()"> </label>
+              </div>
+            </li>
+        </ul>
+        <ul class="right">
+            <li class="name">
+                <p> Auto Scroll </p>
+            </li>
+        </ul>
+    </nav>
+</div>
+
 <script>
   var settings = JSON.parse('<%= @settings.to_json.html_safe%>');
   var slam = JSON.parse('<%= @slam.to_json.gsub("'", "&#39;").html_safe%>');
