@@ -1,4 +1,12 @@
-auto_scroll = new function() {
+
+// When user scrolls, turn off auto scrolling
+$(window).scroll(function() {
+    if (!auto_scroll.is_scrolling) {
+        auto_scroll.turn_off();
+    }
+});
+
+var auto_scroll = new function() {
 
     function get_furthest_div() {
         
@@ -19,14 +27,17 @@ auto_scroll = new function() {
         return candidates.choose();
     }
 
-    // http://stackoverflow.com/a/13559171
+    // modified http://stackoverflow.com/a/13559171
     function scrollToBottom(div){
+
+      auto_scroll.is_scrolling = true;
+
       div_height = $(div).height();
       div_offset = $(div).offset().top;
       window_height = $(window).height();
       $('html,body').animate({
         scrollTop: div_offset-window_height+div_height
-      },/*'slow'*/ 1000);
+      },'slow').promise().done(function() { auto_scroll.is_scrolling = false; }); 
     }
     
 
@@ -37,6 +48,7 @@ auto_scroll = new function() {
         scrollToBottom(furthest_div);
     }
 
+    this.is_scrolling = false;
     this.is_on = false;
 
     this.turn_on = function() {
