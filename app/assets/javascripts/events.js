@@ -236,6 +236,7 @@ function event_new_performance(event) {
 
   $("#performances_" + round.round_number).append(p_div);
   resize_inputs(p_div.data_columns);
+  auto_scroll.scroll_if_on();
 
   round.names_already_performing.push(performance_2.name);
   invisible_round.notify_rank();
