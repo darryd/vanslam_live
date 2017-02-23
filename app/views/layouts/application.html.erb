@@ -19,14 +19,28 @@
   <body>
     <noscript> You need to have JavaScript for this site to function. </noscript>
 
-
-    <nav class="top-bar" data-topbar role="navigation">
-        <ul class="title-area">
-            <li class="name">
-                <h1><a href="/">Live Poetry Slam</a></h1>
-            </li>
-        </ul>
-    </nav>
+    <div class="notfixed">
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="/">Live Poetry Slam</a></h1>
+                </li>
+            </ul>   
+            <ul class="right">
+                <li>
+                  <div class="switch">
+                     <input class="switch-input" id="autoScrollSwitch" type="checkbox" name="exampleSwitch">
+                     <label class="switch-paddle" for="autoScrollSwitch" onclick="onclick_auto_scroll_switch()"> </label>
+                  </div>
+                </li>
+            </ul>
+            <ul class="right">
+                <li class="name">
+                    <p> Auto Scroll </p>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
 
     <%= render :partial => 'welcome/log_in_or_out' %>

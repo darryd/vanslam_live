@@ -3,8 +3,23 @@
 $(window).scroll(function() {
     if (auto_scroll.is_scrolling++ > 0) {
         auto_scroll.turn_off();
+
+        if ($('#autoScrollSwitch').is(':checked')) {
+            $('#autoScrollSwitch').click();
+        }
     }
 });
+
+function onclick_auto_scroll_switch() {
+    var is_clicked = !$('#autoScrollSwitch').is(':checked');
+
+    if (is_clicked) {
+        auto_scroll.turn_on();
+    }
+    else {
+        auto_scroll.turn_off();
+    }
+}
 
 var auto_scroll = new function() {
 
