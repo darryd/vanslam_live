@@ -60,7 +60,8 @@ var auto_scroll = new function() {
 
         var furthest_div = get_furthest_div();
 
-        scrollToBottom(furthest_div);
+        if (furthest_div != null)
+            scrollToBottom(furthest_div);
     }
 
     this.is_scrolling = 0;
