@@ -14,5 +14,5 @@
 </div>
 
 <% @slams.each do |slam| %>
-  <h2> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s %> </h2>
+  <h3> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s %> </h3>
 <% end %>
