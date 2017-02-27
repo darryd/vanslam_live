@@ -114,6 +114,8 @@ Faye::WebSocket.load_adapter('thin')
 
       competition_id = $subscribers[ws]
       $competition_ids[competition_id].delete(ws)
+      $subscribers.delete(ws)
+
       p ['Number of subscribers for ', competition_id, $competition_ids[competition_id].length]
 
 	  $clients.delete(ws)
