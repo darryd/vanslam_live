@@ -113,8 +113,11 @@ Faye::WebSocket.load_adapter('thin')
 	  p [:close, ws.object_id, event.code, event.reason]
 
       competition_id = $subscribers[ws]
-      $competition_ids[competition_id].delete(ws)
       $subscribers.delete(ws)
+
+      if competition_id != nil
+          $competition_ids[competition_id].delete(ws)
+      end
 
       p ['Number of subscribers for ', competition_id, $competition_ids[competition_id].length]
 
