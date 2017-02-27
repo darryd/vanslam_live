@@ -29,6 +29,7 @@ Faye::WebSocket.load_adapter('thin')
           $sessions = {}
 
           $subscribers = {} 
+          $competition_ids = {}
 
         end
 
@@ -84,8 +85,19 @@ Faye::WebSocket.load_adapter('thin')
 
             # Only logged in users may send messages
             if message["type"] == "subscribe"
-              p ['subscribe', message['competition_id']]
-              $subscribers[ws] = {:competition_id => message['competition_id'].to_i}
+
+              competition_id = message['competition_id'].to_i
+
+              p ['subscribe', competition_id]
+              $subscribers[ws] = competition_id
+
+              if $competition_ids[competition_id] == nil
+                  $competition_ids[competition_id] = []
+              end
+              $competition_ids[competition_id] << ws
+
+              p ['Number of subscribers for ', competition_id, $competition_ids[competition_id].length]
+
             end
 
             if message["type"] == "heads_up"
@@ -98,7 +110,12 @@ Faye::WebSocket.load_adapter('thin')
 	end
 
 	ws.on :close do |event|
-	  p [:close, ws.object_id, event.code, event.reason, $subscribers[ws]]
+	  p [:close, ws.object_id, event.code, event.reason]
+
+      competition_id = $subscribers[ws]
+      $competition_ids[competition_id].delete(ws)
+      p ['Number of subscribers for ', competition_id, $competition_ids[competition_id].length]
+
 	  $clients.delete(ws)
 	  ws = nil
 	  ChatDemo::ChatBackend.broadcast_number_of_clients()
