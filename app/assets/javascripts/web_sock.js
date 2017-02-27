@@ -1,9 +1,9 @@
 /*-------------------------------------------------------------------------------------*/
 
-window.init_web_sock = _.once(function() {
+function init_web_sock() {
   connect_websocket();
   keep_trying_to_connect();
-});
+}
 /*-------------------------------------------------------------------------------------*/
 function is_https() {
 
@@ -37,12 +37,11 @@ function connect_websocket() {
 
       window.web_sock.send(JSON.stringify({type: 'total_connections'}));
 
-      /*
+      
       window.web_sock.send(JSON.stringify({
         type: 'subscribe',
         competition_id: window.slam.id
       }));
-      */
 
       what_did_i_miss_request();
     };
