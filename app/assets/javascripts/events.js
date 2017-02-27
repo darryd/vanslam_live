@@ -22,12 +22,20 @@ function handle_unprocessed_events() {
 
 function process_metrics(metric) {
 
+/*
   var e = document.getElementById("number_of_connections");
   if (e != null)
     e.innerHTML = "Number of Connections: " + metric.total_connections;
 
   if (login_info.is_logged_in)
     document.title = metric.total_connections;
+*/
+}
+
+function process_subscribers(subscribers) {
+    var e = document.getElementById("number_of_subscribers");
+
+    e.innerHTML = "Viewers: " + event.total_subscribers;
 }
 
 
@@ -40,6 +48,11 @@ function process_event(event) {
 
       process_metrics(metric);
       return;
+    }
+
+    if (event.type == "subscribers") {
+        process_subscribers(event)
+        return;
     }
 
     if (event.type == "heads_up") {

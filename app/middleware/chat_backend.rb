@@ -88,7 +88,7 @@ Faye::WebSocket.load_adapter('thin')
             total_subscribers = $competition_ids[competition_id].length
 
             if total_subscribers > 0
-                data = {:type => "metrics", :total_subscribers => total_subscribers}
+                data = {:type => "subscribers", :total_subscribers => total_subscribers}
                 broadcast_to_subscribers(competition_id, data)
             end
         end
