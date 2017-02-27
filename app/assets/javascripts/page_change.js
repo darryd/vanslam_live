@@ -2,6 +2,11 @@
 /*-------------------------------------------------------------------------------------*/
 $(document).on('page:change', function () {
 
+  if (typeof(web_sock) !== 'undefined') {
+      web_sock.onclose = function() {};
+      web_sock.close();
+  }
+
   auto_scroll.turn_off();
   hover_all_lights();
 

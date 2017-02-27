@@ -27,6 +27,9 @@ Faye::WebSocket.load_adapter('thin')
           $clients = []
 
           $sessions = {}
+
+          $subscribers = {} 
+
         end
 
         def self.hello(data)
@@ -82,19 +85,20 @@ Faye::WebSocket.load_adapter('thin')
             # Only logged in users may send messages
             if message["type"] == "subscribe"
               p ['subscribe', message['competition_id']]
-	    end
+              $subscribers[ws] = {:competition_id => message['competition_id'].to_i}
+            end
 
-	    if message["type"] == "heads_up"
-	      if LoggedIn.where(key: message["key"]).count != 0
-            $clients.each {|client| client.send(message.except('key').to_json) }
-	      end
-	    end
-	  rescue
-	  end
+            if message["type"] == "heads_up"
+              if LoggedIn.where(key: message["key"]).count != 0
+                $clients.each {|client| client.send(message.except('key').to_json) }
+              end
+            end
+          rescue
+          end
 	end
 
 	ws.on :close do |event|
-	  p [:close, ws.object_id, event.code, event.reason]
+	  p [:close, ws.object_id, event.code, event.reason, $subscribers[ws]]
 	  $clients.delete(ws)
 	  ws = nil
 	  ChatDemo::ChatBackend.broadcast_number_of_clients()
