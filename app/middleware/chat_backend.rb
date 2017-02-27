@@ -26,8 +26,6 @@ Faye::WebSocket.load_adapter('thin')
           @app     = app
           $clients = []
 
-          $sessions = {}
-
           $subscribers = {} 
           $competition_ids = {}
 
@@ -40,7 +38,6 @@ Faye::WebSocket.load_adapter('thin')
         end
 
         def self.broadcast_number_of_clients
-          data = {}
           data = {:type => "metrics", :total_connections => $clients.length}
 
           p ['number of connections', $clients.length]
@@ -52,15 +49,32 @@ Faye::WebSocket.load_adapter('thin')
 
           # Use this when you need browsers to reload (probably because you made changes to a Competition)
 
-          data = {}
           data = {:type => "reload"}
 
           p data
 
           ChatDemo::ChatBackend.hello(data)
-
         end
 
+       
+        def add_subscriber(ws, competition_id)
+          $subscribers[ws] = competition_id
+
+          if $competition_ids[competition_id] == nil
+              $competition_ids[competition_id] = []
+          end
+          $competition_ids[competition_id] << ws
+        end
+
+        def delete_subscriber(ws)
+          competition_id = $subscribers[ws]
+          $subscribers.delete(ws)
+
+          if competition_id != nil
+              $competition_ids[competition_id].delete(ws)
+          end
+          p ['Number of subscribers for ', competition_id, $competition_ids[competition_id].length]
+        end
 
         def call(env)
 
@@ -87,15 +101,8 @@ Faye::WebSocket.load_adapter('thin')
             if message["type"] == "subscribe"
 
               competition_id = message['competition_id'].to_i
-
               p ['subscribe', competition_id]
-              $subscribers[ws] = competition_id
-
-              if $competition_ids[competition_id] == nil
-                  $competition_ids[competition_id] = []
-              end
-              $competition_ids[competition_id] << ws
-
+              add_subscriber(ws, competition_id)
               p ['Number of subscribers for ', competition_id, $competition_ids[competition_id].length]
 
             end
@@ -111,16 +118,7 @@ Faye::WebSocket.load_adapter('thin')
 
 	ws.on :close do |event|
 	  p [:close, ws.object_id, event.code, event.reason]
-
-      competition_id = $subscribers[ws]
-      $subscribers.delete(ws)
-
-      if competition_id != nil
-          $competition_ids[competition_id].delete(ws)
-      end
-
-      p ['Number of subscribers for ', competition_id, $competition_ids[competition_id].length]
-
+      delete_subscriber(ws)
 	  $clients.delete(ws)
 	  ws = nil
 	  ChatDemo::ChatBackend.broadcast_number_of_clients()
