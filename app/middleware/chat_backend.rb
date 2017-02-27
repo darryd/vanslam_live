@@ -3,85 +3,85 @@ require 'faye/websocket'
 Faye::WebSocket.load_adapter('thin')
 
 
-module Darry
+    module Darry
 
-  def Darry.hello
-    p "hello"
-  end
-end
+      def Darry.hello
+        p "hello"
+      end
+    end
 
 
 #http://stackoverflow.com/a/27010181
 #random_string = ('0'..'z').to_a.shuffle.first(8).join
 
-module ChatDemo
-  class ChatBackend
+    module ChatDemo
+      class ChatBackend
 
-    #include ChatDemo
+        #include ChatDemo
 
-    KEEPALIVE_TIME = 15 # in seconds
-    CHANNEL        = "chat-demo"
+        KEEPALIVE_TIME = 15 # in seconds
+        CHANNEL        = "chat-demo"
 
-    def initialize(app)
-      @app     = app
-      $clients = []
+        def initialize(app)
+          @app     = app
+          $clients = []
 
-      $sessions = {}
-    end
+          $sessions = {}
+        end
 
-    def self.hello(data)
-      Thread.new {
-        $clients.each {|client| client.send(data.to_json) }
-      }
-    end
+        def self.hello(data)
+          Thread.new {
+            $clients.each {|client| client.send(data.to_json) }
+          }
+        end
 
-    def self.broadcast_number_of_clients
-      data = {}
-      data = {:type => "metrics", :total_connections => $clients.length}
+        def self.broadcast_number_of_clients
+          data = {}
+          data = {:type => "metrics", :total_connections => $clients.length}
 
-      p ['number of connections', $clients.length]
-      ChatDemo::ChatBackend.hello(data)
-    end
-
-
-    def self.ask_browsers_to_reload
-
-      # Use this when you need browsers to reload (probably because you made changes to a Competition)
-
-      data = {}
-      data = {:type => "reload"}
-
-      p data
-
-      ChatDemo::ChatBackend.hello(data)
-
-    end
-
-
-    def call(env)
-
-     if Faye::WebSocket.websocket?(env)
-        ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
-        ws.on :open do |event|
-        p [:open, ws.object_id]
-	    $clients << ws
-	    ChatDemo::ChatBackend.broadcast_number_of_clients()
-	  end
-
-	  ws.on :message do |event|
-
-	  begin
-	    message = JSON.parse(event.data);
-
-        if message["type"] == "total_connections"
-            data = {:type => "metrics", :total_connections => $clients.length}
-            ws.send(data.to_json);
+          p ['number of connections', $clients.length]
+          ChatDemo::ChatBackend.hello(data)
         end
 
 
-	    # Only logged in users may send messages
-	    if message["type"] == "subscribe"
-	      p ['subscribe', message['competition_id']]
+        def self.ask_browsers_to_reload
+
+          # Use this when you need browsers to reload (probably because you made changes to a Competition)
+
+          data = {}
+          data = {:type => "reload"}
+
+          p data
+
+          ChatDemo::ChatBackend.hello(data)
+
+        end
+
+
+        def call(env)
+
+         if Faye::WebSocket.websocket?(env)
+            ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
+            ws.on :open do |event|
+            p [:open, ws.object_id]
+            $clients << ws
+            ChatDemo::ChatBackend.broadcast_number_of_clients()
+          end
+
+          ws.on :message do |event|
+
+          begin
+            message = JSON.parse(event.data);
+
+            if message["type"] == "total_connections"
+                data = {:type => "metrics", :total_connections => $clients.length}
+                ws.send(data.to_json);
+            end
+
+
+            # Only logged in users may send messages
+            if message["type"] == "subscribe"
+              p ['subscribe', message['competition_id']]
 	    end
 
 	    if message["type"] == "heads_up"
