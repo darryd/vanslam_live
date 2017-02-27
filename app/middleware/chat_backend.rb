@@ -64,6 +64,7 @@ Faye::WebSocket.load_adapter('thin')
               $competition_ids[competition_id] = []
           end
           $competition_ids[competition_id] << ws
+          broadcast_total_subscribers(competition_id)
         end
 
         def delete_subscriber(ws)
@@ -72,8 +73,24 @@ Faye::WebSocket.load_adapter('thin')
 
           if competition_id != nil
               $competition_ids[competition_id].delete(ws)
+              p ['Number of subscribers for ', competition_id, $competition_ids[competition_id].length]
           end
-          p ['Number of subscribers for ', competition_id, $competition_ids[competition_id].length]
+          broadcast_total_subscribers(competition_id)
+        end
+
+        def broadcast_to_subscribers(competition_id, data)
+            Thread.new {
+                $competition_ids[competition_id].each{|ws| ws.send(data.to_json)}
+            }
+        end
+
+        def broadcast_total_subscribers(competition_id)
+            total_subscribers = $competition_ids[competition_id].length
+
+            if total_subscribers > 0
+                data = {:type => "metrics", :total_subscribers => total_subscribers}
+                broadcast_to_subscribers(competition_id, data)
+            end
         end
 
         def call(env)
