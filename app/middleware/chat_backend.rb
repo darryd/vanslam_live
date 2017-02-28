@@ -85,7 +85,14 @@ Faye::WebSocket.load_adapter('thin')
         end
 
         def broadcast_total_subscribers(competition_id)
-            total_subscribers = $competition_ids[competition_id].length
+            
+            subscribers = $competition_ids[competition_id]
+
+            if subscribers == nil
+                return
+            end
+
+            total_subscribers = subscribers.length
 
             if total_subscribers > 0
                 data = {:type => "subscribers", :total_subscribers => total_subscribers}
