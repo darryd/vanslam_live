@@ -1,0 +1,6 @@
+function worker () {
+
+    console.log("I am a worker");
+
+    return new Worker('<%= javascript_path "mytask.js"%>');
+}
