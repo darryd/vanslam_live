@@ -1,6 +1,18 @@
-function worker () {
+function worker (url) {
+    var w = new Worker('<%= javascript_path "mytask.js"%>');
 
-    console.log("I am a worker");
+    var a = {type: "url", url: url};
+    
+    w.postMessage(JSON.stringify(a));
 
-    return new Worker('<%= javascript_path "mytask.js"%>');
+    var a = {type: "send", data: JSON.stringify({type: 'total_connections'})};
+    //w.postMessage(JSON.stringify(a));
+
+    w.addEventListener('message', function(e) {
+
+
+        alert(e.data);
+    }, false);
+
+    return w;
 }
