@@ -254,6 +254,7 @@ function event_announcement(event) {
   var announcement_recv = document.getElementById(announcement_recv_id);
   
   announcement_recv.innerHTML = event.message;
+  announcement_recv.style.color = '#5E5C42';
 }
 
 
