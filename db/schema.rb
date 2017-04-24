@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103011958) do
+ActiveRecord::Schema.define(version: 20170424043011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20161103011958) do
     t.boolean  "do_not_include_min_and_max_scores"
     t.integer  "organization_id"
     t.boolean  "is_template"
+    t.integer  "season_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -63,8 +64,9 @@ ActiveRecord::Schema.define(version: 20161103011958) do
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.boolean  "is_using_seasons"
   end
 
   create_table "performances", force: :cascade do |t|
@@ -105,6 +107,10 @@ ActiveRecord::Schema.define(version: 20161103011958) do
     t.datetime "updated_at",      null: false
     t.string   "user_name"
     t.string   "password_digest"
+  end
+
+  create_table "seasons", force: :cascade do |t|
+    t.string "title"
   end
 
   create_table "settings", force: :cascade do |t|
