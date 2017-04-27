@@ -9,6 +9,7 @@ class WelcomeController < ApplicationController
 
     host = Host.where(host: request.host).take
     @title = host.organization.title
+	@name = host.organization.name
 	@is_using_seasons = host.organization.is_using_seasons
 
     @templates = host.organization.competitions.order('created_at DESC').where(is_template: true)

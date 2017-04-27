@@ -1,4 +1,7 @@
-<%=  image_tag image_path "shield.png" %>
+<% if @name == 'vanslam' <%>
+	<%=  image_tag image_path "shield.png" %>
+<% end %>
+
 <h1> <%= @title %>  </h1>
 
 <div class="page_change" data-run="index" hidden></div>
