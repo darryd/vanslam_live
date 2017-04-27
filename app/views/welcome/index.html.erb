@@ -24,7 +24,9 @@
 	<% @seasons.order('id desc').each do |season| %>
 		<h3 style='color:#F2ECD2'> <%= season.title %> <h3>
 
-		<% season.competitions.reverse_each do | slam | %>
+		<% competitions = season.competitions.sort { |a,b| b.created_at <=> a.created_at } %>
+
+		<% competitions.each do | slam | %>
 			<h3> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s %> </h3>
 		<% end %>
 	<% end %>
