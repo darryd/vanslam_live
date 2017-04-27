@@ -14,7 +14,7 @@
 </div>
 
 <% if @is_using_seasons %>
-	<% @seasons.each do |season| %>
+	<% @seasons.order('id desc').each do |season| %>
 		<h3 style='color:#F2ECD2'> <%= season.title %> <h3>
 
 		<% season.competitions.each do | slam | %>
