@@ -2,6 +2,10 @@
 	<%=  image_tag image_path "shield.png" %>
 <% end %>
 
+<% if @name == 'verses' %>
+	<%= image_tag image_pat "verses.jpg" %>
+<% end %>
+
 <h1> <%= @title %>  </h1>
 
 <div class="page_change" data-run="index" hidden></div>
