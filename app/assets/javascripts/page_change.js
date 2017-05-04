@@ -49,7 +49,9 @@ $(document).on('page:change', function () {
 function page_change_index() {
 
     // Total hack, but couldn't manage to set the margin for the image using image_tab
-    document.getElementsByTagName("img")[0].style.margin = "10px";
+	try {
+		document.getElementsByTagName("img")[0].style.margin = "10px";
+	} catch(e) {/* no image */}
 
 
 }

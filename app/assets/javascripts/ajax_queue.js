@@ -104,10 +104,6 @@ function start_next(ticket) {
 	// Run ticket.done when request is complete.
 	ticket.xmlhttp.onreadystatechange = function() {
 
-		console.log(ticket.xmlhttp);
-		console.log(['ReadyState', ticket.xmlhttp.readyState]);
-		console.log(['status', ticket.xmlhttp.status]);
-
 		try {
 			if (ticket.xmlhttp.readyState==4) {
 				if (ticket.xmlhttp.status==200) {
