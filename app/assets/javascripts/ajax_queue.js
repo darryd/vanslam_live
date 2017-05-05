@@ -32,7 +32,7 @@ function process_ajax_queue() {
 	}
 
 	if (window.ajax_queue[0].state == START)
-		start_next(window.ajax_queue[0]);
+		start_next_web_worker(window.ajax_queue[0]);
 
 }
 /*-----------------------------------------------------------------------*/
@@ -92,6 +92,16 @@ function display_messages_if_any(response_json) {
 			}, clear_message_interval);
 		}
 	}
+}
+/*-----------------------------------------------------------------------*/
+function start_next_web_worker(ticket) {
+
+	ticket.state = PENDING;
+
+	var ajax_worker = new AjaxWorker(ticket);
+	ajax_worker.post();
+
+
 }
 /*-----------------------------------------------------------------------*/
 function start_next(ticket) {
