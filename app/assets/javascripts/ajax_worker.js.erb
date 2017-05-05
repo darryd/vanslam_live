@@ -1,0 +1,26 @@
+function AjaxWorker (ajax_ticket) {
+
+	this.ajax_ticket = ajax_ticket;
+	this.authenticity_token = encodeURIComponent($('meta[name=csrf-token]').attr('content'));
+
+	this.w = new Worker('<%= javascript_path "ajax_task.js"%>');
+	this.post = function() {
+
+		var params = this.ajax_ticket.get_params();
+		var keys = _.keys(params);
+
+		var data = "authenticity_token=" + encodeURIComponent($('meta[name=csrf-token]').attr('content'));
+		for (var i=0; i<keys.length; i++)
+			data += "&" + keys[i] + "=" + encodeURIComponent(params[keys[i]]);
+
+		this.w.postMessage({url: this.ajax_ticket.url, data: data});
+	};
+
+	this.w.addEventListener('message', function(e) {
+
+		if (ajax_ticket.done != null) {
+			ajax_ticket.done(jQuery.parseJSON(e.data));
+		}
+
+	}, false);
+}

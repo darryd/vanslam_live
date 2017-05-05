@@ -168,3 +168,20 @@ function send_echo_request(sentence) {
 	window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+ function echo_test(sentence) {
+
+	var ticket = new_ticket();
+
+	ticket.url = "/competition/echo";
+
+	ticket.get_params = function () {return {"sentence": sentence};};
+
+	ticket.done = function(response_json) {console.log(response_json);};
+
+	var w = new AjaxWorker(ticket);
+
+	return w;
+
+ }
+
+/*-----------------------------------------------------------------------*/
