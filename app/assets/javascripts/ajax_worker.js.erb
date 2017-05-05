@@ -18,6 +18,8 @@ function AjaxWorker (ajax_ticket) {
 
 	this.w.addEventListener('message', function(e) {
 
+		ajax_ticket.state = DONE;
+
 		if (ajax_ticket.done != null) {
 			ajax_ticket.done(jQuery.parseJSON(e.data));
 		}
