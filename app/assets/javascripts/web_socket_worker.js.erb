@@ -32,8 +32,6 @@ function WebSocketWorker() {
 
 		if (data.type == 'message') {
 			var event = JSON.parse(data.data);
-
-			console.log("Web Worker event: ");
 			process_event(event);
 		};
 
