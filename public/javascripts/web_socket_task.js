@@ -33,7 +33,7 @@ self.addEventListener('message', function(e) {
 		var interval_id = setInterval(function(){
 
 			if (self.web_sock.readyState == WebSocket.CLOSING || self.web_sock.readyState == WebSocket.CLOSED) {
-				connect_websocket();
+				connect();
 			}
 			else {
 				clearInterval(interval_id);
