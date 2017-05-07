@@ -34,7 +34,6 @@ function WebSocketWorker() {
 			var event = JSON.parse(data.data);
 
 			console.log("Web Worker event: ");
-			console.log(event);
 			process_event(event);
 		};
 
