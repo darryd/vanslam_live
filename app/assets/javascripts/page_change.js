@@ -179,6 +179,11 @@ function page_change_competition() {
   //window.init_web_sock(); 
 
 
+
+  if (typeof(window.web_socket_worker) !== 'undefined')
+	  window.web_socket_worker.w.terminate();
+
+
   window.web_socket_worker = new WebSocketWorker();
   window.web_socket_worker.connect();
 
