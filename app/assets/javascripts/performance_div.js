@@ -629,9 +629,11 @@ function resize_inputs(inputs) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function resize_all_inputs() {
 
-	var inputs = document.getElementsByClassName('scorekeeper_input');
+	_.debounce(function() {
+		var inputs = document.getElementsByClassName('scorekeeper_input');
 
-	resize_inputs(inputs);
+		resize_inputs(inputs);
+	}, 100);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
