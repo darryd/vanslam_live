@@ -395,10 +395,13 @@ function p_div_input_onkeyup(inputs, input) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_onblur(input) {
 
-	var performance_id = input.div.performance.comm.performance_id;
-	var index = parseInt(input.getAttribute('data-index'));
+	_.throttle(function() {
 
-	heads_up_blur(performance_id, index);
+		var performance_id = input.div.performance.comm.performance_id;
+		var index = parseInt(input.getAttribute('data-index'));
+
+		heads_up_blur(performance_id, index);
+	}, 100);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_onfocus(input) {
@@ -413,41 +416,44 @@ function p_div_input_onfocus(input) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_entered(input) {
 
-	if (!login_info.is_logged_in)
-		return;
+	_.throttle(function(input) {
 
-	if (input.old_value == input.value)
-		return;
-	input.old_value = input.value
+		if (!login_info.is_logged_in)
+			return;
+
+		if (input.old_value == input.value)
+			return;
+		input.old_value = input.value;
 
 		var i = parseInt(input.getAttribute('data-index'));
-	var div = input.div;
-	var performance = div.performance;
+		var div = input.div;
+		var performance = div.performance;
 
-	var value = parse_float_or_return_zero(input.value);
+		var value = parse_float_or_return_zero(input.value);
 
-	var light_index = input.light_index;
+		var light_index = input.light_index;
 
-	var confirmation = collection_of_lights.confirmation_send(light_index);
+		var confirmation = collection_of_lights.confirmation_send(light_index);
 
-	switch (i) 
-	{
-		case div.indexes.minutes_i:
-		case div.indexes.seconds_i:
-			var time = p_div_get_time(div);
-			performance.set_time(time.minutes, time.seconds);
-			set_time_request(performance.comm, time.minutes, time.seconds, confirmation);
-			break;
-		case div.indexes.penalty_i:
-			performance.set_penalty(value);
-			set_penalty_request(performance.comm, value, confirmation);
-			break;
-		default:
-			if (i >= 0 && i < div.indexes.minutes_i) {
-				performance.judge(i, value);
-				judge_request(performance.comm, i, value, confirmation);
-			}
-	}
+		switch (i) 
+		{
+			case div.indexes.minutes_i:
+			case div.indexes.seconds_i:
+				var time = p_div_get_time(div);
+				performance.set_time(time.minutes, time.seconds);
+				set_time_request(performance.comm, time.minutes, time.seconds, confirmation);
+				break;
+			case div.indexes.penalty_i:
+				performance.set_penalty(value);
+				set_penalty_request(performance.comm, value, confirmation);
+				break;
+			default:
+				if (i >= 0 && i < div.indexes.minutes_i) {
+					performance.judge(i, value);
+					judge_request(performance.comm, i, value, confirmation);
+				}
+		}
+	}, 100);
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
