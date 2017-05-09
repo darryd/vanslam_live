@@ -342,7 +342,7 @@ function is_str_integer(str) {
 
 function p_div_input_onkeyup(inputs, input) {
 
-	_.debounce(function() {
+	_.throttle(function() {
 		if (!login_info.is_logged_in)
 			return;
 
@@ -395,7 +395,7 @@ function p_div_input_onkeyup(inputs, input) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_onblur(input) {
 
-	_.debounce(function() {
+	_.throttle(function() {
 
 		var performance_id = input.div.performance.comm.performance_id;
 		var index = parseInt(input.getAttribute('data-index'));
@@ -406,7 +406,7 @@ function p_div_input_onblur(input) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_onfocus(input) {
 
-	_.debounce(function(input) {
+	_.throttle(function(input) {
 		var performance_id = input.div.performance.comm.performance_id;
 		var index = parseInt(input.getAttribute('data-index'));
 
@@ -416,7 +416,7 @@ function p_div_input_onfocus(input) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_entered(input) {
 
-	_.debounce(function(input) {
+	_.throttle(function(input) {
 
 		if (!login_info.is_logged_in)
 			return;
@@ -629,7 +629,7 @@ function resize_inputs(inputs) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function resize_all_inputs() {
 
-	_.debounce(function() {
+	_.throttle(function() {
 		var inputs = document.getElementsByClassName('scorekeeper_input');
 
 		resize_inputs(inputs);
