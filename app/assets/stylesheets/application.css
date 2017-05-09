@@ -16,6 +16,8 @@
 
  */
 
+#canvas { pointer-events:none; }
+
 *[hidden] { display: none; }
 
 /* http://stackoverflow.com/a/26379166 */
