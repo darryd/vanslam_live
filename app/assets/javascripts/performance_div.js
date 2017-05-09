@@ -400,227 +400,229 @@ function p_div_input_onblur(input) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_onfocus(input) {
 
-  var performance_id = input.div.performance.comm.performance_id;
-  var index = parseInt(input.getAttribute('data-index'));
+	_.throttle(function(input) {
+		var performance_id = input.div.performance.comm.performance_id;
+		var index = parseInt(input.getAttribute('data-index'));
 
-  heads_up_focus(performance_id, index);
+		heads_up_focus(performance_id, index);
+	}, 100);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_entered(input) {
 
-  if (!login_info.is_logged_in)
-    return;
+	if (!login_info.is_logged_in)
+		return;
 
-  if (input.old_value == input.value)
-    return;
-  input.old_value = input.value
+	if (input.old_value == input.value)
+		return;
+	input.old_value = input.value
 
-  var i = parseInt(input.getAttribute('data-index'));
-  var div = input.div;
-  var performance = div.performance;
+		var i = parseInt(input.getAttribute('data-index'));
+	var div = input.div;
+	var performance = div.performance;
 
-  var value = parse_float_or_return_zero(input.value);
+	var value = parse_float_or_return_zero(input.value);
 
-  var light_index = input.light_index;
+	var light_index = input.light_index;
 
-  var confirmation = collection_of_lights.confirmation_send(light_index);
+	var confirmation = collection_of_lights.confirmation_send(light_index);
 
-  switch (i) 
-  {
-    case div.indexes.minutes_i:
-    case div.indexes.seconds_i:
-      var time = p_div_get_time(div);
-      performance.set_time(time.minutes, time.seconds);
-      set_time_request(performance.comm, time.minutes, time.seconds, confirmation);
-      break;
-    case div.indexes.penalty_i:
-      performance.set_penalty(value);
-      set_penalty_request(performance.comm, value, confirmation);
-      break;
-    default:
-      if (i >= 0 && i < div.indexes.minutes_i) {
-	performance.judge(i, value);
-	judge_request(performance.comm, i, value, confirmation);
-      }
-  }
+	switch (i) 
+	{
+		case div.indexes.minutes_i:
+		case div.indexes.seconds_i:
+			var time = p_div_get_time(div);
+			performance.set_time(time.minutes, time.seconds);
+			set_time_request(performance.comm, time.minutes, time.seconds, confirmation);
+			break;
+		case div.indexes.penalty_i:
+			performance.set_penalty(value);
+			set_penalty_request(performance.comm, value, confirmation);
+			break;
+		default:
+			if (i >= 0 && i < div.indexes.minutes_i) {
+				performance.judge(i, value);
+				judge_request(performance.comm, i, value, confirmation);
+			}
+	}
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_set_score(p_div, judge_i, value, is_this_a_heads_up) {
 
-  p_div.data_columns[judge_i].value = value;
-  p_div.data_columns[judge_i].please_advance_automatically = false;
-  p_div.performance.judge(judge_i, value);
+	p_div.data_columns[judge_i].value = value;
+	p_div.data_columns[judge_i].please_advance_automatically = false;
+	p_div.performance.judge(judge_i, value);
 
-  if (is_this_a_heads_up)
-    p_div.data_columns[judge_i].style.fontStyle = "italic";
-  else
-    p_div.data_columns[judge_i].style.fontStyle = "normal";
+	if (is_this_a_heads_up)
+		p_div.data_columns[judge_i].style.fontStyle = "italic";
+	else
+		p_div.data_columns[judge_i].style.fontStyle = "normal";
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_set_time(p_div, minutes, seconds, is_this_a_heads_up) {
 
-  var i = p_div.indexes.minutes_i;
+	var i = p_div.indexes.minutes_i;
 
-  p_div.data_columns[i].value = minutes;
-  p_div.data_columns[i].style.fontStyle = is_this_a_heads_up ? "italic" : "normal";
+	p_div.data_columns[i].value = minutes;
+	p_div.data_columns[i].style.fontStyle = is_this_a_heads_up ? "italic" : "normal";
 
-  p_div.data_columns[++i].value = seconds;
-  p_div.data_columns[i].style.fontStyle = is_this_a_heads_up ? "italic" : "normal";
+	p_div.data_columns[++i].value = seconds;
+	p_div.data_columns[i].style.fontStyle = is_this_a_heads_up ? "italic" : "normal";
 
-  p_div.performance.set_time(minutes, seconds);
+	p_div.performance.set_time(minutes, seconds);
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_set_penalty(p_div, value, is_this_a_heads_up) {
 
-  var i = p_div.indexes.penalty_i;
+	var i = p_div.indexes.penalty_i;
 
-  p_div.data_columns[i].value = value;
-  p_div.data_columns[i].style.fontStyle = is_this_a_heads_up ? "italic" : "normal";
+	p_div.data_columns[i].value = value;
+	p_div.data_columns[i].style.fontStyle = is_this_a_heads_up ? "italic" : "normal";
 
-  p_div.performance.set_penalty(value);
+	p_div.performance.set_penalty(value);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_build_data_row(div) {
 
-  p_div_setup_indexes(div);
+	p_div_setup_indexes(div);
 
-  var row = document.createElement("div");
-  row.className = "row";
+	var row = document.createElement("div");
+	row.className = "row";
 
-  var num_columns = slam.num_judges + 3; // Judges + Minutes + Seconds + Penalty
+	var num_columns = slam.num_judges + 3; // Judges + Minutes + Seconds + Penalty
 
-  var i;
+	var i;
 
-  div.judge_inputs = [];
-
-
-  for (i=0; i<num_columns; i++) {
-    var column = document.createElement("div");
-    column.className = "small-1 columns";
-
-    var input = document.createElement("input");
-
-    var light = new_light(input);
-    input.light_index = collection_of_lights.add_light(light);
-
-    input.inputs = div.judge_inputs;
-    input.className = "scorekeeper_input"; 
-    input.style.padding = "0px";
-    input.style.backgroundColor = "#0D0908";
-    input.style.borderColor = "#9CB99D";
-    input.style.color = "#F2ECD2";
-
-    if (i <= slam.num_judges)
-      div.judge_inputs.push(input);
-
-    input.div = div;
-    input.className =  "scorekeeper_input";
-    input.setAttribute('size', 4);
-    input.setAttribute('onchange', 'p_div_input_entered(this)');
-    input.setAttribute('onkeyup', 'p_div_input_onkeyup(this.inputs, this)');
-    input.setAttribute('onfocus', 'p_div_input_onfocus(this)');
-    input.setAttribute('onblur', 'p_div_input_onblur(this)');
-    // http://stackoverflow.com/a/14236929
-    $(input).on("keydown", function (e) {
-      return e.which !== 32;
-    });
-
-    if (i < slam.num_judges) {
-      // Only do this for inputs that are judges
-      input.my_input_type = 'judge';
-      input.please_advance_automatically = true;
-      input.step = "0.1";
-    }
-
-    input.setAttribute('data-index', i);
-    input.type = "number";
-    input.style.width = "60px";
-    input.setAttribute('data-max-width', '60');
-
-    if (!login_info.is_logged_in)
-      input.setAttribute('readonly', null);
-
-    column.appendChild(input);
+	div.judge_inputs = [];
 
 
-    div.data_columns.push(input);
+	for (i=0; i<num_columns; i++) {
+		var column = document.createElement("div");
+		column.className = "small-1 columns";
 
-    row.appendChild(column);
-  }
+		var input = document.createElement("input");
 
-  num_columns = 12;
-  for (; i< num_columns; i++) {
+		var light = new_light(input);
+		input.light_index = collection_of_lights.add_light(light);
 
-    var column = document.createElement("div");
-    column.className = "small-1 columns";
-    row.appendChild(column);
+		input.inputs = div.judge_inputs;
+		input.className = "scorekeeper_input"; 
+		input.style.padding = "0px";
+		input.style.backgroundColor = "#0D0908";
+		input.style.borderColor = "#9CB99D";
+		input.style.color = "#F2ECD2";
 
-    div.data_columns.push(column);
-  }
-  div.appendChild(row);
+		if (i <= slam.num_judges)
+			div.judge_inputs.push(input);
+
+		input.div = div;
+		input.className =  "scorekeeper_input";
+		input.setAttribute('size', 4);
+		input.setAttribute('onchange', 'p_div_input_entered(this)');
+		input.setAttribute('onkeyup', 'p_div_input_onkeyup(this.inputs, this)');
+		input.setAttribute('onfocus', 'p_div_input_onfocus(this)');
+		input.setAttribute('onblur', 'p_div_input_onblur(this)');
+		// http://stackoverflow.com/a/14236929
+		$(input).on("keydown", function (e) {
+			return e.which !== 32;
+		});
+
+		if (i < slam.num_judges) {
+			// Only do this for inputs that are judges
+			input.my_input_type = 'judge';
+			input.please_advance_automatically = true;
+			input.step = "0.1";
+		}
+
+		input.setAttribute('data-index', i);
+		input.type = "number";
+		input.style.width = "60px";
+		input.setAttribute('data-max-width', '60');
+
+		if (!login_info.is_logged_in)
+			input.setAttribute('readonly', null);
+
+		column.appendChild(input);
+
+
+		div.data_columns.push(input);
+
+		row.appendChild(column);
+	}
+
+	num_columns = 12;
+	for (; i< num_columns; i++) {
+
+		var column = document.createElement("div");
+		column.className = "small-1 columns";
+		row.appendChild(column);
+
+		div.data_columns.push(column);
+	}
+	div.appendChild(row);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_build_footers(div) {
 
-  div.footers = [];
+	div.footers = [];
 
-  var num_columns = 12;
-  var row = document.createElement("div");
-  row.className = "row";
+	var num_columns = 12;
+	var row = document.createElement("div");
+	row.className = "row";
 
-  for (var i=0; i<num_columns; i++) {
+	for (var i=0; i<num_columns; i++) {
 
-    var column = document.createElement("div");
-    column.className = "small-1 columns";
-    column.innerHTML = "<p></p>"; 
+		var column = document.createElement("div");
+		column.className = "small-1 columns";
+		column.innerHTML = "<p></p>"; 
 
-    row.appendChild(column);
-    div.footers.push(column);
-  }
+		row.appendChild(column);
+		div.footers.push(column);
+	}
 
-  div.appendChild(row);
+	div.appendChild(row);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function get_distance_available_between_inputs() {
 
-  var performance_divs = document.getElementsByClassName('performance_div');
-  var width = 0;
+	var performance_divs = document.getElementsByClassName('performance_div');
+	var width = 0;
 
-  if (performance_divs.length > 0) {
+	if (performance_divs.length > 0) {
 
-    var p_div = performance_divs[0];
-    var x1 = $(p_div.data_columns[0]).offset().left;
-    var x2 = $(p_div.data_columns[1]).offset().left;
+		var p_div = performance_divs[0];
+		var x1 = $(p_div.data_columns[0]).offset().left;
+		var x2 = $(p_div.data_columns[1]).offset().left;
 
-    var distance = x2 - x1;
-    var max_width = parseInt(p_div.data_columns[0].getAttribute('data-max-width'));
-    width = Math.min(distance, max_width);
+		var distance = x2 - x1;
+		var max_width = parseInt(p_div.data_columns[0].getAttribute('data-max-width'));
+		width = Math.min(distance, max_width);
 
-  }
+	}
 
-  return width;
+	return width;
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function resize_inputs(inputs) {
 
-  // Set Width for all inputs
-  //
-  var width = get_distance_available_between_inputs();
+	// Set Width for all inputs
+	//
+	var width = get_distance_available_between_inputs();
 
 
-  for (var i=0; i<inputs.length; i++) {
-    inputs[i].style.width = width + "px";
-  }
+	for (var i=0; i<inputs.length; i++) {
+		inputs[i].style.width = width + "px";
+	}
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function resize_all_inputs() {
 
-  var inputs = document.getElementsByClassName('scorekeeper_input');
+	var inputs = document.getElementsByClassName('scorekeeper_input');
 
-  resize_inputs(inputs);
+	resize_inputs(inputs);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
