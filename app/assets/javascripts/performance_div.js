@@ -629,11 +629,11 @@ function resize_inputs(inputs) {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function resize_all_inputs() {
 
-	_.throttle(function() {
+//	_.throttle(function() {
 		var inputs = document.getElementsByClassName('scorekeeper_input');
 
 		resize_inputs(inputs);
-	}, 100);
+//	}, 100);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
