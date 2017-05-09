@@ -378,7 +378,7 @@ function p_div_input_onkeyup(inputs, input) {
 	heads_up_judge(performance.comm.performance_id, i, value);
 	if (input.please_advance_automatically) {
 	  p_div_judge_input_onkeyup(inputs, input);
-	  $(input).trigger("change"); // For mobile
+	  //$(input).trigger("change"); // For mobile
 	}
 	else if (is_score_entered_fully(input.value)){
 	  $(input).trigger("change");
