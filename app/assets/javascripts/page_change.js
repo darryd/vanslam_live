@@ -2,6 +2,9 @@
 /*-------------------------------------------------------------------------------------*/
 $(document).on('page:change', function () {
 
+  if (typeof(window.web_socket_worker) !== 'undefined')
+	  window.web_socket_worker.w.terminate();
+
   if (typeof(web_sock) !== 'undefined') {
       web_sock.onclose = function() {};
       web_sock.close();
@@ -177,12 +180,6 @@ function page_change_competition() {
   var interval = 1;
   slam.local_event_number = 0;
   //window.init_web_sock(); 
-
-
-
-  if (typeof(window.web_socket_worker) !== 'undefined')
-	  window.web_socket_worker.w.terminate();
-
 
   window.web_socket_worker = new WebSocketWorker();
   window.web_socket_worker.connect();
