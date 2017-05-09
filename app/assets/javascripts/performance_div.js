@@ -342,60 +342,63 @@ function is_str_integer(str) {
 
 function p_div_input_onkeyup(inputs, input) {
 
-  if (!login_info.is_logged_in)
-    return;
+	_.throttle(function() {
+		if (!login_info.is_logged_in)
+			return;
 
 
-  var i = parseInt(input.getAttribute('data-index'));
-  var div = input.div;
-  var performance = div.performance;
+		var i = parseInt(input.getAttribute('data-index'));
+		var div = input.div;
+		var performance = div.performance;
 
-  var value = parse_float_or_return_zero(input.value);
+		var value = parse_float_or_return_zero(input.value);
 
 
-  switch (i) 
-  {
-    case div.indexes.minutes_i:
-    case div.indexes.seconds_i:
-      var time = p_div_get_time(div);
-      //performance.set_time(time.minutes, time.seconds);
-      heads_up_set_time(performance.performance_id, time.minutes, time.seconds);
-      break;
-    case div.indexes.penalty_i:
-      //performance.set_penalty(value);
-      heads_up_set_penalty(performance.performance_id, value);
-      break;
-    default:
-      if (i >= 0 && i < div.indexes.minutes_i) {
+		switch (i) 
+		{
+			case div.indexes.minutes_i:
+			case div.indexes.seconds_i:
+				var time = p_div_get_time(div);
+				//performance.set_time(time.minutes, time.seconds);
+				heads_up_set_time(performance.performance_id, time.minutes, time.seconds);
+				break;
+			case div.indexes.penalty_i:
+				//performance.set_penalty(value);
+				heads_up_set_penalty(performance.performance_id, value);
+				break;
+			default:
+				if (i >= 0 && i < div.indexes.minutes_i) {
 
-	if (value > 10) {
-	  value /= 10;
-	  input.value = value;
-	  if (is_str_integer(input.value))
-	    input.value = value + ".0";
-	}
+					if (value > 10) {
+						value /= 10;
+						input.value = value;
+						if (is_str_integer(input.value))
+							input.value = value + ".0";
+					}
 
-	heads_up_judge(performance.comm.performance_id, i, value);
-	if (input.please_advance_automatically) {
-	  p_div_judge_input_onkeyup(inputs, input);
-	  //$(input).trigger("change"); // For mobile
-	}
-	else if (is_score_entered_fully(input.value)){
-	  $(input).trigger("change");
-	  input.blur();
-	}
-	//performance.judge(i, value);
-      }
-  }
+					heads_up_judge(performance.comm.performance_id, i, value);
+					if (input.please_advance_automatically) {
+						p_div_judge_input_onkeyup(inputs, input);
+						//$(input).trigger("change"); // For mobile
+					}
+					else if (is_score_entered_fully(input.value)){
+						$(input).trigger("change");
+						input.blur();
+					}
+					//performance.judge(i, value);
+				}
+		}
+	}, 100);
 }
+
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_onblur(input) {
 
-  var performance_id = input.div.performance.comm.performance_id;
-  var index = parseInt(input.getAttribute('data-index'));
+	var performance_id = input.div.performance.comm.performance_id;
+	var index = parseInt(input.getAttribute('data-index'));
 
-  heads_up_blur(performance_id, index);
+	heads_up_blur(performance_id, index);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_onfocus(input) {
