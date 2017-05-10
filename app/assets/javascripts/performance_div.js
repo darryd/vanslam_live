@@ -412,6 +412,9 @@ function p_div_input_onfocus(input) {
 	heads_up_focus(performance_id, index);
 
 }
+
+var delay = 100;
+var d_p_div_input_on_focus = _.debounced(p_div_input_onfocus, delay);
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_input_entered(input) {
 
@@ -453,6 +456,8 @@ function p_div_input_entered(input) {
 	}
 
 }
+
+var d_p_div_input_entered = _.debounced(p_div_input_entered, delay);
 
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_set_score(p_div, judge_i, value, is_this_a_heads_up) {
@@ -634,5 +639,5 @@ function resize_all_inputs() {
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 
 
-window.addEventListener("resize", resize_all_inputs);
+window.addEventListener("resize", _.debounced(resize_all_inputs, 100));
 /*----------------------------------------------------------------------------------------------------------------------------------*/
