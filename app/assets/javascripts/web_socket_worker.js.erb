@@ -30,7 +30,7 @@ function WebSocketWorker() {
 
 	};
 
-	this.w = new Worker('<%= javascript_path "web_socket_task.js"%>');
+	this.w = new Worker('<%= javascript_path "web_socket_task2.js"%>');
 	this.w.addEventListener('message', function(data) {
 
 		var data = data.data;
