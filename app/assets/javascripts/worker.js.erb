@@ -1,11 +1,11 @@
-function worker (url) {
+function web_sock_worker (url) {
     var w = new Worker('<%= javascript_path "mytask.js"%>');
 
     var a = {type: "url", url: url};
     
     w.postMessage(JSON.stringify(a));
 
-    var a = {type: "send", data: JSON.stringify({type: 'total_connections'})};
+    //var a = {type: "send", data: JSON.stringify({type: 'total_connections'})};
     //w.postMessage(JSON.stringify(a));
 
     w.addEventListener('message', function(e) {
