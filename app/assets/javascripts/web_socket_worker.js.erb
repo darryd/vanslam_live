@@ -1,0 +1,45 @@
+function WebSocketWorker() {
+
+	function get_uri() {
+
+		var scheme = is_https() ? "wss://" : "ws://";
+
+		var uri = settings.web_sock_uri;
+		if (uri == null)
+			uri = window.document.location.host;
+		uri = scheme + uri + "/";
+
+		return uri;
+	}
+
+	this.connect = function() {
+
+		this.w.postMessage({type: 'url', url: get_uri(), competition_id: slam.id});
+
+
+	};
+
+	this.send = function(data) {
+
+		this.w.postMessage({type: 'send', data: data});
+
+	};
+
+	this.w = new Worker('<%= javascript_path "web_socket_task.js"%>');
+	this.w.addEventListener('message', function(data) {
+
+		var data = data.data;
+
+		if (data.type == 'message') {
+			var event = JSON.parse(data.data);
+			process_event(event);
+		};
+
+		if (data.type == 'connected') {
+
+			what_did_i_miss_request();
+		};
+
+	}, false);
+
+}

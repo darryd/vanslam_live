@@ -17,12 +17,13 @@ function process_ajax_queue() {
 		return;
 
 	if (window.ajax_queue[0].state == PENDING) {
+		/*
 		window.ajax_queue[0].clicks++;
 
 		// Experimental
 		if (window.ajax_queue[0].clicks == 4000)
 			window.ajax_queue[0].state = START;
-
+		*/
 		return;
 	}
 
@@ -189,6 +190,7 @@ function send_echo_request(sentence) {
 	ticket.done = function(response_json) {console.log(response_json);};
 
 	var w = new AjaxWorker(ticket);
+	w.post();
 
 	return w;
 

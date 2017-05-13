@@ -1,9 +1,17 @@
+
+
+/* close the Web Worker after a request. */
+
+
 function AjaxWorker (ajax_ticket) {
 
 	this.ajax_ticket = ajax_ticket;
 	this.authenticity_token = encodeURIComponent($('meta[name=csrf-token]').attr('content'));
 
 	this.w = new Worker('<%= javascript_path "ajax_task.js"%>');
+
+	ajax_ticket.w = this.w;
+
 	this.post = function() {
 
 		var params = this.ajax_ticket.get_params();
@@ -23,6 +31,8 @@ function AjaxWorker (ajax_ticket) {
 		if (ajax_ticket.done != null) {
 			ajax_ticket.done(jQuery.parseJSON(e.data));
 		}
+
+		ajax_ticket.w.terminate();
 
 	}, false);
 }
