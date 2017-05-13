@@ -82,6 +82,11 @@ function keep_trying_to_connect() {
 window.onbeforeunload = function() {
     window.web_sock.onclose = function () {}; // disable onclose handler first
     window.web_sock.close()
+
+  if (typeof(window.web_socket_worker) !== 'undefined')
+	  window.web_socket_worker.w.terminate();
+
+
 };
 
 
