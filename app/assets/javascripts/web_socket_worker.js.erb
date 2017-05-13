@@ -19,6 +19,11 @@ function WebSocketWorker() {
 
 	};
 
+	this.die = function() {
+
+		this.w.postMessage({type: 'die'});
+	};
+
 	this.send = function(data) {
 
 		this.w.postMessage({type: 'send', data: data});
