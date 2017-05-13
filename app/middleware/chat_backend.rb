@@ -59,8 +59,7 @@ module ChatDemo
 
 		def add_subscriber(ws, competition_id)
 
-
-			delete_subscriber ws
+			delete_subscriber (ws)
 
 			$subscribers[ws] = competition_id
 
