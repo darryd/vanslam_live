@@ -23,7 +23,7 @@ function handle_unprocessed_events() {
 function process_subscribers(subscribers) {
     var e = document.getElementById("number_of_subscribers");
 
-    e.innerHTML = "Viewers: " + subscribers.total_subscribers;
+    //e.innerHTML = "Viewers: " + subscribers.total_subscribers;
 }
 
 
