@@ -26,6 +26,9 @@ function process_subscribers(subscribers) {
     e.innerHTML = "Viewers: " + subscribers.total_subscribers;
 }
 
+window.onoffline = function() {
+	$('#number_of_subscribers').html('Offline');
+}
 
 function process_event(event) {
 
