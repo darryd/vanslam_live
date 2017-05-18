@@ -25,8 +25,8 @@ $(document).on('page:change', function () {
 	}
 
 	window.ononline = function() {
-		window.web_socket_worker.die();
-		window.web_socket_worker = new WebSocketWorker();
+		//window.web_socket_worker.die();
+		//window.web_socket_worker = new WebSocketWorker();
 		window.web_socket_worker.connect();
 	};
 
