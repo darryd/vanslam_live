@@ -81,7 +81,7 @@ self.addEventListener('message', function(e) {
 			if (typeof(self.web_sock) !== 'undefined') {
 				self.web_sock.onclose = function() {};
 				self.web_sock.close();
-				self.close();
+				//self.close();
 			}
 			break;
 	};
