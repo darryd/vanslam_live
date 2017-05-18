@@ -26,11 +26,6 @@ function process_subscribers(subscribers) {
     e.innerHTML = "Viewers: " + subscribers.total_subscribers;
 }
 
-window.onoffline = function() {
-	$('#number_of_subscribers').html('Offline');
-	window.web_socket_worker.reconnect();
-}
-
 function process_event(event) {
 
   try {
