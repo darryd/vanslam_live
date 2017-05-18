@@ -21,13 +21,14 @@ $(document).on('page:change', function () {
 	window.onoffline = function() {
 		$('#number_of_subscribers').html('Offline');
 		//window.web_socket_worker.reconnect();
-		window.web_socket_worker.die();
+		//window.web_socket_worker.die();
 	}
 
 	window.ononline = function() {
+		$('#number_of_subscribers').html('');
 		//window.web_socket_worker.die();
-		window.web_socket_worker = new WebSocketWorker();
-		window.web_socket_worker.connect();
+		//window.web_socket_worker = new WebSocketWorker();
+		//window.web_socket_worker.connect();
 	};
 
 
