@@ -77,6 +77,9 @@ self.addEventListener('message', function(e) {
 		case 'send':
 			send(data.data);
 			break;
+		case 'reconnect':
+			self.web_sock.close();
+			break;
 		case 'die':
 			if (typeof(self.web_sock) !== 'undefined') {
 				self.web_sock.onclose = function() {};
