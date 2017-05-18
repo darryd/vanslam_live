@@ -11,6 +11,8 @@ self.addEventListener('message', function(e) {
 			self.web_sock = new WebSocket(self.url);
 			self.web_sock.onmessage = function(message) {
 				self.postMessage({type: 'message', data: message.data});
+
+				console.log(message.data);
 			};
 			self.web_sock.onopen = function() {
 				self.web_sock.send(JSON.stringify({
