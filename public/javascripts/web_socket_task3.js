@@ -31,6 +31,7 @@ self.addEventListener('message', function(e) {
 
 			// on reconnection will subscribe
 			self.web_sock.close();
+			self.web_sock = undefined;
 		}
 
 	}
