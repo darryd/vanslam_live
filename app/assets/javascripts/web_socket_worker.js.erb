@@ -21,7 +21,7 @@ function WebSocketWorker() {
 
 	this.reconnect = function() {
 
-		window.my_websocket_worker.postMessage{type: 'reconnect'});
+		window.my_websocket_worker.postMessage({type: 'reconnect'});
 	};
 
 	this.die = function() {
