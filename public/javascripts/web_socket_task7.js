@@ -3,7 +3,10 @@ self.addEventListener('message', function(e) {
 
     function connect() {
 
-		if (typeof(self.web_sock) === 'undefined') {
+
+		if (typeof(self.web_sock) === 'undefined' || self.reconnect) {
+
+			self.reconnect = false;
 
 			self.web_sock = new WebSocket(self.url);
 			self.web_sock.onmessage = function(message) {
@@ -31,7 +34,7 @@ self.addEventListener('message', function(e) {
 
 			// on reconnection will subscribe
 			self.web_sock.close();
-			self.web_sock = undefined;
+			self.reconnect = true;
 		}
 
 	}
