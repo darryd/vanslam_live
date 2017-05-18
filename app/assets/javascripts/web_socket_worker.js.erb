@@ -14,37 +14,40 @@ function WebSocketWorker() {
 
 	this.connect = function() {
 
-		this.w.postMessage({type: 'url', url: get_uri(), competition_id: slam.id});
+		window.my_websocket_worker.postMessage({type: 'url', url: get_uri(), competition_id: slam.id});
 
 
 	};
 
 	this.die = function() {
 
-		this.w.postMessage({type: 'die'});
+		window.my_websocket_worker.postMessage({type: 'die'});
 	};
 
 	this.send = function(data) {
 
-		this.w.postMessage({type: 'send', data: data});
+		window.my_websocket_worker.postMessage({type: 'send', data: data});
 
 	};
 
-	this.w = new Worker('<%= javascript_path "web_socket_task2.js"%>');
-	this.w.addEventListener('message', function(data) {
+	if (typeof(window.my_websocket_worker) === 'undefined') {
 
-		var data = data.data;
+		window.my_websocket_worker = new Worker('<%= javascript_path "web_socket_task3.js"%>');
+		window.my_websocket_worker.addEventListener('message', function(data) {
 
-		if (data.type == 'message') {
-			var event = JSON.parse(data.data);
-			process_event(event);
-		};
+			var data = data.data;
 
-		if (data.type == 'connected') {
+			if (data.type == 'message') {
+				var event = JSON.parse(data.data);
+				process_event(event);
+			};
 
-			what_did_i_miss_request();
-		};
+			if (data.type == 'connected') {
 
-	}, false);
+				what_did_i_miss_request();
+			};
+
+		}, false);
+	}
 
 }
