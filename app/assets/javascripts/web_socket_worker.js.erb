@@ -32,7 +32,7 @@ function WebSocketWorker() {
 
 	if (typeof(window.my_websocket_worker) === 'undefined') {
 
-		window.my_websocket_worker = new Worker('<%= javascript_path "web_socket_task5.js"%>');
+		window.my_websocket_worker = new Worker('<%= javascript_path "web_socket_task6.js"%>');
 		window.my_websocket_worker.addEventListener('message', function(data) {
 
 			var data = data.data;
