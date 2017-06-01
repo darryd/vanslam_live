@@ -6,7 +6,7 @@
 	<%= image_tag image_path "verses.jpg" %>
 <% end %>
 
-<h1> <%= @title %>  </h1>
+<h1 class="shuffle_me"> <%= @title %>  </h1>
 
 <div class="page_change" data-run="index" hidden></div>
 
@@ -22,16 +22,16 @@
 
 <% if @is_using_seasons %>
 	<% @seasons.order('id desc').each do |season| %>
-		<h3 style='color:#F2ECD2'> <%= season.title %> <h3>
+		<h3 class="shuffle_me" style='color:#F2ECD2'> <%= season.title %> <h3>
 
 		<% competitions = season.competitions.sort { |a,b| b.created_at <=> a.created_at } %>
 
 		<% competitions.each do | slam | %>
-			<h3> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s %> </h3>
+			<h3> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s ,class: "shuffle_me"%> </h3>
 		<% end %>
 	<% end %>
 <% else %>
 	<% @slams.each do |slam| %>
-		<h3> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s %> </h3>
+		<h3> <%= link_to slam.title, "/competition/show?id=" + slam.id.to_s, class: "shuffle_me" %> </h3>
 	<% end %>
 <% end %>
