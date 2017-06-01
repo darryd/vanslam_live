@@ -169,6 +169,12 @@ function shuffle_all_shuffle_me(interval) {
 
 
 /*---------------------------------------------------------------------------------------------*/
+function shuffle_element(element, interval) {
+
+    shuffle_inner_html(element);
+	bring_home_inner_html(element, interval);
+}
+/*---------------------------------------------------------------------------------------------*/
 
 return {
   shuffle: shuffle, 
@@ -185,7 +191,8 @@ return {
   set_inner_html: set_inner_html,
   
   shuffle_inner_html: shuffle_inner_html,
-  shuffle_all_shuffle_me: shuffle_all_shuffle_me
+  shuffle_all_shuffle_me: shuffle_all_shuffle_me,
+  shuffle_element: shuffle_element
 
 };
 
