@@ -19,7 +19,14 @@ function p_div_new(performance) {
 	row.className = 'row';
 	var column = document.createElement('div');
 	column.className = 'small-11 columns';
-	column.innerHTML = "<h3> <span style='color:#F2ECD2'>" + name + "</span> </h3>";
+	//column.innerHTML = "<h3> <span style='color:#F2ECD2'>" + name + "</span> </h3>";
+
+	var h_name = $("<h3>" + name + "</h3>");
+	$(column).append(h_name);
+	div.h_name = h_name.get()[0];
+	div.h_name.style.color = "#F2ECD2";
+
+
 	row.appendChild(column);
 
 	var light = new_light(column);

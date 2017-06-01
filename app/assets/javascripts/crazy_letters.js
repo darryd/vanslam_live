@@ -126,14 +126,14 @@ function set_inner_html(param) {
   var original = param.obj.getAttribute('data-original');
 
   if (original == param.original)
-    param.obj.innerHTML = param.str;
+    param.obj.innerText = param.str;
 }
 
 /*---------------------------------------------------------------------------------------------*/
 function shuffle_inner_html(obj) {
 
-  var str = obj.innerHTML;
-  obj.innerHTML = shuffle(str); 
+  var str = obj.innerText;
+  obj.innerText = shuffle(str); 
   obj.setAttribute('data-original', str);
 }
 
@@ -144,7 +144,7 @@ function bring_home_inner_html(obj, interval) {
   var timer = new RunTimer(interval);
 
   var str = obj.getAttribute('data-original');
-  var shuffled_str = obj.innerHTML;
+  var shuffled_str = obj.innerText;
 
   var strings = bring_home(str, shuffled_str);
 

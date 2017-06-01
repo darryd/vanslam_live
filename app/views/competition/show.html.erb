@@ -48,14 +48,14 @@
 <%= render :partial => 'poet/lookup' %>
 
 <div id="last_updated"></div>
-<h1> <%= @slam.title %> </h1>
+<h1 class="shuffle_me"> <%= @slam.title %> </h1>
 
 <div class="announcement" data-index="0"> </div>
 
 <div id="rounds" style="zindex:1">
   <% @slam.rounds.order(:round_number).each do |round| %>
     <div id="round_<%=round.round_number%>">
-      <h2 id="round_title_<%=round.round_number%>"> <%= round.title %> </h2>
+      <h2 id="round_title_<%=round.round_number%>" class="shuffle_me"> <%= round.title %> </h2>
       <div id="edit_round_div_<%= round.round_number %>" class="vwli">
 	<a class="edit_round_a vwli" data-round_number="<%= round.round_number %>" hidden> Edit Round <%= round.round_number %> </a>
       </div>

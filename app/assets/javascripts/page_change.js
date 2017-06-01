@@ -2,6 +2,9 @@
 /*-------------------------------------------------------------------------------------*/
 $(document).on('page:change', function () {
 
+	crazy.shuffle_all_shuffle_me(10);
+
+
 	/*-------------------------------------------------------------------------------------*///
 	if (typeof(window.web_socket_worker) !== 'undefined') {
 		window.web_socket_worker.die();
