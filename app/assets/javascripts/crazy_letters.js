@@ -150,6 +150,8 @@ function bring_home_inner_html(obj, interval) {
 
   for (var i=0; i<strings.length; i++)
     timer.add_event(set_inner_html, {obj: obj, str: strings[i], original: str});
+  //cheat (if it doesn't work)
+  timer.add_event(set_inner_html, {obj: obj, str: str, original: str});
 
   timer.run();
 }
