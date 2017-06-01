@@ -228,7 +228,7 @@ function event_new_performance(event) {
   performance_2.calculate(); // So that it doesn't say Rank is 'Infinity'
 
   $("#performances_" + round.round_number).append(p_div);
-  crazy.shuffle_element(p_div.h_name, 100);
+  crazy.shuffle_element(p_div.h_name, 10);
   resize_inputs(p_div.data_columns);
   auto_scroll.scroll_if_on();
 
