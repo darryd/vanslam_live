@@ -177,24 +177,82 @@ function shuffle_element(element, interval) {
 	bring_home_inner_html(element, interval);
 }
 /*---------------------------------------------------------------------------------------------*/
+function make_substrings(str, length) {
+	
+	var i = 0;
+	var substrings = [];
+
+	while (i < str.length) {
+		
+		substrings.push(str.substr(i, length));
+		i += length;
+	}
+
+	return substrings;
+}
+/*---------------------------------------------------------------------------------------------*/
+function shuffle_substrings(substrings) {
+
+	return {
+		original: substrings,
+
+		shuffled: (function () {
+
+			var shuffled_strings = [];
+
+			for (var i=0; i < substrings.length; i++) 
+				shuffled_strings.push(shuffle(substrings[i]));
+
+			return shuffled_strings;
+		}())
+	};
+}
+
+// parameter from shuffle_substrings
+/*---------------------------------------------------------------------------------------------*/
+function bring_substrings_home(shuffled_substrings) {
+	
+	shuffled_substrings.homes = [];
+	for (i=0; i< shuffled_substrings.original.length; i++) {
+
+		shuffled_substrings.homes.push(bring_home(shuffled_substrings.original[i], shuffled_substrings.shuffled[i]));
+	}
+}
+/*---------------------------------------------------------------------------------------------*/
+function join_substrings_home(shuffled_substrings) {
+
+	var joined_homes = [];
+
+
+
+
+}
+/*---------------------------------------------------------------------------------------------*/
+
 
 return {
-  shuffle: shuffle, 
-  
-  str_to_array: str_to_array,
-  array_to_str: array_to_str,
-  swap: swap,
-  search_right: search_right,
-  
-  bring_home_char: bring_home_char,
-  bring_home: bring_home,
-  bring_home_inner_html: bring_home_inner_html,
-  
-  set_inner_html: set_inner_html,
-  
-  shuffle_inner_html: shuffle_inner_html,
-  shuffle_all_shuffle_me: shuffle_all_shuffle_me,
-  shuffle_element: shuffle_element
+	shuffle: shuffle, 
+
+	str_to_array: str_to_array,
+	array_to_str: array_to_str,
+	swap: swap,
+	search_right: search_right,
+
+	bring_home_char: bring_home_char,
+	bring_home: bring_home,
+	bring_home_inner_html: bring_home_inner_html,
+
+	set_inner_html: set_inner_html,
+
+	shuffle_inner_html: shuffle_inner_html,
+	shuffle_all_shuffle_me: shuffle_all_shuffle_me,
+	shuffle_element: shuffle_element, 
+
+	make_substrings: make_substrings,
+	shuffle_substrings: shuffle_substrings,
+	bring_substrings_home: bring_substrings_home
+
+
 
 };
 
