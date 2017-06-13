@@ -537,8 +537,8 @@ function p_div_build_data_row(div) {
 		input.className =  "scorekeeper_input";
 		input.setAttribute('size', 4);
 		input.setAttribute('onchange', 'p_div_input_entered(this)');
-		input.setAttribute('onkeyup', 'p_div_input_onkeyup(this.inputs, this)');
-		input.setAttribute('onfocus', 'p_div_input_onfocus(this)');
+		// input.setAttribute('onkeyup', 'p_div_input_onkeyup(this.inputs, this)');
+		// input.setAttribute('onfocus', 'p_div_input_onfocus(this)');
 		input.setAttribute('onblur', 'p_div_input_onblur(this)');
 		// http://stackoverflow.com/a/14236929
 		$(input).on("keydown", function (e) {
