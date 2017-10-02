@@ -19,7 +19,16 @@ function p_div_new(performance) {
 	row.className = 'row';
 	var column = document.createElement('div');
 	column.className = 'small-11 columns';
-	column.innerHTML = "<h3> <span style='color:#F2ECD2'>" + name + "</span> </h3>";
+	
+	column.innerHTML = "<h3> <span style='color:#F2ECD2'>" + name + "</span> </h3>"; 
+	div.name = column;
+
+	var change_name = function(p_div, poet) {
+		p_div.name.innerHTML = "<h3> <span style='color:#F2ECD2'>" + poet.name + "</span> </h3>"; 
+	};
+		
+	performance.poet.notify_name.add_notify(change_name, div);
+
 	row.appendChild(column);
 
 	var light = new_light(column);
