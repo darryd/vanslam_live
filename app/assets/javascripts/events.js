@@ -247,6 +247,32 @@ function event_new_performance(event) {
 
 }
 
+function event_change_name(event) {
+
+	var round = rounds[event.round_number -1];
+
+	function update_list_performed() {
+
+		var names = round.names_already_performing;
+		var index = _.indexOf(names, event.old_name);
+		
+		if (index != -1) {
+			names[index] = event.new_name;
+		}
+	}
+
+	update_list_performed();
+
+	var performances = round.round_js.performances;
+
+	_.each(performances, function(performance) {
+		if (performance.name == event.old_name) {
+			performance.comm.name = event.new_name;    // TODO reconsider
+			performance.poet.set_name(event.new_name);
+		}
+	});
+}
+
 function event_announcement(event) {
 
   var announcement_recv_id = "announcement_recv_" + event.round_number;
