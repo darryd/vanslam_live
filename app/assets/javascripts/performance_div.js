@@ -19,13 +19,12 @@ function p_div_new(performance) {
 	row.className = 'row';
 	var column = document.createElement('div');
 	column.className = 'small-11 columns';
-	
-	column.innerHTML = "<h3> <span style='color:#F2ECD2'>" + name + "</span> </h3>"; 
-	div.name = column;
 
+	div.name = column;
 	var change_name = function(p_div, poet) {
 		p_div.name.innerHTML = "<h3> <span style='color:#F2ECD2'>" + poet.name + "</span> </h3>"; 
 	};
+	change_name(div, {name: name});
 		
 	performance.poet.notify_name.add_notify(change_name, div);
 
