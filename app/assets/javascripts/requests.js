@@ -294,3 +294,23 @@ function edit_round_request(round_id, title, num_poets, num_places, time_limit, 
 }
 
 /*-----------------------------------------------------------------------*/
+function change_name_request(round_number, old_name, new_name) {
+
+	var ticket = new_ticket();
+
+	ticket.url = "/competition/change_name";
+
+	ticket.get_params = function() {
+		return {
+			competition_id: slam.id,
+			round_number: round_number, 
+			old_name: old_name, 
+			new_name: new_name
+		};
+	};
+
+	ticket.done = function(response) {console.log(response);}
+
+	window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/

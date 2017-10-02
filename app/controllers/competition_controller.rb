@@ -79,6 +79,36 @@ class CompetitionController < ApplicationController
 
     end
 
+
+	# Change a name for a performance
+	def change_name
+		if not_allowed()
+			return
+		end
+
+		if missing_params(params, ['competition_id', 'round_number', 'new_name', 'old_name'])
+			return
+		end
+
+		begin
+			host = Host.where(host: request.host).take
+			competition = host.organization.competitions.find(params[:competition_id])
+		rescue
+			render json: {:result => false, :message => "Could not find competition."}
+			return
+		end
+		render json: {:result => true}
+
+		event_hash = {};
+		event_hash[:event] = "change_name"
+		event_hash[:round_number] = params[:round_number]
+		event_hash[:new_name] = params[:new_name]
+		event_hash[:old_name] = params[:old_name]
+
+		new_event(competition, event_hash)
+	end
+
+
     #-----------------------------------------------------------------------------------------#
     # Creates a new performance
     #

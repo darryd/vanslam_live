@@ -144,6 +144,9 @@ function do_event(event) {
     case 'edit_round':
       event_edit_round(event);
       break;
+	case 'change_name':
+	  event_change_name(event);
+	  break
   }
 
 }
