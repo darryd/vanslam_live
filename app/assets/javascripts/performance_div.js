@@ -1,9 +1,61 @@
 var NUM_COLUMNS = 12;
 
+function change_name_div(performance) {
+
+	var div = $('<div class="vwli"> </div>');
+	var edit_name_link = $('<a> Edit name </a> </a>');
+
+
+	var editor = $('<div hidden>');
+
+	var edit_name_input = $('<input>');
+	var submit_button = $('<button>Submit</button>');
+	var cancel_button = $('<button>Cancel</button>');
+	 
+
+	//$(edit_name_input).val(performance.name);
+
+	$(edit_name_link).click(function() {
+		$(edit_name_link).hide();
+		$(editor).show();
+	});
+
+	$(cancel_button).click(function() {
+		$(edit_name_link).show();
+		$(editor).hide();
+	}); 
+
+
+	$(submit_button).click(function() {
+
+		var new_name = $(edit_name_input).val();
+		var old_name = performance.name;
+		var round_number = performance.round.round_number;
+
+		change_name_request(round_number, old_name, new_name);
+		$(cancel_button).click();
+		
+	});
+
+	$(div).append(edit_name_link);
+
+	$(div).append(editor);
+	$(editor).append(edit_name_input);
+	$(editor).append(submit_button);
+	$(editor).append(cancel_button);
+
+
+	return div.get()[0];
+}
+
 /*----------------------------------------------------------------------------------------------------------------------------------*/
 function p_div_new(performance) {
 
 	var div = document.createElement("div");
+
+	if (login_info.is_logged_in) 
+		div.appendChild(change_name_div(performance));
+
 	div.className = "performance_div";
 	div.id = makeid(20);
 	div.style.zIndex = "1";
