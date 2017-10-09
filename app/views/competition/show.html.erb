@@ -56,23 +56,27 @@
   <% @slam.rounds.order(:round_number).each do |round| %>
     <div id="round_<%=round.round_number%>">
       <h2 id="round_title_<%=round.round_number%>"> <%= round.title %> </h2>
-      <div id="edit_round_div_<%= round.round_number %>" class="vwli">
-	<a class="edit_round_a vwli" data-round_number="<%= round.round_number %>" hidden> Edit Round <%= round.round_number %> </a>
-      </div>
-      <p id="round_info_<%=round.round_number%>">
-      Time limit: <%= (round.time_limit / 60).floor %>:<%= sprintf("%02d", round.time_limit % 60) %>,
-      Grace period: <%= round.grace_period %>  seconds
-      </p>
-      <div id="performances_<%= round.round_number %>"></div>
+	  <div id="edit_round_div_<%= round.round_number %>" class="vwli">
+		  <a class="edit_round_a vwli" data-round_number="<%= round.round_number %>" hidden> Edit Round <%= round.round_number %> </a>
+	  </div>
+	  <div id="insert_before_<%= round.round_number %>">
+		  <a class="insert_before_a vwli" data-round_number="<%= round.round_number %>" hidden> Insert Before </a>
+		  <div id="insert_before_form_<%= round.round_number %>"></div>
+	  </div>
+	  <p id="round_info_<%=round.round_number%>">
+	  Time limit: <%= (round.time_limit / 60).floor %>:<%= sprintf("%02d", round.time_limit % 60) %>,
+	  Grace period: <%= round.grace_period %>  seconds
+	  </p>
+	  <div id="performances_<%= round.round_number %>"></div>
 
-      <div id="poets_<%= round.round_number %>" class="poets_for_round, vwli"></div>
-      <div class="announcement" data-index="<%= round.round_number%>"> </div>
-    </div>
-  <% end %>
+	  <div id="poets_<%= round.round_number %>" class="poets_for_round, vwli"></div>
+	  <div class="announcement" data-index="<%= round.round_number%>"> </div>
+	</div>
+<% end %>
 </div>
 
 <div id="add_extra_round" class='vwli'>
-  <button id="add_round_button" class='vwli' hidden onclick='onclick_add_round()'> Add Round </button>
+	<button id="add_round_button" class='vwli' hidden onclick='onclick_add_round()'> Add Round </button>
 </div>
 
 <p id="ajax_queue" class="vwli" hidden></p>

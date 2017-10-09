@@ -123,6 +123,45 @@ function prepare_rounds() {
 		prepare_round(i);
 	}
 
+	$('.insert_before_a').click(function() {
+
+		var round_number = $(this).attr('data-round_number');
+		var id = "insert_before_form_" + round_number;
+
+		var div = $('<div>');
+		var p = $('<p> Insert before round number </p>');
+		var input = $('<input type="number" style="width:60px">');
+		var br = $('<br>');
+		var submit = $('<button>Submit</button>');
+		var cancel = $('<button>Cancel</button>');
+		$(div).append(p);
+		$(div).append(input);
+		$(div).append(br);
+		$(div).append(submit);
+		$(div).append(cancel);
+
+		var insert_a = this;
+		$(insert_a).hide();
+		
+
+		$(cancel).click(function() {
+			$(div).hide();
+			$(insert_a).show();
+		});
+
+
+		$(submit).click(function() {
+			$(cancel).click();
+		});
+
+		$('#' + id).replaceWith(div);
+		div.get()[0].id = id;
+		$(div).show();
+
+		div.get()[0].style.backgroundColor = 'black';
+		div.get()[0].style.borderStyle = 'solid';
+		div.get()[0].style.borderWidth = '1px';
+	});
 }
 /*-------------------------------------------------------------------------------------*/
 
