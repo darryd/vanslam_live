@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   post "competition/edit_round"
 
   post "competition/change_name"
+  post "competition/insert_before"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
