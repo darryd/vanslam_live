@@ -314,3 +314,22 @@ function change_name_request(round_number, old_name, new_name) {
 	window.ajax_queue.push(ticket);
 }
 /*-----------------------------------------------------------------------*/
+function insert_before_request(round_number, insert_before) {
+
+	var ticket = new_ticket();
+
+	ticket.url = "/competition/insert_before";
+
+	ticket.get_params = function() {
+		return {
+			competition_id: slam.id,
+			round_number: round_number, 
+			insert_before: insert_before
+		};
+	};
+
+	ticket.done = function(response) {console.log(response);}
+
+	window.ajax_queue.push(ticket);
+}
+/*-----------------------------------------------------------------------*/

@@ -131,7 +131,7 @@ class CompetitionController < ApplicationController
 		event_hash = {};
 		event_hash[:event] = "insert_before"
 		event_hash[:round_number] = params[:round_number]
-		event_hash[:insert_before] = params[:old_name]
+		event_hash[:insert_before] = params[:insert_before]
 
 		new_event(competition, event_hash)
 	end

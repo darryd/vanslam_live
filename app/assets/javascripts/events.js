@@ -146,7 +146,10 @@ function do_event(event) {
       break;
 	case 'change_name':
 	  event_change_name(event);
-	  break
+	  break;
+	case 'insert_before':
+	  event_insert_before(event);
+	  break;
   }
 
 }
@@ -274,6 +277,16 @@ function event_change_name(event) {
 			performance.poet.set_name(event.new_name);
 		}
 	});
+}
+
+function event_insert_before(event) {
+
+	// TODO validation would be good.
+	
+	var round_number = event.round_number;
+	var insert_before = event.insert_before;
+
+	$('#round_' + round_number).insertBefore('#round_' + insert_before);
 }
 
 function event_announcement(event) {

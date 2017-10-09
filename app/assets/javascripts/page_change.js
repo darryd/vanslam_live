@@ -151,6 +151,10 @@ function prepare_rounds() {
 
 
 		$(submit).click(function() {
+
+			var insert_before = $(input).val();
+			insert_before_request(round_number, insert_before);
+
 			$(cancel).click();
 		});
 
