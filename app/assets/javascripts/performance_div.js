@@ -18,6 +18,7 @@ function change_name_div(performance) {
 	$(edit_name_link).click(function() {
 		$(edit_name_link).hide();
 		$(editor).show();
+		$(edit_name_input).val(performance.name);
 	});
 
 	$(cancel_button).click(function() {
