@@ -311,7 +311,7 @@ module MakeSlam
 
 		c = Competition.create(event_number: 0, num_judges: 5, do_not_include_min_and_max_scores:true, organization_id: 2)
 		c.title = title
-		c.season_id = 2
+		c.season_id = 3
 		c.save
 
 		Round.create(competition_id: c.id,
@@ -345,7 +345,7 @@ module MakeSlam
 
 		c = Competition.create(event_number: 0, num_judges: 5, do_not_include_min_and_max_scores:true, organization_id: 2)
 		c.title = "Saturday, April 29, 7pm FINAL STAGE, The Reo Theatre"
-		c.season_id = 2
+		c.season_id = 3
 		c.save
 
 		Round.create(competition_id: c.id,
