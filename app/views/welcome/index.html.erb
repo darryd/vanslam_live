@@ -1,5 +1,5 @@
 <% if @name == 'vanslam' %>
-	<%=  image_tag image_path "shield.png" %>
+	<%=  image_tag image_path "shieldTransparent.png" %>
 <% end %>
 
 <% if @name == 'verses' %>
@@ -7,7 +7,9 @@
 <% end %>
 
 <h1> <%= @title %>  </h1>
-<p> Ruining the suspense since 2015. </p>
+<% if @name == 'vanslam' %>
+		<p> Ruining the suspense since 2015. </p>
+<% end %>
 
 <div class="page_change" data-run="index" hidden></div>
 
