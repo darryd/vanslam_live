@@ -201,8 +201,13 @@ function init_edit_round_a() {
 	$('.edit_round_a').click(onclick_edit_round);
 }
 
+function init_last_updated() {
+	last_updated({datetime: window.slam.created_at});
+}
+
 function page_change_competition() {
 
+	init_last_updated();
 	manage_class_vwli();
 	prepare_rounds();
 	append_announcement_dom();
