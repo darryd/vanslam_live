@@ -241,7 +241,7 @@ module MakeSlam
 
 		Round.create(competition_id: c.id, 
 					 round_number: 1, 
-					 title: "Sacrifical Round", 
+					 title: "Sacrificial Round", 
 					 are_poets_from_previous: false, 
 					 time_limit: 120, 
 					 grace_period: 10, 
@@ -446,7 +446,7 @@ module MakeSlam
 
 		Round.create(competition_id: c.id, 
 					 round_number: 1, 
-					 title: "Sacrifical Round", 
+					 title: "Sacrificial Round", 
 					 are_poets_from_previous: false, 
 					 time_limit: 180, 
 					 grace_period: 10,
@@ -472,7 +472,7 @@ module MakeSlam
 	def self.new_windsor_slam(title)
 		c = Competition.create(title: title, event_number: 0, num_judges: 3)
 
-		Round.create(competition_id: c.id, round_number: 1, title: "Sacrifical Round", are_poets_from_previous: false, time_limit: 180)
+		Round.create(competition_id: c.id, round_number: 1, title: "Sacrificial Round", are_poets_from_previous: false, time_limit: 180)
 		Round.create(competition_id: c.id, round_number: 2, title: "Round 1", are_poets_from_previous: false, time_limit: 180, num_places: 5) 
 		Round.create(competition_id: c.id, round_number: 3, title: "Round 2", are_poets_from_previous: true, time_limit: 180, is_cumulative: true)
 	end
