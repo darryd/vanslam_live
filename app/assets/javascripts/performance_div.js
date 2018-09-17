@@ -419,13 +419,10 @@ function p_div_input_onkeyup(inputs, input) {
 	{
 		case div.indexes.minutes_i:
 		case div.indexes.seconds_i:
-			var time = p_div_get_time(div);
-			//performance.set_time(time.minutes, time.seconds);
-			heads_up_set_time(performance.performance_id, time.minutes, time.seconds);
+			$(input).trigger("change");
 			break;
 		case div.indexes.penalty_i:
-			//performance.set_penalty(value);
-			heads_up_set_penalty(performance.performance_id, value);
+			$(input).trigger("change");
 			break;
 		default:
 			if (i >= 0 && i < div.indexes.minutes_i) {
@@ -440,13 +437,11 @@ function p_div_input_onkeyup(inputs, input) {
 				heads_up_judge(performance.comm.performance_id, i, value);
 				if (input.please_advance_automatically) {
 					p_div_judge_input_onkeyup(inputs, input);
-					//$(input).trigger("change"); // For mobile
 				}
 				else if (is_score_entered_fully(input.value)){
 					$(input).trigger("change");
 					input.blur();
 				}
-				//performance.judge(i, value);
 			}
 	}
 
