@@ -1,2 +1,5 @@
 bundle exec thin start --ssl
+
 :set filetype=ruby
+
+hello!
